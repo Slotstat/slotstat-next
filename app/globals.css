@@ -1,3 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* bottom sheet modal css variables */
+:root {
+  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
+  --rsbs-bg: #202227;
+  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
+  --rsbs-max-w: auto;
+  --rsbs-ml: env(safe-area-inset-left);
+  --rsbs-mr: env(safe-area-inset-right);
+  --rsbs-overlay-rounded: 16px;
+}
+
+@font-face {
+  font-family: "modernist";
+  src: url("../public/fonts/Sk-Modernist-Regular.otf");
+}
+
+@font-face {
+  font-family: "cursor";
+  src: url("../public/fonts/GA-Cursor-Regular.otf");
+}
+
+*:lang(en) {
+  font-family: modernist;
+}
+
+*:lang(ge) {
+  font-family: cursor;
+}
+
+@layer base {
+  body {
+    @apply bg-dark1;
+  }
+  table {
+    @apply text-base font-bold text-white;
+  }
+  th {
+    @apply border-y border-dark3 text-start py-6;
+  }
+  th:first-child,
+  td:first-child {
+    @apply pl-3;
+  }
+  th:last-child,
+  td:last-child {
+    @apply pr-3;
+  }
+  tr {
+    @apply border-y border-dark3 text-start;
+  }
+  td {
+    @apply py-6;
+  }
+  .pagination {
+    @apply flex pl-0 list-none space-x-3;
+  }
+  .page-item {
+    @apply w-[42px] h-[42px] bg-dark2 border border-transparent rounded-xl overflow-hidden;
+  }
+  .page-item.active {
+    @apply border-blue1;
+  }
+  .page-link {
+    @apply w-full h-full flex items-center justify-center text-[14px] font-bold text-white no-underline;
+  }
+  .input label {
+    @apply text-grey1 !important;
+  }
+  .dropdrown label {
+    @apply text-grey1;
+  }
+  .dropdrown ul {
+    @apply bg-dark2 border-0 p-1;
+  }
+  .dropdrown li {
+    @apply w-full text-white text-[14px];
+  }
+  .dropdrown li:hover {
+    @apply bg-dark3 text-white;
+  }
+  .dropdrown li[data-selected="true"] {
+    @apply bg-dark1 text-blue1;
+  }
+}
+
+.szh-accordion__item-content {
+  transition: height 0.2s ease-in-out;
+}
+
+#redify * {
+  border: 1px solid red;
+  /* margin: 10px */
+}

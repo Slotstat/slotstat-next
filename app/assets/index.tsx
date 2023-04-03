@@ -1,0 +1,55 @@
+import back from './img/back.png';
+import chartPattern from './img/chart-pattern.png';
+import close from './img/close.png';
+import forward from './img/forward.png';
+import adj from './svg/adj.svg';
+import arrow from './svg/arrow.svg';
+import ascending from './svg/ascending.svg';
+import bullet from './svg/bullet.svg';
+import casino from './svg/casino.svg';
+import cb from './svg/cb.svg';
+import descending from './svg/descending.svg';
+import eb from './svg/eb.svg';
+import eyes from './svg/eyes.svg';
+import fullscreen from './svg/fullscreen.svg';
+import gear from './svg/gear.svg';
+import globe from './svg/globe.svg';
+import joystick from './svg/joystick.svg';
+import link from './svg/link.svg';
+import live from './svg/live.svg';
+import logo from './svg/logo.svg';
+import menu from './svg/menu.svg';
+import remove from './svg/remove.svg';
+import search from './svg/search.svg';
+import skewed_arrow from './svg/skewed_arrow.svg';
+import telegram from './svg/telegram.svg';
+import tooltip from './svg/tooltip.svg';
+
+export {
+   logo,
+   link,
+   telegram,
+   globe,
+   casino,
+   joystick,
+   eyes,
+   arrow,
+   cb,
+   eb,
+   adj,
+   menu,
+   tooltip,
+   skewed_arrow,
+   gear,
+   chartPattern,
+   forward,
+   fullscreen,
+   close,
+   back,
+   bullet,
+   remove,
+   live,
+   ascending,
+   descending,
+   search,
+};

@@ -1,15 +1,17 @@
 {
-   "slotstat": "Slotstat",
-   "howItWorks": "როგორ მუშაობს",
-   "faq": "ხშირად დასმული კითხვები",
-   "ge": "Eng",
-   "en": "ქარ",
-   "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია",
-   "company": "კომპანია",
-   "support": "მხარდაჭერა",
-   "aboutUs": "ჩვენ შესახებ",
-   "termsOfUse": "გამოყენების წესები",
-   "privacyPolicy": "უსაფრთხოების პოლიტიკა",
-   "subscribe": "გამოგვყევი ",
-   "telegramChan": " ჩვენს ტელეგრამ არხზე"
+  "navbar": {
+    "slotstat": "Slotstat",
+    "howItWorks": "როგორ მუშაობს",
+    "faq": "ხშირად დასმული კითხვები",
+    "lang": { "ge": "ქარ", "en": "Eng" }
+  },
+
+  "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია",
+  "company": "კომპანია",
+  "support": "მხარდაჭერა",
+  "aboutUs": "ჩვენ შესახებ",
+  "termsOfUse": "გამოყენების წესები",
+  "privacyPolicy": "უსაფრთხოების პოლიტიკა",
+  "subscribe": "გამოგვყევი ",
+  "telegramChan": " ჩვენს ტელეგრამ არხზე"
 }
