@@ -1,0 +1,41 @@
+"use client";
+
+import Image from "next/image";
+import { link, telegram } from "../assets";
+
+const SubscribeButton = ({
+  subscribe,
+  telegramChan,
+}: {
+  subscribe: string;
+  telegramChan: string;
+}) => {
+  return (
+    <>
+      <div className="flex items-center">
+        <Image src={link} alt="" width={34} height={34} />
+        <a
+          className="ml-2 text-xs font-normal text-blue1 lg:text-[18px]"
+          href="https://telegram.org/faq?setln=uz"
+        >
+          https://telegram.org/faq?setln=uz
+        </a>
+      </div>
+      <button className="mt-2 flex items-center justify-center rounded-xl bg-blue1 p-3 lg:mt-7 lg:rounded-xl lg:px-6 lg:py-4.5">
+        <span className="text-xs font-bold leading-5 text-white lg:text-lg">
+          {subscribe}
+          <span className="font-normal">{telegramChan}</span>
+        </span>
+        <Image
+          src={telegram}
+          alt=""
+          className="ml-4 h-5 w-5 lg:h-6 lg:w-6 "
+          width={24}
+          height={24}
+        />
+      </button>
+    </>
+  );
+};
+
+export default SubscribeButton;

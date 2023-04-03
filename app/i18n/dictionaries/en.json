@@ -5,22 +5,27 @@
     "slotstat": "Slotstat",
     "lang": { "ge": "ქარ", "en": "Eng" }
   },
+  "howItWorksPage": {
+    "howItWorks": "How it works",
+    "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
+  },
+  "faq": {
+    "theFAQs": "The FAQs",
+    "helpCentre": "Help centre",
+    "aboutProduct": "Everything you need to know about the product",
+    "FAQs": "FAQs",
+    "support": "Support",
+    "joinUs": "Join 7,000+ subscribers on\nTelegram",
+    "stayInLoop": "Stay in the loop with everything you need to know.",
+    "subscribe": "Subscribe ",
+    "telegramChan": " to our Telegram channel"
+  },
 
   "allRightsReserved": "2021 Slotstat. All rights reserved",
   "company": "Company",
-  "support": "Support",
   "aboutUs": "About us",
   "termsOfUse": "Terms of use",
   "privacyPolicy": "Privacy Policy",
-  "subscribe": "Subscribe ",
-  "telegramChan": " to our Telegram channel",
-  "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba",
-  "theFAQs": "The FAQs",
-  "helpCentre": "Help centre",
-  "aboutProduct": "Everything you need to know about the product",
-  "joinUs": "Join 7,000+ subscribers on\nTelegram",
-  "stayInLoop": "Stay in the loop with everything you need to know.",
-  "FAQs": "FAQs",
   "compare": "Compare",
   "vs": "VS"
 }

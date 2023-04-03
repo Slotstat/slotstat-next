@@ -1,0 +1,339 @@
+import { gear } from "@/app/assets";
+
+export const CASINO_DATA = [
+  {
+    name: "Adjara",
+    Providers: "14",
+    Bounties: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "Crystal",
+    Providers: "14",
+    Bounties: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "Europe",
+    Providers: "14",
+    Bounties: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "SFeasdg",
+    Providers: "14",
+    Bounties: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "SDGsdgbs",
+    Providers: "14",
+    Bounties: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+];
+
+export const CASINO_GAME_DATA = [
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "egt",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+  {
+    name: "netent",
+    Provider: "14",
+    User: "12 345",
+    "1h": "13.43 %",
+    "24h": "12.09 %",
+    Source: "Casino API",
+    Jackpot: "$ 18 989 987",
+  },
+];
+
+export const STEPS = [
+  {
+    icon: gear,
+    description:
+      "Aq daiwereba pirveli nabiji tu ra unda gaaketos momxmarebel,a max 3 xazi",
+  },
+  {
+    icon: gear,
+    description:
+      "Aq daiwereba pirveli nabiji tu ra unda gaaketos momxmarebel,a max 3 xazi",
+  },
+  {
+    icon: gear,
+    description:
+      "Aq daiwereba pirveli nabiji tu ra unda gaaketos momxmarebel,a max 3 xazi teqtsi meti ara.მ",
+  },
+];
+export const ACCORDION_DATA = [
+  {
+    header: "Is there a trial for free availalble?",
+    content:
+      "Yes, you can try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible. ",
+  },
+  {
+    header: "Is there a trial for free availalble?",
+    content:
+      "Yes, you can try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible. ",
+  },
+  {
+    header: "Can I change my plan later?",
+    content:
+      "Yes, you can try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible. ",
+  },
+  {
+    header: "What is your cancellation policy?",
+    content:
+      "Yes, you can try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible. ",
+  },
+  {
+    header: "Can other info be added to an invoice?",
+    content:
+      "Yes, you can try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon  try us for free for 30 days, if you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible. ",
+  },
+];
+
+
+export const SLIDES = [
+  {
+    img: "https://picsum.photos/400/89",
+    title: "5 Social DAOs To Transform WEB3",
+    subtitle: "Crypto deep dive",
+  },
+  {
+    img: "https://picsum.photos/300/200",
+    title: "5 Amazing NFT Projects Winner 2022",
+    subtitle: "NFT Projects from Tusso",
+  },
+  {
+    img: "https://picsum.photos/500/100",
+    title: "5 Social DAOs To Transform WEB3",
+    subtitle: "Crypto deep dive",
+  },
+  {
+    img: "https://picsum.photos/158/200",
+    title: "5 Amazing NFT Projects Winner 2022",
+    subtitle: "NFT Projects from Tusso",
+  },
+  {
+    img: "https://picsum.photos/847/418",
+    title: "5 Social DAOs To Transform WEB3",
+    subtitle: "Crypto deep dive",
+  },
+  {
+    img: "https://picsum.photos/814/578",
+    title: "5 Amazing NFT Projects Winner 2022",
+    subtitle: "NFT Projects from Tusso",
+  },
+  {
+    img: "https://picsum.photos/814/977",
+    title: "5 Social DAOs To Transform WEB3",
+    subtitle: "Crypto deep dive",
+  },
+  {
+    img: "https://picsum.photos/682/543",
+    title: "5 Amazing NFT Projects Winner 2022",
+    subtitle: "NFT Projects from Tusso",
+  },
+];

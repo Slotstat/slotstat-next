@@ -5,13 +5,25 @@
     "faq": "ხშირად დასმული კითხვები",
     "lang": { "ge": "ქარ", "en": "Eng" }
   },
-
+  "howItWorksPage": {
+    "howItWorks": "როგორ მუშაობს",
+    "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
+  },
+  "faq": {
+    "theFAQs": "The FAQs",
+    "helpCentre": "დახმარების ცენტრი",
+    "aboutProduct": "ყველაფერი რაც გჭირდება იცოდე პროდუქტზე",
+    "FAQs": "FAQs",
+    "support": "მხარდაჭერა",
+    "joinUs": "Join 7,000+ subscribers on\nTelegram",
+    "stayInLoop": "Stay in the loop with everything you need to know.",
+    "subscribe": "გამოგვყევი ",
+    "telegramChan": " ჩვენს ტელეგრამ არხზე"
+  },
   "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია",
   "company": "კომპანია",
-  "support": "მხარდაჭერა",
   "aboutUs": "ჩვენ შესახებ",
   "termsOfUse": "გამოყენების წესები",
   "privacyPolicy": "უსაფრთხოების პოლიტიკა",
-  "subscribe": "გამოგვყევი ",
-  "telegramChan": " ჩვენს ტელეგრამ არხზე"
+  "subscribe": "გამოგვყევი "
 }
