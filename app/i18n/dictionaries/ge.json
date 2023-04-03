@@ -20,10 +20,14 @@
     "subscribe": "გამოგვყევი ",
     "telegramChan": " ჩვენს ტელეგრამ არხზე"
   },
-  "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია",
-  "company": "კომპანია",
-  "aboutUs": "ჩვენ შესახებ",
-  "termsOfUse": "გამოყენების წესები",
-  "privacyPolicy": "უსაფრთხოების პოლიტიკა",
-  "subscribe": "გამოგვყევი "
+  "footer": {
+    "company": "კომპანია",
+    "aboutUs": "ჩვენ შესახებ",
+    "termsOfUse": "გამოყენების წესები",
+    "privacyPolicy": "უსაფრთხოების პოლიტიკა",
+
+    "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია"
+  },
+  "compare": "Compare",
+  "vs": "VS"
 }

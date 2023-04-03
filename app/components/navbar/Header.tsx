@@ -5,21 +5,13 @@ import Link from "next/link";
 
 import { MobileNav } from "@material-tailwind/react";
 
-import { logo, menu } from "../../assets";
+import { logo, menu } from "@/app/assets";
 import Image from "next/image";
 import LanguageToggleButton from "./LanguageToggleButton";
 
-type Dictionary = {
-  dictionary: {
-    slotstat: string;
-    howItWorks: string;
-    faq: string;
-    lang: { ge: string; en: string };
-  };
-};
-
 const NavList = ({ dictionary }: Dictionary) => {
-  const { howItWorks, faq } = dictionary;
+  const { howItWorks } = dictionary.howItWorksPage;
+  const { faq } = dictionary.navbar;
   const pathName = usePathname();
 
   const checkIsActive = (path: string) => {
@@ -46,7 +38,7 @@ const NavList = ({ dictionary }: Dictionary) => {
 
 const Header = ({ dictionary }: Dictionary) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { slotstat, lang } = dictionary;
+  const { slotstat, lang } = dictionary.navbar;
 
   const toggleNav = () => {
     setNavbarOpen(!navbarOpen);

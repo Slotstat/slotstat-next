@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { Breadcrumbs as MTBreadcrumbs } from "@material-tailwind/react";
-import ForwardIcon from "../assets/svg/ForwardIcon";
+import ForwardIcon from "@/app/assets/svg/ForwardIcon";
 
 // TODO correct Breadcrumbs linking
 export default function Breadcrumbs() {

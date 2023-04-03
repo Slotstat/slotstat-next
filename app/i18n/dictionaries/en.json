@@ -20,12 +20,13 @@
     "subscribe": "Subscribe ",
     "telegramChan": " to our Telegram channel"
   },
-
-  "allRightsReserved": "2021 Slotstat. All rights reserved",
-  "company": "Company",
-  "aboutUs": "About us",
-  "termsOfUse": "Terms of use",
-  "privacyPolicy": "Privacy Policy",
+  "footer": {
+    "company": "Company",
+    "aboutUs": "About us",
+    "termsOfUse": "Terms of use",
+    "privacyPolicy": "Privacy Policy",
+    "allRightsReserved": "2021 Slotstat. All rights reserved"
+  },
   "compare": "Compare",
   "vs": "VS"
 }
