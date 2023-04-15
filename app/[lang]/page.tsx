@@ -1,60 +1,32 @@
-"use client";
-import { casino, eyes, globe, joystick, live } from "../assets";
-import { Slider, Stats, Table } from "../components";
+import getCasinos from "@/lib/getCasinos";
+import { Table, Slider, Stats } from "../components";
 import { CASINO_COLS } from "../components/table/columns";
-import { CASINO_DATA, SLIDES } from "../utils/mockData";
+import { SLIDES, STATS } from "../utils/mockData";
+import getCasinoCards from "@/lib/getCasinoCards";
+import { useRouter } from "next/router";
 
-const STATS: TStatCardProps[] = [
-  {
-    type: "link",
-    icon: eyes,
-    label: "Number of countries",
-    value: <span className="text-blue1">27</span>,
-    badge: null,
-    tooltip: "s ahsd basf sdbghab yfebrgf",
-  },
-  {
-    type: "link",
-    icon: globe,
-    label: "Number of casinos",
-    value: <span className="text-blue1">105</span>,
-    badge: null,
-    tooltip: "",
-  },
-  {
-    type: "link",
-    icon: casino,
-    label: "Number of games",
-    value: <span className="text-blue1">13k</span>,
-    badge: live,
-    tooltip: "s ahsd basf sdbghab yfebrgf",
-  },
-  {
-    type: "link",
-    icon: joystick,
-    label: "Users",
-    value: <span className="text-blue1">15M</span>,
-    badge: live,
-    tooltip: "s ahsd basf sdbghab yfebrgf",
-  },
-];
+export default async function Home() {
+  const casinos: Promise<CasinoData[]> = getCasinos();
+  const casinosData = await casinos;
 
-const Home = () => {
+  // const casinoCardsData: Promise<casinoCard[]> = getCasinoCards(casinoId);
+  // const casinoCard = await casinoCardsData;
+
   return (
     <>
       <Stats data={STATS} rows={1} />
       <Slider data={SLIDES} />
       <div className="my-6 px-4 lg:my-18 lg:px-18">
-        <Table
-          linkPath="/adjarabet"
-          columns={CASINO_COLS}
-          mockData={CASINO_DATA}
-          showFilter={false}
-          onRowPress={() => null}
-        />
+        {casinosData?.length > 0 ? (
+          <Table
+            columns={CASINO_COLS}
+            tableBodyData={casinosData}
+            showFilter={true}
+          />
+        ) : (
+          <div>casinos not found</div>
+        )}
       </div>
     </>
   );
-};
-
-export default Home;
+}

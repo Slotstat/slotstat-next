@@ -4,8 +4,8 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['picsum.photos'],
+    domains: ["picsum.photos", "s3.eu-central-1.amazonaws.com"],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

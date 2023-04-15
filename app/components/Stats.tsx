@@ -30,7 +30,7 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span className="whitespace-nowrap text-sm leading-5 text-white lg:text-base">
-          {label}: {value}
+          {label}: <span className="text-blue1">{value}</span>
         </span>
         {tooltip && (
           <Tooltip content={tooltip}>

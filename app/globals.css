@@ -15,7 +15,13 @@
 
 @font-face {
   font-family: "modernist";
+  font-weight: 400;
   src: url("../public/fonts/Sk-Modernist-Regular.otf");
+}
+@font-face {
+  font-family: "modernist-bold";
+  font-weight: 700;
+  src: url("../public/fonts/Sk-Modernist-Bold.otf");
 }
 
 @font-face {

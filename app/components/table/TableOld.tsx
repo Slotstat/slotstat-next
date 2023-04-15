@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 
 import {
-  Row,
   useFilters,
   useGlobalFilter,
   usePagination,
@@ -17,40 +16,22 @@ import { SearchInput } from "./SearchInput";
 import Image from "next/image";
 
 import RenderRowCells from "./RenderRowCells";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 
 type Props = {
   columns: Array<CasinoCols>;
+  onRowPress?: () => void;
   showFilter: boolean;
-  tableBodyData: CasinoData[] | GameData[];
+  tableBodyData: CasinoData[];
 };
 
-const Table = ({
+const TableOld = ({
   columns: _columns,
   tableBodyData,
+  onRowPress = () => null,
   showFilter = false,
 }: Props) => {
   const columns = useMemo(() => _columns, [_columns]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
-
-  const router = useRouter();
-  const pathName = usePathname();
-
-  const getPath = () => {
-    const secondParameterInPath = 2;
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
-    return segments[secondParameterInPath];
-  };
-
-  const onRowPress = (row: Row<CasinoData | GameData>) => {
-    const path = row.original.gameId
-      ? `/${getPath()}/${row.original.gameId}`
-      : `/${row.original.casinoId}`;
-    return router.push(path);
-  };
 
   const {
     page,
@@ -118,9 +99,8 @@ const Table = ({
             return (
               <tr
                 {...row.getRowProps()}
-                onClick={() => onRowPress(row)}
+                onClick={() => onRowPress()}
                 key={index}
-                className=" hover:bg-dark2 cursor-pointer"
               >
                 {row.cells.map((cell, index) => {
                   return (
@@ -179,4 +159,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default TableOld;

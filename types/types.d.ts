@@ -9,16 +9,6 @@ type TStatCardProps = {
 
 type CasinoCols = { Header: string; accessor: string };
 
-type CasinoData = {
-  name: string;
-  Providers: string;
-  Bounties: string;
-  "1h": string;
-  "24h": string;
-  Source: string;
-  Jackpot: string;
-};
-
 type StepProps = {
   index: number;
   active: boolean;
@@ -59,4 +49,63 @@ type Dictionary = {
     compare: string;
     vs: string;
   };
+};
+
+interface CasinoData extends GameData {
+  casinoId: string;
+  name: string;
+  imageUrl: string;
+  providers: number;
+  bounties: string;
+  dataSource: string;
+  jackpot: number;
+  jackpotCurrency: string;
+  s24h?: null[] | null;
+  p1h: number;
+  p24h: number;
+  users: number;
+  pallTime: number;
+  t1H: number;
+  t24h: number;
+}
+
+interface GameData {
+  gameId: string;
+  name: string;
+  imageUrl: string;
+  provider: string;
+  dataSource: string;
+  jackpot: number;
+  jackpotCurrency: string;
+  s24h?: null[] | null;
+  p1h: number;
+  p24h: number;
+  t1H: number;
+  t24h: number;
+  casinoId?: string;
+}
+
+type gamesList = {
+  results: GameData[];
+  currentPage: number;
+  pageCount: number;
+  pageSize: number;
+  rowCount: number;
+};
+
+type casinoCard = {
+  cardId: string;
+  imageUrl: string;
+  value: string;
+  culture: string;
+  name: string;
+  isLive: boolean;
+  additionalInfo?: null;
+  redirectUrl: string;
+  additionalProps?: null;
+  contextId: string;
+  valueTypeId: string;
+  contextType: string;
+  valueType: string;
+  isDefault: boolean;
 };

@@ -15,7 +15,7 @@ const Footer = ({ dictionary }: Dictionary) => {
       <div className="flex items-start justify-center lg:justify-start">
         <div className="flex flex-1 items-center justify-between lg:justify-start">
           <>
-            <Image src={logo} alt="" width={40} height={40} />
+            <Image src={logo} alt="logo of slotstat" width={40} height={40} />
             <span className="ml-2 hidden text-[26px] font-bold text-white lg:inline">
               {slotstat}
             </span>
