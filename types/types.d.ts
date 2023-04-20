@@ -109,3 +109,22 @@ type casinoCard = {
   valueType: string;
   isDefault: boolean;
 };
+
+type StatisticsData = {
+  betCount: number;
+  winRate: number;
+  winRate2?: number;
+  date: Date;
+  timeStamp: number;
+};
+
+
+
+type ActionPaneProps = {
+  dictionary: any;
+  onPressCompare: any;
+  onPressRemove: any;
+  activeFilterId: any;
+  onPressFilter: any;
+  selectedGames: any;
+};

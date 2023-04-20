@@ -25,12 +25,14 @@ type Props = {
   columns: Array<CasinoCols>;
   showFilter: boolean;
   tableBodyData: CasinoData[] | GameData[];
+  onAddToCompare?: (gameId: string) => void;
 };
 
 const Table = ({
   columns: _columns,
   tableBodyData,
   showFilter = false,
+  onAddToCompare,
 }: Props) => {
   const columns = useMemo(() => _columns, [_columns]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
@@ -46,10 +48,14 @@ const Table = ({
   };
 
   const onRowPress = (row: Row<CasinoData | GameData>) => {
-    const path = row.original.gameId
-      ? `/${getPath()}/${row.original.gameId}`
-      : `/${row.original.casinoId}`;
-    return router.push(path);
+    if (onAddToCompare) {
+      return onAddToCompare(row.original.gameId);
+    } else {
+      const path = row.original.gameId
+        ? `/${getPath()}/${row.original.gameId}`
+        : `/${row.original.casinoId}`;
+      return router.push(path);
+    }
   };
 
   const {
