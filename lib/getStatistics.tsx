@@ -8,7 +8,6 @@ export default async function getStatistics(
     url: `/api/statistic/game/${gameId}?interval=_${activeFilterId}`,
     method: "GET",
   });
-  if (res.statusText != "OK") throw new Error("failed to fetch");
-
+  if (res.status != 200) throw new Error("failed to fetch");
   return res.data;
 }

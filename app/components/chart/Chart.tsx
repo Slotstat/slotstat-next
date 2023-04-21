@@ -8,13 +8,12 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-import { back, close, live, remove } from "../../assets";
-import { forward, fullscreen } from "../../assets";
+import { back, close, live } from "../../assets";
 import { CASINO_GAME_COLS } from "../table/columns";
 import BulletIcon from "../BulletIcon";
 import Image from "next/image";
 import { Table } from "..";
-import getStatistics from "@/lib/getStatistics";
+import { getStatistics } from "@/lib";
 import {
   FILTERS,
   SERIE_COLORS,
@@ -29,18 +28,21 @@ am4core.addLicense("ch-custom-attribution");
 const ChartComponent = ({
   dictionary,
   gameId,
-  tableBodyData,
+  gamesList,
+  casino,
 }: Dictionary & {
   gameId: string;
-  tableBodyData: CasinoData[] | GameData[];
+  gamesList: GameData[];
+  casino?: CasinoData;
 }) => {
-  const chartRef = useRef<am4charts.XYChart | null>(null);
-  const chartData = useRef<StatisticsData[]>([]);
+  const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
     useState<keyof typeof FILTERS>("All");
 
   const [open, setOpen] = useState(false);
-  const [selectedGames, setSelectedGames] = useState([gameId]);
+  const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
+  const [mainGameObject, setMainGameObject] = useState<GameData>();
+  const [compareGameObject, setCompareGameObject] = useState<GameData>();
 
   const isCompare = useMemo(() => selectedGames.length > 1, [selectedGames]);
 
@@ -55,10 +57,55 @@ const ChartComponent = ({
       statistics[index].date = new Date(statistics[index].date);
     }
     // needs to be reversed to correctly show charts.
+    // ToDo how much items to show. currently showing last 100 object!!!
     const test = statistics.reverse().slice(-100);
 
     return test;
   };
+
+  const onPressCompare = () => {
+    setOpen(true);
+  };
+
+  const onAddToCompare = async (GameData: GameData) => {
+    const { gameId: compareGameId } = GameData;
+    setCompareGameObject(GameData);
+    setOpen(false);
+
+    setSelectedGames([gameId, compareGameId]);
+    const data = await getAndCorrectStatisticsData(compareGameId);
+
+    if (chartRef.current?.data[0].winRate2) {
+      chartRef.current.series.removeIndex(1);
+    }
+
+    data.map((elm, i) => {
+      if (chartRef.current) chartRef.current.data[i].winRate2 = elm.winRate;
+    });
+
+    if (chartRef.current?.data) {
+      const serie2 = chartRef.current.series.push(new am4charts.LineSeries());
+      createSerie(serie2, "date", "winRate2", SERIE_COLORS[1]);
+      chartRef.current.validateData();
+    }
+  };
+
+  const onPressRemove = () => {
+    setCompareGameObject(undefined);
+    setSelectedGames([gameId]);
+
+    if (chartRef.current) {
+      chartRef.current.series.removeIndex(1);
+      chartRef.current.data.map((_, i) => {
+        if (chartRef.current) delete chartRef.current.data[i].winRate2;
+      });
+    }
+  };
+
+  useEffect(() => {
+    const mainGame = gamesList.find((x) => x.gameId === gameId);
+    setMainGameObject(mainGame);
+  }, []);
 
   useEffect(() => {
     const chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -85,7 +132,6 @@ const ChartComponent = ({
         modifiedArrayWithOneOrTwoValue = statistics;
       }
 
-      chartData.current = modifiedArrayWithOneOrTwoValue;
       chart.data = modifiedArrayWithOneOrTwoValue;
       setChartParameters(chart);
 
@@ -102,42 +148,12 @@ const ChartComponent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilterId]);
 
-  const onPressCompare = () => {
-    setOpen(true);
-  };
-
-  const onAddToCompare = async (compareGameId: string) => {
-    setOpen(false);
-    if (!isCompare) {
-      setSelectedGames((prevState) => [...prevState, compareGameId]);
-      const data = await getAndCorrectStatisticsData(compareGameId);
-
-      const modifiedArrayWithNewKey = [...chartData.current];
-      data.map((elm, i) => {
-        modifiedArrayWithNewKey[i].winRate2 = elm.winRate;
-      });
-
-      if (chartRef.current?.data) {
-        chartData.current = modifiedArrayWithNewKey;
-        chartRef.current.data = modifiedArrayWithNewKey;
-        const serie2 = chartRef.current.series.push(new am4charts.LineSeries());
-        createSerie(serie2, "date", "winRate2", SERIE_COLORS[1]);
-        chartRef.current.validateData();
-      }
-    }
-  };
-
-  const onPressRemove = () => {
-    setSelectedGames([gameId]);
-    if (chartRef.current?.data) chartRef.current.series.removeIndex(1);
-  };
-
   return (
     <>
       <div className="px-4 py-6 lg:py-18 lg:px-18">
         <div className="flex flex-col items-center justify-between lg:flex-row">
           <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-            Adjarabet Fruity Time chart
+            {casino?.name} {mainGameObject?.name} chart
           </h2>
           <div className="mt-3 flex items-center justify-between lg:mt-0">
             {selectedGames.length && (
@@ -147,7 +163,7 @@ const ChartComponent = ({
               >
                 <BulletIcon color={SERIE_COLORS[0]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  EGT 1
+                  {casino?.name} {mainGameObject?.name}
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>
@@ -159,7 +175,7 @@ const ChartComponent = ({
               >
                 <BulletIcon color={SERIE_COLORS[1]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  EGT 2
+                  {casino?.name} {compareGameObject?.name}
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>
@@ -170,7 +186,8 @@ const ChartComponent = ({
           <div className="rounded-3xl bg-dark1">
             <ActionPane
               dictionary={dictionary}
-              selectedGames={selectedGames}
+              compareGameObject={compareGameObject}
+              mainGameObject={mainGameObject}
               onPressCompare={onPressCompare}
               onPressRemove={onPressRemove}
               activeFilterId={activeFilterId}
@@ -228,7 +245,7 @@ const ChartComponent = ({
           <div className="py-8">
             <Table
               columns={CASINO_GAME_COLS}
-              tableBodyData={tableBodyData}
+              tableBodyData={gamesList}
               showFilter={true}
               onAddToCompare={onAddToCompare}
             />

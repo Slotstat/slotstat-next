@@ -9,7 +9,7 @@ export default async function getCasinos() {
     },
   });
 
-  if (res.statusText != "OK") throw new Error("failed to fetch");
+  if (res.status != 200) throw new Error("failed to fetch");
 
   return res.data;
 }

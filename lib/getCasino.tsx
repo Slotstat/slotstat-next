@@ -6,7 +6,7 @@ export default async function getCasino(casinoId: string) {
     method: "GET",
   });
 
-  if (res.statusText != "OK") return undefined;
+  if (res.status != 200) throw new Error("failed to fetch");
 
   return res.data;
 }

@@ -7,6 +7,24 @@ type TStatCardProps = {
   tooltip?: string;
 };
 
+type Card = {
+  cardId: string;
+  imageUrl: string;
+  value: string;
+  culture: string;
+  name: string;
+  isLive: boolean;
+  additionalInfo?: string;
+  redirectUrl: string;
+  additionalProps: string;
+  contextId?: string;
+  valueTypeId: string;
+  contextType: string;
+  valueType: string;
+  isDefault: boolean;
+}
+
+
 type CasinoCols = { Header: string; accessor: string };
 
 type StepProps = {
@@ -69,7 +87,7 @@ interface CasinoData extends GameData {
   t24h: number;
 }
 
-interface GameData {
+type GameData = {
   gameId: string;
   name: string;
   imageUrl: string;
@@ -83,7 +101,7 @@ interface GameData {
   t1H: number;
   t24h: number;
   casinoId?: string;
-}
+};
 
 type gamesList = {
   results: GameData[];
@@ -91,23 +109,6 @@ type gamesList = {
   pageCount: number;
   pageSize: number;
   rowCount: number;
-};
-
-type casinoCard = {
-  cardId: string;
-  imageUrl: string;
-  value: string;
-  culture: string;
-  name: string;
-  isLive: boolean;
-  additionalInfo?: null;
-  redirectUrl: string;
-  additionalProps?: null;
-  contextId: string;
-  valueTypeId: string;
-  contextType: string;
-  valueType: string;
-  isDefault: boolean;
 };
 
 type StatisticsData = {
@@ -118,13 +119,12 @@ type StatisticsData = {
   timeStamp: number;
 };
 
-
-
 type ActionPaneProps = {
   dictionary: any;
   onPressCompare: any;
   onPressRemove: any;
   activeFilterId: any;
   onPressFilter: any;
-  selectedGames: any;
+  compareGameObject: GameData | undefined;
+  mainGameObject: GameData | undefined;
 };

@@ -25,7 +25,7 @@ type Props = {
   columns: Array<CasinoCols>;
   showFilter: boolean;
   tableBodyData: CasinoData[] | GameData[];
-  onAddToCompare?: (gameId: string) => void;
+  onAddToCompare?: (gameId: GameData) => void;
 };
 
 const Table = ({
@@ -49,7 +49,7 @@ const Table = ({
 
   const onRowPress = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
-      return onAddToCompare(row.original.gameId);
+      return onAddToCompare(row.original);
     } else {
       const path = row.original.gameId
         ? `/${getPath()}/${row.original.gameId}`

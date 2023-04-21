@@ -11,9 +11,9 @@ import Header from "../components/navbar/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Footer from "../components/Footer";
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
+// export async function generateStaticParams() {
+//   return i18n.locales.map((locale) => ({ lang: locale }));
+// }
 
 export const metadata: Metadata = {
   title: "slot stat",

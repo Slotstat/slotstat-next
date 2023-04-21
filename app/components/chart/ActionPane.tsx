@@ -13,7 +13,8 @@ const ActionPane = ({
   onPressRemove,
   activeFilterId,
   onPressFilter,
-  selectedGames = [],
+  mainGameObject,
+  compareGameObject,
 }: ActionPaneProps) => {
   const { compare, vs } = dictionary;
   return (
@@ -34,12 +35,12 @@ const ActionPane = ({
             height={18}
           />
         </button>
-        {selectedGames.length > 1 && (
+        {compareGameObject && (
           <>
             <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
               <BulletIcon color={SERIE_COLORS[0]} size={20} />
               <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {selectedGames[0]}
+                {mainGameObject?.name}
               </span>
             </div>
             <div className="ml-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
@@ -47,22 +48,21 @@ const ActionPane = ({
                 {vs}
               </span>
             </div>
-            <button
-              onClick={onPressRemove}
-              className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
-            >
+            <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
               <BulletIcon color={SERIE_COLORS[1]} size={20} />
               <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {selectedGames[1]}
+                {compareGameObject.name}
               </span>
-              <Image
-                src={remove}
-                alt=""
-                className="ml-3 h-4 w-4"
-                width={16}
-                height={16}
-              />
-            </button>
+              <button onClick={onPressRemove} className="pointer">
+                <Image
+                  src={remove}
+                  alt=""
+                  className="ml-3 h-4 w-4"
+                  width={16}
+                  height={16}
+                />
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -111,4 +111,4 @@ const ActionPane = ({
   );
 };
 
-export default ActionPane
+export default ActionPane;

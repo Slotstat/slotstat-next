@@ -9,35 +9,51 @@ import { breakpoints } from "../utils";
 import Image from "next/image";
 
 const StatCard = ({
-  type,
-  icon,
-  label,
+  imageUrl,
+  name,
   value,
-  badge,
-  tooltip,
-}: TStatCardProps) => {
+  isLive,
+  additionalInfo,
+}: Card) => {
+  const isImgUrl = (url: string) => {
+    return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
+  };
   return (
     <div className="flex flex-col rounded-2xl bg-dark2 p-4 lg:p-6">
       <div className="flex items-center justify-between">
-        <Image
-          src={icon}
-          alt=""
-          className="h-4 w-4 lg:h-6 lg:w-6 "
-          width={24}
-          height={24}
-        />
-        {badge && <Image src={live} alt="" className="ml-3" />}
+        {!!isImgUrl(imageUrl) && (
+          <Image
+            src={imageUrl}
+            alt=""
+            className="h-4 w-4 lg:h-6 lg:w-6 "
+            width={24}
+            height={24}
+          />
+        )}
+        {isLive && (
+          <Image
+            src={live}
+            alt=""
+            className="ml-3"
+            width="0"
+            height="0"
+            sizes="100vw"
+          />
+        )}
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span className="whitespace-nowrap text-sm leading-5 text-white lg:text-base">
-          {label}: <span className="text-blue1">{value}</span>
+          {name}: <span className="text-blue1">{value}</span>
         </span>
-        {tooltip && (
-          <Tooltip content={tooltip}>
+        {additionalInfo && (
+          <Tooltip content={additionalInfo}>
             <Image
               src={tooltipSVG}
               alt=""
               className="ml-3 h-4 w-4 lg:h-6 lg:w-6"
+              width="0"
+              height="0"
+              sizes="100vw"
             />
           </Tooltip>
         )}
@@ -46,7 +62,7 @@ const StatCard = ({
   );
 };
 
-const to2d = (arr: TStatCardProps[], size = 2): TStatCardProps[][] => {
+const to2d = (arr: Card[], size = 2): Card[][] => {
   const reshaped = [];
   const copy = [...arr];
   while (copy.length) {
@@ -56,10 +72,10 @@ const to2d = (arr: TStatCardProps[], size = 2): TStatCardProps[][] => {
 };
 
 const Stats = ({
-  data,
+  cardsData,
   rows = 1,
 }: {
-  data: TStatCardProps[];
+  cardsData: Array<Card>;
   rows?: number;
 }) => {
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
@@ -72,21 +88,19 @@ const Stats = ({
     },
   });
 
-  const _data = useMemo(() => to2d(data, rows), [data, rows]);
+  const data = useMemo(() => to2d(cardsData, rows), [cardsData, rows]);
 
   return (
     <div className="my-4 px-4 lg:my-6 lg:px-18">
       <div ref={sliderRef} className="keen-slider zoom-out">
-        {_data.map((stats, i) => (
+        {data.map((stats, i) => (
           <div
             key={i}
             className="keen-slider__slide zoom-out__slide space-y-4 md:space-y-6"
           >
-            <>
-              {stats.map((stat, j) => (
-                <StatCard key={j} {...stat} />
-              ))}
-            </>
+            {stats.map((stat, index) => (
+              <StatCard key={index} {...stat} />
+            ))}
           </div>
         ))}
       </div>

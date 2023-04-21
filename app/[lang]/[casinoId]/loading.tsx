@@ -1,9 +1,12 @@
-import React from 'react'
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Loading() {
-
-
   return (
-    <h1 className=' text-white '> loading... casino page</h1>
-  )
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <section>
+        <Skeleton count={10} />
+      </section>
+    </SkeletonTheme>
+  );
 }

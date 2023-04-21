@@ -9,7 +9,7 @@ export default async function getGamesList(casinoId: string) {
     },
   });
 
-  if (res.statusText != "OK") return undefined;
+  if (res.status != 200) throw new Error("Can't successfully fetch data");
 
   return res.data;
 }
