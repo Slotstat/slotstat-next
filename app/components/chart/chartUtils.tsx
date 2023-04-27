@@ -89,7 +89,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
 
-  valueAxis.min = 0;
+  // valueAxis.min = 0;
   // valueAxis.max = 100;
 
   // create series

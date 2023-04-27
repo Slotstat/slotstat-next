@@ -1,4 +1,3 @@
-
 import "../globals.css";
 
 import { ThemeProvider } from "../components/ThemeProviderClientSide";
@@ -35,7 +34,7 @@ export default async function RootLayout({
           <Header dictionary={dictionary} />
           <Breadcrumbs />
           {children}
-          <Footer dictionary={dictionary}/>
+          <Footer dictionary={dictionary} />
         </ThemeProvider>
       </body>
     </html>

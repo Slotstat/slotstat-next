@@ -26,15 +26,16 @@ am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
+  // casino,
   dictionary,
   gameId,
   gamesList,
-  casino,
 }: Dictionary & {
   gameId: string;
   gamesList: GameData[];
-  casino?: CasinoData;
+  // casino?: CasinoData;
 }) => {
+  const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
     useState<keyof typeof FILTERS>("All");
@@ -58,7 +59,7 @@ const ChartComponent = ({
     }
     // needs to be reversed to correctly show charts.
     // ToDo how much items to show. currently showing last 100 object!!!
-    const test = statistics.reverse().slice(-100);
+    const test = statistics.reverse().slice(-200);
 
     return test;
   };
@@ -105,7 +106,7 @@ const ChartComponent = ({
   useEffect(() => {
     const mainGame = gamesList.find((x) => x.gameId === gameId);
     setMainGameObject(mainGame);
-  }, []);
+  }, [gameId, gamesList]);
 
   useEffect(() => {
     const chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -153,7 +154,7 @@ const ChartComponent = ({
       <div className="px-4 py-6 lg:py-18 lg:px-18">
         <div className="flex flex-col items-center justify-between lg:flex-row">
           <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-            {casino?.name} {mainGameObject?.name} chart
+            {casinoName} {mainGameObject?.name} chart
           </h2>
           <div className="mt-3 flex items-center justify-between lg:mt-0">
             {selectedGames.length && (
@@ -163,7 +164,7 @@ const ChartComponent = ({
               >
                 <BulletIcon color={SERIE_COLORS[0]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  {casino?.name} {mainGameObject?.name}
+                  {casinoName} {mainGameObject?.name}
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>
@@ -175,7 +176,7 @@ const ChartComponent = ({
               >
                 <BulletIcon color={SERIE_COLORS[1]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  {casino?.name} {compareGameObject?.name}
+                  {casinoName} {compareGameObject?.name}
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>

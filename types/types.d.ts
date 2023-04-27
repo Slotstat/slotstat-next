@@ -22,8 +22,7 @@ type Card = {
   contextType: string;
   valueType: string;
   isDefault: boolean;
-}
-
+};
 
 type CasinoCols = { Header: string; accessor: string };
 
@@ -101,6 +100,7 @@ type GameData = {
   t1H: number;
   t24h: number;
   casinoId?: string;
+  casinoName: string;
 };
 
 type gamesList = {
