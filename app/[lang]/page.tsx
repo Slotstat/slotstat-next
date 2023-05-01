@@ -21,7 +21,7 @@ export default async function Home() {
     <>
       <Stats cardsData={landingCards} rows={1} />
       <Slider data={SLIDES} />
-      <div className="my-6 px-4 lg:my-18 lg:px-18">
+      <div className="my-6 px-4 lg:my-18 ">
         {casinos?.length > 0 ? (
           <Table
             columns={CASINO_COLS}

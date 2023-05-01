@@ -18,7 +18,7 @@ export default async function FAQ({ params }: { params: { lang: Locale } }) {
   } = dictionary.faq;
 
   return (
-    <div className="px-4 py-6 lg:px-18">
+    <div className="px-4 py-6 ">
       <div className='relative flex w-full flex-col  justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/chart-pattern.png")] bg-right bg-no-repeat py-12 px-9 lg:py-24 lg:px-28'>
         <h1 className="text-[18px] font-normal text-blue1">{theFAQs}</h1>
         <h1 className="my-2 text-[64px] font-bold text-white">{helpCentre}</h1>

@@ -35,7 +35,7 @@ export default async function HowItWorks({
   const { howItWorks, howItWorksDescription } = dictionary.howItWorksPage;
 
   return (
-    <div className="my-9 flex flex-col items-center px-4 lg:my-24 lg:px-44">
+    <div className="my-9 flex flex-col items-center px-4 lg:my-24 lg:px-18">
       <div className="flex flex-col items-center lg:flex-row lg:justify-between lg:space-x-16">
         <div className="flex flex-1 flex-col">
           <div className="flex h-16 items-center lg:h-36">

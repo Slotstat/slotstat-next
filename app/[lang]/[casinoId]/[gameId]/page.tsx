@@ -42,7 +42,7 @@ export default async function Casino({
         gamesList={gamesList.results}
         // casino={casino}
       />
-      <div className="my-6 px-4 lg:my-18 lg:px-18">
+      <div className="my-6 px-4 lg:my-18 ">
         <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
           Other Adjarabet games
         </h2>

@@ -8,13 +8,7 @@ import { live, tooltip as tooltipSVG } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
 
-const StatCard = ({
-  imageUrl,
-  name,
-  value,
-  isLive,
-  additionalInfo,
-}: Card) => {
+const StatCard = ({ imageUrl, name, value, isLive, additionalInfo }: Card) => {
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
@@ -91,7 +85,7 @@ const Stats = ({
   const data = useMemo(() => to2d(cardsData, rows), [cardsData, rows]);
 
   return (
-    <div className="my-4 px-4 lg:my-6 lg:px-18">
+    <div className="my-4 px-4 lg:my-6">
       <div ref={sliderRef} className="keen-slider zoom-out">
         {data.map((stats, i) => (
           <div

@@ -32,8 +32,10 @@ export default async function RootLayout({
       <body>
         <ThemeProvider>
           <Header dictionary={dictionary} />
-          <Breadcrumbs />
-          {children}
+          {/* <Breadcrumbs /> */}
+          <div className="flex justify-center">
+            <div className=" w-[100%] max-w-screen-xl">{children}</div>
+          </div>
           <Footer dictionary={dictionary} />
         </ThemeProvider>
       </body>

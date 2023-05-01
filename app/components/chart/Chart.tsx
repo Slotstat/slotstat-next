@@ -59,9 +59,27 @@ const ChartComponent = ({
     }
     // needs to be reversed to correctly show charts.
     // ToDo how much items to show. currently showing last 100 object!!!
-    const test = statistics.reverse().slice(-200);
+    const reversedStatistics = statistics.reverse().slice(-200);
 
-    return test;
+    // const statisticsLength = reversedStatistics.length;
+    // const showEveryNThItem = Math.floor(statisticsLength / 50);
+    // console.log("showEveryNThItem", statisticsLength, showEveryNThItem);
+
+    // let newArr = [];
+    // for (let x = 0; x < statisticsLength; x += showEveryNThItem) {
+    //   newArr.push(reversedStatistics[x]);
+    // }
+
+    // if (
+    //   newArr[newArr.length - 1].date !==
+    //   reversedStatistics[statisticsLength - 1].date
+    // ) {
+    //   newArr.push(reversedStatistics[statisticsLength - 1]);
+    // }
+    // console.log("new array", newArr);
+    // return newArr;
+
+    return reversedStatistics;
   };
 
   const onPressCompare = () => {
@@ -151,7 +169,7 @@ const ChartComponent = ({
 
   return (
     <>
-      <div className="px-4 py-6 lg:py-18 lg:px-18">
+      <div className="px-4 py-6 lg:py-18 ">
         <div className="flex flex-col items-center justify-between lg:flex-row">
           <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
             {casinoName} {mainGameObject?.name} chart

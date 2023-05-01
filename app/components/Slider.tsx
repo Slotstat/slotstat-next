@@ -75,7 +75,7 @@ const Slider = ({ data }: { data: TSliderData }) => {
   };
 
   return (
-    <div className="relative my-4 px-4 lg:my-6 lg:px-18">
+    <div className="relative my-4 px-4 lg:my-6 ">
       <div ref={sliderRef} className="keen-slider rounded-t-xl">
         {data.map(({ img, title, subtitle }, index) => (
           <div key={index} className="keen-slider__slide cursor-pointer">
