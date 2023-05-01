@@ -50,10 +50,10 @@ export default function RenderRowCells({
     );
   };
 
+  const isImgUrl = (url: string) => {
+    return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
+  };
   const CasinoName = () => {
-    const isImgUrl = (url: string) => {
-      return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
-    };
     return (
       <Link
         href={"https://www.adjarabet.com/ka"}
@@ -68,8 +68,8 @@ export default function RenderRowCells({
                 alt={row.original.name}
                 fill
                 sizes="(max-width: 24px) 100vw,
-    (max-width: 24px) 50vw,
-    33vw"
+                (max-width: 24px) 50vw,
+              33vw"
               />
             )}
           </div>

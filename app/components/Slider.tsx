@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useMemo, useState } from "react";
 
@@ -23,10 +24,7 @@ type TSliderData = {
 }[];
 
 const Arrow = ({ isLeft = false, disabled, onClick }: TArrowProps) => {
-  const dir = useMemo(
-    () => (isLeft ? "left-4 lg:left-18" : "right-4 lg:right-18"),
-    [isLeft]
-  );
+  const dir = useMemo(() => (isLeft ? "left-4 " : "right-4 "), [isLeft]);
   const iconStyle = useMemo(() => (isLeft ? "rotate-180" : ""), [isLeft]);
 
   if (disabled) {
@@ -78,16 +76,20 @@ const Slider = ({ data }: { data: TSliderData }) => {
     <div className="relative my-4 px-4 lg:my-6 ">
       <div ref={sliderRef} className="keen-slider rounded-t-xl">
         {data.map(({ img, title, subtitle }, index) => (
-          <div key={index} className="keen-slider__slide cursor-pointer">
+          <div
+            key={index}
+            className="keen-slider__slide cursor-pointer h-38 w-80"
+          >
             <Image
               src={img}
               blurDataURL={img}
               placeholder="blur"
-              className="h-28 rounded-xl object-fill lg:h-38"
               alt=""
-              loading="lazy"
-              width={378}
-              height={152}
+              className="h-28 rounded-xl object-fill lg:h-38"
+              fill
+              sizes="(max-width: 306px) 100vw,
+                (max-width: 306px) 50vw,
+                33vw"
             />
             <div className="mt-3 text-[10px] leading-3 text-grey1 lg:text-sm lg:leading-4">
               {subtitle}

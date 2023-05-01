@@ -4,7 +4,11 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["picsum.photos", "s3.eu-central-1.amazonaws.com"],
+    domains: [
+      "picsum.photos",
+      "s3.eu-central-1.amazonaws.com",
+      "stage.gamesstatic.com",
+    ],
   },
 };
 

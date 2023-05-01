@@ -62,7 +62,7 @@ const ChartComponent = ({
     const reversedStatistics = statistics.reverse().slice(-200);
 
     // const statisticsLength = reversedStatistics.length;
-    // const showEveryNThItem = Math.floor(statisticsLength / 50);
+    // const showEveryNThItem = Math.floor(statisticsLength / 100);
     // console.log("showEveryNThItem", statisticsLength, showEveryNThItem);
 
     // let newArr = [];
@@ -226,48 +226,50 @@ const ChartComponent = ({
           setOpen(false);
         }}
       >
-        <div className="bg-dark1 py-8 px-4 lg:px-18">
-          <div className="flex items-center justify-between">
-            <button
-              className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <Image
-                src={back}
-                alt=""
-                className="h-6 w-6"
-                width={24}
-                height={24}
-              />
-            </button>
-            <span className=" text-2xl leading-4  text-white">
-              Choose game from Adjarabet
-            </span>
+        <div className="bg-dark1 py-8 px-4 flex justify-center">
+          <div className=" w-[100%] max-w-screen-xl">
+            <div className="flex items-center justify-between">
+              <button
+                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <Image
+                  src={back}
+                  alt=""
+                  className="h-6 w-6"
+                  width={24}
+                  height={24}
+                />
+              </button>
+              <span className=" text-2xl leading-4  text-white">
+                Choose game from Adjarabet
+              </span>
 
-            <button
-              className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <Image
-                src={close}
-                alt=""
-                className="h-6 w-6"
-                width={24}
-                height={24}
+              <button
+                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <Image
+                  src={close}
+                  alt=""
+                  className="h-6 w-6"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>
+            <div className="py-8">
+              <Table
+                columns={CASINO_GAME_COLS}
+                tableBodyData={gamesList}
+                showFilter={true}
+                onAddToCompare={onAddToCompare}
               />
-            </button>
-          </div>
-          <div className="py-8">
-            <Table
-              columns={CASINO_GAME_COLS}
-              tableBodyData={gamesList}
-              showFilter={true}
-              onAddToCompare={onAddToCompare}
-            />
+            </div>
           </div>
         </div>
       </BottomSheet>

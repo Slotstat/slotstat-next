@@ -13,7 +13,7 @@ export default function Breadcrumbs() {
     return null;
   }
   return (
-    <div className="relative my-4 px-4 lg:my-6 lg:px-18">
+    <div className="relative my-4 px-4 lg:my-6">
       <MTBreadcrumbs
         className="bg-transparent p-0"
         separator={<ForwardIcon color="#FFFFFF66" size={18} />}

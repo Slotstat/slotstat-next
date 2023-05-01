@@ -17,7 +17,6 @@ import { SearchInput } from "./SearchInput";
 import Image from "next/image";
 
 import RenderRowCells from "./RenderRowCells";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
