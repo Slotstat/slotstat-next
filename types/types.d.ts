@@ -128,3 +128,9 @@ type ActionPaneProps = {
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;
 };
+
+type QueryParams = {
+  orderBy?: string;
+  keyWord?: string;
+  direction?: string;
+};

@@ -1,12 +1,5 @@
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 
 export default function Loading() {
-  return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
-      <section>
-        <Skeleton count={10} />
-      </section>
-    </SkeletonTheme>
-  );
+  return <LoadingSkeleton />;
 }

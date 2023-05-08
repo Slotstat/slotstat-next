@@ -7,10 +7,18 @@ type Params = {
   params: {
     casinoId: string;
   };
+  searchParams: QueryParams;
 };
 
-const Casino = async ({ params: { casinoId } }: Params) => {
-  const gamesListData: Promise<gamesList> = getGamesList(casinoId);
+const Casino = async ({
+  params: { casinoId },
+  searchParams: { orderBy, keyWord, direction },
+}: Params) => {
+  const gamesListData: Promise<gamesList> = getGamesList(casinoId, {
+    keyWord,
+    direction,
+    orderBy,
+  });
   const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
 
   const [gamesList, casinoCard] = await Promise.all([
@@ -28,6 +36,8 @@ const Casino = async ({ params: { casinoId } }: Params) => {
         </h2>
         <div className="my-4 lg:my-6">
           <Table
+            keyWord={keyWord}
+            orderBy={orderBy}
             columns={CASINO_GAME_COLS}
             tableBodyData={gamesList.results}
             showFilter={true}

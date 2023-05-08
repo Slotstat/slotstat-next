@@ -1,32 +1,31 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 import { Input } from "@material-tailwind/react";
 
 import { search } from "../../assets";
 import Image from "next/image";
+import _ from "lodash";
 
 const debounce = 500;
 
 export const SearchInput = ({
-  globalFilter,
-  setGlobalFilter,
+  setCasinoFilter,
+  keyWord,
 }: {
-  globalFilter: any;
-  setGlobalFilter: any;
+  setCasinoFilter: (text: string) => void;
+  keyWord: string;
 }) => {
-  const [value, setValue] = useState(globalFilter);
+  const [value, setValue] = useState(keyWord);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setGlobalFilter(value || undefined);
-    }, debounce);
-
-    return () => clearTimeout(timeout);
-  }, [setGlobalFilter, value]);
+  const debouncedSearch = useCallback(
+    _.debounce((text) => {
+      setCasinoFilter(text);
+    }, debounce),
+    []
+  );
 
   return (
-    <div className="input w-full md:w-72">
+    <div className="input w-full md:w-72 border-grey1">
       <Input
         variant="outlined"
         label="Search"
@@ -34,6 +33,7 @@ export const SearchInput = ({
         value={value || ""}
         onChange={(e) => {
           setValue(e.target.value);
+          debouncedSearch(e.target.value);
         }}
         className="w-full rounded-lg text-grey1"
       />

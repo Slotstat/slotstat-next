@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 import {
@@ -19,12 +19,16 @@ import Image from "next/image";
 import RenderRowCells from "./RenderRowCells";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import useQueryParams from "@/app/utils/useQueryParams";
+import _ from "lodash";
 
 type Props = {
   columns: Array<CasinoCols>;
   showFilter: boolean;
   tableBodyData: CasinoData[] | GameData[];
   onAddToCompare?: (gameId: GameData) => void;
+  orderBy?: string;
+  keyWord?: string;
 };
 
 const Table = ({
@@ -32,7 +36,10 @@ const Table = ({
   tableBodyData,
   showFilter = false,
   onAddToCompare,
+  orderBy,
+  keyWord,
 }: Props) => {
+  const { setQueryParams } = useQueryParams();
   const columns = useMemo(() => _columns, [_columns]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
 
@@ -61,13 +68,11 @@ const Table = ({
     page,
     gotoPage,
     pageCount,
-    setFilter,
     prepareRow,
     headerGroups,
     getTableProps,
-    setGlobalFilter,
     getTableBodyProps,
-    state: { pageIndex, pageSize, globalFilter },
+    state: { pageIndex, pageSize },
   } = useTable(
     // @ts-ignore
     { columns, data },
@@ -76,29 +81,62 @@ const Table = ({
     useSortBy,
     usePagination
   );
-
+  const ascendDescend = useCallback(
+    _.debounce((direction: string) => {
+      setQueryParams({ direction });
+    }, 500),
+    []
+  );
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
         <SearchInput
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
+          keyWord={keyWord || ""}
+          setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
         />
-        {showFilter && (
-          <Dropdown
-            label="Provider"
-            onChange={(v?: string) => {
-              return setFilter("name", v);
-            }}
-          />
-        )}
+        <div className="flex">
+          {showFilter && (
+            <Dropdown
+              label={"Provider"}
+              onChange={(orderBy) => setQueryParams({ orderBy })}
+            />
+          )}
+          <div className="flex ml-3 px-2 rounded-lg border border-grey1">
+            <Image
+              src={descending}
+              alt=""
+              className=""
+              width={24}
+              height={24}
+              onClick={() => ascendDescend("desc")}
+            />
+            <Image
+              src={ascending}
+              alt=""
+              className=""
+              width={24}
+              height={24}
+              onClick={() => ascendDescend("asc")}
+            />
+          </div>
+        </div>
       </div>
-      <table {...getTableProps()} className="w-full">
+
+      <table {...getTableProps()} className="w-full relative">
         <thead>
           {headerGroups.map((headerGroup, index) => (
             <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((col, i) => (
-                <th {...col.getHeaderProps(col.getSortByToggleProps())} key={i}>
+                <th
+                  {...col.getHeaderProps({
+                    style: {
+                      maxWidth: col.maxWidth,
+                      minWidth: col.minWidth,
+                      width: col.width,
+                    },
+                  })}
+                  key={i}
+                >
                   <div className="flex items-center">
                     {col.render("Header")}
                     {col.isSorted && (
@@ -116,28 +154,44 @@ const Table = ({
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
+        {data.length > 0 ? (
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, index) => {
+              prepareRow(row);
 
-            return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => onRowPress(row)}
-                key={index}
-                className=" hover:bg-dark2 cursor-pointer"
-              >
-                {row.cells.map((cell, index) => {
-                  return (
-                    <td {...cell.getCellProps()} key={index}>
-                      <RenderRowCells cell={cell} row={row} index={index} />
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => onRowPress(row)}
+                  key={index}
+                  className=" hover:bg-dark2 cursor-pointer"
+                >
+                  {row.cells.map((cell, index) => {
+                    return (
+                      <td
+                        {...cell.getCellProps({
+                          style: {
+                            maxWidth: cell.column.maxWidth,
+                            minWidth: cell.column.minWidth,
+                            width: cell.column.width,
+                          },
+                        })}
+                        key={index}
+                      >
+                        <RenderRowCells cell={cell} row={row} index={index} />
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        ) : (
+          // ToDo beautiful error
+          <div className="flex justify-center items-center h-15 w-full absolute">
+            casinos not found
+          </div>
+        )}
       </table>
       {pageCount > 1 && (
         <div className="my-8 flex justify-center">

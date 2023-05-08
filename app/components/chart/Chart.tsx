@@ -59,7 +59,7 @@ const ChartComponent = ({
     }
     // needs to be reversed to correctly show charts.
     // ToDo how much items to show. currently showing last 100 object!!!
-    const reversedStatistics = statistics.reverse().slice(-200);
+    const reversedStatistics = statistics.reverse().slice(-150);
 
     // const statisticsLength = reversedStatistics.length;
     // const showEveryNThItem = Math.floor(statisticsLength / 100);

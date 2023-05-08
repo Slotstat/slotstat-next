@@ -49,8 +49,13 @@ export const createSerie = (
   fillModifier.gradient.rotation = 90;
   s.segments.template.fillModifier = fillModifier;
 
-  // const bullet = s.bullets.push(new am4charts.CircleBullet());
-  // bullet.states.create("hover").properties.scale = 1.7;
+  const bullet = s.bullets.push(new am4charts.CircleBullet());
+  bullet.fillOpacity = 0;
+  bullet.strokeOpacity = 0;
+  const bulletState = bullet.states.create("hover");
+  bulletState.properties.fillOpacity = 1;
+  bulletState.properties.strokeOpacity = 1;
+  bulletState.properties.scale = 1.2;
   // s.minBulletDistance = 40;
 
   s.tooltipHTML = getTooltip(xv, yv, color);
@@ -59,7 +64,7 @@ export const createSerie = (
   s.tooltip.background.cornerRadius = 14;
   s.tooltip.background.strokeOpacity = 0;
   s.tooltip.background.fill = am4core.color("#24262C");
-  s.tooltip.pointerOrientation = "down";
+  // s.tooltip.pointerOrientation = "up";
 };
 
 export const setChartParameters = (chart: am4charts.XYChart) => {
@@ -114,6 +119,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];
 export const FILTERS = {
+  "1M": { label: "1M" },
   "10M": { label: "10M" },
   "1H": { label: "1h" },
   "12H": { label: "12h" },

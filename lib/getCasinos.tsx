@@ -1,11 +1,17 @@
 import slotStatClient from "./instance";
 
-export default async function getCasinos() {
+export default async function getCasinos({
+  orderBy,
+  keyWord,
+  direction,
+}: QueryParams) {
   const res = await slotStatClient.request({
-    url: "/api/casino/aggregated",
+    url: "/api/casino/aggregateda",
     method: "GET",
-    data: {
-      direction: "asc",
+    params: {
+      direction: direction,
+      orderBy,
+      keyWord,
     },
   });
 

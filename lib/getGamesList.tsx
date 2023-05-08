@@ -1,11 +1,16 @@
 import slotStatClient from "./instance";
 
-export default async function getGamesList(casinoId: string) {
+export default async function getGamesList(
+  casinoId: string,
+  { keyWord, direction, orderBy }: QueryParams
+) {
   const res = await slotStatClient.request({
     url: `/api/Game/aggregated/${casinoId}`,
     method: "GET",
-    data: {
-      direction: "asc",
+    params: {
+      keyWord,
+      direction,
+      orderBy,
     },
   });
 

@@ -9,8 +9,16 @@ export const metadata: Metadata = {
   description: "slot stat high level",
 };
 
-export default async function Home() {
-  const casinosData: Promise<CasinoData[]> = getCasinos();
+export default async function Home({
+  searchParams: { orderBy, keyWord, direction },
+}: {
+  searchParams: QueryParams;
+}) {
+  const casinosData: Promise<CasinoData[]> = getCasinos({
+    orderBy,
+    keyWord,
+    direction,
+  });
   const landingCardsData: Promise<Card[]> = getLandingCards();
   const [casinos, landingCards] = await Promise.all([
     casinosData,
@@ -22,15 +30,13 @@ export default async function Home() {
       <Stats cardsData={landingCards} rows={1} />
       <Slider data={SLIDES} />
       <div className="my-6 px-4 lg:my-18 ">
-        {casinos?.length > 0 ? (
-          <Table
-            columns={CASINO_COLS}
-            tableBodyData={casinos}
-            showFilter={true}
-          />
-        ) : (
-          <div>casinos not found</div>
-        )}
+        <Table
+          orderBy={orderBy || ""}
+          keyWord={keyWord || ""}
+          columns={CASINO_COLS}
+          tableBodyData={casinos}
+          showFilter={true}
+        />
       </div>
     </>
   );

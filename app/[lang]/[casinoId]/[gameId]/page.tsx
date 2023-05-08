@@ -16,7 +16,7 @@ export default async function Casino({
   params: { lang: Locale; casinoId: string; gameId: string };
 }) {
   const { lang, casinoId, gameId } = params;
-  const gamesListData: Promise<gamesList> = getGamesList(casinoId);
+  const gamesListData: Promise<gamesList> = getGamesList(casinoId, {});
   const gamesCardsData: Promise<Card[]> = getCasinoCards(casinoId);
 
   // const casinoData: Promise<CasinoData> = getCasino(casinoId);

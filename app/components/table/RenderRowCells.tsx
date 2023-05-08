@@ -112,14 +112,15 @@ export default function RenderRowCells({
   } else if (index === 4) {
     return (
       <div className="flex flex-row items-center">
+        <DownIconBlue className=" mr-2" />
         {cell.render("Cell")}%
-        <DownIconBlue className=" ml-2" />
       </div>
     );
   } else if (index === 6) {
     return (
       <div className=" text-green1">
-        {row.original.jackpotCurrency} {renderEmptyValue()}
+        {row.original.jackpotCurrency}{" "}
+        {cell.value ? row.original.jackpot.toFixed(2) : renderEmptyValue()}
       </div>
     );
   } else if (index === 7) {
