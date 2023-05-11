@@ -27,7 +27,7 @@ export const getTooltip = (xv: string, yv: string, color: string) => {
       </div>`;
 };
 
-export const createSerie = (
+export const createSeries = (
   s: am4charts.LineSeries,
   xv: string,
   yv: string,
@@ -35,6 +35,8 @@ export const createSerie = (
 ) => {
   s.dataFields.dateX = xv;
   s.dataFields.valueY = yv;
+  s.interpolationDuration = 500;
+  s.defaultState.transitionDuration = 0;
 
   s.fillOpacity = 1;
   s.fill = am4core.color(color);
@@ -59,19 +61,56 @@ export const createSerie = (
   // s.minBulletDistance = 40;
 
   s.tooltipHTML = getTooltip(xv, yv, color);
-  s.tooltip.getFillFromObject = false;
+  // s.tooltip.getFillFromObject = false;
   s.tooltip.label.padding(0, 0, 0, 0);
   s.tooltip.background.cornerRadius = 14;
   s.tooltip.background.strokeOpacity = 0;
   s.tooltip.background.fill = am4core.color("#24262C");
+
+  s.events.on("over", function (ev) {
+    console.log("over11111");
+    // Get the current tooltip object for the series
+    var tooltip = series.tooltip.getFillFromObject();
+
+    // Set the tooltipHTML to a custom value based on the valueY of the data point
+    var dataValue = ev.target.dataItem.valueY;
+    if (dataValue < 10) {
+      tooltip.tooltipHTML =
+        "<span style='color:red'><b>" +
+        ev.target.dataItem.categoryX +
+        "</b>: " +
+        dataValue +
+        "</span>";
+    } else {
+      tooltip.tooltipHTML =
+        "<span style='color:green'><b>" +
+        ev.target.dataItem.categoryX +
+        "</b>: " +
+        dataValue +
+        "</span>";
+    }
+  });
+
   // s.tooltip.pointerOrientation = "up";
 };
 
 export const setChartParameters = (chart: am4charts.XYChart) => {
   const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
   // dateAxis.dataFields.date = "date";
+  chart.hiddenState.properties.opacity = 0;
   dateAxis.dateFormatter = new am4core.DateFormatter();
   dateAxis.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+
+  // chart.padding(0, 0, 0, 0);
+  dateAxis.renderer.axisFills.template.disabled = true;
+  dateAxis.renderer.ticks.template.disabled = true;
+  dateAxis.interpolationDuration = 500;
+  dateAxis.rangeChangeDuration = 500;
+
+  //   dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (fillOpacity, target) {
+  //     var dataItem = target.dataItem;
+  //     return dataItem.position;
+  // })
 
   dateAxis.renderer.minGridDistance = 70;
   dateAxis.renderer.grid.template.location = 0;
@@ -83,8 +122,15 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   dateAxis.startLocation = 0.5;
   dateAxis.endLocation = 0.5;
+  dateAxis.keepSelection = true;
+  dateAxis.endLocation = 5;
+
+  // dateAxis.zoomToDates([new Date("2023-03-01"), new Date("2023-06-30")]);
 
   const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.interpolationDuration = 500;
+  valueAxis.rangeChangeDuration = 500;
+
   valueAxis.tooltip.disabled = true;
   valueAxis.renderer.labels.template.fill = am4core.color("#969CB0");
   valueAxis.renderer.labels.template.fontSize = 12;
@@ -93,28 +139,57 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
+  valueAxis.keepSelection = true;
 
   // valueAxis.min = 0;
   // valueAxis.max = 100;
 
   // create series
-  const serie1 = chart.series.push(new am4charts.LineSeries());
-  createSerie(serie1, "date", "winRate", SERIE_COLORS[0]);
+  const series1 = chart.series.push(new am4charts.LineSeries());
+  createSeries(series1, "date", "winRate", SERIE_COLORS[0]);
 
   const cursor = new am4charts.XYCursor();
   cursor.lineX.stroke = am4core.color("#fff");
   cursor.lineY.stroke = am4core.color("#fff");
   // cursor.behavior = 'panX';
   chart.cursor = cursor;
+  chart.cursor.keepSelection = true;
 
-  const scrollbarX = new am4charts.XYChartScrollbar();
-  scrollbarX.series.push(serie1);
-  scrollbarX.background.fill = am4core.color("#24262C");
-  chart.scrollbarX = scrollbarX;
-  chart.scrollbarX.parent = chart.bottomAxesContainer;
+  chart.mouseWheelBehavior = "panXY";
+
+  chart.events.on("datavalidated", function () {
+    dateAxis.zoom({ start: 3 / 15, end: 1.2 }, false, true);
+  });
+
+  // bottom scrollbar
+  // const scrollbarX = new am4charts.XYChartScrollbar();
+  // scrollbarX.series.push(serie1);
+  // scrollbarX.background.fill = am4core.color("#24262C");
+  // chart.scrollbarX = scrollbarX;
+  // chart.scrollbarX.parent = chart.bottomAxesContainer;
 
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.legend = new am4charts.Legend();
+};
+
+var indicator;
+export const showLoadingIndicator = (chart: am4charts.XYChart) => {
+  indicator = chart.tooltipContainer.createChild(am4core.Container);
+  indicator.background.fill = am4core.color("#202227");
+  indicator.background.fillOpacity = 0.8;
+  indicator.width = am4core.percent(100);
+  indicator.height = am4core.percent(100);
+
+  var indicatorLabel = indicator.createChild(am4core.Label);
+  indicatorLabel.text = "Loading chart...";
+  indicatorLabel.align = "center";
+  indicatorLabel.valign = "middle";
+  indicatorLabel.fontSize = 20;
+  indicatorLabel.fill = am4core.color("#ffffff");
+};
+
+export const hideLoadingIndicator = () => {
+  indicator.hide();
 };
 
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];

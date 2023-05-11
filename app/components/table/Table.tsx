@@ -29,6 +29,10 @@ type Props = {
   onAddToCompare?: (gameId: GameData) => void;
   orderBy?: string;
   keyWord?: string;
+  getGamesFromChosenCasino?: ({
+    casinoId,
+    name,
+  }: GetGamesFromChosenCasinoProps) => void;
 };
 
 const Table = ({
@@ -38,6 +42,7 @@ const Table = ({
   onAddToCompare,
   orderBy,
   keyWord,
+  getGamesFromChosenCasino,
 }: Props) => {
   const { setQueryParams } = useQueryParams();
   const columns = useMemo(() => _columns, [_columns]);
@@ -56,6 +61,11 @@ const Table = ({
   const onRowPress = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
       return onAddToCompare(row.original);
+    } else if (getGamesFromChosenCasino && row.original.casinoId) {
+      return getGamesFromChosenCasino({
+        casinoId: row.original.casinoId,
+        name: row.original.name,
+      });
     } else {
       const path = row.original.gameId
         ? `/${getPath()}/${row.original.gameId}`
@@ -82,44 +92,50 @@ const Table = ({
     usePagination
   );
   const ascendDescend = useCallback(
-    _.debounce((direction: string) => {
+    (direction: string) => {
       setQueryParams({ direction });
-    }, 500),
+    },
+    // _.debounce((direction: string) => {
+    //   setQueryParams({ direction });
+    // }, 1),
     []
   );
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
-        <SearchInput
-          keyWord={keyWord || ""}
-          setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
-        />
-        <div className="flex">
-          {showFilter && (
-            <Dropdown
-              label={"Provider"}
-              onChange={(orderBy) => setQueryParams({ orderBy })}
+        {showFilter && (
+          <>
+            <SearchInput
+              keyWord={keyWord || ""}
+              setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
             />
-          )}
-          <div className="flex ml-3 px-2 rounded-lg border border-grey1">
-            <Image
-              src={descending}
-              alt=""
-              className=""
-              width={24}
-              height={24}
-              onClick={() => ascendDescend("desc")}
-            />
-            <Image
-              src={ascending}
-              alt=""
-              className=""
-              width={24}
-              height={24}
-              onClick={() => ascendDescend("asc")}
-            />
-          </div>
-        </div>
+            <div className="flex">
+              <Dropdown
+                label={"Provider"}
+                onChange={(orderBy) => setQueryParams({ orderBy })}
+              />
+
+              <div className="flex ml-3 px-2 rounded-lg border border-grey1">
+                <Image
+                  src={descending}
+                  alt=""
+                  className=""
+                  width={24}
+                  height={24}
+                  onClick={() => ascendDescend("desc")}
+                />
+                <Image
+                  src={ascending}
+                  alt=""
+                  className=""
+                  width={24}
+                  height={24}
+                  onClick={() => ascendDescend("asc")}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <table {...getTableProps()} className="w-full relative">
@@ -162,7 +178,9 @@ const Table = ({
               return (
                 <tr
                   {...row.getRowProps()}
-                  onClick={() => onRowPress(row)}
+                  onClick={() => {
+                    onRowPress(row);
+                  }}
                   key={index}
                   className=" hover:bg-dark2 cursor-pointer"
                 >

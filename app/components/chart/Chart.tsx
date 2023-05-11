@@ -17,81 +17,119 @@ import { getStatistics } from "@/lib";
 import {
   FILTERS,
   SERIE_COLORS,
-  createSerie,
+  createSeries,
   setChartParameters,
+  showLoadingIndicator,
+  hideLoadingIndicator,
 } from "./chartUtils";
 import ActionPane from "./ActionPane";
+import signalR from "@/app/utils/singlar";
+import useStore from "@/app/(store)/store";
+import _ from "lodash";
+import BottomSheetModal from "../BottomSheetModal";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
-  // casino,
   dictionary,
   gameId,
   gamesList,
 }: Dictionary & {
   gameId: string;
   gamesList: GameData[];
-  // casino?: CasinoData;
 }) => {
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
-    useState<keyof typeof FILTERS>("All");
+    useState<keyof typeof FILTERS>("1D");
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
   const [mainGameObject, setMainGameObject] = useState<GameData>();
   const [compareGameObject, setCompareGameObject] = useState<GameData>();
+  const [liveResultForMainGame, setLiveResultForMainGame] = useState<number>();
+  const [liveResultForCompareGame, setLiveResultForCompareGame] =
+    useState<number>();
+  const { isOn, newRate, newJackpot, jackpotHasBeenDrawn } = useStore();
 
   const isCompare = useMemo(() => selectedGames.length > 1, [selectedGames]);
 
+  // fetching data, fixing date for chart and reversing it.
   const getAndCorrectStatisticsData = async (newGameId: string) => {
     const statisticsData: Promise<StatisticsData[]> = getStatistics(
       newGameId,
       activeFilterId
     );
+
     let statistics: StatisticsData[] = await statisticsData;
 
-    for (let index = 0; index < statistics.length; index++) {
-      statistics[index].date = new Date(statistics[index].date);
-    }
     // needs to be reversed to correctly show charts.
-    // ToDo how much items to show. currently showing last 100 object!!!
-    const reversedStatistics = statistics.reverse().slice(-150);
+    const reversedStatistics = statistics.reverse();
 
-    // const statisticsLength = reversedStatistics.length;
-    // const showEveryNThItem = Math.floor(statisticsLength / 100);
-    // console.log("showEveryNThItem", statisticsLength, showEveryNThItem);
-
-    // let newArr = [];
-    // for (let x = 0; x < statisticsLength; x += showEveryNThItem) {
-    //   newArr.push(reversedStatistics[x]);
-    // }
-
-    // if (
-    //   newArr[newArr.length - 1].date !==
-    //   reversedStatistics[statisticsLength - 1].date
-    // ) {
-    //   newArr.push(reversedStatistics[statisticsLength - 1]);
-    // }
-    // console.log("new array", newArr);
-    // return newArr;
-
+    for (let index = 0; index < reversedStatistics.length; index++) {
+      reversedStatistics[index].date = new Date(reversedStatistics[index].date);
+    }
+    setLiveResultForMainGame(
+      reversedStatistics[reversedStatistics.length - 1].winRate
+    );
     return reversedStatistics;
+  };
+
+  // fetching and updating data for main and compareGame
+  const getAndUpdateStatisticsData = async () => {
+    let modifiedArrayWithOneOrTwoValue:
+      | StatisticsData[]
+      | { winRate2: number }[] = [];
+
+    chartRef.current && showLoadingIndicator(chartRef.current);
+
+    if (selectedGames.length > 1) {
+      const gameStatistics1 = getAndCorrectStatisticsData(selectedGames[0]);
+      const gameStatistics2 = getAndCorrectStatisticsData(selectedGames[1]);
+
+      const [game1, game2] = await Promise.all([
+        gameStatistics1,
+        gameStatistics2,
+      ]);
+
+      modifiedArrayWithOneOrTwoValue = [...game1];
+      game2.map((elm, i) => {
+        modifiedArrayWithOneOrTwoValue[i].winRate2 = elm.winRate;
+      });
+    } else {
+      const statistics = await getAndCorrectStatisticsData(gameId);
+      modifiedArrayWithOneOrTwoValue = statistics;
+    }
+
+    if (chartRef.current) {
+      chartRef.current.data = modifiedArrayWithOneOrTwoValue;
+      // to zoom on start
+      // const chartDateAxis = chartRef.current.xAxes.getIndex(
+      //   0
+      // ) as am4charts.DateAxis;
+      // chartDateAxis.zoomToDates(
+      //   new Date(modifiedArrayWithOneOrTwoValue[10].date),
+      //   new Date(modifiedArrayWithOneOrTwoValue[1].date)
+      // );
+      hideLoadingIndicator();
+    }
   };
 
   const onPressCompare = () => {
     setOpen(true);
   };
 
+  // add game for compare
   const onAddToCompare = async (GameData: GameData) => {
     const { gameId: compareGameId } = GameData;
     setCompareGameObject(GameData);
     setOpen(false);
 
     setSelectedGames([gameId, compareGameId]);
+
+    chartRef.current && showLoadingIndicator(chartRef.current);
+
     const data = await getAndCorrectStatisticsData(compareGameId);
 
     if (chartRef.current?.data[0].winRate2) {
@@ -103,12 +141,15 @@ const ChartComponent = ({
     });
 
     if (chartRef.current?.data) {
-      const serie2 = chartRef.current.series.push(new am4charts.LineSeries());
-      createSerie(serie2, "date", "winRate2", SERIE_COLORS[1]);
+      const series2 = chartRef.current.series.push(new am4charts.LineSeries());
+      createSeries(series2, "date", "winRate2", SERIE_COLORS[1]);
       chartRef.current.validateData();
+      hideLoadingIndicator();
     }
+    setLiveResultForCompareGame(data[data.length - 1].winRate);
   };
 
+  // remove game for compare
   const onPressRemove = () => {
     setCompareGameObject(undefined);
     setSelectedGames([gameId]);
@@ -121,51 +162,148 @@ const ChartComponent = ({
     }
   };
 
-  useEffect(() => {
-    const mainGame = gamesList.find((x) => x.gameId === gameId);
-    setMainGameObject(mainGame);
-  }, [gameId, gamesList]);
+  // for statistics live update
+  const updateStatistic = async (
+    newGameId: string,
+    timeStamp: number,
+    compareGameId?: string
+  ) => {
+    if (chartRef.current) {
+      let statistics;
+      const statisticsData: Promise<StatisticsData[]> = getStatistics(
+        newGameId,
+        activeFilterId,
+        timeStamp
+      );
 
+      // if we are comparing one game to another this statement will happen
+      if (compareGameId) {
+        const compareStatisticsData: Promise<StatisticsData[]> = getStatistics(
+          compareGameId,
+          activeFilterId,
+          timeStamp
+        );
+        const [mainStatistic, compareStatistics] = await Promise.all([
+          statisticsData,
+          compareStatisticsData,
+        ]);
+        statistics = mainStatistic[0];
+
+        if (compareStatistics[0]?.winRate) {
+          statistics.winRate2 = compareStatistics[0]?.winRate;
+        }
+      } else {
+        const mainStatistic = await statisticsData;
+        statistics = mainStatistic[0];
+      }
+
+      // fixing date for chart
+      statistics.date = new Date(statistics.date);
+
+      // compare timestamps of last item in data and newly fetched. if the are different it means we have to add new date on dateAxis
+      if (
+        statistics.timeStamp !=
+        chartRef.current.data[chartRef.current.data.length - 1].timeStamp
+      ) {
+        console.log("statistics", statistics);
+        chartRef.current.addData(statistics, 1);
+      } else {
+        const series1 = chartRef.current.series.getIndex(0);
+        const series2 = chartRef.current.series.getIndex(1);
+
+        if (series1) {
+          const Series1Length = series1.dataItems.length;
+          const lastItemInSeries1 = series1.dataItems.getIndex(
+            Series1Length - 1
+          );
+          if (lastItemInSeries1) {
+            lastItemInSeries1.valueY = statistics.winRate;
+          }
+        }
+        if (series2 && statistics.winRate2) {
+          const Series2Length = series2.dataItems.length;
+          const lastItemInSeries2 = series2.dataItems.getIndex(
+            Series2Length - 1
+          );
+          if (lastItemInSeries2) {
+            lastItemInSeries2.valueY = statistics.winRate2;
+            setLiveResultForCompareGame(statistics.winRate2);
+          }
+        }
+      }
+      setLiveResultForMainGame(statistics.winRate);
+    }
+  };
+
+  // calling signalR and checking for updates
+  useEffect(() => {
+    if (!isOn) {
+      signalR();
+    }
+    if (
+      newRate?.gameId === gameId ||
+      newRate?.gameId === compareGameObject?.gameId
+    ) {
+      const last = chartRef.current?.data[chartRef.current?.data.length - 1];
+
+      if (last && activeFilterId !== "All") {
+        if (compareGameObject) {
+          updateStatistic(gameId, last.timeStamp, compareGameObject.gameId);
+        } else {
+          updateStatistic(gameId, last.timeStamp);
+        }
+      }
+    }
+    // if (newJackpot) {
+    //   console.log("newJackpot>>>:", newJackpot);
+    // }
+    // if (jackpotHasBeenDrawn) {
+    //   console.log("jackpotHasBeenDrawn>>>:", jackpotHasBeenDrawn);
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isOn,
+    gameId,
+    newRate,
+    // newJackpot,
+    //  jackpotHasBeenDrawn,
+  ]);
+
+  // creating chart
   useEffect(() => {
     const chart = am4core.create("chartdiv", am4charts.XYChart);
-    let modifiedArrayWithOneOrTwoValue:
-      | StatisticsData[]
-      | { winRate2: number }[] = [];
-
-    (async () => {
-      if (selectedGames.length > 1) {
-        const gameStatistics1 = getAndCorrectStatisticsData(selectedGames[0]);
-        const gameStatistics2 = getAndCorrectStatisticsData(selectedGames[1]);
-
-        const [game1, game2] = await Promise.all([
-          gameStatistics1,
-          gameStatistics2,
-        ]);
-
-        modifiedArrayWithOneOrTwoValue = [...game1];
-        game2.map((elm, i) => {
-          modifiedArrayWithOneOrTwoValue[i].winRate2 = elm.winRate;
-        });
-      } else {
-        const statistics = await getAndCorrectStatisticsData(gameId);
-        modifiedArrayWithOneOrTwoValue = statistics;
-      }
-
-      chart.data = modifiedArrayWithOneOrTwoValue;
-      setChartParameters(chart);
-
-      if (modifiedArrayWithOneOrTwoValue[0].winRate2 != undefined) {
-        const serie2 = chart.series.push(new am4charts.LineSeries());
-        createSerie(serie2, "date", "winRate2", SERIE_COLORS[1]);
-      }
-      chartRef.current = chart;
-    })();
+    chartRef.current = chart;
+    setChartParameters(chart);
 
     return () => {
       chart.dispose();
     };
+  }, []);
+  // after changing filter this will update chart and chart data.
+  useEffect(() => {
+    getAndUpdateStatisticsData();
+    if (chartRef.current) {
+      if (chartRef.current && activeFilterId === "1M") {
+        chartRef.current.cursor.behavior = "none";
+        chartRef.current.zoomOutButton.disabled = true;
+        chartRef.current.mouseWheelBehavior = "none";
+      } else {
+        chartRef.current.cursor.behavior = "zoomX";
+        chartRef.current.mouseWheelBehavior = "panXY";
+        chartRef.current.zoomOutButton.disabled = false;
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilterId]);
+  // setting main game object to the state
+  useEffect(() => {
+    const mainGame = gamesList.find((x) => {
+      return x.gameId === gameId;
+    });
+    console.log("mainGame", mainGame);
+    setMainGameObject(mainGame);
+  }, []);
 
   return (
     <>
@@ -177,12 +315,15 @@ const ChartComponent = ({
           <div className="mt-3 flex items-center justify-between lg:mt-0">
             {selectedGames.length && (
               <div
-                className="pointer flex items-center justify-center rounded-xl py-3 px-4"
+                className="pointer flex items-center justify-center rounded-xl py-3 px-4 "
                 style={{ backgroundColor: SERIE_COLORS[0] + "3D" }}
               >
                 <BulletIcon color={SERIE_COLORS[0]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  {casinoName} {mainGameObject?.name}
+                  {casinoName} {mainGameObject?.name}{" "}
+                </span>
+                <span className="ml-2 text-blue2 font-bold w-14">
+                  {liveResultForMainGame}%
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>
@@ -194,7 +335,10 @@ const ChartComponent = ({
               >
                 <BulletIcon color={SERIE_COLORS[1]} size={20} />
                 <span className="ml-2 text-sm font-bold leading-4 text-white">
-                  {casinoName} {compareGameObject?.name}
+                  {compareGameObject?.casinoName} {compareGameObject?.name}
+                </span>
+                <span className="ml-2 text-blue2 font-bold w-14">
+                  {liveResultForCompareGame}%
                 </span>
                 <Image src={live} alt="" className="ml-3" />
               </div>
@@ -212,6 +356,7 @@ const ChartComponent = ({
               activeFilterId={activeFilterId}
               onPressFilter={setActiveFilterId}
             />
+
             <div
               id="chartdiv"
               className="h-[550px] w-full rounded-3xl bg-dark1"
@@ -219,60 +364,11 @@ const ChartComponent = ({
           </div>
         </div>
       </div>
-      <BottomSheet
-        snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight / 0.6]}
+      <BottomSheetModal
         open={open}
-        onDismiss={() => {
-          setOpen(false);
-        }}
-      >
-        <div className="bg-dark1 py-8 px-4 flex justify-center">
-          <div className=" w-[100%] max-w-screen-xl">
-            <div className="flex items-center justify-between">
-              <button
-                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <Image
-                  src={back}
-                  alt=""
-                  className="h-6 w-6"
-                  width={24}
-                  height={24}
-                />
-              </button>
-              <span className=" text-2xl leading-4  text-white">
-                Choose game from Adjarabet
-              </span>
-
-              <button
-                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <Image
-                  src={close}
-                  alt=""
-                  className="h-6 w-6"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            </div>
-            <div className="py-8">
-              <Table
-                columns={CASINO_GAME_COLS}
-                tableBodyData={gamesList}
-                showFilter={true}
-                onAddToCompare={onAddToCompare}
-              />
-            </div>
-          </div>
-        </div>
-      </BottomSheet>
+        setOpen={setOpen}
+        onAddToCompare={onAddToCompare}
+      />
     </>
   );
 };

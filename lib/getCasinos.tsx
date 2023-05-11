@@ -4,12 +4,12 @@ export default async function getCasinos({
   orderBy,
   keyWord,
   direction,
-}: QueryParams) {
+}: QueryParams ) {
   const res = await slotStatClient.request({
-    url: "/api/casino/aggregateda",
+    url: "/api/casino/aggregated",
     method: "GET",
     params: {
-      direction: direction,
+      direction,
       orderBy,
       keyWord,
     },

@@ -134,3 +134,8 @@ type QueryParams = {
   keyWord?: string;
   direction?: string;
 };
+
+type GetGamesFromChosenCasinoProps = {
+  casinoId: string;
+  name: string;
+};

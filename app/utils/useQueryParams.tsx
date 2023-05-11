@@ -6,7 +6,7 @@ export default function useQueryParams() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const urlSearchParams = new URLSearchParams(searchParams);
+  const urlSearchParams = new URLSearchParams(searchParams.toString());
 
   function setQueryParams(param: QueryParams) {
     Object.entries(param).forEach(([key, value]) => {

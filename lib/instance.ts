@@ -1,7 +1,7 @@
 //<ROOT>/shared/APIKit.js
 import axios from "axios";
 
-const baseUrl = "https://stagingapi.slotstat.ge";
+export const baseUrl = "https://stagingapi.slotstat.ge";
 
 let slotStatClient = axios.create({
   baseURL: baseUrl,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { MobileNav } from "@material-tailwind/react";
+import { Collapse } from "@material-tailwind/react";
 
 import { logo, menu } from "@/app/assets";
 import Image from "next/image";
@@ -76,11 +76,11 @@ const Header = ({ dictionary }: Dictionary) => {
           </button>
         </div>
       </div>
-      <MobileNav open={navbarOpen}>
+      <Collapse open={navbarOpen}>
         <div className="lg:hidden">
           <NavList dictionary={dictionary} />
         </div>
-      </MobileNav>
+      </Collapse>
     </header>
   );
 };

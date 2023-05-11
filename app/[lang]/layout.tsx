@@ -2,12 +2,11 @@ import "../globals.css";
 
 import { ThemeProvider } from "../components/ThemeProviderClientSide";
 import { ReactNode } from "react";
-import { Locale } from "../i18n/i18n-config";
+import { Locale, i18n } from "../i18n/i18n-config";
 import type { Metadata } from "next";
-import { i18n } from "../i18n/i18n-config";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { getDictionary } from "../i18n/get-dictionary";
 import Header from "../components/navbar/Header";
-import Breadcrumbs from "../components/Breadcrumbs";
 import Footer from "../components/Footer";
 
 // export async function generateStaticParams() {
@@ -27,6 +26,8 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const dictionary = await getDictionary(params.lang);
+
+  
   return (
     <html lang={params.lang}>
       <body>

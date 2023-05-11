@@ -13,10 +13,15 @@ const Dropdown = ({
   const [helper, setHelper] = useState(false);
 
   const debouncedSearch = useCallback(
-    _.debounce((v) => {
+    (v: any) => {
       setHelper(!helper);
       onChange(v);
-    }, 500),
+    },
+    // _.debounce((v) => {
+    //   console.log("object", v);
+    //   setHelper(!helper);
+    //   onChange(v);
+    // }, 0),
     []
   );
 
