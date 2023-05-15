@@ -84,6 +84,7 @@ interface CasinoData extends GameData {
   pallTime: number;
   t1H: number;
   t24h: number;
+  redirectUrl: string;
 }
 
 type GameData = {
@@ -101,6 +102,7 @@ type GameData = {
   t24h: number;
   casinoId?: string;
   casinoName: string;
+  redirectUrl: string;
 };
 
 type gamesList = {

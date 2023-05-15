@@ -112,13 +112,14 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   //     return dataItem.position;
   // })
 
-  dateAxis.renderer.minGridDistance = 70;
-  dateAxis.renderer.grid.template.location = 0;
   dateAxis.tooltip.disabled = true;
-  dateAxis.renderer.grid.template.disabled = true;
   dateAxis.renderer.labels.template.fill = am4core.color("#969CB0");
   dateAxis.renderer.labels.template.fontSize = 12;
   dateAxis.renderer.labels.template.fontWeight = "normal";
+  // dateAxis.renderer.grid.template.location = 0;
+  // dateAxis.renderer.grid.template.disabled = false;
+  dateAxis.renderer.grid.template.stroke = "#5887F6";
+  dateAxis.renderer.grid.template.stroke = "#5887F6";
 
   dateAxis.startLocation = 0.5;
   dateAxis.endLocation = 0.5;
@@ -135,7 +136,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   valueAxis.renderer.labels.template.fill = am4core.color("#969CB0");
   valueAxis.renderer.labels.template.fontSize = 12;
   valueAxis.renderer.labels.template.fontWeight = "normal";
-  valueAxis.renderer.grid.template.disabled = true;
+  // valueAxis.renderer.grid.template.disabled = true;
 
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
@@ -143,6 +144,15 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   // valueAxis.min = 0;
   // valueAxis.max = 100;
+
+  // grid
+  // dateAxis.renderer.grid.template.location = 0;
+  // dateAxis.renderer.grid.template.disabled = false;
+  dateAxis.renderer.grid.template.stroke = "#36383D";
+  valueAxis.renderer.grid.template.stroke = "#36383D";
+  dateAxis.renderer.minGridDistance = 60;
+  valueAxis.renderer.minGridDistance =50;
+
 
   // create series
   const series1 = chart.series.push(new am4charts.LineSeries());
@@ -194,6 +204,8 @@ export const hideLoadingIndicator = () => {
 
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];
 export const FILTERS = {
+  "5s": { label: "5s" },
+  "10s": { label: "10s" },
   "1M": { label: "1M" },
   "10M": { label: "10M" },
   "1H": { label: "1h" },

@@ -5,6 +5,7 @@ import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
 import { getCasino, getCasinoCards, getGamesList } from "@/lib";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 // import useSignalR from "@/app/utils/singlar";
 
 export const metadata: Metadata = {
@@ -26,6 +27,10 @@ export default async function Casino({
     gamesListData,
     gamesCardsData,
   ]);
+
+  const GameExists = gamesList.results.find((obj) => obj.gameId === gameId);
+  if (!GameExists) return notFound();
+
   return (
     <>
       <Stats cardsData={gameCards} rows={2} />

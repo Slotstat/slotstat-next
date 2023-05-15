@@ -21,6 +21,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
+import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 
 type Props = {
   columns: Array<CasinoCols>;
@@ -50,6 +51,7 @@ const Table = ({
 
   const router = useRouter();
   const pathName = usePathname();
+  const [ascDesc, setAscDesc] = useState<boolean>(true);
 
   const getPath = () => {
     const secondParameterInPath = 2;
@@ -91,15 +93,10 @@ const Table = ({
     useSortBy,
     usePagination
   );
-  const ascendDescend = useCallback(
-    (direction: string) => {
-      setQueryParams({ direction });
-    },
-    // _.debounce((direction: string) => {
-    //   setQueryParams({ direction });
-    // }, 1),
-    []
-  );
+  const ascendDescend = useCallback((direction: string, active: boolean) => {
+    setAscDesc(active);
+    setQueryParams({ direction });
+  }, []);
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
@@ -110,13 +107,22 @@ const Table = ({
               setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
             />
             <div className="flex">
-              <Dropdown
-                label={"Provider"}
+              {/* <Dropdown
+                label={"Sort by"}
+                orderBy={orderBy}
                 onChange={(orderBy) => setQueryParams({ orderBy })}
-              />
+              /> */}
 
-              <div className="flex ml-3 px-2 rounded-lg border border-grey1">
-                <Image
+              <div className="flex items-center ml-3 px-2 rounded-lg border border-grey1">
+                <Ascending
+                  onClick={() => ascendDescend("asc", true)}
+                  activity={ascDesc}
+                />
+                <Descending
+                  onClick={() => ascendDescend("desc", false)}
+                  activity={ascDesc}
+                />
+                {/* <Image
                   src={descending}
                   alt=""
                   className=""
@@ -131,7 +137,7 @@ const Table = ({
                   width={24}
                   height={24}
                   onClick={() => ascendDescend("asc")}
-                />
+                /> */}
               </div>
             </div>
           </>
@@ -196,7 +202,12 @@ const Table = ({
                         })}
                         key={index}
                       >
-                        <RenderRowCells cell={cell} row={row} index={index} />
+                        <RenderRowCells
+                          cell={cell}
+                          row={row}
+                          index={index}
+                          onRowPress={() => onRowPress(row)}
+                        />
                       </td>
                     );
                   })}

@@ -1,6 +1,6 @@
-'use client'; // Error components must be Client components
-
-import { useEffect } from 'react';
+"use client"; // Error components must be Client components
+import { useEffect } from "react";
+import { Error404 } from "../components";
 
 export default function Error({
   error,
@@ -9,22 +9,10 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+  //  // Log the error to an error reporting service
+  // useEffect(() => {
+  //   console.error(error);
+  // }, [error]);
 
-  return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
-  );
+  return <Error404 reset={reset} />;
 }

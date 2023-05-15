@@ -8,6 +8,7 @@ import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Slider from "./Slider";
 import Stats from "./Stats";
 import SubscribeButton from "./SubscribeButton";
+import Error404 from "./Error404";
 
 import Table from "./table/Table";
 
@@ -23,4 +24,5 @@ export {
   Breadcrumbs,
   BulletIcon,
   Table,
+  Error404
 };

@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
-
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
-import { back, close, live } from "../../assets";
-import { CASINO_GAME_COLS } from "../table/columns";
+import { live } from "../../assets";
 import BulletIcon from "../BulletIcon";
 import Image from "next/image";
-import { Table } from "..";
 import { getStatistics } from "@/lib";
 import {
   FILTERS,
@@ -27,6 +22,7 @@ import signalR from "@/app/utils/singlar";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
 import BottomSheetModal from "../BottomSheetModal";
+import { notFound } from "next/navigation";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -81,7 +77,7 @@ const ChartComponent = ({
     let modifiedArrayWithOneOrTwoValue:
       | StatisticsData[]
       | { winRate2: number }[] = [];
-
+    // hideLoadingIndicator();
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     if (selectedGames.length > 1) {
@@ -205,7 +201,6 @@ const ChartComponent = ({
         statistics.timeStamp !=
         chartRef.current.data[chartRef.current.data.length - 1].timeStamp
       ) {
-        console.log("statistics", statistics);
         chartRef.current.addData(statistics, 1);
       } else {
         const series1 = chartRef.current.series.getIndex(0);
@@ -283,7 +278,11 @@ const ChartComponent = ({
   useEffect(() => {
     getAndUpdateStatisticsData();
     if (chartRef.current) {
-      if (chartRef.current && activeFilterId === "1M") {
+      if (
+        (chartRef.current && activeFilterId === "1M") ||
+        activeFilterId === "10s" ||
+        activeFilterId === "5s"
+      ) {
         chartRef.current.cursor.behavior = "none";
         chartRef.current.zoomOutButton.disabled = true;
         chartRef.current.mouseWheelBehavior = "none";
