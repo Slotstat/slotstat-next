@@ -1,12 +1,12 @@
 import slotStatClient from "./instance";
 
-export default async function getStatistics(
-  gameId: string,
+export default async function getCasinoStatistics(
+    casinoId: string,
   activeFilterId: string,
   timeStamp?: number
 ) {
   const res = await slotStatClient.request({
-    url: `/api/statistic/game/${gameId}?interval=_${activeFilterId}`,
+    url: `/api/statistic/casino/${casinoId}?interval=_${activeFilterId}`,
     method: "GET",
     params: {
       interval: `_${activeFilterId}`,

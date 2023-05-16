@@ -47,7 +47,7 @@ export default async function Casino({
           <Table
             columns={CASINO_GAME_COLS}
             tableBodyData={gamesList.results}
-            showFilter={true}
+            showFilter={false}
           />
         </div>
       </div>

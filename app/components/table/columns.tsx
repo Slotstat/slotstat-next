@@ -87,7 +87,7 @@ const CASINO_GAME_COLS = [
 ];
 
 const SORT_BY = [
-  { label: "None", value: "", id: "0" },
+  { label: "", value: "", id: "0" },
   { label: "Win rate last 24h", id: "1", value: "p24h" },
   { label: "Win rate last 1h", id: "2", value: "p1h" },
   { label: "Jackpot", id: "3", value: "jackpot" },

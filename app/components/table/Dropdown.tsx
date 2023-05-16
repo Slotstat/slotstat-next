@@ -39,7 +39,7 @@ const Dropdown = ({
         }}
         label={label}
         onChange={debouncedSearch}
-        className="w-full rounded-lg text-grey1 "
+        className="w-full rounded-lg text-white "
       >
         {SORT_BY.map((item) => (
           <Option key={item.id} value={item.value}>

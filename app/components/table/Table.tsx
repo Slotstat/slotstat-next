@@ -11,7 +11,7 @@ import {
   useTable,
 } from "react-table";
 
-import { ascending, back, descending } from "../../assets";
+import { back } from "../../assets";
 import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
 import Image from "next/image";
@@ -93,10 +93,12 @@ const Table = ({
     useSortBy,
     usePagination
   );
+
   const ascendDescend = useCallback((direction: string, active: boolean) => {
     setAscDesc(active);
     setQueryParams({ direction });
   }, []);
+
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
@@ -107,11 +109,11 @@ const Table = ({
               setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
             />
             <div className="flex">
-              {/* <Dropdown
+              <Dropdown
                 label={"Sort by"}
                 orderBy={orderBy}
                 onChange={(orderBy) => setQueryParams({ orderBy })}
-              /> */}
+              />
 
               <div className="flex items-center ml-3 px-2 rounded-lg border border-grey1">
                 <Ascending
@@ -122,61 +124,37 @@ const Table = ({
                   onClick={() => ascendDescend("desc", false)}
                   activity={ascDesc}
                 />
-                {/* <Image
-                  src={descending}
-                  alt=""
-                  className=""
-                  width={24}
-                  height={24}
-                  onClick={() => ascendDescend("desc")}
-                />
-                <Image
-                  src={ascending}
-                  alt=""
-                  className=""
-                  width={24}
-                  height={24}
-                  onClick={() => ascendDescend("asc")}
-                /> */}
               </div>
             </div>
           </>
         )}
       </div>
 
-      <table {...getTableProps()} className="w-full relative">
-        <thead>
-          {headerGroups.map((headerGroup, index) => (
-            <tr {...headerGroup.getHeaderGroupProps()} key={index}>
-              {headerGroup.headers.map((col, i) => (
-                <th
-                  {...col.getHeaderProps({
-                    style: {
-                      maxWidth: col.maxWidth,
-                      minWidth: col.minWidth,
-                      width: col.width,
-                    },
-                  })}
-                  key={i}
-                >
-                  <div className="flex items-center">
-                    {col.render("Header")}
-                    {col.isSorted && (
-                      <span>
-                        <Image
-                          src={col.isSortedDesc ? descending : ascending}
-                          alt=""
-                          className="ml-3"
-                        />
-                      </span>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        {data.length > 0 ? (
+      {data?.length > 0 ? (
+        <table {...getTableProps()} className="w-full relative">
+          <thead>
+            {headerGroups.map((headerGroup, index) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={index}>
+                {headerGroup.headers.map((col, i) => (
+                  <th
+                    {...col.getHeaderProps({
+                      style: {
+                        maxWidth: col.maxWidth,
+                        minWidth: col.minWidth,
+                        width: col.width,
+                      },
+                    })}
+                    key={i}
+                  >
+                    <div className="flex items-center">
+                      {col.render("Header")}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+
           <tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
               prepareRow(row);
@@ -215,13 +193,11 @@ const Table = ({
               );
             })}
           </tbody>
-        ) : (
-          // ToDo beautiful error
-          <div className="flex justify-center items-center h-15 w-full absolute">
-            casinos not found
-          </div>
-        )}
-      </table>
+        </table>
+      ) : (
+        <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">{`Oops, item with the name "${keyWord}" not found`}</div>
+      )}
+
       {pageCount > 1 && (
         <div className="my-8 flex justify-center">
           <ReactPaginate

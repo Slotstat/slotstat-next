@@ -20,16 +20,14 @@ export default async function Home({
     direction,
   });
   const landingCardsData: Promise<Card[]> = getLandingCards();
-  const [casinos, 
-    landingCards
-  ] = await Promise.all([
+  const [casinos, landingCards] = await Promise.all([
     casinosData,
     landingCardsData,
   ]);
 
   return (
     <>
-      { <Stats cardsData={landingCards} rows={1} />}
+      <Stats cardsData={landingCards} rows={1} />
       <Slider data={SLIDES} />
       <div className="my-6 px-4 lg:my-18 ">
         <Table
