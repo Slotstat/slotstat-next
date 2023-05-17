@@ -76,6 +76,7 @@ const ChartComponent = ({
     let modifiedArrayWithOneOrTwoValue:
       | StatisticsData[]
       | { winRate2: number }[] = [];
+    // hideLoadingIndicator();
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     if (selectedGames.length > 1) {
@@ -96,13 +97,21 @@ const ChartComponent = ({
       modifiedArrayWithOneOrTwoValue = statistics;
     }
     if (!chartRef.current) {
+      console.log("1111");
       const chart = am4core.create("chartdiv", am4charts.XYChart);
       chartRef.current = chart;
       chart.data = modifiedArrayWithOneOrTwoValue;
       setChartParameters(chart);
     } else {
-      chartRef.current.data = modifiedArrayWithOneOrTwoValue;
+      console.log("2222");
 
+      chartRef.current.data = modifiedArrayWithOneOrTwoValue;
+      // const chartDateAxis = chartRef.current.xAxes.getIndex(
+      //   0
+      // ) as am4charts.DateAxis;
+      // chartDateAxis.start = 0.8;
+      // chartDateAxis.end = 1;
+      // chartDateAxis.keepSelection = true;
       hideLoadingIndicator();
     }
   };
@@ -259,13 +268,17 @@ const ChartComponent = ({
     //  jackpotHasBeenDrawn,
   ]);
 
+  // dispose chart
+  useEffect(() => {
+    return () => {
+      chartRef.current && chartRef.current.dispose();
+    };
+  }, []);
+
   // after changing filter this will update chart and chart data.
   useEffect(() => {
     getAndUpdateStatisticsData();
 
-    return () => {
-      chartRef.current && chartRef.current.dispose();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilterId]);
 
