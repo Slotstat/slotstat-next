@@ -5,8 +5,9 @@ import { SLIDES } from "../utils/mockData";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "slot111",
+  title: "SlotStat",
   description: "slot stat high level",
+  
 };
 
 export default async function Home({

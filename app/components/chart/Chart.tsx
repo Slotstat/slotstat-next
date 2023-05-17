@@ -22,7 +22,6 @@ import signalR from "@/app/utils/singlar";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
 import BottomSheetModal from "../BottomSheetModal";
-import { notFound } from "next/navigation";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -38,7 +37,7 @@ const ChartComponent = ({
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
-    useState<keyof typeof FILTERS>("1D");
+    useState<keyof typeof FILTERS>("5s");
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
@@ -77,7 +76,6 @@ const ChartComponent = ({
     let modifiedArrayWithOneOrTwoValue:
       | StatisticsData[]
       | { winRate2: number }[] = [];
-    // hideLoadingIndicator();
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     if (selectedGames.length > 1) {
@@ -97,17 +95,14 @@ const ChartComponent = ({
       const statistics = await getAndCorrectStatisticsData(gameId);
       modifiedArrayWithOneOrTwoValue = statistics;
     }
-
-    if (chartRef.current) {
+    if (!chartRef.current) {
+      const chart = am4core.create("chartdiv", am4charts.XYChart);
+      chartRef.current = chart;
+      chart.data = modifiedArrayWithOneOrTwoValue;
+      setChartParameters(chart);
+    } else {
       chartRef.current.data = modifiedArrayWithOneOrTwoValue;
-      // to zoom on start
-      // const chartDateAxis = chartRef.current.xAxes.getIndex(
-      //   0
-      // ) as am4charts.DateAxis;
-      // chartDateAxis.zoomToDates(
-      //   new Date(modifiedArrayWithOneOrTwoValue[10].date),
-      //   new Date(modifiedArrayWithOneOrTwoValue[1].date)
-      // );
+
       hideLoadingIndicator();
     }
   };
@@ -201,7 +196,7 @@ const ChartComponent = ({
         statistics.timeStamp !=
         chartRef.current.data[chartRef.current.data.length - 1].timeStamp
       ) {
-        chartRef.current.addData(statistics, 1);
+        chartRef.current.addData(statistics);
       } else {
         const series1 = chartRef.current.series.getIndex(0);
         const series2 = chartRef.current.series.getIndex(1);
@@ -264,43 +259,21 @@ const ChartComponent = ({
     //  jackpotHasBeenDrawn,
   ]);
 
-  // creating chart
-  useEffect(() => {
-    const chart = am4core.create("chartdiv", am4charts.XYChart);
-    chartRef.current = chart;
-    setChartParameters(chart);
-
-    return () => {
-      chart.dispose();
-    };
-  }, []);
   // after changing filter this will update chart and chart data.
   useEffect(() => {
     getAndUpdateStatisticsData();
-    if (chartRef.current) {
-      if (
-        (chartRef.current && activeFilterId === "1M") ||
-        activeFilterId === "10s" ||
-        activeFilterId === "5s"
-      ) {
-        chartRef.current.cursor.behavior = "none";
-        chartRef.current.zoomOutButton.disabled = true;
-        chartRef.current.mouseWheelBehavior = "none";
-      } else {
-        chartRef.current.cursor.behavior = "zoomX";
-        chartRef.current.mouseWheelBehavior = "panXY";
-        chartRef.current.zoomOutButton.disabled = false;
-      }
-    }
 
+    return () => {
+      chartRef.current && chartRef.current.dispose();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilterId]);
+
   // setting main game object to the state
   useEffect(() => {
     const mainGame = gamesList.find((x) => {
       return x.gameId === gameId;
     });
-    console.log("mainGame", mainGame);
     setMainGameObject(mainGame);
   }, []);
 

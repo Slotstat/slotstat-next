@@ -11,7 +11,7 @@ export default async function getStatistics(
     params: {
       interval: `_${activeFilterId}`,
       timeStamp,
-      rowCount: 100,
+      // rowCount: 100,
     },
   });
   if (res.status != 200) throw new Error("failed to fetch");

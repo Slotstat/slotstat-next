@@ -61,72 +61,36 @@ export const createSeries = (
   // s.minBulletDistance = 40;
 
   s.tooltipHTML = getTooltip(xv, yv, color);
-  // s.tooltip.getFillFromObject = false;
+  s.tooltip.getFillFromObject = false;
   s.tooltip.label.padding(0, 0, 0, 0);
   s.tooltip.background.cornerRadius = 14;
   s.tooltip.background.strokeOpacity = 0;
   s.tooltip.background.fill = am4core.color("#24262C");
-
-  s.events.on("over", function (ev) {
-    console.log("over11111");
-    // Get the current tooltip object for the series
-    var tooltip = series.tooltip.getFillFromObject();
-
-    // Set the tooltipHTML to a custom value based on the valueY of the data point
-    var dataValue = ev.target.dataItem.valueY;
-    if (dataValue < 10) {
-      tooltip.tooltipHTML =
-        "<span style='color:red'><b>" +
-        ev.target.dataItem.categoryX +
-        "</b>: " +
-        dataValue +
-        "</span>";
-    } else {
-      tooltip.tooltipHTML =
-        "<span style='color:green'><b>" +
-        ev.target.dataItem.categoryX +
-        "</b>: " +
-        dataValue +
-        "</span>";
-    }
-  });
 
   // s.tooltip.pointerOrientation = "up";
 };
 
 export const setChartParameters = (chart: am4charts.XYChart) => {
   const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-  // dateAxis.dataFields.date = "date";
+
   chart.hiddenState.properties.opacity = 0;
   dateAxis.dateFormatter = new am4core.DateFormatter();
   dateAxis.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
 
-  // chart.padding(0, 0, 0, 0);
   dateAxis.renderer.axisFills.template.disabled = true;
   dateAxis.renderer.ticks.template.disabled = true;
   dateAxis.interpolationDuration = 500;
   dateAxis.rangeChangeDuration = 500;
 
-  //   dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (fillOpacity, target) {
-  //     var dataItem = target.dataItem;
-  //     return dataItem.position;
-  // })
-
   dateAxis.tooltip.disabled = true;
   dateAxis.renderer.labels.template.fill = am4core.color("#969CB0");
   dateAxis.renderer.labels.template.fontSize = 12;
   dateAxis.renderer.labels.template.fontWeight = "normal";
-  // dateAxis.renderer.grid.template.location = 0;
-  // dateAxis.renderer.grid.template.disabled = false;
-  dateAxis.renderer.grid.template.stroke = "#5887F6";
-  dateAxis.renderer.grid.template.stroke = "#5887F6";
+
 
   dateAxis.startLocation = 0.5;
-  dateAxis.endLocation = 0.5;
+  dateAxis.endLocation = 10;
   dateAxis.keepSelection = true;
-  dateAxis.endLocation = 5;
-
-  // dateAxis.zoomToDates([new Date("2023-03-01"), new Date("2023-06-30")]);
 
   const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
   valueAxis.interpolationDuration = 500;
@@ -136,23 +100,40 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   valueAxis.renderer.labels.template.fill = am4core.color("#969CB0");
   valueAxis.renderer.labels.template.fontSize = 12;
   valueAxis.renderer.labels.template.fontWeight = "normal";
-  // valueAxis.renderer.grid.template.disabled = true;
 
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
   valueAxis.keepSelection = true;
 
-  // valueAxis.min = 0;
-  // valueAxis.max = 100;
+  valueAxis.min = 0;
+  valueAxis.max = 100;
 
   // grid
+  dateAxis.renderer.grid.template.stroke = "#FFFFFF66";
+  valueAxis.renderer.grid.template.stroke = "#FFFFFF66";
   // dateAxis.renderer.grid.template.location = 0;
-  // dateAxis.renderer.grid.template.disabled = false;
-  dateAxis.renderer.grid.template.stroke = "#36383D";
-  valueAxis.renderer.grid.template.stroke = "#36383D";
-  dateAxis.renderer.minGridDistance = 60;
-  valueAxis.renderer.minGridDistance =50;
+  // dateAxis.renderer.grid.template.disabled = true;
+  // valueAxis.renderer.grid.template.disabled = true;
+  // dateAxis.renderer.minGridDistance = 60;
+  // valueAxis.renderer.minGridDistance = 50;
 
+  dateAxis.showOnInit = false;
+  chart.events.on("ready", function () {
+    dateAxis.start = 0.8;
+    dateAxis.end = 1;
+
+    // alternative version of zoom
+    // 1
+    // dateAxis.zoom({ start: 3 / 15, end: 1.2 }, false, true);
+    // 2
+    // const chartData = chart.data;
+    // dateAxis.zoomToDates(
+    //   new Date(chartData[chartData.length - 20].date),
+    //   new Date(),
+    //   false,
+    //   true
+    // );
+  });
 
   // create series
   const series1 = chart.series.push(new am4charts.LineSeries());
@@ -167,10 +148,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   chart.mouseWheelBehavior = "panXY";
 
-  chart.events.on("datavalidated", function () {
-    dateAxis.zoom({ start: 3 / 15, end: 1.2 }, false, true);
-  });
-
   // bottom scrollbar
   // const scrollbarX = new am4charts.XYChartScrollbar();
   // scrollbarX.series.push(serie1);
@@ -180,6 +157,10 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.legend = new am4charts.Legend();
+
+  chart.cursor.behavior = "zoomX";
+  chart.mouseWheelBehavior = "panXY";
+  chart.zoomOutButton.disabled = false;
 };
 
 var indicator;
@@ -205,9 +186,9 @@ export const hideLoadingIndicator = () => {
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];
 export const FILTERS = {
   "5s": { label: "5s" },
-  "10s": { label: "10s" },
+  // "10s": { label: "10s" },
   "1M": { label: "1M" },
-  "10M": { label: "10M" },
+  // "10M": { label: "10M" },
   "1H": { label: "1h" },
   "12H": { label: "12h" },
   "1D": { label: "24h" },
