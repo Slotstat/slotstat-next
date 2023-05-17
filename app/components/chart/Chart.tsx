@@ -97,21 +97,13 @@ const ChartComponent = ({
       modifiedArrayWithOneOrTwoValue = statistics;
     }
     if (!chartRef.current) {
-      console.log("1111");
       const chart = am4core.create("chartdiv", am4charts.XYChart);
       chartRef.current = chart;
       chart.data = modifiedArrayWithOneOrTwoValue;
       setChartParameters(chart);
     } else {
-      console.log("2222");
-
       chartRef.current.data = modifiedArrayWithOneOrTwoValue;
-      // const chartDateAxis = chartRef.current.xAxes.getIndex(
-      //   0
-      // ) as am4charts.DateAxis;
-      // chartDateAxis.start = 0.8;
-      // chartDateAxis.end = 1;
-      // chartDateAxis.keepSelection = true;
+
       hideLoadingIndicator();
     }
   };
