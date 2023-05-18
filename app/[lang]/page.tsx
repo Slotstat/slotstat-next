@@ -26,7 +26,7 @@ export default async function Home({
 
   return (
     <>
-      <Stats cardsData={landingCards} rows={1} />
+      <Stats cardsData={landingCards} landing={true} />
       <Slider />
       <div className="my-6 px-4 lg:my-18 ">
         <Table

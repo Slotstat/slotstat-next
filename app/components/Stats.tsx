@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { Tooltip } from "@material-tailwind/react";
 import { useKeenSlider } from "keen-slider/react";
@@ -65,12 +65,18 @@ const to2d = (arr: Card[], size = 2): Card[][] => {
   return reshaped;
 };
 
-const Stats = ({
+const KeenSlider = ({
+  landing = false,
+  casino = false,
+  game = false,
   cardsData,
   rows = 1,
 }: {
   cardsData: Array<Card>;
   rows?: number;
+  landing?: boolean;
+  casino?: boolean;
+  game?: boolean;
 }) => {
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
@@ -100,6 +106,22 @@ const Stats = ({
       </div>
     </div>
   );
+};
+
+const Stats = ({
+  landing,
+  casino,
+  game,
+  cardsData,
+  rows = 1,
+}: {
+  cardsData: Array<Card>;
+  rows?: number;
+  landing?: boolean;
+  casino?: boolean;
+  game?: boolean;
+}) => {
+  return <KeenSlider rows={rows} cardsData={cardsData} />;
 };
 
 export default Stats;

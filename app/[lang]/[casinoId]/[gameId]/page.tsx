@@ -3,7 +3,8 @@ import { Stats, Table, Chart } from "@/app/components";
 import { CASINO_GAME_COLS } from "@/app/components/table/columns";
 import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
-import { getCasino, getCasinoCards, getGamesList } from "@/lib";
+import { getGamesList } from "@/lib";
+import getGameCards from "@/lib/getGameCards";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 // import useSignalR from "@/app/utils/singlar";
@@ -20,7 +21,7 @@ export default async function Casino({
 }) {
   const { lang, casinoId, gameId } = params;
   const gamesListData: Promise<gamesList> = getGamesList(casinoId, {});
-  const gamesCardsData: Promise<Card[]> = getCasinoCards(casinoId);
+  const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
 
   const [dictionary, gamesList, gameCards] = await Promise.all([
     getDictionary(lang),
@@ -33,7 +34,7 @@ export default async function Casino({
 
   return (
     <>
-      <Stats cardsData={gameCards} rows={2} />
+      <Stats cardsData={gameCards} rows={2} game={true} />
       <Chart
         dictionary={dictionary}
         gameId={gameId}

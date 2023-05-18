@@ -1,6 +1,6 @@
 import slotStatClient from "./instance";
 
-export default async function getCasinoCards(gameId: string) {
+export default async function getGameCards(gameId: string) {
   const res = await slotStatClient.request({
     url: `/api/game/cards/${gameId}`,
     method: "GET",

@@ -38,7 +38,7 @@ const Casino = async ({
   // console.log("object", gameListWithCasinoOnTop);
   return (
     <>
-      <Stats cardsData={casinoCard} rows={2} />
+      <Stats cardsData={casinoCard} rows={2} casino={true} />
       <div className="my-18 px-4 lg:my-18 ">
         <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
           {gamesList.results[0]?.casinoName}
