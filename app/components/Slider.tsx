@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -8,6 +10,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { arrow } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
+import { getLandingOffers } from "@/lib";
 
 type TOnClick = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -16,12 +19,6 @@ type TArrowProps = {
   disabled: boolean;
   onClick: TOnClick;
 };
-
-type TSliderData = {
-  img: string;
-  title: string;
-  subtitle: string;
-}[];
 
 const Arrow = ({ isLeft = false, disabled, onClick }: TArrowProps) => {
   const dir = useMemo(() => (isLeft ? "left-4 " : "right-4 "), [isLeft]);
@@ -42,7 +39,7 @@ const Arrow = ({ isLeft = false, disabled, onClick }: TArrowProps) => {
   );
 };
 
-const Slider = ({ data }: { data: TSliderData }) => {
+const KeenSlider = ({ data }: { data: Offer[] }) => {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -75,27 +72,38 @@ const Slider = ({ data }: { data: TSliderData }) => {
   return (
     <div className="relative my-4 px-4 lg:my-6 ">
       <div ref={sliderRef} className="keen-slider rounded-t-xl">
-        {data.map(({ img, title, subtitle }, index) => (
-          <div
-            key={index}
-            className="keen-slider__slide cursor-pointer h-38 w-80"
-          >
-            <Image
-              src={img}
-              blurDataURL={img}
-              placeholder="blur"
-              alt=""
-              className="h-28 rounded-xl object-fill lg:h-38"
-              fill
-              sizes="(max-width: 306px) 100vw,
-                (max-width: 306px) 50vw,
-                33vw"
-            />
-            <div className="mt-3 text-[10px] leading-3 text-grey1 lg:text-sm lg:leading-4">
-              {subtitle}
-            </div>
-            <div className="mt-3 text-xs font-bold leading-3 text-white lg:text-base lg:leading-5">
-              {title}
+        {data?.map(({ imageUrl, title, subTitle, redirectUrl }, index) => (
+          <div key={index} className="">
+            <div
+              onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
+              key={index}
+              className="keen-slider__slide cursor-pointer   "
+            >
+              <img
+                src={imageUrl}
+                className="h-28 w-full rounded-xl object-cover lg:h-38"
+                alt=""
+              />
+              {/* <img
+                  src={imageUrl}
+                  // blurDataURL={imageUrl}
+                  // placeholder="blur"
+                  alt=""
+                  className="rounded-xl object-fill "
+                  // width={152}
+                  // height={320}
+                  //     fill
+                  //     sizes="(max-width: 306px) 100vw,
+                  // (max-width: 306px) 50vw,
+                  // 33vw"
+                /> */}
+
+              <div className="mt-3 text-[10px] leading-3 text-grey1 lg:text-sm lg:leading-4">
+                {subTitle}
+              </div>
+              <div className="mt-3 text-xs font-bold leading-3 text-white lg:text-base lg:leading-5">
+                {title}
+              </div>
             </div>
           </div>
         ))}
@@ -108,12 +116,41 @@ const Slider = ({ data }: { data: TSliderData }) => {
             onClick={onNext}
             disabled={
               currentSlide ===
-              instanceRef.current.track.details.slides.length - 1
+              instanceRef.current.track.details?.slides?.length - 1
             }
           />
         </>
       )}
     </div>
+  );
+};
+
+const Slider = () => {
+  const [offersData, setOffersData] = useState<Offer[]>();
+  const [loading, setLoading] = useState(true);
+
+  const getOffers = async () => {
+    const landingOffersData: Promise<Offer[]> = getLandingOffers();
+    const landingOffers: Offer[] = await landingOffersData;
+    setOffersData(landingOffers);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getOffers();
+  }, []);
+  return (
+    <>
+      {!loading && offersData ? (
+        <KeenSlider data={offersData} />
+      ) : (
+        <SkeletonTheme baseColor="#24262C" highlightColor="#444">
+          <section className=" my-4 px-4 lg:my-6 ">
+            <Skeleton count={1} className=" h-38 rounded-xl " />
+          </section>
+        </SkeletonTheme>
+      )}
+    </>
   );
 };
 

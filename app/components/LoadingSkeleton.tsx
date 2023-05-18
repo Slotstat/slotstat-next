@@ -3,7 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 export default function LoadingSkeleton() {
   return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+    <SkeletonTheme baseColor="#24262C" highlightColor="#444">
       <section>
         <Skeleton count={1} className="h-20 mb-5" />
         <Skeleton count={1} className="h-20 mb-5" />

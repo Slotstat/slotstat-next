@@ -1,13 +1,11 @@
 import { getCasinos, getLandingCards } from "@/lib";
 import { Table, Slider, Stats } from "../components";
 import { CASINO_COLS } from "../components/table/columns";
-import { SLIDES } from "../utils/mockData";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "SlotStat",
   description: "slot stat high level",
-  
 };
 
 export default async function Home({
@@ -29,7 +27,7 @@ export default async function Home({
   return (
     <>
       <Stats cardsData={landingCards} rows={1} />
-      <Slider data={SLIDES} />
+      <Slider />
       <div className="my-6 px-4 lg:my-18 ">
         <Table
           orderBy={orderBy || ""}

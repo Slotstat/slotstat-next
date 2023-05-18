@@ -24,6 +24,16 @@ type Card = {
   isDefault: boolean;
 };
 
+type Offer = {
+  offerId: string;
+  imageUrl: string;
+  creagteDate: string;
+  redirectUrl: string;
+  title: string;
+  subTitle: string;
+  culture: string;
+};
+
 type CasinoCols = { Header: string; accessor: string };
 
 type StepProps = {
