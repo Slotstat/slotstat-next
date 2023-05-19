@@ -1,41 +1,39 @@
 import { Stats, Table } from "@/app/components";
-import { CASINO_GAME_COLS } from "@/app/components/table/columns";
-import { getCasino, getCasinoCards, getGamesList } from "@/lib";
+import { useTableTexts } from "@/app/components/table/columns";
+import { Locale } from "@/app/i18n/i18n-config";
+import { getCasinoCards, getGamesList } from "@/lib";
 import { notFound } from "next/navigation";
 
 type Params = {
   params: {
     casinoId: string;
+    lang: Locale;
   };
   searchParams: QueryParams;
 };
 
 const Casino = async ({
-  params: { casinoId },
+  params: { casinoId, lang },
   searchParams: { orderBy, keyWord, direction },
 }: Params) => {
+  const { getCasinoAndGameTableTexts } = useTableTexts();
+
   const gamesListData: Promise<gamesList> = getGamesList(casinoId, {
     keyWord,
     direction,
     orderBy,
   });
   const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
-  const casinoData: Promise<CasinoData> = getCasino(casinoId);
 
-  const [
-    gamesList,
-    casinoCard,
-    // casino
-  ] = await Promise.all([
+  const [gamesList, casinoCard, gameColumnHeaders] = await Promise.all([
     gamesListData,
     casinoCardsData,
-    // casinoData,
+    getCasinoAndGameTableTexts(lang, true),
   ]);
 
   if (!gamesList.results) return notFound();
   const gameListWithCasinoOnTop = gamesList.results;
-  // gameListWithCasinoOnTop.unshift(casino);
-  // console.log("object", gameListWithCasinoOnTop);
+
   return (
     <>
       <Stats cardsData={casinoCard} rows={2} casino={true} />
@@ -47,7 +45,7 @@ const Casino = async ({
           <Table
             keyWord={keyWord}
             orderBy={orderBy}
-            columns={CASINO_GAME_COLS}
+            columns={gameColumnHeaders}
             tableBodyData={gameListWithCasinoOnTop}
             showFilter={true}
           />

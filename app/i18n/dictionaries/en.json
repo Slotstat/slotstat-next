@@ -28,5 +28,25 @@
     "allRightsReserved": "2021 Slotstat. All rights reserved"
   },
   "compare": "Compare",
-  "vs": "VS"
+  "vs": "VS",
+  "table": {
+    "casinoName": "Casino name",
+    "providers": "Providers",
+    "bounties": "Bounties",
+    "h1": "1h %",
+    "h24": "24h %",
+    "source": "Source",
+    "jackpot": "Jackpot",
+    "t24h": "24h",
+    "game": "Game",
+    "user": "User",
+    "bountiesHint": "Information about casino gift offers",
+    "h1Hint": "Percentage of winning spins during the last hour based on summery of published games",
+    "h24Hint": "Percentage of winning spins during the last 24 hour based on summery of published games",
+    "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
+    "jackpotHint": "Total jackpot of published games",
+    "userHint": "Number of users who monitor statistics",
+    "h1GameHint": "Percentage of winning spins during the last hour",
+    "h24GameHint": "Percentage of winning spins during the last 24 hour"
+  }
 }

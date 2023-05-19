@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
 import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
+import TooltipComponent from "../TooltipComponent";
 
 type Props = {
   columns: Array<CasinoCols>;
@@ -99,6 +100,10 @@ const Table = ({
     setQueryParams({ direction });
   }, []);
 
+  const RenderToolTip = (text: any) => {
+    return <TooltipComponent text={text.header} />;
+  };
+
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
@@ -135,22 +140,26 @@ const Table = ({
           <thead>
             {headerGroups.map((headerGroup, index) => (
               <tr {...headerGroup.getHeaderGroupProps()} key={index}>
-                {headerGroup.headers.map((col, i) => (
-                  <th
-                    {...col.getHeaderProps({
-                      style: {
-                        maxWidth: col.maxWidth,
-                        minWidth: col.minWidth,
-                        width: col.width,
-                      },
-                    })}
-                    key={i}
-                  >
-                    <div className="flex items-center">
-                      {col.render("Header")}
-                    </div>
-                  </th>
-                ))}
+                {headerGroup.headers.map((col, i) => {
+                  return (
+                    <th
+                      {...col.getHeaderProps({
+                        style: {
+                          maxWidth: col.maxWidth,
+                          minWidth: col.minWidth,
+                          width: col.width,
+                        },
+                      })}
+                      key={i}
+                    >
+                      <div className="flex items-center">
+                        {col.render("Header")}
+                        {/*  @ts-ignore: Unreachable code error*/}
+                        {col.hint && <RenderToolTip header={col.hint} />}
+                      </div>
+                    </th>
+                  );
+                })}
               </tr>
             ))}
           </thead>

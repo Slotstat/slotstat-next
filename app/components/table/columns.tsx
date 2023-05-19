@@ -1,90 +1,162 @@
-const CASINO_COLS = [
-  {
-    Header: "Casino name",
-    accessor: "name",
-    maxWidth: 266,
-    width: 266,
-    minWidth: 100,
-  },
-  {
-    Header: "Providers",
-    accessor: "providers",
-    maxWidth: 118,
-    width: 118,
-    minWidth: 100,
-  },
-  {
-    Header: "Bounties",
-    accessor: "bounties",
-    maxWidth: 194,
-    width: 194,
-    minWidth: 80,
-  },
-  { Header: "1h %", accessor: "p1h", maxWidth: 121, width: 121, minWidth: 50 },
-  {
-    Header: "24h %",
-    accessor: "p24h",
-    maxWidth: 129,
-    width: 129,
-    minWidth: 50,
-  },
-  {
-    Header: "Source",
-    accessor: "dataSource",
-    maxWidth: 140,
-    width: 140,
-    minWidth: 50,
-  },
-  {
-    Header: "Jackpot",
-    accessor: "jackpot",
-    maxWidth: 164,
-    width: 164,
-    minWidth: 50,
-  },
-  { Header: "24h", accessor: "t24h", maxWidth: 169, width: 169, minWidth: 50 },
-];
+import { getDictionary } from "@/app/i18n/get-dictionary";
+import { Locale } from "@/app/i18n/i18n-config";
 
-const CASINO_GAME_COLS = [
-  {
-    Header: "Game",
-    accessor: "name",
-    maxWidth: 276,
-    width: 276,
-    minWidth: 100,
-  },
-  {
-    Header: "Provider",
-    accessor: "provider",
-    maxWidth: 168,
-    width: 168,
-    minWidth: 100,
-  },
-  { Header: "User", accessor: "user", maxWidth: 129, width: 129, minWidth: 80 },
-  { Header: "1h %", accessor: "p1h", maxWidth: 121, width: 121, minWidth: 50 },
-  {
-    Header: "24h %",
-    accessor: "p24h",
-    maxWidth: 129,
-    width: 129,
-    minWidth: 50,
-  },
-  {
-    Header: "Source",
-    accessor: "source",
-    maxWidth: 140,
-    width: 140,
-    minWidth: 50,
-  },
-  {
-    Header: "Jackpot",
-    accessor: "jackpot",
-    maxWidth: 164,
-    width: 164,
-    minWidth: 50,
-  },
-  { Header: "24h", accessor: "t24h", maxWidth: 169, width: 169, minWidth: 50 },
-];
+const useTableTexts = () => {
+  const getCasinoAndGameTableTexts = async (lang: Locale, isGame: boolean) => {
+    const dictionary: Dictionary = await getDictionary(lang);
+    const { table } = dictionary;
+    const {
+      casinoName,
+      providers,
+      bounties,
+      h1,
+      h24,
+      t24h,
+      source,
+      jackpot,
+      game,
+      user,
+      bountiesHint,
+      h1Hint,
+      h24Hint,
+      sourceHint,
+      jackpotHint,
+      userHint,
+      h1GameHint,
+      h24GameHint,
+    } = table;
+    const casinoColumns = [
+      {
+        Header: casinoName,
+        accessor: "name",
+        maxWidth: 266,
+        width: 266,
+        minWidth: 100,
+      },
+      {
+        Header: providers,
+        accessor: "providers",
+        maxWidth: 118,
+        width: 118,
+        minWidth: 100,
+      },
+      {
+        Header: bounties,
+        accessor: "bounties",
+        maxWidth: 194,
+        width: 194,
+        minWidth: 80,
+        hint: bountiesHint,
+      },
+      {
+        Header: h1,
+        accessor: "p1h",
+        maxWidth: 121,
+        width: 121,
+        minWidth: 50,
+        hint: h1Hint,
+      },
+      {
+        Header: h24,
+        accessor: "p24h",
+        maxWidth: 129,
+        width: 129,
+        minWidth: 50,
+        hint: h24Hint,
+      },
+      {
+        Header: source,
+        accessor: "dataSource",
+        maxWidth: 140,
+        width: 140,
+        minWidth: 50,
+        hint: sourceHint,
+      },
+      {
+        Header: jackpot,
+        accessor: "jackpot",
+        maxWidth: 164,
+        width: 164,
+        minWidth: 50,
+        hint: jackpotHint,
+      },
+      {
+        Header: t24h,
+        accessor: "t24h",
+        maxWidth: 169,
+        width: 169,
+        minWidth: 50,
+      },
+    ];
+
+    const CASINO_GAME_COLS = [
+      {
+        Header: game,
+        accessor: "name",
+        maxWidth: 276,
+        width: 276,
+        minWidth: 100,
+      },
+      {
+        Header: providers,
+        accessor: "provider",
+        maxWidth: 168,
+        width: 168,
+        minWidth: 100,
+      },
+      {
+        Header: user,
+        accessor: "user",
+        maxWidth: 129,
+        width: 129,
+        minWidth: 80,
+        hint: userHint,
+      },
+      {
+        Header: h1,
+        accessor: "p1h",
+        maxWidth: 121,
+        width: 121,
+        minWidth: 50,
+        hint: h1GameHint,
+      },
+      {
+        Header: h24,
+        accessor: "p24h",
+        maxWidth: 129,
+        width: 129,
+        minWidth: 50,
+        hint: h24GameHint,
+      },
+      {
+        Header: source,
+        accessor: "source",
+        maxWidth: 140,
+        width: 140,
+        minWidth: 50,
+        hint: sourceHint,
+      },
+      {
+        Header: jackpot,
+        accessor: "jackpot",
+        maxWidth: 164,
+        width: 164,
+        minWidth: 50,
+        hint: jackpotHint,
+      },
+      {
+        Header: t24h,
+        accessor: "t24h",
+        maxWidth: 169,
+        width: 169,
+        minWidth: 50,
+      },
+    ];
+    return isGame ? CASINO_GAME_COLS : casinoColumns;
+  };
+
+  return { getCasinoAndGameTableTexts };
+};
 
 const SORT_BY = [
   { label: "None", value: "", id: "0" },
@@ -93,4 +165,4 @@ const SORT_BY = [
   { label: "Jackpot", id: "3", value: "jackpot" },
 ];
 
-export { CASINO_COLS, CASINO_GAME_COLS, SORT_BY };
+export { SORT_BY, useTableTexts };

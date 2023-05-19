@@ -5,7 +5,6 @@ import "react-spring-bottom-sheet/dist/style.css";
 
 import Image from "next/image";
 import Table from "./table/Table";
-import { CASINO_COLS, CASINO_GAME_COLS } from "./table/columns";
 import { back, close } from "../assets";
 import { getCasinos, getGamesList } from "@/lib";
 import { useEffect, useState } from "react";
@@ -15,12 +14,16 @@ type BottomSheetModalProps = {
   open: boolean;
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameId: GameData) => void;
+  casinoColumnHeaders: CasinoCols[];
+  gameColumnHeaders: CasinoCols[];
 };
 
 export default function BottomSheetModal({
   open,
   setOpen,
   onAddToCompare,
+  casinoColumnHeaders,
+  gameColumnHeaders,
 }: BottomSheetModalProps) {
   const [casinos, setCasinos] = useState<CasinoData[]>();
   const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
@@ -106,14 +109,14 @@ export default function BottomSheetModal({
               <Table
                 //   orderBy={orderBy || ""}
                 //   keyWord={keyWord || ""}
-                columns={CASINO_COLS}
+                columns={casinoColumnHeaders}
                 tableBodyData={casinos}
                 showFilter={false}
                 getGamesFromChosenCasino={getGamesFromChosenCasino}
               />
             ) : games ? (
               <Table
-                columns={CASINO_GAME_COLS}
+                columns={gameColumnHeaders}
                 tableBodyData={games.results}
                 showFilter={false}
                 onAddToCompare={onAddToCompare}

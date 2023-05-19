@@ -1,17 +1,46 @@
 "use client";
-import { useEffect, useMemo } from "react";
-
-import { Tooltip } from "@material-tailwind/react";
+import { useMemo } from "react";
 import { useKeenSlider } from "keen-slider/react";
-
-import { live, tooltip as tooltipSVG } from "../assets";
+import { live } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
+import LinkIcon from "../assets/svg/LinkIcon";
+import TooltipComponent from "./TooltipComponent";
 
-const StatCard = ({ imageUrl, name, value, isLive, additionalInfo }: Card) => {
+type PagesAndStyleDiff = {
+  landing?: boolean;
+  casino?: boolean;
+  game?: boolean;
+};
+type StatCardProp = Card & PagesAndStyleDiff;
+
+const StatCard = ({
+  imageUrl,
+  name,
+  value,
+  isLive,
+  additionalInfo,
+  casino,
+  game,
+  redirectUrl,
+}: StatCardProp) => {
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
+
+  const renderNameColor = () => {
+    if (casino || game) return "text-grey1";
+
+    return "text-white";
+  };
+
+  const renderValueColor = () => {
+    if (game && name.toLocaleLowerCase() === "jackpot") return "text-green1";
+    if (casino || game) return "text-white";
+
+    return "text-blue1";
+  };
+
   return (
     <div className="flex flex-col rounded-2xl bg-dark2 p-4 lg:p-6">
       <div className="flex items-center justify-between">
@@ -36,20 +65,22 @@ const StatCard = ({ imageUrl, name, value, isLive, additionalInfo }: Card) => {
         )}
       </div>
       <div className="mt-4 flex items-center justify-between">
-        <span className="whitespace-nowrap text-sm leading-5 text-white lg:text-base">
-          {name}: <span className="text-blue1">{value}</span>
+        <span
+          className={`whitespace-nowrap text-sm leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
+        >
+          <span className=" mr-1">{name}:</span>
+          <span className={renderValueColor()}>{value}</span>
+          {redirectUrl && (
+            <LinkIcon
+              onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
+              className=" ml-2 cursor-pointer"
+            />
+          )}
         </span>
         {additionalInfo && (
-          <Tooltip content={additionalInfo}>
-            <Image
-              src={tooltipSVG}
-              alt=""
-              className="ml-3 h-4 w-4 lg:h-6 lg:w-6"
-              width="0"
-              height="0"
-              sizes="100vw"
-            />
-          </Tooltip>
+          <TooltipComponent
+            text={additionalInfo + "Information about casino gift offers"}
+          />
         )}
       </div>
     </div>
@@ -65,8 +96,7 @@ const to2d = (arr: Card[], size = 2): Card[][] => {
   return reshaped;
 };
 
-const KeenSlider = ({
-  landing = false,
+const Stats = ({
   casino = false,
   game = false,
   cardsData,
@@ -74,10 +104,7 @@ const KeenSlider = ({
 }: {
   cardsData: Array<Card>;
   rows?: number;
-  landing?: boolean;
-  casino?: boolean;
-  game?: boolean;
-}) => {
+} & PagesAndStyleDiff) => {
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slides: { perView: 1.8, spacing: 16 },
@@ -99,29 +126,13 @@ const KeenSlider = ({
             className="keen-slider__slide zoom-out__slide space-y-4 md:space-y-6"
           >
             {stats.map((stat, index) => (
-              <StatCard key={index} {...stat} />
+              <StatCard key={index} {...stat} casino={casino} game={game} />
             ))}
           </div>
         ))}
       </div>
     </div>
   );
-};
-
-const Stats = ({
-  landing,
-  casino,
-  game,
-  cardsData,
-  rows = 1,
-}: {
-  cardsData: Array<Card>;
-  rows?: number;
-  landing?: boolean;
-  casino?: boolean;
-  game?: boolean;
-}) => {
-  return <KeenSlider rows={rows} cardsData={cardsData} />;
 };
 
 export default Stats;

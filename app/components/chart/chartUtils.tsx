@@ -90,7 +90,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   dateAxis.startLocation = 0.5;
   dateAxis.endLocation = 10;
-  dateAxis.keepSelection = true;
 
   const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
   valueAxis.interpolationDuration = 500;
@@ -103,7 +102,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
-  valueAxis.keepSelection = true;
+
 
   valueAxis.min = 0;
   valueAxis.max = 100;
@@ -117,23 +116,27 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // dateAxis.renderer.minGridDistance = 60;
   // valueAxis.renderer.minGridDistance = 50;
 
-  dateAxis.showOnInit = false;
-  chart.events.on("ready", function () {
-    dateAxis.start = 0.8;
-    dateAxis.end = 1;
 
-    // alternative version of zoom
-    // 1
-    // dateAxis.zoom({ start: 3 / 15, end: 1.2 }, false, true);
-    // 2
-    // const chartData = chart.data;
-    // dateAxis.zoomToDates(
-    //   new Date(chartData[chartData.length - 20].date),
-    //   new Date(),
-    //   false,
-    //   true
-    // );
-  });
+  // zoom
+  // dateAxis.showOnInit = false;
+  // valueAxis.keepSelection = true;
+  // dateAxis.keepSelection = true;
+
+  // chart.events.on("ready", function () {
+  //   dateAxis.start = 0.8;
+  //   dateAxis.end = 1;
+  //   // alternative version of zoom
+  //   // 1
+  //   // dateAxis.zoom({ start: 3 / 15, end: 1.2 }, false, true);
+  //   // 2
+  //   // const chartData = chart.data;
+  //   // dateAxis.zoomToDates(
+  //   //   new Date(chartData[chartData.length - 20].date),
+  //   //   new Date(),
+  //   //   false,
+  //   //   true
+  //   // );
+  // });
 
   // create series
   const series1 = chart.series.push(new am4charts.LineSeries());
@@ -188,7 +191,7 @@ export const FILTERS = {
   "5s": { label: "5s" },
   // "10s": { label: "10s" },
   "1M": { label: "1M" },
-  // "10M": { label: "10M" },
+  "10M": { label: "10M" },
   "1H": { label: "1h" },
   "12H": { label: "12h" },
   "1D": { label: "24h" },

@@ -30,14 +30,18 @@ const ChartComponent = ({
   dictionary,
   gameId,
   gamesList,
-}: Dictionary & {
+  casinoColumnHeaders,
+  gameColumnHeaders,
+}: { dictionary: Dictionary } & {
   gameId: string;
   gamesList: GameData[];
+  casinoColumnHeaders: CasinoCols[];
+  gameColumnHeaders: CasinoCols[];
 }) => {
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
-    useState<keyof typeof FILTERS>("5s");
+    useState<keyof typeof FILTERS>("10M");
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
@@ -345,6 +349,8 @@ const ChartComponent = ({
         open={open}
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
+        casinoColumnHeaders={casinoColumnHeaders}
+        gameColumnHeaders={gameColumnHeaders}
       />
     </>
   );

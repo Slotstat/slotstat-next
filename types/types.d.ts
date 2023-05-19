@@ -34,7 +34,14 @@ type Offer = {
   culture: string;
 };
 
-type CasinoCols = { Header: string; accessor: string };
+type CasinoCols = {
+  Header: string;
+  accessor: string;
+  maxWidth: number;
+  width: number;
+  minWidth: number;
+  hint?: string;
+};
 
 type StepProps = {
   index: number;
@@ -44,37 +51,56 @@ type StepProps = {
 };
 
 type Dictionary = {
-  dictionary: {
-    navbar: {
-      howItWorks: string;
-      faq: string;
-      slotstat: string;
-      lang: { ge: string; en: string };
-    };
-    howItWorksPage: {
-      howItWorks: string;
-      howItWorksDescription: string;
-    };
-    faq: {
-      theFAQs: string;
-      helpCentre: string;
-      aboutProduct: string;
-      FAQs: string;
-      support: string;
-      joinUs: string;
-      stayInLoop: string;
-      subscribe: string;
-      telegramChan: string;
-    };
-    footer: {
-      company: string;
-      aboutUs: string;
-      termsOfUse: string;
-      privacyPolicy: string;
-      allRightsReserved: string;
-    };
-    compare: string;
-    vs: string;
+  navbar: {
+    howItWorks: string;
+    faq: string;
+    slotstat: string;
+    lang: { ge: string; en: string };
+  };
+  howItWorksPage: {
+    howItWorks: string;
+    howItWorksDescription: string;
+  };
+  faq: {
+    theFAQs: string;
+    helpCentre: string;
+    aboutProduct: string;
+    FAQs: string;
+    support: string;
+    joinUs: string;
+    stayInLoop: string;
+    subscribe: string;
+    telegramChan: string;
+  };
+  footer: {
+    company: string;
+    aboutUs: string;
+    termsOfUse: string;
+    privacyPolicy: string;
+    allRightsReserved: string;
+  };
+  compare: string;
+  vs: string;
+  table: {
+    casinoName: string;
+    providers: string;
+    bounties: string;
+    h1: string;
+    h24: string;
+    source: string;
+    jackpot: string;
+    t24h: string;
+    game: string;
+    user: string;
+    bountiesHint: string;
+    bountiesHint: string;
+    h1Hint: string;
+    h24Hint: string;
+    sourceHint: string;
+    jackpotHint: string;
+    userHint: string;
+    h1GameHint: string;
+    h24GameHint: string;
   };
 };
 
