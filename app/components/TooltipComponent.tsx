@@ -1,19 +1,31 @@
 import { Tooltip } from "@material-tailwind/react";
-import Image from "next/image";
-import React from "react";
-import { tooltip as tooltipSVG } from "../assets";
+import React, { useState } from "react";
 
 export default function TooltipComponent({ text }: { text: string }) {
+  const [color, setColor] = useState("#969CB0");
   return (
-    <Tooltip content={text} className="border bg-dark2 border-dark3 rounded-lg max-w-[210px]">
-      <Image
-        src={tooltipSVG}
-        alt=""
-        className="ml-3 h-4 w-4 "
-        width="0"
-        height="0"
-        sizes="100vw"
-      />
+    <Tooltip
+      content={text}
+      className="border bg-dark2 border-dark3 rounded-lg max-w-[210px]"
+    >
+      <svg
+        className=" ml-2"
+        onMouseEnter={() => setColor("#5887F5")}
+        onMouseLeave={() => setColor("#969CB0")}
+        xmlns="http://www.w3.org/2000/svg"
+        width={16}
+        height={16}
+        fill="none"
+      >
+        <path
+          fill={color}
+          d="M8 15.167A7.173 7.173 0 0 1 .833 8 7.173 7.173 0 0 1 8 .833 7.173 7.173 0 0 1 15.167 8 7.173 7.173 0 0 1 8 15.167ZM8 1.833A6.174 6.174 0 0 0 1.833 8c0 3.4 2.767 6.167 6.167 6.167S14.167 11.4 14.167 8 11.4 1.833 8 1.833Z"
+        />
+        <path
+          fill={color}
+          d="M8 9.167a.504.504 0 0 1-.5-.5V5.333c0-.273.227-.5.5-.5s.5.227.5.5v3.334c0 .273-.227.5-.5.5ZM8 11.333a.664.664 0 0 1-.253-.053.771.771 0 0 1-.22-.14.69.69 0 0 1-.14-.22.664.664 0 0 1-.054-.253c0-.087.02-.174.054-.254a.77.77 0 0 1 .14-.22.769.769 0 0 1 .22-.14.667.667 0 0 1 .506 0c.08.034.154.08.22.14a.77.77 0 0 1 .14.22c.034.08.054.167.054.254 0 .086-.02.173-.054.253a.69.69 0 0 1-.14.22.771.771 0 0 1-.22.14.664.664 0 0 1-.253.053Z"
+        />
+      </svg>
     </Tooltip>
   );
 }
