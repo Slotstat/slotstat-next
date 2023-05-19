@@ -5,7 +5,7 @@ import Link from "next/link";
 import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
 
-const Footer = ({ dictionary }: Dictionary) => {
+const Footer = ({ dictionary }: { dictionary: Dictionary }) => {
   const { slotstat, lang, faq, howItWorks } = dictionary.navbar;
   const { company, aboutUs, termsOfUse, privacyPolicy, allRightsReserved } =
     dictionary.footer;

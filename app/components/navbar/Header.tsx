@@ -9,7 +9,7 @@ import { logo, menu } from "@/app/assets";
 import Image from "next/image";
 import LanguageToggleButton from "./LanguageToggleButton";
 
-const NavList = ({ dictionary }: Dictionary) => {
+const NavList = ({ dictionary }: { dictionary: Dictionary }) => {
   const { howItWorks } = dictionary.howItWorksPage;
   const { faq } = dictionary.navbar;
   const pathName = usePathname();
@@ -36,7 +36,7 @@ const NavList = ({ dictionary }: Dictionary) => {
   );
 };
 
-const Header = ({ dictionary }: Dictionary) => {
+const Header = ({ dictionary }: { dictionary: Dictionary }) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const { slotstat, lang } = dictionary.navbar;
 
