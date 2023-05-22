@@ -41,7 +41,7 @@ const ChartComponent = ({
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
-    useState<keyof typeof FILTERS>("10M");
+    useState<keyof typeof FILTERS>("1D");
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
@@ -240,14 +240,15 @@ const ChartComponent = ({
       newRate?.gameId === compareGameObject?.gameId
     ) {
       const last = chartRef.current?.data[chartRef.current?.data.length - 1];
-
-      if (last && activeFilterId !== "All") {
-        if (compareGameObject) {
-          updateStatistic(gameId, last.timeStamp, compareGameObject.gameId);
-        } else {
-          updateStatistic(gameId, last.timeStamp);
-        }
-      }
+      
+      // turn on when old version is activated
+      // if (last && activeFilterId !== "All") {
+      //   if (compareGameObject) {
+      //     updateStatistic(gameId, last.timeStamp, compareGameObject.gameId);
+      //   } else {
+      //     updateStatistic(gameId, last.timeStamp);
+      //   }
+      // }
     }
     // if (newJackpot) {
     //   console.log("newJackpot>>>:", newJackpot);

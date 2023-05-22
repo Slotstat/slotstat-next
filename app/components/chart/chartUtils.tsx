@@ -66,7 +66,11 @@ export const createSeries = (
   s.tooltip.background.cornerRadius = 14;
   s.tooltip.background.strokeOpacity = 0;
   s.tooltip.background.fill = am4core.color("#24262C");
+  // s.tooltip.pointerOrientation = "vertical";
 
+  // s.tooltip.dx = -50;
+  // s.tooltip.dy = -20;
+  // s.tooltip.ex = -50;
   // s.tooltip.pointerOrientation = "up";
 };
 
@@ -87,7 +91,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   dateAxis.renderer.labels.template.fontSize = 12;
   dateAxis.renderer.labels.template.fontWeight = "normal";
 
-
   dateAxis.startLocation = 0.5;
   dateAxis.endLocation = 10;
 
@@ -103,7 +106,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   valueAxis.numberFormatter = new am4core.NumberFormatter();
   valueAxis.numberFormatter.numberFormat = "#.#'%'";
 
-
   valueAxis.min = 0;
   valueAxis.max = 100;
 
@@ -115,7 +117,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // valueAxis.renderer.grid.template.disabled = true;
   // dateAxis.renderer.minGridDistance = 60;
   // valueAxis.renderer.minGridDistance = 50;
-
 
   // zoom
   // dateAxis.showOnInit = false;
@@ -187,14 +188,23 @@ export const hideLoadingIndicator = () => {
 };
 
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];
+// filters old version
+// export const FILTERS = {
+//   "5s": { label: "5s" },
+//   // "10s": { label: "10s" },
+//   "1M": { label: "1M" },
+//   "10M": { label: "10M" },
+//   "1H": { label: "1h" },
+//   "12H": { label: "12h" },
+//   "1D": { label: "24h" },
+//   "1W": { label: "1W" },
+//   All: { label: "All" },
+// };
+
+// filters new version
 export const FILTERS = {
-  "5s": { label: "5s" },
-  // "10s": { label: "10s" },
+  "1D": { label: "1D" },
   "1M": { label: "1M" },
-  "10M": { label: "10M" },
-  "1H": { label: "1h" },
-  "12H": { label: "12h" },
-  "1D": { label: "24h" },
   "1W": { label: "1W" },
-  All: { label: "All" },
+  "1Y": { label: "1Y" },
 };

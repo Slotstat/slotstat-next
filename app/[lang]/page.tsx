@@ -2,7 +2,6 @@ import { getCasinos, getLandingCards } from "@/lib";
 import { Table, Slider, Stats } from "../components";
 import { useTableTexts } from "../components/table/columns";
 import { Metadata } from "next";
-// import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
 
 export const metadata: Metadata = {
