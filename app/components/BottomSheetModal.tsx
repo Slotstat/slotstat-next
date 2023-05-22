@@ -6,9 +6,10 @@ import "react-spring-bottom-sheet/dist/style.css";
 import Image from "next/image";
 import Table from "./table/Table";
 import { back, close } from "../assets";
-import { getCasinos, getGamesList } from "@/lib";
 import { useEffect, useState } from "react";
 import { Spinner } from "@material-tailwind/react";
+import getGamesList from "@/lib/getGamesList";
+import getCasinos from "@/lib/getCasinos";
 
 type BottomSheetModalProps = {
   open: boolean;

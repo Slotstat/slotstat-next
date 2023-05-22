@@ -27,6 +27,7 @@ export default async function RootLayout({
 }) {
   const dictionary = await getDictionary(params.lang);
 
+  
   return (
     <html lang={params.lang}>
       <body>

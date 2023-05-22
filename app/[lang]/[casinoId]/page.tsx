@@ -2,7 +2,9 @@ import LiveCards from "@/app/components/Cards";
 import Table from "@/app/components/table/Table";
 import { useTableTexts } from "@/app/components/table/columns";
 import { Locale } from "@/app/i18n/i18n-config";
-import { getCasinoCards, getGamesList } from "@/lib";
+import getCasinoCards from "@/lib/getCasinoCards";
+
+import getGamesList from "@/lib/getGamesList";
 import { notFound } from "next/navigation";
 
 type Params = {

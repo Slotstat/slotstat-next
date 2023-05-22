@@ -1,6 +1,6 @@
 "use client";
 
-import { Tooltip } from "./ThemeProviderClientSide";
+// import { Tooltip } from "./ThemeProviderClientSide";
 import React, { useState } from "react";
 
 export default function TooltipComponent({ text }: { text: string }) {

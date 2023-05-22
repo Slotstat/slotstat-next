@@ -12,7 +12,7 @@ import React from "react";
 import { Cell, Row } from "react-table";
 import { useRouter } from "next/navigation";
 
-import { Menu, MenuHandler, MenuList } from "@material-tailwind/react";
+import { Menu, MenuHandler, MenuList } from "../ThemeProviderClientSide";
 import MoreIcon from "@/app/assets/svg/MoreIcon";
 
 export default function RenderRowCells({

@@ -8,7 +8,7 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { live } from "../../assets";
 import BulletIcon from "../BulletIcon";
 import Image from "next/image";
-import { getStatistics } from "@/lib";
+
 import {
   FILTERS,
   SERIE_COLORS,
@@ -22,6 +22,7 @@ import signalR from "@/app/utils/singlar";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
 import BottomSheetModal from "../BottomSheetModal";
+import getStatistics from "@/lib/getStatistics";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -240,7 +241,7 @@ const ChartComponent = ({
       newRate?.gameId === compareGameObject?.gameId
     ) {
       const last = chartRef.current?.data[chartRef.current?.data.length - 1];
-      
+
       // turn on when old version is activated
       // if (last && activeFilterId !== "All") {
       //   if (compareGameObject) {

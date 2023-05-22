@@ -4,8 +4,8 @@ import Table from "@/app/components/table/Table";
 import { useTableTexts } from "@/app/components/table/columns";
 import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
-import { getGamesList } from "@/lib";
 import getGameCards from "@/lib/getGameCards";
+import getGamesList from "@/lib/getGamesList";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

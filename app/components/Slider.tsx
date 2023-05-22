@@ -10,7 +10,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { arrow } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
-import { getLandingOffers } from "@/lib";
+import { getLandingOffers } from "@/lib/getLanding";
 
 type TOnClick = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
