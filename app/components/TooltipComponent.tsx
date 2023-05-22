@@ -1,13 +1,15 @@
-import { Tooltip } from "@material-tailwind/react";
+"use client";
+
+import { Tooltip } from "./ThemeProviderClientSide";
 import React, { useState } from "react";
 
 export default function TooltipComponent({ text }: { text: string }) {
   const [color, setColor] = useState("#969CB0");
   return (
-    <Tooltip
-      content={text}
-      className="border bg-dark2 border-dark3 rounded-lg max-w-[210px]"
-    >
+    // <Tooltip
+    //   content={text}
+    //   className="border bg-dark2 border-dark3 rounded-lg max-w-[210px]"
+    // >
       <svg
         className=" ml-2"
         onMouseEnter={() => setColor("#5887F5")}
@@ -26,6 +28,6 @@ export default function TooltipComponent({ text }: { text: string }) {
           d="M8 9.167a.504.504 0 0 1-.5-.5V5.333c0-.273.227-.5.5-.5s.5.227.5.5v3.334c0 .273-.227.5-.5.5ZM8 11.333a.664.664 0 0 1-.253-.053.771.771 0 0 1-.22-.14.69.69 0 0 1-.14-.22.664.664 0 0 1-.054-.253c0-.087.02-.174.054-.254a.77.77 0 0 1 .14-.22.769.769 0 0 1 .22-.14.667.667 0 0 1 .506 0c.08.034.154.08.22.14a.77.77 0 0 1 .14.22c.034.08.054.167.054.254 0 .086-.02.173-.054.253a.69.69 0 0 1-.14.22.771.771 0 0 1-.22.14.664.664 0 0 1-.253.053Z"
         />
       </svg>
-    </Tooltip>
+    // </Tooltip>
   );
 }

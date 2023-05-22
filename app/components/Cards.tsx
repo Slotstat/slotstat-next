@@ -96,7 +96,7 @@ const to2d = (arr: Card[], size = 2): Card[][] => {
   return reshaped;
 };
 
-const Stats = ({
+const LiveCards = ({
   casino = false,
   game = false,
   cardsData,
@@ -135,4 +135,4 @@ const Stats = ({
   );
 };
 
-export default Stats;
+export default LiveCards;

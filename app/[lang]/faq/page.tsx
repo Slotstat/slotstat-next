@@ -1,4 +1,5 @@
-import { Accordion, SubscribeButton } from "@/app/components";
+import Accordion from "@/app/components/Accordion";
+import SubscribeButton from "@/app/components/SubscribeButton";
 import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
 import { ACCORDION_DATA } from "@/app/utils/mockData";

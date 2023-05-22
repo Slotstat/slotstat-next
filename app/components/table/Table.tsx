@@ -100,10 +100,6 @@ const Table = ({
     setQueryParams({ direction });
   }, []);
 
-  const RenderToolTip = (text: any) => {
-    return <TooltipComponent text={text.header} />;
-  };
-
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
@@ -155,7 +151,7 @@ const Table = ({
                       <div className="flex items-center">
                         {col.render("Header")}
                         {/*  @ts-ignore: Unreachable code error*/}
-                        {col.hint && <RenderToolTip header={col.hint} />}
+                        {col.hint && <TooltipComponent text={col.hint} />}
                       </div>
                     </th>
                   );

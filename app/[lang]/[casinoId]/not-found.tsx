@@ -1,6 +1,6 @@
 "use client"; // Error components must be Client components
-import { Error404 } from "@/app/components";
-import { useEffect } from "react";
+import Error404 from "@/app/components/Error404";
+// import { useEffect } from "react";
 
 export default function NotFound({
   error,

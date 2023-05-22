@@ -1,6 +1,6 @@
 "use client"; // Error components must be Client components
 import { useEffect } from "react";
-import { Error404 } from "../components";
+import Error404 from "../components/Error404";
 
 export default function Error({
   error,

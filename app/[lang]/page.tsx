@@ -1,8 +1,10 @@
 import { getCasinos, getLandingCards } from "@/lib";
-import { Table, Slider, Stats } from "../components";
 import { useTableTexts } from "../components/table/columns";
 import { Metadata } from "next";
 import { Locale } from "@/app/i18n/i18n-config";
+import LiveCards from "../components/Cards";
+import Slider from "../components/Slider";
+import Table from "../components/table/Table";
 
 export const metadata: Metadata = {
   title: "SlotStat",
@@ -33,7 +35,8 @@ export default async function Home({
 
   return (
     <>
-      <Stats cardsData={landingCards} />
+      <LiveCards cardsData={landingCards} />
+
       <Slider />
       <div className="my-6 px-4 lg:my-18 ">
         <Table

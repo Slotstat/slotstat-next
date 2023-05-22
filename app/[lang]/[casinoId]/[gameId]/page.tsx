@@ -1,5 +1,6 @@
-import useStore from "@/app/(store)/store";
-import { Stats, Table, Chart } from "@/app/components";
+import LiveCards from "@/app/components/Cards";
+import ChartComponent from "@/app/components/chart/Chart";
+import Table from "@/app/components/table/Table";
 import { useTableTexts } from "@/app/components/table/columns";
 import { getDictionary } from "@/app/i18n/get-dictionary";
 import { Locale } from "@/app/i18n/i18n-config";
@@ -43,8 +44,8 @@ export default async function Casino({
 
   return (
     <>
-      <Stats cardsData={gameCards} rows={2} game={true} />
-      <Chart
+      <LiveCards cardsData={gameCards} rows={2} game={true} />
+      <ChartComponent
         dictionary={dictionary}
         gameId={gameId}
         gamesList={gamesList.results}
