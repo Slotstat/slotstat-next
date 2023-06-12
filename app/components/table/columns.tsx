@@ -160,9 +160,18 @@ const useTableTexts = () => {
 
 const SORT_BY = [
   { label: "None", value: "", id: "0" },
-  { label: "Win rate last 24h", id: "1", value: "p24h" },
-  { label: "Win rate last 1h", id: "2", value: "p1h" },
-  { label: "Jackpot", id: "3", value: "jackpot" },
+  { label: "Win rate last 1 day", id: "1", value: "p24h" },
+  { label: "Win rate last 1 week", id: "2", value: "p1h" },
+  { label: "Win rate last 1 month", id: "4", value: "jackpot" },
+  { label: "Win rate last 1 year", id: "5", value: "jackpot" },
+  { label: "Win rate all time", id: "6", value: "jackpot" },
+  { label: "Jackpot", id: "7", value: "jackpot" },
 ];
+// const SORT_BY = [
+//   { label: "None", value: "", id: "0" },
+//   { label: "Win rate last 24h", id: "1", value: "p24h" },
+//   { label: "Win rate last 1h", id: "2", value: "p1h" },
+//   { label: "Jackpot", id: "3", value: "jackpot" },
+// ];
 
 export { SORT_BY, useTableTexts };

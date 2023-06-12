@@ -52,7 +52,7 @@ const Table = ({
 
   const router = useRouter();
   const pathName = usePathname();
-  const [ascDesc, setAscDesc] = useState<boolean>(true);
+  const [ascDesc, setAscDesc] = useState<number>(0);
 
   const getPath = () => {
     const secondParameterInPath = 2;
@@ -95,10 +95,18 @@ const Table = ({
     usePagination
   );
 
-  const ascendDescend = useCallback((direction: string, active: boolean) => {
-    setAscDesc(active);
-    setQueryParams({ direction });
-  }, []);
+  const ascendDescend = useCallback(
+    (direction: string, status: number) => {
+      if (ascDesc === status) {
+        setAscDesc(0);
+        setQueryParams({ direction: "" });
+      } else {
+        setAscDesc(status);
+        setQueryParams({ direction });
+      }
+    },
+    [ascDesc, setQueryParams]
+  );
 
   return (
     <>
@@ -118,12 +126,12 @@ const Table = ({
 
               <div className="flex items-center ml-3 px-2 rounded-lg border border-grey1">
                 <Ascending
-                  onClick={() => ascendDescend("asc", true)}
-                  activity={ascDesc}
+                  onClick={() => ascendDescend("asc", 1)}
+                  active={ascDesc}
                 />
                 <Descending
-                  onClick={() => ascendDescend("desc", false)}
-                  activity={ascDesc}
+                  onClick={() => ascendDescend("desc", -1)}
+                  active={ascDesc}
                 />
               </div>
             </div>

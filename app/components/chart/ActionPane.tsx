@@ -81,6 +81,7 @@ const ActionPane = ({
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const background = useMemo(
               () => activeFilterId === filterKey && "bg-dark1",
+              // eslint-disable-next-line react-hooks/exhaustive-deps
               [activeFilterId]
             );
             return (
