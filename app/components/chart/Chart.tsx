@@ -78,6 +78,7 @@ const ChartComponent = ({
 
   // fetching and updating data for main and compareGame
   const getAndUpdateStatisticsData = async () => {
+    hideLoadingIndicator();
     let modifiedArrayWithOneOrTwoValue:
       | StatisticsData[]
       | { winRate2: number }[] = [];

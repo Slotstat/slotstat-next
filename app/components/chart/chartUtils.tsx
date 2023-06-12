@@ -171,7 +171,7 @@ var indicator;
 export const showLoadingIndicator = (chart: am4charts.XYChart) => {
   indicator = chart.tooltipContainer.createChild(am4core.Container);
   indicator.background.fill = am4core.color("#202227");
-  indicator.background.fillOpacity = 0.8;
+  indicator.background.fillOpacity = 0.9;
   indicator.width = am4core.percent(100);
   indicator.height = am4core.percent(100);
 
@@ -184,10 +184,13 @@ export const showLoadingIndicator = (chart: am4charts.XYChart) => {
 };
 
 export const hideLoadingIndicator = () => {
-  indicator.hide();
+  if (indicator) {
+    indicator.hide();
+  }
 };
 
 export const SERIE_COLORS = ["#5887F6", "#877CF2"];
+
 // filters old version
 // export const FILTERS = {
 //   "5s": { label: "5s" },
@@ -204,7 +207,8 @@ export const SERIE_COLORS = ["#5887F6", "#877CF2"];
 // filters new version
 export const FILTERS = {
   "1D": { label: "1D" },
-  "1M": { label: "1M" },
   "1W": { label: "1W" },
+  "1M": { label: "1M" },
   "1Y": { label: "1Y" },
+  All: { label: "All" },
 };
