@@ -17,8 +17,7 @@ import { SearchInput } from "./SearchInput";
 import Image from "next/image";
 
 import RenderRowCells from "./RenderRowCells";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
 import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
@@ -54,12 +53,12 @@ const Table = ({
   const pathName = usePathname();
   const [ascDesc, setAscDesc] = useState<number>(0);
 
-  const getPath = () => {
-    const secondParameterInPath = 2;
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
-    return segments[secondParameterInPath];
-  };
+  // const getPath = () => {
+  //   const secondParameterInPath = 2;
+  //   if (!pathName) return "/";
+  //   const segments = pathName.split("/");
+  //   return segments[secondParameterInPath];
+  // };
 
   const onRowPress = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
@@ -71,8 +70,8 @@ const Table = ({
       });
     } else {
       const path = row.original.gameId
-        ? `/${getPath()}/${row.original.gameId}`
-        : `/${row.original.casinoId}`;
+        ? `${pathName}/${row.original.gameId}`
+        : `${pathName}/${row.original.casinoId}`;
       return router.push(path);
     }
   };

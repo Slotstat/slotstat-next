@@ -5,11 +5,18 @@ import Link from "next/link";
 
 import { Collapse } from "@material-tailwind/react";
 
-import { logo, menu } from "@/app/assets";
+import { logo, menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 import LanguageToggleButton from "./LanguageToggleButton";
+import { Locale } from "@/app/i18n/i18n-config";
 
-const NavList = ({ dictionary }: { dictionary: Dictionary }) => {
+const NavList = ({
+  dictionary,
+  language,
+}: {
+  dictionary: Dictionary;
+  language: Locale;
+}) => {
   const { howItWorks } = dictionary.howItWorksPage;
   const { faq } = dictionary.navbar;
   const pathName = usePathname();
@@ -23,12 +30,12 @@ const NavList = ({ dictionary }: { dictionary: Dictionary }) => {
   return (
     <nav className="my-2 flex flex-col lg:my-0 lg:ml-auto lg:flex-row lg:items-center">
       <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
-        <Link href="/howItWorks" className={checkIsActive("howItWorks")}>
+        <Link href={`/howItWorks`} className={checkIsActive("howItWorks")}>
           {howItWorks}
         </Link>
       </span>
       <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
-        <Link href="/faq" className={checkIsActive("faq")}>
+        <Link href={`/faq`} className={checkIsActive("faq")}>
           {faq}
         </Link>
       </span>
@@ -36,9 +43,15 @@ const NavList = ({ dictionary }: { dictionary: Dictionary }) => {
   );
 };
 
-const Header = ({ dictionary }: { dictionary: Dictionary }) => {
+const Header = ({
+  dictionary,
+  language,
+}: {
+  dictionary: Dictionary;
+  language: Locale;
+}) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { slotstat, lang } = dictionary.navbar;
+  const { lang } = dictionary.navbar;
 
   const toggleNav = () => {
     setNavbarOpen(!navbarOpen);
@@ -56,13 +69,15 @@ const Header = ({ dictionary }: { dictionary: Dictionary }) => {
       <div className="flex justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl">
           <Link href="/" className="flex items-center">
-            <Image src={logo} alt="logo of slotstat" width={40} height={40} />
-            <span className="ml-2 hidden text-[26px] font-bold text-white lg:inline">
-              {slotstat}
-            </span>
+            <Image
+              src={slotLogo}
+              alt="logo of slotstat"
+              width={140}
+              height={40}
+            />
           </Link>
           <div className="hidden items-center lg:flex">
-            <NavList dictionary={dictionary} />
+            <NavList dictionary={dictionary} language={language} />
             <LanguageToggleButton
               lang={lang}
               css="mt-4 hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex"

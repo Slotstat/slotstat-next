@@ -26,13 +26,11 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const dictionary = await getDictionary(params.lang);
-
-  
   return (
     <html lang={params.lang}>
       <body>
         <ThemeProvider>
-          <Header dictionary={dictionary} />
+          <Header dictionary={dictionary} language={params.lang} />
           {/* <Breadcrumbs /> */}
           <div className="flex justify-center">
             <div className=" w-[100%] max-w-screen-xl">{children}</div>

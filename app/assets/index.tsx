@@ -21,6 +21,7 @@ import remove from "./svg/remove.svg";
 import search from "./svg/search.svg";
 import skewed_arrow from "./svg/skewed_arrow.svg";
 import telegram from "./svg/telegram.svg";
+import slotLogo from "./img/slotLogo.png";
 
 export {
   logo,
@@ -46,4 +47,5 @@ export {
   remove,
   live,
   search,
+  slotLogo,
 };
