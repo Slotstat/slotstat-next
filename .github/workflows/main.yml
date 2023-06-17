@@ -12,7 +12,7 @@ jobs:
    
       # required for accessing files in repository.
       - name: Clone slotstat-next 
-        uses: Slotstat/slotstat-next@v1
+        uses: Slotstat/clone-github-repo-action@v2
         with:        
          owner: 'Slotstat'
          repository: 'slotstat-next'
