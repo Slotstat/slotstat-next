@@ -12,10 +12,10 @@ jobs:
 
       # https://github.com/marketplace/actions/build-number-generator
       - name: Npm Init
-        run: echo "npm i"
+        run: npm i
       - name: Build On Machine
-        run: echo "npm run build"
+        run: npm run build
         
       - name: Run
-        run: echo "npm run start"
+        run: echo npm run start
       
