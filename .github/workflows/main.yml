@@ -1,0 +1,21 @@
+on:
+  push:
+     branches:
+       - master
+
+jobs:
+  generate-build-number-deploy:
+    runs-on: ssprod
+    steps:
+   
+      # required for accessing files in repository.
+
+      # https://github.com/marketplace/actions/build-number-generator
+      - name: Npm Init
+        run: echo "npm i"
+      - name: Build On Machine
+        run: echo "npm run build"
+        
+      - name: Run
+        run: echo "npm run start"
+      
