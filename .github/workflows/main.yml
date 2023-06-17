@@ -4,12 +4,19 @@ on:
        - main
 
 jobs:
+
   deploy-on-prod:
     runs-on: ssprod
+    
     steps:
    
       # required for accessing files in repository.
-
+      - name: Clone slotstat-next 
+        with:
+         owner: 'SlotStat'
+         repository: 'slotstat-next'
+         access-token: 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
+    
       # https://github.com/marketplace/actions/build-number-generator
       - name: Npm Init
         run: npm i
