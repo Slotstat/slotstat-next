@@ -18,6 +18,8 @@ jobs:
       - name: Npm Init
         run: npm i
       - name: Build On Machine
-        run: npm run build       
+        run: npm run build 
+      - name: restartservice
+        run: sudo systemctl restart SlotStat.Web.service
 
       
