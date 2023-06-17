@@ -12,7 +12,7 @@ jobs:
    
       # required for accessing files in repository.
       
-      - uses: actions/checkput@v3    
+      - uses: actions/checkout@v3    
     
       # https://github.com/marketplace/actions/build-number-generator
       - name: Npm Init
