@@ -17,5 +17,5 @@ jobs:
         run: npm run build
         
       - name: Run
-        run: echo npm run start
+        run: npm run start
       
