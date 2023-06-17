@@ -18,8 +18,6 @@ jobs:
       - name: Npm Init
         run: npm i
       - name: Build On Machine
-        run: npm run build
-        
-      - name: Run
-        run: npm run start
+        run: npm run build       
+
       
