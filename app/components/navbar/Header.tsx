@@ -12,10 +12,9 @@ import { Locale } from "@/app/i18n/i18n-config";
 
 const NavList = ({
   dictionary,
-  language,
 }: {
   dictionary: Dictionary;
-  language: Locale;
+  // language: Locale;
 }) => {
   const { howItWorks } = dictionary.howItWorksPage;
   const { faq } = dictionary.navbar;
@@ -77,7 +76,10 @@ const Header = ({
             />
           </Link>
           <div className="hidden items-center lg:flex">
-            <NavList dictionary={dictionary} language={language} />
+            <NavList
+              dictionary={dictionary}
+              // language={language}
+            />
             <LanguageToggleButton
               lang={lang}
               css="mt-4 hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex"
@@ -93,7 +95,10 @@ const Header = ({
       </div>
       <Collapse open={navbarOpen}>
         <div className="lg:hidden">
-          <NavList dictionary={dictionary} />
+          <NavList
+            dictionary={dictionary}
+            // language={"ge"}
+          />
         </div>
       </Collapse>
     </header>

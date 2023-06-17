@@ -20,7 +20,7 @@ import {
 import ActionPane from "./ActionPane";
 import signalR from "@/app/utils/singlar";
 import useStore from "@/app/(store)/store";
-import _ from "lodash";
+// import _ from "lodash";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/getStatistics";
 
@@ -235,7 +235,7 @@ const ChartComponent = ({
   // calling signalR and checking for updates
   useEffect(() => {
     if (!isOn) {
-      signalR();
+      // signalR();
     }
     if (
       newRate?.gameId === gameId ||
@@ -244,16 +244,17 @@ const ChartComponent = ({
       const last = chartRef.current?.data[chartRef.current?.data.length - 1];
 
       // turn on when old version is activated
-      // if (last && activeFilterId !== "All") {
-      //   if (compareGameObject) {
-      //     updateStatistic(gameId, last.timeStamp, compareGameObject.gameId);
-      //   } else {
-      //     updateStatistic(gameId, last.timeStamp);
-      //   }
-      // }
+      if (last) {
+        if (compareGameObject) {
+          updateStatistic(gameId, last.timeStamp, compareGameObject.gameId);
+        } else {
+          updateStatistic(gameId, last.timeStamp);
+        }
+      }
     }
-    // if (newJackpot) {
-    //   console.log("newJackpot>>>:", newJackpot);
+
+    // if (newRate) {
+    //   console.log("newRate>>>:", newRate);
     // }
     // if (jackpotHasBeenDrawn) {
     //   console.log("jackpotHasBeenDrawn>>>:", jackpotHasBeenDrawn);
@@ -263,7 +264,6 @@ const ChartComponent = ({
     isOn,
     gameId,
     newRate,
-    // newJackpot,
     //  jackpotHasBeenDrawn,
   ]);
 

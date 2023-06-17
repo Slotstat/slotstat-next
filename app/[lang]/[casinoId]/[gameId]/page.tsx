@@ -1,4 +1,4 @@
-import LiveCards from "@/app/components/Cards";
+import LiveCards from "@/app/components/LiveCards";
 import ChartComponent from "@/app/components/chart/Chart";
 import Table from "@/app/components/table/Table";
 import { useTableTexts } from "@/app/components/table/columns";

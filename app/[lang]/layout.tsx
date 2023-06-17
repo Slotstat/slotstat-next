@@ -8,6 +8,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import { getDictionary } from "../i18n/get-dictionary";
 import Header from "../components/navbar/Header";
 import Footer from "../components/Footer";
+import JackpotNotification from "../components/JackpotNotification";
 
 // export async function generateStaticParams() {
 //   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -36,6 +37,7 @@ export default async function RootLayout({
             <div className=" w-[100%] max-w-screen-xl">{children}</div>
           </div>
           <Footer dictionary={dictionary} />
+          <JackpotNotification />
         </ThemeProvider>
       </body>
     </html>

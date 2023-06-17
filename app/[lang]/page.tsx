@@ -1,7 +1,7 @@
 import { useTableTexts } from "../components/table/columns";
 import { Metadata } from "next";
 import { Locale } from "@/app/i18n/i18n-config";
-import LiveCards from "../components/Cards";
+import LiveCards from "../components/LiveCards";
 import Slider from "../components/Slider";
 import Table from "../components/table/Table";
 import { getLandingCards } from "@/lib/getLanding";

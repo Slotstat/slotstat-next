@@ -1,11 +1,13 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { live } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
 import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
+import useStore from "@/app/(store)/store";
+import signalR from "@/app/utils/singlar";
 
 type PagesAndStyleDiff = {
   landing?: boolean;
@@ -105,6 +107,8 @@ const LiveCards = ({
   cardsData: Array<Card>;
   rows?: number;
 } & PagesAndStyleDiff) => {
+  const { isOn, newJackpot } = useStore();
+
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     slides: { perView: 1.8, spacing: 16 },
@@ -115,7 +119,20 @@ const LiveCards = ({
     },
   });
 
+
+
   const data = useMemo(() => to2d(cardsData, rows), [cardsData, rows]);
+
+
+
+  useEffect(() => {
+    if (!isOn) {
+      signalR();
+    }
+    if (newJackpot) {
+      // console.log("newJackpot>>>:", newJackpot);
+    }
+  }, [casino, isOn, newJackpot]);
 
   return (
     <div className="my-4 px-4 lg:my-6">
