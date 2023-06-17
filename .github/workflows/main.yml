@@ -13,6 +13,7 @@ jobs:
       # required for accessing files in repository.
       - name: Clone slotstat-next 
         with:
+         uses: slotStat/slotstat-next
          owner: 'SlotStat'
          repository: 'slotstat-next'
          access-token: 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
