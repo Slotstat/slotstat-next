@@ -11,7 +11,8 @@ jobs:
     steps:
    
       # required for accessing files in repository.
-      
+      - name: Granting permissions to a folder
+        run:  sudo chmod -R 777 /actions-runner/_work/slotstat-next/slotstat-next
       - uses: actions/checkout@v3    
     
       # https://github.com/marketplace/actions/build-number-generator
