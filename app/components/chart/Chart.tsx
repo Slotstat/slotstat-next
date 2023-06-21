@@ -234,9 +234,9 @@ const ChartComponent = ({
 
   // calling signalR and checking for updates
   useEffect(() => {
-    if (!isOn) {
-      // signalR();
-    }
+    // if (!isOn) {
+    //   signalR();
+    // }
     if (
       newRate?.gameId === gameId ||
       newRate?.gameId === compareGameObject?.gameId

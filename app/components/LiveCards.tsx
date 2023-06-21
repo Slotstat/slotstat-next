@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { live } from "../assets";
 import { breakpoints } from "../utils";
@@ -7,7 +8,9 @@ import Image from "next/image";
 import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
 import useStore from "@/app/(store)/store";
-import signalR from "@/app/utils/singlar";
+import getCasinoCards from "@/lib/getCasinoCards";
+import _ from "lodash";
+import getGameCards from "@/lib/getGameCards";
 
 type PagesAndStyleDiff = {
   landing?: boolean;
@@ -15,6 +18,27 @@ type PagesAndStyleDiff = {
   game?: boolean;
 };
 type StatCardProp = Card & PagesAndStyleDiff;
+
+const AnimatedCounterComponent = ({
+  value,
+  style,
+}: {
+  value: string;
+  style: string;
+}) => {
+  const [test, setTest] = useState(0);
+  useEffect(() => {
+    const counter = (minimum: any, maximum: number) => {
+      for (let count = minimum; count <= maximum; count++) {
+        setTimeout(() => {
+          setTest(count);
+        }, 1000);
+      }
+    };
+    counter(test, Number(value));
+  }, [value]);
+  return <div className={style}>{test}</div>;
+};
 
 const StatCard = ({
   imageUrl,
@@ -71,7 +95,14 @@ const StatCard = ({
           className={`whitespace-nowrap text-sm leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
         >
           <span className=" mr-1">{name}:</span>
-          <span className={renderValueColor()}>{value}</span>
+          {isLive ? (
+            <AnimatedCounterComponent
+              value={value}
+              style={renderValueColor()}
+            />
+          ) : (
+            <span className={renderValueColor()}>{value}</span>
+          )}
           {redirectUrl && (
             <LinkIcon
               onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
@@ -103,11 +134,16 @@ const LiveCards = ({
   game = false,
   cardsData,
   rows = 1,
+  casinoId,
+  gameId,
 }: {
   cardsData: Array<Card>;
   rows?: number;
+  casinoId?: string;
+  gameId?: string;
 } & PagesAndStyleDiff) => {
   const { isOn, newJackpot } = useStore();
+  const [cardsDataState, setCardsDataState] = useState(cardsData);
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
@@ -119,20 +155,56 @@ const LiveCards = ({
     },
   });
 
+  const data = useMemo(
+    () => to2d(cardsDataState, rows),
+    [cardsDataState, rows]
+  );
 
+  const getUpdatedCasinoCardsData = useCallback(
+    _.debounce(async () => {
+      if (casinoId) {
+        const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
+        const updatedCasinoCardsData = await casinoCardsData;
+        console.log("casino newJackpot from casino page", newJackpot);
 
-  const data = useMemo(() => to2d(cardsData, rows), [cardsData, rows]);
+        setCardsDataState(updatedCasinoCardsData);
+      }
+    }, 2000),
+    []
+  );
 
+  const getUpdatedGameCardsData = useCallback(
+    _.debounce(async () => {
+      if (gameId) {
+        const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
 
+        const updatedGamesCardsData = await gamesCardsData;
+        console.log("games newJackpot from games page", newJackpot);
+
+        setCardsDataState(updatedGamesCardsData);
+      }
+    }, 2000),
+    []
+  );
 
   useEffect(() => {
-    if (!isOn) {
-      signalR();
+    // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
+    if (newJackpot?.casinoId === casinoId && casinoId !== undefined && casino) {
+      getUpdatedCasinoCardsData();
     }
-    if (newJackpot) {
-      // console.log("newJackpot>>>:", newJackpot);
+    // if we are on a Game page and we have new jackpot data from this game owner casino,  we Update game Cards Data.
+    if (newJackpot?.casinoId === casinoId && casinoId !== undefined && game) {
+      getUpdatedGameCardsData();
     }
-  }, [casino, isOn, newJackpot]);
+  }, [
+    casino,
+    casinoId,
+    getUpdatedCasinoCardsData,
+    getUpdatedGameCardsData,
+    isOn,
+    newJackpot,
+    game,
+  ]);
 
   return (
     <div className="my-4 px-4 lg:my-6">

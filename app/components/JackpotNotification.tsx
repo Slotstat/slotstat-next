@@ -3,19 +3,17 @@ import React, { useEffect, useState } from "react";
 import signalR from "@/app/utils/singlar";
 import useStore from "../(store)/store";
 import Image from "next/image";
-import { close, globe } from "../assets";
+import { close } from "../assets";
 
 export default function JackpotNotification() {
   const { isOn, jackpotHasBeenDrawn } = useStore();
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
-    console.log("jackpotHasBeenDrawn121212121", jackpotHasBeenDrawn);
     if (!isOn) {
       signalR();
     }
     if (jackpotHasBeenDrawn) {
-      console.log("jackpotHasBeenDrawn>>>:", jackpotHasBeenDrawn);
       setShowNotification(true);
     }
   }, [isOn, jackpotHasBeenDrawn]);
@@ -43,17 +41,21 @@ export default function JackpotNotification() {
           <h2 className=" text-white text-lg font-black py-3 px-2">
             The jackpot has been drawn
           </h2>
+          <h3 className=" text-white text-lg font-black px-2">
+            {jackpotHasBeenDrawn?.casinoName}
+          </h3>
 
-          <Image
-            src={globe}
-            alt=""
-            className="h-8 w-8 "
-            width={32}
-            height={32}
-          />
-
+          {jackpotHasBeenDrawn?.imageUrl && (
+            <Image
+              src={jackpotHasBeenDrawn?.imageUrl}
+              alt=""
+              className="h-8 w-8 py-2"
+              width={32}
+              height={32}
+            />
+          )}
           <h1 className=" text-green1 text-3xl font-black text-center">
-            $ 1 234 234
+            {jackpotHasBeenDrawn?.ccy} {jackpotHasBeenDrawn?.amount}
           </h1>
         </div>
       </div>

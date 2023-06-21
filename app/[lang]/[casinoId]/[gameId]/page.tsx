@@ -44,7 +44,13 @@ export default async function Casino({
 
   return (
     <>
-      <LiveCards cardsData={gameCards} rows={2} game={true} />
+      <LiveCards
+        cardsData={gameCards}
+        rows={2}
+        game={true}
+        gameId={gameId}
+        casinoId={casinoId}
+      />
       <ChartComponent
         dictionary={dictionary}
         gameId={gameId}

@@ -1,6 +1,5 @@
 import { Option, Select } from "@material-tailwind/react";
-import _ from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { SORT_BY } from "./columns";
 
 const Dropdown = ({
