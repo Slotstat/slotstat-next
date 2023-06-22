@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Collapse } from "@material-tailwind/react";
 
-import { logo, menu, slotLogo } from "@/app/assets";
+import { menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 import LanguageToggleButton from "./LanguageToggleButton";
 import { Locale } from "@/app/i18n/i18n-config";

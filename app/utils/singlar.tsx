@@ -12,7 +12,6 @@ const signalR = async () => {
     try {
       await connection.start();
       useStore.setState({ isOn: true });
-      console.log("SignalR Connected.");
 
       connection.on("newRate", (message) => {
         useStore.setState({ newRate: message });

@@ -234,9 +234,6 @@ const ChartComponent = ({
 
   // calling signalR and checking for updates
   useEffect(() => {
-    // if (!isOn) {
-    //   signalR();
-    // }
     if (
       newRate?.gameId === gameId ||
       newRate?.gameId === compareGameObject?.gameId
@@ -253,12 +250,6 @@ const ChartComponent = ({
       }
     }
 
-    // if (newRate) {
-    //   console.log("newRate>>>:", newRate);
-    // }
-    // if (jackpotHasBeenDrawn) {
-    //   console.log("jackpotHasBeenDrawn>>>:", jackpotHasBeenDrawn);
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isOn,

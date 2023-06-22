@@ -7,7 +7,6 @@ import Image from "next/image";
 import Table from "./table/Table";
 import { back, close } from "../assets";
 import { useEffect, useState } from "react";
-import { Spinner } from "@material-tailwind/react";
 import getGamesList from "@/lib/getGamesList";
 import getCasinos from "@/lib/getCasinos";
 
@@ -123,9 +122,7 @@ export default function BottomSheetModal({
                 onAddToCompare={onAddToCompare}
               />
             ) : (
-              <div className="flex items-center justify-center">
-                <Spinner className="h-12 w-12" color="pink" />
-              </div>
+              <div className="flex items-center justify-center"></div>
             )}
           </div>
         </div>

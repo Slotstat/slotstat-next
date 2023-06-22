@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
@@ -11,6 +10,7 @@ import useStore from "@/app/(store)/store";
 import getCasinoCards from "@/lib/getCasinoCards";
 import _ from "lodash";
 import getGameCards from "@/lib/getGameCards";
+import CountUp from "react-countup";
 
 type PagesAndStyleDiff = {
   landing?: boolean;
@@ -26,18 +26,29 @@ const AnimatedCounterComponent = ({
   value: string;
   style: string;
 }) => {
-  const [test, setTest] = useState(0);
-  useEffect(() => {
-    const counter = (minimum: any, maximum: number) => {
-      for (let count = minimum; count <= maximum; count++) {
-        setTimeout(() => {
-          setTest(count);
-        }, 1000);
-      }
-    };
-    counter(test, Number(value));
-  }, [value]);
-  return <div className={style}>{test}</div>;
+  const [start, setStart] = useState(0);
+  useEffect(() => {}, [value]);
+
+  return (
+    <CountUp
+      start={start}
+      end={Number(value)}
+      duration={2.75}
+      separator=" "
+      decimals={2}
+      decimal=","
+      // prefix="$ "
+      // suffix=" left"
+      onEnd={() => setStart(Number(value))}
+      delay={0}
+    >
+      {({ countUpRef }) => (
+        <div>
+          <span className={style} ref={countUpRef} />
+        </div>
+      )}
+    </CountUp>
+  );
 };
 
 const StatCard = ({
@@ -61,7 +72,7 @@ const StatCard = ({
   };
 
   const renderValueColor = () => {
-    if (game && name.toLocaleLowerCase() === "jackpot") return "text-green1";
+    if (name.toLocaleLowerCase() === "jackpot") return "text-green1";
     if (casino || game) return "text-white";
 
     return "text-blue1";
@@ -111,9 +122,9 @@ const StatCard = ({
           )}
         </span>
         {additionalInfo && (
-          <TooltipComponent
-            text={additionalInfo + "Information about casino gift offers"}
-          />
+          <>
+            <TooltipComponent text={additionalInfo} />
+          </>
         )}
       </div>
     </div>
@@ -142,7 +153,7 @@ const LiveCards = ({
   casinoId?: string;
   gameId?: string;
 } & PagesAndStyleDiff) => {
-  const { isOn, newJackpot } = useStore();
+  const { newJackpot } = useStore();
   const [cardsDataState, setCardsDataState] = useState(cardsData);
 
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
@@ -165,8 +176,6 @@ const LiveCards = ({
       if (casinoId) {
         const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
         const updatedCasinoCardsData = await casinoCardsData;
-        console.log("casino newJackpot from casino page", newJackpot);
-
         setCardsDataState(updatedCasinoCardsData);
       }
     }, 2000),
@@ -177,10 +186,7 @@ const LiveCards = ({
     _.debounce(async () => {
       if (gameId) {
         const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
-
         const updatedGamesCardsData = await gamesCardsData;
-        console.log("games newJackpot from games page", newJackpot);
-
         setCardsDataState(updatedGamesCardsData);
       }
     }, 2000),
@@ -201,11 +207,9 @@ const LiveCards = ({
     casinoId,
     getUpdatedCasinoCardsData,
     getUpdatedGameCardsData,
-    isOn,
     newJackpot,
     game,
   ]);
-
   return (
     <div className="my-4 px-4 lg:my-6">
       <div ref={sliderRef} className="keen-slider zoom-out">
@@ -215,7 +219,12 @@ const LiveCards = ({
             className="keen-slider__slide zoom-out__slide space-y-4 md:space-y-6"
           >
             {stats.map((stat, index) => (
-              <StatCard key={index} {...stat} casino={casino} game={game} />
+              <StatCard
+                key={index.toString()}
+                {...stat}
+                casino={casino}
+                game={game}
+              />
             ))}
           </div>
         ))}

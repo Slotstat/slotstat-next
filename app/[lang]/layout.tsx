@@ -1,6 +1,5 @@
 import "../globals.css";
 
-import { ThemeProvider } from "../components/ThemeProviderClientSide";
 import { ReactNode } from "react";
 import { Locale, i18n } from "../i18n/i18n-config";
 import type { Metadata } from "next";
@@ -9,6 +8,7 @@ import { getDictionary } from "../i18n/get-dictionary";
 import Header from "../components/navbar/Header";
 import Footer from "../components/Footer";
 import JackpotNotification from "../components/JackpotNotification";
+import TooltipClientSide from "../components/TooltipClientSide";
 
 // export async function generateStaticParams() {
 //   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -30,15 +30,14 @@ export default async function RootLayout({
   return (
     <html lang={params.lang}>
       <body>
-        <ThemeProvider>
-          <Header dictionary={dictionary} language={params.lang} />
-          {/* <Breadcrumbs /> */}
-          <div className="flex justify-center">
-            <div className=" w-[100%] max-w-screen-xl">{children}</div>
-          </div>
-          <Footer dictionary={dictionary} />
-          <JackpotNotification />
-        </ThemeProvider>
+        <Header dictionary={dictionary} language={params.lang} />
+        {/* <Breadcrumbs /> */}
+        <div className="flex justify-center">
+          <div className=" w-[100%] max-w-screen-xl">{children}</div>
+        </div>
+        <Footer dictionary={dictionary} />
+        <JackpotNotification />
+        <TooltipClientSide />
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
-import { Breadcrumbs as MTBreadcrumbs } from "@material-tailwind/react";
+// import { Breadcrumbs as MTBreadcrumbs } from "@material-tailwind/react";
 import ForwardIcon from "@/app/assets/svg/ForwardIcon";
 
 // TODO correct Breadcrumbs linking
@@ -14,7 +14,7 @@ export default function Breadcrumbs() {
   }
   return (
     <div className="relative my-4 px-4 lg:my-6">
-      <MTBreadcrumbs
+      {/* <MTBreadcrumbs
         className="bg-transparent p-0"
         separator={<ForwardIcon color="#FFFFFF66" size={18} />}
       >
@@ -33,7 +33,7 @@ export default function Breadcrumbs() {
             </Link>
           );
         })}
-      </MTBreadcrumbs>
+      </MTBreadcrumbs> */}
     </div>
   );
 }
