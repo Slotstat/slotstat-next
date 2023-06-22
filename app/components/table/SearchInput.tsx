@@ -1,4 +1,5 @@
-"use client";
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useCallback } from "react";
 
 import { Input } from "@material-tailwind/react";
@@ -17,6 +18,7 @@ export const SearchInput = ({
   keyWord: string;
 }) => {
   const [value, setValue] = useState(keyWord);
+  const [focused, setFocused] = useState(false);
 
   const debouncedSearch = useCallback(
     _.debounce((text) => {
@@ -26,18 +28,21 @@ export const SearchInput = ({
   );
 
   return (
-    <div className="input w-full md:w-72 border-grey1">
-      <Input
-        variant="outlined"
-        label="Search"
-        icon={<Image src={search} alt="" />}
+    <div className=" relative input w-full md:w-72 border-grey1 ">
+      <input
+        placeholder="Search"
         value={value || ""}
         onChange={(e) => {
           setValue(e.target.value);
           debouncedSearch(e.target.value);
         }}
-        className="w-full rounded-lg text-grey1"
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className={`w-full rounded-lg text-sm border-grey1 text-grey1 bg-dark1 border  h-10 px-3 focus:border-blue1 focus:outline-none`}
       />
+      <span className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center">
+        <Image src={search} alt="" height={12} width={12} />
+      </span>
     </div>
   );
 };

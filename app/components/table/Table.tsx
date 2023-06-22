@@ -123,7 +123,7 @@ const Table = ({
                 onChange={(orderBy) => setQueryParams({ orderBy })}
               />
 
-              <div className="flex items-center ml-3 px-2 rounded-lg border border-grey1">
+              <div className="flex items-center h-10 ml-3 px-2 rounded-lg border border-grey1">
                 <Ascending
                   onClick={() => ascendDescend("asc", 1)}
                   active={ascDesc}

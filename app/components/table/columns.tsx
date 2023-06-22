@@ -165,7 +165,7 @@ const SORT_BY = [
   { label: "Win rate last 1 month", id: "4", value: "jackpot" },
   { label: "Win rate last 1 year", id: "5", value: "jackpot" },
   { label: "Win rate all time", id: "6", value: "jackpot" },
-  { label: "Jackpot", id: "7", value: "jackpot" },
+  // { label: "Jackpot", id: "7", value: "jackpot" },
 ];
 // const SORT_BY = [
 //   { label: "None", value: "", id: "0" },
