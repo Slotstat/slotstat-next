@@ -118,7 +118,6 @@ const Table = ({
             />
             <div className="flex">
               <Dropdown
-                label={"Sort by"}
                 orderBy={orderBy}
                 onChange={(orderBy) => setQueryParams({ orderBy })}
               />

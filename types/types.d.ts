@@ -16,7 +16,7 @@ type Card = {
   isLive: boolean;
   additionalInfo?: string;
   redirectUrl: string;
-  additionalProps: string;
+  additionalProps: string[];
   contextId?: string;
   valueTypeId: string;
   contextType: string;

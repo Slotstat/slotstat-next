@@ -22,9 +22,11 @@ type StatCardProp = Card & PagesAndStyleDiff;
 const AnimatedCounterComponent = ({
   value,
   style,
+  additionalProps,
 }: {
   value: string;
   style: string;
+  additionalProps: string[];
 }) => {
   const [start, setStart] = useState(0);
   useEffect(() => {}, [value]);
@@ -35,9 +37,9 @@ const AnimatedCounterComponent = ({
       end={Number(value)}
       duration={2.75}
       separator=" "
-      decimals={2}
-      decimal=","
-      // prefix="$ "
+      decimals={additionalProps ? 2 : 0}
+      decimal="."
+      prefix={additionalProps ? additionalProps[0] : ""}
       // suffix=" left"
       onEnd={() => setStart(Number(value))}
       delay={0}
@@ -60,6 +62,7 @@ const StatCard = ({
   casino,
   game,
   redirectUrl,
+  additionalProps,
 }: StatCardProp) => {
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
@@ -108,6 +111,7 @@ const StatCard = ({
           <span className=" mr-1">{name}:</span>
           {isLive ? (
             <AnimatedCounterComponent
+              additionalProps={additionalProps}
               value={value}
               style={renderValueColor()}
             />

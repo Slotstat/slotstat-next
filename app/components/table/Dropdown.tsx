@@ -4,11 +4,9 @@ import { Listbox, Transition } from "@headlessui/react";
 import ArrowUp from "@/app/assets/svg/ArrowUp";
 
 const Dropdown = ({
-  label,
   onChange,
   orderBy,
 }: {
-  label: string;
   onChange: (v?: string) => void;
   orderBy?: string;
 }) => {
@@ -21,7 +19,11 @@ const Dropdown = ({
 
   useEffect(() => {
     const index = SORT_BY.findIndex((x) => x.value === orderBy);
-    setSelected(SORT_BY[index]);
+    if (index === -1) {
+      setSelected(SORT_BY[0]);
+    } else {
+      setSelected(SORT_BY[index]);
+    }
   }, [orderBy]);
 
   return (
