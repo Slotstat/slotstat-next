@@ -1,5 +1,6 @@
 import "../globals.css";
 
+// import { ThemeProvider } from "../components/ThemeProviderClientSide";
 import { ReactNode } from "react";
 import { Locale, i18n } from "../i18n/i18n-config";
 import type { Metadata } from "next";
@@ -30,6 +31,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang}>
       <body>
+        {/* <ThemeProvider> */}
         <Header dictionary={dictionary} language={params.lang} />
         {/* <Breadcrumbs /> */}
         <div className="flex justify-center">
@@ -37,6 +39,7 @@ export default async function RootLayout({
         </div>
         <Footer dictionary={dictionary} />
         <JackpotNotification />
+        {/* </ThemeProvider> */}
         <TooltipClientSide />
       </body>
     </html>

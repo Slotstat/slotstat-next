@@ -16,6 +16,7 @@ export default function TooltipClientSide() {
         borderColor: "#36383D",
         opacity: 1,
         fontSize: 12,
+        zIndex:10
       }}
     />
   );

@@ -1,4 +1,3 @@
-"use client";
 import DownIconBlue from "@/app/assets/svg/DownIconBlue";
 import LinkIcon from "@/app/assets/svg/LinkIcon";
 import {

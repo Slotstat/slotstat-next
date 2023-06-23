@@ -28,11 +28,11 @@ const NavList = ({
 
   return (
     <nav className="my-2 flex flex-col lg:my-0 lg:ml-auto lg:flex-row lg:items-center">
-      <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
+      {/* <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
         <Link href={`/howItWorks`} className={checkIsActive("howItWorks")}>
           {howItWorks}
         </Link>
-      </span>
+      </span> */}
       <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
         <Link href={`/faq`} className={checkIsActive("faq")}>
           {faq}
