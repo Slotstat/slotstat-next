@@ -1,9 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useCallback } from "react";
-
-import { Input } from "@material-tailwind/react";
-
 import { search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";

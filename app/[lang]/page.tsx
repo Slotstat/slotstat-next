@@ -37,7 +37,6 @@ export default async function Home({
   return (
     <>
       <LiveCards cardsData={landingCards} />
-      
       <Slider />
       <div className="my-6 px-4 lg:my-18 ">
         <Table

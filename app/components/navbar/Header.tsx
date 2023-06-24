@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-
 import { Collapse } from "@material-tailwind/react";
 
 import { menu, slotLogo } from "@/app/assets";
