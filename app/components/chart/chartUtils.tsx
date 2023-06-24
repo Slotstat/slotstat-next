@@ -171,7 +171,7 @@ var indicator;
 export const showLoadingIndicator = (chart: am4charts.XYChart) => {
   indicator = chart.tooltipContainer.createChild(am4core.Container);
   indicator.background.fill = am4core.color("#202227");
-  indicator.background.fillOpacity = 0.9;
+  indicator.background.fillOpacity = 1;
   indicator.width = am4core.percent(100);
   indicator.height = am4core.percent(100);
 

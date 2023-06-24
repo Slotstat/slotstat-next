@@ -18,9 +18,7 @@ import {
   hideLoadingIndicator,
 } from "./chartUtils";
 import ActionPane from "./ActionPane";
-import signalR from "@/app/utils/singlar";
 import useStore from "@/app/(store)/store";
-// import _ from "lodash";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/getStatistics";
 
@@ -43,6 +41,8 @@ const ChartComponent = ({
   const chartRef = useRef<am4charts.XYChart>();
   const [activeFilterId, setActiveFilterId] =
     useState<keyof typeof FILTERS>("1D");
+
+  const [filterDisabled, setFilterDisabled] = useState(false)
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
@@ -82,7 +82,6 @@ const ChartComponent = ({
     let modifiedArrayWithOneOrTwoValue:
       | StatisticsData[]
       | { winRate2: number }[] = [];
-    // hideLoadingIndicator();
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     if (selectedGames.length > 1) {
@@ -111,6 +110,7 @@ const ChartComponent = ({
       chartRef.current.data = modifiedArrayWithOneOrTwoValue;
 
       hideLoadingIndicator();
+      setFilterDisabled(false)
     }
   };
 
@@ -143,6 +143,7 @@ const ChartComponent = ({
       createSeries(series2, "date", "winRate2", SERIE_COLORS[1]);
       chartRef.current.validateData();
       hideLoadingIndicator();
+      setFilterDisabled(false)
     }
     setLiveResultForCompareGame(data[data.length - 1].winRate);
   };
@@ -330,6 +331,8 @@ const ChartComponent = ({
               onPressRemove={onPressRemove}
               activeFilterId={activeFilterId}
               onPressFilter={setActiveFilterId}
+              setFilterDisabled={setFilterDisabled}
+              filterDisabled={filterDisabled}
             />
 
             <div

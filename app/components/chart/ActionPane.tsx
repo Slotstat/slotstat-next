@@ -15,6 +15,8 @@ const ActionPane = ({
   onPressFilter,
   mainGameObject,
   compareGameObject,
+  setFilterDisabled,
+  filterDisabled,
 }: ActionPaneProps) => {
   const { compare, vs } = dictionary;
   return (
@@ -86,8 +88,12 @@ const ActionPane = ({
             );
             return (
               <button
+                disabled={filterDisabled}
                 key={index}
-                onClick={() => onPressFilter(filterKey)}
+                onClick={() => {
+                  onPressFilter(filterKey);
+                  setFilterDisabled(true);
+                }}
                 className={`flex items-center justify-center rounded-[10px] py-2 px-5 hover:bg-dark3 ${background}`}
               >
                 <span className="text-sm leading-4 text-grey1">

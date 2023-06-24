@@ -165,6 +165,8 @@ type ActionPaneProps = {
   onPressFilter: any;
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;
+  setFilterDisabled: (boolean: boolean) => void;
+  filterDisabled: boolean;
 };
 
 type QueryParams = {
