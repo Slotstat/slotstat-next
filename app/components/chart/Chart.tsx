@@ -39,19 +39,22 @@ const ChartComponent = ({
 }) => {
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
+  const windowFocused = useRef<number>();
   const [activeFilterId, setActiveFilterId] =
     useState<keyof typeof FILTERS>("1D");
 
-  const [filterDisabled, setFilterDisabled] = useState(false)
+  const [filterDisabled, setFilterDisabled] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
   const [mainGameObject, setMainGameObject] = useState<GameData>();
   const [compareGameObject, setCompareGameObject] = useState<GameData>();
   const [liveResultForMainGame, setLiveResultForMainGame] = useState<number>();
+  const [visibilitychangeHandler, setVisibilitychangeHandler] =
+    useState<boolean>(true);
   const [liveResultForCompareGame, setLiveResultForCompareGame] =
     useState<number>();
-  const { isOn, newRate, newJackpot, jackpotHasBeenDrawn } = useStore();
+  const { isOn, newRate } = useStore();
 
   const isCompare = useMemo(() => selectedGames.length > 1, [selectedGames]);
 
@@ -83,7 +86,6 @@ const ChartComponent = ({
       | StatisticsData[]
       | { winRate2: number }[] = [];
     chartRef.current && showLoadingIndicator(chartRef.current);
-
     if (selectedGames.length > 1) {
       const gameStatistics1 = getAndCorrectStatisticsData(selectedGames[0]);
       const gameStatistics2 = getAndCorrectStatisticsData(selectedGames[1]);
@@ -110,7 +112,7 @@ const ChartComponent = ({
       chartRef.current.data = modifiedArrayWithOneOrTwoValue;
 
       hideLoadingIndicator();
-      setFilterDisabled(false)
+      setFilterDisabled(false);
     }
   };
 
@@ -129,7 +131,6 @@ const ChartComponent = ({
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     const data = await getAndCorrectStatisticsData(compareGameId);
-
     if (chartRef.current?.data[0].winRate2) {
       chartRef.current.series.removeIndex(1);
     }
@@ -143,7 +144,7 @@ const ChartComponent = ({
       createSeries(series2, "date", "winRate2", SERIE_COLORS[1]);
       chartRef.current.validateData();
       hideLoadingIndicator();
-      setFilterDisabled(false)
+      setFilterDisabled(false);
     }
     setLiveResultForCompareGame(data[data.length - 1].winRate);
   };
@@ -252,26 +253,16 @@ const ChartComponent = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isOn,
-    gameId,
-    newRate,
-    //  jackpotHasBeenDrawn,
-  ]);
-
-  // dispose chart
-  useEffect(() => {
-    return () => {
-      chartRef.current && chartRef.current.dispose();
-    };
-  }, []);
+  }, [isOn, gameId, newRate]);
 
   // after changing filter this will update chart and chart data.
   useEffect(() => {
-    getAndUpdateStatisticsData();
+    if (visibilitychangeHandler) {
+      getAndUpdateStatisticsData();
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFilterId]);
+  }, [activeFilterId, visibilitychangeHandler]);
 
   // setting main game object to the state
   useEffect(() => {
@@ -279,6 +270,33 @@ const ChartComponent = ({
       return x.gameId === gameId;
     });
     setMainGameObject(mainGame);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Window is not visible, user has switched tabs or minimized the window
+        windowFocused.current = Date.now();
+        setVisibilitychangeHandler(false);
+      } else {
+        // Window is visible again, user has come back to the window
+        if (
+          windowFocused.current &&
+          windowFocused.current < Date.now() - 120000
+        ) {
+          setVisibilitychangeHandler(true);
+        }
+
+        windowFocused.current = undefined;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      // dispose chart
+      chartRef.current && chartRef.current.dispose();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
