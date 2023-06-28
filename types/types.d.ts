@@ -161,7 +161,7 @@ type ActionPaneProps = {
   dictionary: any;
   onPressCompare: any;
   onPressRemove: any;
-  activeFilterId: any;
+  activeFilterId: "1D" | "1W" | "1M" | "1Y" | "All";
   onPressFilter: any;
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;

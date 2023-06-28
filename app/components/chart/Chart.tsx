@@ -51,7 +51,7 @@ const ChartComponent = ({
   const [compareGameObject, setCompareGameObject] = useState<GameData>();
   const [liveResultForMainGame, setLiveResultForMainGame] = useState<number>();
   const [visibilitychangeHandler, setVisibilitychangeHandler] =
-    useState<boolean>(true);
+    useState<boolean>(false);
   const [liveResultForCompareGame, setLiveResultForCompareGame] =
     useState<number>();
   const { isOn, newRate } = useStore();
@@ -257,12 +257,18 @@ const ChartComponent = ({
 
   // after changing filter this will update chart and chart data.
   useEffect(() => {
+    getAndUpdateStatisticsData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilterId]);
+
+  useEffect(() => {
     if (visibilitychangeHandler) {
       getAndUpdateStatisticsData();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFilterId, visibilitychangeHandler]);
+  }, [visibilitychangeHandler]);
 
   // setting main game object to the state
   useEffect(() => {
