@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 import {
@@ -30,6 +30,8 @@ type Props = {
   onAddToCompare?: (gameId: GameData) => void;
   orderBy?: string;
   keyWord?: string;
+  direction?: string;
+
   getGamesFromChosenCasino?: ({
     casinoId,
     name,
@@ -43,11 +45,13 @@ const Table = ({
   onAddToCompare,
   orderBy,
   keyWord,
+  direction,
   getGamesFromChosenCasino,
 }: Props) => {
   const { setQueryParams } = useQueryParams();
   const columns = useMemo(() => _columns, [_columns]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
+  const [scrollY, setScrollY] = useState<number | null>(null);
 
   const router = useRouter();
   const pathName = usePathname();
@@ -103,9 +107,17 @@ const Table = ({
         setAscDesc(status);
         setQueryParams({ direction });
       }
+      setScrollY(window.scrollY);
     },
     [ascDesc, setQueryParams]
   );
+
+  useEffect(() => {
+    const persistentScroll = scrollY;
+    if (persistentScroll === null) return;
+
+    window.scrollTo({ top: Number(scrollY) });
+  }, [scrollY, keyWord, orderBy, direction]);
 
   return (
     <>
@@ -114,12 +126,18 @@ const Table = ({
           <>
             <SearchInput
               keyWord={keyWord || ""}
-              setCasinoFilter={(keyWord) => setQueryParams({ keyWord })}
+              setCasinoFilter={(keyWord) => {
+                setScrollY(window.scrollY);
+                setQueryParams({ keyWord });
+              }}
             />
             <div className="flex">
               <Dropdown
                 orderBy={orderBy}
-                onChange={(orderBy) => setQueryParams({ orderBy })}
+                onChange={(orderBy) => {
+                  setScrollY(window.scrollY);
+                  setQueryParams({ orderBy });
+                }}
               />
 
               <div className="flex items-center h-10 ml-3 px-2 rounded-lg border border-grey1">

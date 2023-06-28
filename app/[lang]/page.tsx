@@ -42,6 +42,7 @@ export default async function Home({
         <Table
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}
+          direction={direction}
           columns={casinoColumnHeaders}
           tableBodyData={casinos}
           showFilter={true}
