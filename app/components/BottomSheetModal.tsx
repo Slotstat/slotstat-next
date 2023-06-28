@@ -1,5 +1,3 @@
-"use client";
-
 import { BottomSheet } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 
@@ -9,6 +7,8 @@ import { back, close } from "../assets";
 import { useEffect, useState } from "react";
 import getGamesList from "@/lib/getGamesList";
 import getCasinos from "@/lib/getCasinos";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type BottomSheetModalProps = {
   open: boolean;
@@ -28,17 +28,22 @@ export default function BottomSheetModal({
   const [casinos, setCasinos] = useState<CasinoData[]>();
   const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
   const [games, setGames] = useState<gamesList>();
+  const [loading, setLoading] = useState(false);
 
   const getGamesFromChosenCasino = async (
     casino: GetGamesFromChosenCasinoProps
   ) => {
+    setLoading(true);
+
     const gamesListData: Promise<gamesList> = getGamesList(casino.casinoId, {});
     const games = await gamesListData;
     setGames(games);
     setCasino(casino);
+    setLoading(false);
   };
 
   const getAllCasinos = async () => {
+    setLoading(true);
     const casinosData: Promise<CasinoData[]> = getCasinos({
       //   orderBy,
       //   keyWord,
@@ -46,6 +51,13 @@ export default function BottomSheetModal({
     });
     const casinos = await casinosData;
     setCasinos(casinos);
+    setLoading(false);
+  };
+
+  const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
+    onAddToCompare(GameData);
+    setGames(undefined);
+    setCasino(undefined);
   };
 
   useEffect(() => {
@@ -58,26 +70,32 @@ export default function BottomSheetModal({
       open={open}
       onDismiss={() => {
         setOpen(false);
+        setCasino(undefined);
+        setGames(undefined);
       }}
     >
       <div className="bg-dark1 py-8 px-4 flex justify-center">
         <div className=" w-[100%] max-w-screen-xl">
           <div className="flex items-center justify-between">
-            <button
-              className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-              onClick={() => {
-                setGames(undefined);
-                setCasino(undefined);
-              }}
-            >
-              <Image
-                src={back}
-                alt=""
-                className="h-6 w-6"
-                width={24}
-                height={24}
-              />
-            </button>
+            {games ? (
+              <button
+                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
+                onClick={() => {
+                  setGames(undefined);
+                  setCasino(undefined);
+                }}
+              >
+                <Image
+                  src={back}
+                  alt=""
+                  className="h-6 w-6"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            ) : (
+              <div></div>
+            )}
             {casino ? (
               <span className=" text-2xl leading-4  text-white">
                 Choose Game from {casino.name}
@@ -92,6 +110,8 @@ export default function BottomSheetModal({
               className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
               onClick={() => {
                 setOpen(false);
+                setCasino(undefined);
+                setGames(undefined);
               }}
             >
               <Image
@@ -105,7 +125,7 @@ export default function BottomSheetModal({
           </div>
 
           <div className="py-8">
-            {casinos && !games ? (
+            {casinos && !games && !loading ? (
               <Table
                 //   orderBy={orderBy || ""}
                 //   keyWord={keyWord || ""}
@@ -114,15 +134,21 @@ export default function BottomSheetModal({
                 showFilter={false}
                 getGamesFromChosenCasino={getGamesFromChosenCasino}
               />
-            ) : games ? (
+            ) : games && !loading ? (
               <Table
                 columns={gameColumnHeaders}
                 tableBodyData={games.results}
                 showFilter={false}
-                onAddToCompare={onAddToCompare}
+                onAddToCompare={onAddToCompareAndClearBottomSheet}
               />
             ) : (
-              <div className="flex items-center justify-center"></div>
+              <SkeletonTheme baseColor="#24262C" highlightColor="#444">
+                <section>
+                  <Skeleton count={1} className="h-20 mb-5" />
+                  <Skeleton count={1} className="h-20 mb-5" />
+                  <Skeleton count={1} className="h-20 mb-5" />
+                </section>
+              </SkeletonTheme>
             )}
           </div>
         </div>

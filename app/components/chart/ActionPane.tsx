@@ -109,7 +109,7 @@ const ActionPane = ({
             );
           })}
         </div>
-        <button className="ml-3 hidden items-center justify-center rounded-[10px] p-3 hover:bg-dark3 lg:flex">
+        {/* <button className="ml-3 hidden items-center justify-center rounded-[10px] p-3 hover:bg-dark3 lg:flex">
           <Image
             src={fullscreen}
             alt=""
@@ -117,7 +117,7 @@ const ActionPane = ({
             width={16}
             height={16}
           />
-        </button>
+        </button> */}
       </div>
     </div>
   );
