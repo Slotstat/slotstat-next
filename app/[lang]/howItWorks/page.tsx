@@ -1,8 +1,8 @@
-import { skewed_arrow, gear } from "@/app/assets";
-import { getDictionary } from "@/app/i18n/get-dictionary";
+// import { skewed_arrow, gear } from "@/app/assets";
+// import { getDictionary } from "@/app/i18n/get-dictionary";
+// import { STEPS } from "@/app/utils/mockData";
+// import Image from "next/image";
 import { Locale } from "@/app/i18n/i18n-config";
-import { STEPS } from "@/app/utils/mockData";
-import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,21 +10,21 @@ export const metadata: Metadata = {
   description: "slot stat high level",
 };
 
-const Step = ({ index, icon, description, active }: StepProps) => {
-  return (
-    <div className="flex max-w-md flex-col rounded-3xl border border-grey2 p-4">
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-grey2">
-          <span className="text-[18px] text-white">{index + 1}</span>
-        </div>
-        <Image src={icon} alt="" className="h-8 w-8" width={36} height={37} />
-      </div>
-      <span className="mt-3 text-sm leading-5 text-white lg:text-base">
-        <span className="text-grey1">{description}</span>
-      </span>
-    </div>
-  );
-};
+// const Step = ({ index, icon, description, active }: StepProps) => {
+//   return (
+//     <div className="flex max-w-md flex-col rounded-3xl border border-grey2 p-4">
+//       <div className="flex flex-row items-center justify-between">
+//         <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-grey2">
+//           <span className="text-[18px] text-white">{index + 1}</span>
+//         </div>
+//         <Image src={icon} alt="" className="h-8 w-8" width={36} height={37} />
+//       </div>
+//       <span className="mt-3 text-sm leading-5 text-white lg:text-base">
+//         <span className="text-grey1">{description}</span>
+//       </span>
+//     </div>
+//   );
+// };
 
 export default async function HowItWorks({
   params,

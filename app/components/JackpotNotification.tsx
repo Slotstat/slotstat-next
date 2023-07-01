@@ -4,6 +4,7 @@ import signalR from "@/app/utils/singlar";
 import useStore from "../(store)/store";
 import Image from "next/image";
 import { close } from "../assets";
+import CountUp from "react-countup";
 
 export default function JackpotNotification() {
   const { isOn, jackpotHasBeenDrawn } = useStore();
@@ -55,7 +56,25 @@ export default function JackpotNotification() {
             />
           )}
           <h1 className=" text-green1 text-3xl font-black text-center">
-            {jackpotHasBeenDrawn?.ccy} {jackpotHasBeenDrawn?.amount}
+            {/* {jackpotHasBeenDrawn?.ccy} {jackpotHasBeenDrawn?.amount} */}
+            <CountUp
+              start={0}
+              end={200}
+              duration={1.5}
+              separator=" "
+              decimals={2}
+              decimal="."
+              prefix={`${jackpotHasBeenDrawn?.ccy} `}
+              // suffix=" left"
+              // onEnd={}
+              delay={0}
+            >
+              {({ countUpRef }) => (
+                <div>
+                  <span ref={countUpRef} />
+                </div>
+              )}
+            </CountUp>
           </h1>
         </div>
       </div>

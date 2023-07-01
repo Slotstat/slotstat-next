@@ -13,5 +13,6 @@ const dictionaries = {
 //   return locale == 'ge' ? dictionaries.ge() : dictionaries.en();
 // };
 
-export const getDictionary = async (locale: Locale) =>
-  dictionaries[i18n.locales.includes(locale) ? locale : i18n.defaultLocale]();
+// export const getDictionary = async (locale: Locale) =>
+//   dictionaries[i18n.locales.includes(locale) ? locale : i18n.defaultLocale]();
+export const getDictionary = async (locale: Locale) => dictionaries[locale]();

@@ -3,7 +3,7 @@ import "../globals.css";
 import { ReactNode } from "react";
 import { Locale, i18n } from "../i18n/i18n-config";
 import type { Metadata } from "next";
-import Breadcrumbs from "../components/Breadcrumbs";
+// import Breadcrumbs from "../components/Breadcrumbs";
 import { getDictionary } from "../i18n/get-dictionary";
 import Header from "../components/navbar/Header";
 import Footer from "../components/Footer";

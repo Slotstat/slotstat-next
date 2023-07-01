@@ -39,7 +39,7 @@ const AnimatedCounterComponent = ({
       separator=" "
       decimals={additionalProps ? 2 : 0}
       decimal="."
-      prefix={additionalProps ? additionalProps[0] : ""}
+      prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
       // suffix=" left"
       onEnd={() => setStart(Number(value))}
       delay={0}

@@ -111,7 +111,7 @@ const Table = ({
     },
     [ascDesc, setQueryParams]
   );
-
+  // fix next js bug (after changing query it was scrolling to top but now it is fixed)
   useEffect(() => {
     const persistentScroll = scrollY;
     if (persistentScroll === null) return;
