@@ -2,7 +2,6 @@
 // import { getDictionary } from "@/app/i18n/get-dictionary";
 // import { STEPS } from "@/app/utils/mockData";
 // import Image from "next/image";
-import { Locale } from "@/app/i18n/i18n-config";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,11 +25,7 @@ export const metadata: Metadata = {
 //   );
 // };
 
-export default async function HowItWorks({
-  params,
-}: {
-  params: { lang: Locale };
-}) {
+export default async function HowItWorks() {
   // const dictionary = await getDictionary(params.lang);
   // const { howItWorks, howItWorksDescription } = dictionary.howItWorksPage;
   return (

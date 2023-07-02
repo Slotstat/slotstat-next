@@ -1,22 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname } from "next-intl/client";
+import Link from "next-intl/link";
 import { Collapse } from "@material-tailwind/react";
 
 import { menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 import LanguageToggleButton from "./LanguageToggleButton";
-import { Locale } from "@/app/i18n/i18n-config";
+import { useTranslations } from "next-intl";
 
-const NavList = ({
-  dictionary,
-}: {
-  dictionary: Dictionary;
-  // language: Locale;
-}) => {
-  const { howItWorks } = dictionary.howItWorksPage;
-  const { faq } = dictionary.navbar;
+const NavList = () => {
+  const t = useTranslations("navbar");
+
   const pathName = usePathname();
 
   const checkIsActive = (path: string) => {
@@ -34,22 +29,15 @@ const NavList = ({
       </span> */}
       <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
         <Link href={`/faq`} className={checkIsActive("faq")}>
-          {faq}
+          {t("faq")}
         </Link>
       </span>
     </nav>
   );
 };
 
-const Header = ({
-  dictionary,
-  language,
-}: {
-  dictionary: Dictionary;
-  language: Locale;
-}) => {
+const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { lang } = dictionary.navbar;
 
   const toggleNav = () => {
     setNavbarOpen(!navbarOpen);
@@ -75,14 +63,8 @@ const Header = ({
             />
           </Link>
           <div className="hidden items-center lg:flex">
-            <NavList
-              dictionary={dictionary}
-              // language={language}
-            />
-            <LanguageToggleButton
-              lang={lang}
-              css="mt-4 hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex"
-            />
+            <NavList />
+            <LanguageToggleButton css="mt-4 hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex" />
           </div>
           <button
             className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
@@ -93,12 +75,7 @@ const Header = ({
         </div>
       </div>
       <Collapse open={navbarOpen}>
-        <div className="lg:hidden">
-          <NavList
-            dictionary={dictionary}
-            // language={"ge"}
-          />
-        </div>
+        <div className="lg:hidden">{/* <NavList  /> */}</div>
       </Collapse>
     </header>
   );

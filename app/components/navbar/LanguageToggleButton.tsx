@@ -1,36 +1,20 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname } from "next-intl/client";
+import { useLocale, useTranslations } from "next-intl";
+import Link from "next-intl/link";
 
-const LanguageToggleButton = ({
-  css,
-  lang,
-}: {
-  css: string;
-  lang: { ge: string; en: string };
-}) => {
-  const { ge, en } = lang;
+const LanguageToggleButton = ({ css }: { css: string }) => {
+  const t = useTranslations("lang");
+  const locale = useLocale();
+
   const pathName = usePathname();
-
-  const redirectedPathName = (locale: string) => {
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
-    segments[1] = locale === "en" ? "ge" : "en";
-    return segments.join("/");
-  };
-
-  const getPath = () => {
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
-    return segments[1];
-  };
 
   return (
     <div>
       <button className={css}>
-        <Link href={redirectedPathName(getPath())}>
-          {getPath() === "en" ? ge : en}
+        <Link href={pathName} locale={locale === "en" ? "ge" : "en"}>
+          {locale === "en" ? t("ge") : t("en")}
         </Link>
       </button>
     </div>

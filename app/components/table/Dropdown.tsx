@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
-import { SORT_BY } from "./columns";
 import { Listbox, Transition } from "@headlessui/react";
 import ArrowUp from "@/app/assets/svg/ArrowUp";
+import { useTranslations } from "next-intl";
 
 const Dropdown = ({
   onChange,
@@ -10,6 +10,17 @@ const Dropdown = ({
   onChange: (v?: string) => void;
   orderBy?: string;
 }) => {
+  const t = useTranslations("sortBy");
+
+  const SORT_BY = [
+    { label: t("none"), id: "0", value: "" },
+    { label: t("p24h"), id: "1", value: "p24h" },
+    { label: t("p1h"), id: "2", value: "p1h" },
+    { label: t("p1m"), id: "4", value: "jackpot" },
+    { label: t("p1y"), id: "5", value: "jackpot" },
+    { label: t("all"), id: "6", value: "jackpot" },
+    // { label: t("jackpot"), id: "7", value: "jackpot" },
+  ];
   const [selected, setSelected] = useState(SORT_BY[0]);
 
   const search = (v: any) => {
@@ -24,6 +35,7 @@ const Dropdown = ({
     } else {
       setSelected(SORT_BY[index]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderBy]);
 
   return (

@@ -6,9 +6,9 @@ import { forward, fullscreen } from "../../assets";
 import BulletIcon from "../BulletIcon";
 import Image from "next/image";
 import { FILTERS, SERIE_COLORS } from "./chartUtils";
+import { useTranslations } from "next-intl";
 
 const ActionPane = ({
-  dictionary,
   onPressCompare,
   onPressRemove,
   activeFilterId,
@@ -18,7 +18,8 @@ const ActionPane = ({
   setFilterDisabled,
   filterDisabled,
 }: ActionPaneProps) => {
-  const { compare, vs } = dictionary;
+  const t = useTranslations("actionPane");
+
   return (
     <div className="flex items-center justify-between p-[18px]">
       <div className="flex items-center">
@@ -28,7 +29,7 @@ const ActionPane = ({
             className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
           >
             <span className="text-sm font-bold leading-4 text-white">
-              {compare}
+              {t("compare")}
             </span>
             <Image
               src={forward}
@@ -49,7 +50,7 @@ const ActionPane = ({
             </div>
             <div className="ml-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
               <span className="text-sm font-bold leading-4 text-white">
-                {vs}
+                {t("vs")}
               </span>
             </div>
             <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">

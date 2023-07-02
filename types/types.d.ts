@@ -157,12 +157,13 @@ type StatisticsData = {
   timeStamp: number;
 };
 
+type FiltersKey = "1D" | "1W" | "1M" | "1Y" | "All" | string;
+
 type ActionPaneProps = {
-  dictionary: any;
-  onPressCompare: any;
-  onPressRemove: any;
-  activeFilterId: "1D" | "1W" | "1M" | "1Y" | "All";
-  onPressFilter: any;
+  onPressCompare: () => void;
+  onPressRemove: () => void;
+  activeFilterId: FiltersKey;
+  onPressFilter: (key: FiltersKey) => void;
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;
   setFilterDisabled: (boolean: boolean) => void;

@@ -5,8 +5,11 @@ import useStore from "../(store)/store";
 import Image from "next/image";
 import { close } from "../assets";
 import CountUp from "react-countup";
+import { useTranslations } from "next-intl";
 
 export default function JackpotNotification() {
+  const t = useTranslations("notification");
+
   const { isOn, jackpotHasBeenDrawn } = useStore();
   const [showNotification, setShowNotification] = useState(false);
 
@@ -40,7 +43,7 @@ export default function JackpotNotification() {
         </div>
         <div className="flex flex-col items-center">
           <h2 className=" text-white text-lg font-black py-3 px-2">
-            The jackpot has been drawn
+            {t("notification")}
           </h2>
           <h3 className=" text-white text-lg font-black px-2">
             {jackpotHasBeenDrawn?.casinoName}
@@ -59,7 +62,7 @@ export default function JackpotNotification() {
             {/* {jackpotHasBeenDrawn?.ccy} {jackpotHasBeenDrawn?.amount} */}
             <CountUp
               start={0}
-              end={200}
+              end={Number(jackpotHasBeenDrawn?.amount)}
               duration={1.5}
               separator=" "
               decimals={2}

@@ -2,9 +2,9 @@
   "navbar": {
     "howItWorks": "How it works",
     "faq": "FAQ",
-    "slotstat": "Slotstat",
-    "lang": { "ge": "ქარ", "en": "Eng" }
+    "slotstat": "Slotstat"
   },
+  "lang": { "ge": "ქარ", "en": "Eng" },
   "howItWorksPage": {
     "howItWorks": "How it works",
     "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
@@ -27,8 +27,7 @@
     "privacyPolicy": "Privacy Policy",
     "allRightsReserved": "2021 Slotstat. All rights reserved"
   },
-  "compare": "Compare",
-  "vs": "VS",
+  "actionPane": { "compare": "Compare", "vs": "VS" },
   "table": {
     "casinoName": "Casino name",
     "providers": "Providers",
@@ -48,5 +47,25 @@
     "userHint": "Number of users who monitor statistics",
     "h1GameHint": "Percentage of winning spins during the last hour",
     "h24GameHint": "Percentage of winning spins during the last 24 hour"
+  },
+  "gamePage": {
+    "other": "Other",
+    "games": "games"
+  },
+  "sortBy": {
+    "none": "None",
+    "p24h": "Win rate last 1 day",
+    "p1h": "Win rate last 1 week",
+    "p1m": "Win rate last 1 month",
+    "p1y": "Win rate last 1 year",
+    "all": "Win rate all time",
+    "jackpot": "jackpot"
+  },
+  "notification": {
+    "notification": "The jackpot has been drawn"
+  },
+  "bottomSheetModal": {
+    "choose-game-from": "Choose Game from",
+    "choose-casino": "Choose Casino"
   }
 }

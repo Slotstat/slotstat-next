@@ -1,15 +1,16 @@
 "use client";
 import { logo } from "../assets";
 import SubscribeButton from "./SubscribeButton";
-import Link from "next/link";
+import Link from "next-intl/link";
 import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-const Footer = ({ dictionary }: { dictionary: Dictionary }) => {
-  const { slotstat, lang, faq, howItWorks } = dictionary.navbar;
-  const { company, aboutUs, termsOfUse, privacyPolicy, allRightsReserved } =
-    dictionary.footer;
-  const { support, subscribe, telegramChan } = dictionary.faq;
+const Footer = () => {
+  const t = useTranslations("navbar");
+  const tFooter = useTranslations("footer");
+  const tFaq = useTranslations("faq");
+
   return (
     <footer className="flex justify-center bg-dark2  pt-8 pb-12  ">
       <div className="grid grid-cols-1 px-4 lg:grid-cols-flexauto w-[100%] max-w-screen-xl">
@@ -18,64 +19,64 @@ const Footer = ({ dictionary }: { dictionary: Dictionary }) => {
             <>
               <Image src={logo} alt="logo of slotstat" width={40} height={40} />
               <span className="ml-2 hidden text-[26px] font-bold text-white lg:inline">
-                {slotstat}
+                {t("slotstat")}
               </span>
             </>
-            <LanguageToggleButton
-              lang={lang}
-              css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1"
-            />
+            <LanguageToggleButton css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1" />
           </div>
         </div>
         <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mt-0 lg:flex-row lg:justify-start">
           <div>
             <h5 className="mb-4 text-xs font-bold text-white lg:text-sm">
-              {company}
+              {tFooter("company")}
             </h5>
             <Link
               href="/aboutUs"
               className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
             >
-              {aboutUs}
+              {tFooter("aboutUs")}
             </Link>
             <Link
               href="/termsOfUse"
               className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
             >
-              {termsOfUse}
+              {tFooter("termsOfUse")}
             </Link>
             <Link
               href="/privacyPolicy"
               className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
             >
-              {privacyPolicy}
+              {tFooter("privacyPolicy")}
             </Link>
           </div>
           <div className="mt-8 lg:mt-0 lg:ml-18">
             <h5 className="mb-4 block text-xs font-black text-white lg:text-sm">
-              {support}
+              {tFaq("support")}
             </h5>
             <Link
               href="/faq"
               className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
             >
-              {faq}
+              {t("faq")}
             </Link>
             <Link
               href="/howItWorks"
               className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
             >
-              {howItWorks}
+              {t("howItWorks")}
             </Link>
           </div>
         </div>
         <div className="order-last mt-8 flex items-end justify-center py-0 lg:order-none lg:mt-0 lg:justify-start lg:py-4.5">
           <span className="text-sm font-normal text-grey1">
-            {allRightsReserved}
+            {tFooter("allRightsReserved")}
           </span>
         </div>
         <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
-          <SubscribeButton subscribe={subscribe} telegramChan={telegramChan} />
+          <SubscribeButton
+            subscribe={tFaq("subscribe")}
+            telegramChan={tFaq("telegramChan")}
+          />
         </div>
       </div>
     </footer>

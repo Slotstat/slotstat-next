@@ -1,9 +1,7 @@
 import LiveCards from "@/app/components/LiveCards";
+import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/Chart";
 import Table from "@/app/components/table/Table";
-import { useTableTexts } from "@/app/components/table/columns";
-import { getDictionary } from "@/app/i18n/get-dictionary";
-import { Locale } from "@/app/i18n/i18n-config";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import { Metadata } from "next";
@@ -17,26 +15,15 @@ export const metadata: Metadata = {
 export default async function Casino({
   params,
 }: {
-  params: { lang: Locale; casinoId: string; gameId: string };
+  params: { casinoId: string; gameId: string };
 }) {
-  const { getCasinoAndGameTableTexts } = useTableTexts();
-
-  const { lang, casinoId, gameId } = params;
+  const { casinoId, gameId } = params;
   const gamesListData: Promise<gamesList> = getGamesList(casinoId, {});
   const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
 
-  const [
-    dictionary,
-    gamesList,
-    gameCards,
-    casinoColumnHeaders,
-    gameColumnHeaders,
-  ] = await Promise.all([
-    getDictionary(lang),
+  const [gamesList, gameCards] = await Promise.all([
     gamesListData,
     gamesCardsData,
-    getCasinoAndGameTableTexts(lang, false),
-    getCasinoAndGameTableTexts(lang, true),
   ]);
 
   const GameExists = gamesList.results.find((obj) => obj.gameId === gameId);
@@ -51,22 +38,14 @@ export default async function Casino({
         gameId={gameId}
         casinoId={casinoId}
       />
-      <ChartComponent
-        dictionary={dictionary}
-        gameId={gameId}
-        gamesList={gamesList.results}
-        casinoColumnHeaders={casinoColumnHeaders}
-        gameColumnHeaders={gameColumnHeaders}
-      />
+      <ChartComponent gameId={gameId} gamesList={gamesList.results} />
       <div className="my-6 px-4 lg:my-18 ">
-        <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-          Other {gamesList.results[0].casinoName} games
-        </h2>
+        <OtherGames casinoName={gamesList.results[0].casinoName} />
         <div className="my-4 lg:my-6">
           <Table
-            columns={gameColumnHeaders}
             tableBodyData={gamesList.results}
             showFilter={false}
+            isGame={true}
           />
         </div>
       </div>

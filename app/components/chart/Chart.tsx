@@ -26,22 +26,16 @@ am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
-  dictionary,
   gameId,
   gamesList,
-  casinoColumnHeaders,
-  gameColumnHeaders,
-}: { dictionary: Dictionary } & {
+}: {
   gameId: string;
   gamesList: GameData[];
-  casinoColumnHeaders: CasinoCols[];
-  gameColumnHeaders: CasinoCols[];
 }) => {
   const casinoName = gamesList[0]?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
-  const [activeFilterId, setActiveFilterId] =
-    useState<keyof typeof FILTERS>("1D");
+  const [activeFilterId, setActiveFilterId] = useState<FiltersKey>("1D");
 
   const [filterDisabled, setFilterDisabled] = useState(false);
 
@@ -348,7 +342,6 @@ const ChartComponent = ({
         <div className="mt-6 rounded-3xl bg-dark2 p-6">
           <div className="rounded-3xl bg-dark1">
             <ActionPane
-              dictionary={dictionary}
               compareGameObject={compareGameObject}
               mainGameObject={mainGameObject}
               onPressCompare={onPressCompare}
@@ -370,8 +363,6 @@ const ChartComponent = ({
         open={open}
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
-        casinoColumnHeaders={casinoColumnHeaders}
-        gameColumnHeaders={gameColumnHeaders}
       />
     </>
   );

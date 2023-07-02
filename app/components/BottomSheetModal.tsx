@@ -9,22 +9,21 @@ import getGamesList from "@/lib/getGamesList";
 import getCasinos from "@/lib/getCasinos";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useTranslations } from "next-intl";
 
 type BottomSheetModalProps = {
   open: boolean;
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameId: GameData) => void;
-  casinoColumnHeaders: CasinoCols[];
-  gameColumnHeaders: CasinoCols[];
 };
 
 export default function BottomSheetModal({
   open,
   setOpen,
   onAddToCompare,
-  casinoColumnHeaders,
-  gameColumnHeaders,
 }: BottomSheetModalProps) {
+  const t = useTranslations("bottomSheetModal");
+
   const [casinos, setCasinos] = useState<CasinoData[]>();
   const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
   const [games, setGames] = useState<gamesList>();
@@ -98,11 +97,11 @@ export default function BottomSheetModal({
             )}
             {casino ? (
               <span className=" text-2xl leading-4  text-white">
-                Choose Game from {casino.name}
+                {t("choose-game-from")} {casino.name}
               </span>
             ) : (
               <span className=" text-2xl leading-4  text-white">
-                Choose Casino
+                {t("choose-casino")}
               </span>
             )}
 
@@ -129,14 +128,14 @@ export default function BottomSheetModal({
               <Table
                 //   orderBy={orderBy || ""}
                 //   keyWord={keyWord || ""}
-                columns={casinoColumnHeaders}
                 tableBodyData={casinos}
                 showFilter={false}
                 getGamesFromChosenCasino={getGamesFromChosenCasino}
+                isGame={false}
               />
             ) : games && !loading ? (
               <Table
-                columns={gameColumnHeaders}
+                isGame={true}
                 tableBodyData={games.results}
                 showFilter={false}
                 onAddToCompare={onAddToCompareAndClearBottomSheet}

@@ -2,7 +2,7 @@
 import Error404 from "@/app/components/Error404";
 import { useEffect } from "react";
 
-export default function NotFound({
+export default function Error({
   error,
   reset,
 }: {

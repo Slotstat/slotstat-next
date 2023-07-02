@@ -1,10 +1,10 @@
 {
   "navbar": {
-    "slotstat": "Slotstat",
     "howItWorks": "როგორ მუშაობს",
     "faq": "ხშირად დასმული კითხვები",
-    "lang": { "ge": "ქარ", "en": "Eng" }
+    "slotstat": "Slotstat"
   },
+  "lang": { "ge": "ქარ", "en": "Eng" },
   "howItWorksPage": {
     "howItWorks": "როგორ მუშაობს",
     "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
@@ -28,8 +28,7 @@
 
     "allRightsReserved": "2021 Slotstat. ყველა უფლება დაცულია"
   },
-  "compare": "შედარება",
-  "vs": "VS",
+  "actionPane": { "compare": "შედარება", "vs": "VS" },
   "table": {
     "casinoName": "კაზინოს სახელი",
     "providers": "პროვაიდერი",
@@ -49,5 +48,25 @@
     "userHint": "იუზერების რაოდენობა, რომლებიც აკვირდებიან სტატისტიკას",
     "h1GameHint": "მომგებიანი სპინების საშუალო პროცენტი ბოლო საათის განმავლობაში ",
     "h24GameHint": "მომგებიანი სპინების საშუალო პროცენტი ბოლო 24 საათის განმავლობაში "
+  },
+  "gamePage": {
+    "other": "სხვა",
+    "games": "თამაშები"
+  },
+  "sortBy": {
+    "none": "არცერთი",
+    "p24h": "მოგების მაჩვენებელი ბოლო 1 დღე",
+    "p1h": "მოგების მაჩვენებელი ბოლო  1 კვირა",
+    "p1m": "მოგების მაჩვენებელი ბოლო  1 თვე",
+    "p1y": "მოგების მაჩვენებელი ბოლო 1 წელი",
+    "all": "ყველა დროის მოგების მაჩვენებელი",
+    "jackpot": "ჯეკპოტი"
+  },
+  "notification": {
+    "notification": "ჯეკპოტი გათამაშდა"
+  },
+  "bottomSheetModal": {
+    "choose-game-from": "აირჩიე თამაში",
+    "choose-casino": "აიჩიე კაზინო"
   }
 }

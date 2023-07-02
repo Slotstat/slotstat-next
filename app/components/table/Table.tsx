@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
-
 import {
   Row,
   useFilters,
@@ -10,28 +9,28 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
 import { back } from "../../assets";
 import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
 import Image from "next/image";
-
 import RenderRowCells from "./RenderRowCells";
-import { useRouter, usePathname } from "next/navigation";
 import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
 import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 import TooltipComponent from "../TooltipComponent";
+import { useTranslations } from "next-intl";
+import { casinoColumns } from "./columns";
+
+import { usePathname, useRouter } from "next-intl/client";
 
 type Props = {
-  columns: Array<CasinoCols>;
   showFilter: boolean;
   tableBodyData: CasinoData[] | GameData[];
   onAddToCompare?: (gameId: GameData) => void;
   orderBy?: string;
   keyWord?: string;
   direction?: string;
-
+  isGame: boolean;
   getGamesFromChosenCasino?: ({
     casinoId,
     name,
@@ -39,7 +38,6 @@ type Props = {
 };
 
 const Table = ({
-  columns: _columns,
   tableBodyData,
   showFilter = false,
   onAddToCompare,
@@ -47,22 +45,18 @@ const Table = ({
   keyWord,
   direction,
   getGamesFromChosenCasino,
+  isGame,
 }: Props) => {
+  const t = useTranslations("table");
+
   const { setQueryParams } = useQueryParams();
-  const columns = useMemo(() => _columns, [_columns]);
+  const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
   const [scrollY, setScrollY] = useState<number | null>(null);
 
   const router = useRouter();
   const pathName = usePathname();
   const [ascDesc, setAscDesc] = useState<number>(0);
-
-  // const getPath = () => {
-  //   const secondParameterInPath = 2;
-  //   if (!pathName) return "/";
-  //   const segments = pathName.split("/");
-  //   return segments[secondParameterInPath];
-  // };
 
   const onRowPress = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
@@ -73,10 +67,16 @@ const Table = ({
         name: row.original.name,
       });
     } else {
-      const path = row.original.gameId
-        ? `${pathName}/${row.original.gameId}`
-        : `${pathName}/${row.original.casinoId}`;
-      return router.push(path);
+      const segments = pathName.split("/");
+      if (segments.length === 3) {
+        return router.push(`/${segments[1]}/${row.original.gameId}`);
+      } else {
+        const path = row.original.gameId
+          ? `${pathName}/${row.original.gameId}`
+          : `${row.original.casinoId}`;
+
+        return router.push(path);
+      }
     }
   };
 

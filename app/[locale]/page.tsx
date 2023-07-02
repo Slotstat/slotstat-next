@@ -1,6 +1,6 @@
-import { useTableTexts } from "../components/table/columns";
+// export const dynamic = 'force-dynamic';
 import { Metadata } from "next";
-import { Locale } from "@/app/i18n/i18n-config";
+
 import LiveCards from "../components/LiveCards";
 import Slider from "../components/Slider";
 import Table from "../components/table/Table";
@@ -14,24 +14,19 @@ export const metadata: Metadata = {
 
 export default async function Home({
   searchParams: { orderBy, keyWord, direction },
-  params,
 }: {
   searchParams: QueryParams;
-  params: { lang: Locale };
 }) {
-  const { getCasinoAndGameTableTexts } = useTableTexts();
   const casinosData: Promise<CasinoData[]> = getCasinos({
     orderBy,
     keyWord,
     direction,
   });
-  const { lang } = params;
 
   const landingCardsData: Promise<Card[]> = getLandingCards();
-  const [casinos, landingCards, casinoColumnHeaders] = await Promise.all([
+  const [casinos, landingCards] = await Promise.all([
     casinosData,
     landingCardsData,
-    getCasinoAndGameTableTexts(lang, false),
   ]);
 
   return (
@@ -43,9 +38,9 @@ export default async function Home({
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}
           direction={direction}
-          columns={casinoColumnHeaders}
           tableBodyData={casinos}
           showFilter={true}
+          isGame={false}
         />
       </div>
     </>
