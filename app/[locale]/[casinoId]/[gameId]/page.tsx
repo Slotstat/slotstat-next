@@ -26,7 +26,7 @@ export default async function Casino({
     gamesCardsData,
   ]);
 
-  const GameExists = gamesList.results.find((obj) => obj.gameId === gameId);
+  const GameExists = gamesList?.results?.find((obj) => obj.gameId === gameId);
   if (!GameExists) return notFound();
 
   return (

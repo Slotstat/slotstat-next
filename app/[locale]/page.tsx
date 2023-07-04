@@ -1,4 +1,3 @@
-// export const dynamic = 'force-dynamic';
 import { Metadata } from "next";
 
 import LiveCards from "../components/LiveCards";
@@ -6,6 +5,7 @@ import Slider from "../components/Slider";
 import Table from "../components/table/Table";
 import { getLandingCards } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "SlotStat",
@@ -28,7 +28,9 @@ export default async function Home({
     casinosData,
     landingCardsData,
   ]);
-
+  if (!casinos && !landingCards) {
+    notFound();
+  }
   return (
     <>
       <LiveCards cardsData={landingCards} />

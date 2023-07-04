@@ -224,7 +224,7 @@ const Table = ({
           </tbody>
         </table>
       ) : (
-        <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">{`Oops, item with the name "${keyWord}" not found`}</div>
+        <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">{`Oops, item not found`}</div>
       )}
 
       {pageCount > 1 && (

@@ -141,9 +141,9 @@ const Slider = () => {
   }, []);
   return (
     <>
-      {!loading && offersData ? (
+      {!loading && offersData && offersData?.length > 0 ? (
         <KeenSlider data={offersData} />
-      ) : (
+      ) : !loading && offersData && offersData?.length === 0 ? null : (
         <SkeletonTheme baseColor="#24262C" highlightColor="#444">
           <section className=" my-4 px-4 lg:my-6 ">
             <Skeleton count={1} className=" h-38 rounded-xl " />

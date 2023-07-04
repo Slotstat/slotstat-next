@@ -1,12 +1,16 @@
 import slotStatClient from "./instance";
 
 export default async function getCasinoCards(casinoId: string) {
-  const res = await slotStatClient.request({
-    url: `/api/casino/cards/${casinoId}`,
-    method: "GET",
-  });
+  try {
+    const res = await slotStatClient.request({
+      url: `/api/casino/cards/${casinoId}`,
+      method: "GET",
+    });
 
-  if (res.status != 200) throw new Error("Can't successfully fetch data");
+    if (res.status != 200) throw new Error("Can't successfully fetch data");
 
-  return res.data;
+    return res.data;
+  } catch (error) {
+    return false;
+  }
 }
