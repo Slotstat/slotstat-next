@@ -13,7 +13,7 @@ let slotStatClient = axios.create({
   // timeout: 10000,
   headers: {
     "Content-Type": "application/json",
-    // "accept-language": hasCookie,
+    // "Accept-Language": "ka",
   },
 });
 

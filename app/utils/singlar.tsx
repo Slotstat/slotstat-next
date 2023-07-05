@@ -4,7 +4,7 @@ import useStore from "../(store)/store";
 
 const signalR = async () => {
   const connection = new HubConnectionBuilder()
-    .withUrl(`https://stagingapi.slotstat.ge/events`)
+    .withUrl(`https://api.slotstat.ge/events`)
     .configureLogging(LogLevel.Information)
     .build();
 

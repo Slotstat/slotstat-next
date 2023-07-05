@@ -12,6 +12,7 @@ export default function JackpotNotification() {
 
   const { isOn, jackpotHasBeenDrawn } = useStore();
   const [showNotification, setShowNotification] = useState(false);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     if (!isOn) {
@@ -19,13 +20,48 @@ export default function JackpotNotification() {
     }
     if (jackpotHasBeenDrawn) {
       setShowNotification(true);
+      // Get current date and time
+      var currentDate = new Date();
+
+      // Create an array of month names
+      var monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+
+      // Extract individual components
+      var day = currentDate.getDate();
+      var monthIndex = currentDate.getMonth();
+      var year = currentDate.getFullYear();
+      var hours = currentDate.getHours();
+      var minutes = currentDate.getMinutes();
+      var seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      var formattedDate = day + " " + monthNames[monthIndex] + ". " + year;
+      var formattedTime = hours + ":" + minutes + ":" + seconds;
+
+      // Combine the formatted date and time
+      var formattedDateTime = formattedDate + " - " + formattedTime;
+      setTime(formattedDateTime);
     }
   }, [isOn, jackpotHasBeenDrawn]);
 
   if (showNotification) {
     return (
       <div className="z-10 fixed right-0 rounded-xl border border-green1 p-5 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 shadow-2xl bg-dark2  ">
-        <div className="flex justify-end">
+        <div className="flex justify-between ">
+          <div className=" text-grey1 font-black">{time}</div>
           <button
             className="flex items-center justify-center"
             onClick={() => {
@@ -59,7 +95,6 @@ export default function JackpotNotification() {
             />
           )}
           <h1 className=" text-green1 text-3xl font-black text-center">
-            {/* {jackpotHasBeenDrawn?.ccy} {jackpotHasBeenDrawn?.amount} */}
             <CountUp
               start={0}
               end={Number(jackpotHasBeenDrawn?.amount)}

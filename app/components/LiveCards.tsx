@@ -82,7 +82,7 @@ const StatCard = ({
   };
 
   return (
-    <div className="flex flex-col rounded-2xl bg-dark2 p-4 lg:p-6">
+    <div className="flex flex-col rounded-2xl bg-dark2 p-4 lg:p-6  grow">
       <div className="flex items-center justify-between">
         {!!isImgUrl(imageUrl) && (
           <Image
@@ -135,15 +135,6 @@ const StatCard = ({
   );
 };
 
-const to2d = (arr: Card[], size = 2): Card[][] => {
-  const reshaped = [];
-  const copy = [...arr];
-  while (copy.length) {
-    reshaped.push(copy.splice(0, size));
-  }
-  return reshaped;
-};
-
 const LiveCards = ({
   casino = false,
   game = false,
@@ -170,11 +161,7 @@ const LiveCards = ({
     },
   });
 
-  const data = useMemo(
-    () => to2d(cardsDataState, rows),
-    [cardsDataState, rows]
-  );
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUpdatedCasinoCardsData = useCallback(
     _.debounce(async () => {
       if (casinoId) {
@@ -186,6 +173,7 @@ const LiveCards = ({
     []
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUpdatedGameCardsData = useCallback(
     _.debounce(async () => {
       if (gameId) {
@@ -216,21 +204,9 @@ const LiveCards = ({
   ]);
   return (
     <div className="my-4 px-4 lg:my-6">
-      <div ref={sliderRef} className="keen-slider zoom-out">
-        {data.map((stats, i) => (
-          <div
-            key={i}
-            className="keen-slider__slide zoom-out__slide space-y-4 md:space-y-6"
-          >
-            {stats.map((stat, index) => (
-              <StatCard
-                key={index.toString()}
-                {...stat}
-                casino={casino}
-                game={game}
-              />
-            ))}
-          </div>
+      <div className=" grid lg:gap-4 lg:grid-cols-4 sm:gap-2 sm:grid-cols-2 ">
+        {cardsDataState.map((card, i) => (
+          <StatCard key={i} {...card} casino={casino} game={game} />
         ))}
       </div>
     </div>

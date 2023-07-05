@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";
+import { useTranslations } from "next-intl";
 
 const debounce = 500;
 
@@ -14,6 +15,8 @@ export const SearchInput = ({
   setCasinoFilter: (text: string) => void;
   keyWord: string;
 }) => {
+  const t = useTranslations();
+
   const [value, setValue] = useState(keyWord);
   const [focused, setFocused] = useState(false);
 
@@ -27,7 +30,7 @@ export const SearchInput = ({
   return (
     <div className=" relative input w-full md:w-72 border-grey1 ">
       <input
-        placeholder="Search"
+        placeholder={t("search")}
         value={value || ""}
         onChange={(e) => {
           setValue(e.target.value);

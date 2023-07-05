@@ -70,8 +70,8 @@ export default function RenderRowCells({
     return (
       <MenuComponent listItems={[GoToStatistic, goToCasino]}>
         <div className="flex flex-row items-center">
-          <div className="w-12 h-12 bg-dark2 flex justify-center items-center rounded-full mr-3">
-            <div className=" relative w-6 h-6">
+          <div className="w-12 h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
+            <div className=" relative w-12 h-12 ">
               {!!isImgUrl(row.original.imageUrl) && (
                 <Image
                   src={row.original.imageUrl}

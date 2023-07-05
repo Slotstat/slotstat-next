@@ -16,9 +16,9 @@ const Dropdown = ({
     { label: t("none"), id: "0", value: "" },
     { label: t("p24h"), id: "1", value: "p24h" },
     { label: t("p1h"), id: "2", value: "p1h" },
-    { label: t("p1m"), id: "4", value: "jackpot" },
-    { label: t("p1y"), id: "5", value: "jackpot" },
-    { label: t("all"), id: "6", value: "jackpot" },
+    { label: t("p1m"), id: "4", value: "p1m" },
+    { label: t("p1y"), id: "5", value: "p1y" },
+    { label: t("all"), id: "6", value: "all" },
     // { label: t("jackpot"), id: "7", value: "jackpot" },
   ];
   const [selected, setSelected] = useState(SORT_BY[0]);
@@ -35,7 +35,7 @@ const Dropdown = ({
     } else {
       setSelected(SORT_BY[index]);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderBy]);
 
   return (
@@ -49,7 +49,8 @@ const Dropdown = ({
               } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm`}
             >
               <span className="block truncate text-white">
-                <span className="text-grey1">Sort by: </span> {selected.label}
+                <span className="text-grey1">{t("sortBy")}: </span>{" "}
+                {selected.label}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <span

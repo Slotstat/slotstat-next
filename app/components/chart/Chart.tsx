@@ -10,7 +10,6 @@ import BulletIcon from "../BulletIcon";
 import Image from "next/image";
 
 import {
-  FILTERS,
   SERIE_COLORS,
   createSeries,
   setChartParameters,

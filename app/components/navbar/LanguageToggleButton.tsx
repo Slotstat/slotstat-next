@@ -13,8 +13,8 @@ const LanguageToggleButton = ({ css }: { css: string }) => {
   return (
     <div>
       <button className={css}>
-        <Link href={pathName} locale={locale === "en" ? "ge" : "en"}>
-          {locale === "en" ? t("ge") : t("en")}
+        <Link href={pathName} locale={locale === "en" ? "ka" : "en"}>
+          {locale === "en" ? t("ka") : t("en")}
         </Link>
       </button>
     </div>

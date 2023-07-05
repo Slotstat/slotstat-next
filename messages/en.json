@@ -4,7 +4,7 @@
     "faq": "FAQ",
     "slotstat": "Slotstat"
   },
-  "lang": { "ge": "ქარ", "en": "Eng" },
+  "lang": { "ka": "ქარ", "en": "Eng" },
   "howItWorksPage": {
     "howItWorks": "How it works",
     "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
@@ -35,7 +35,7 @@
     "h1": "1h %",
     "h24": "24h %",
     "source": "Source",
-    "jackpot": "Jackpot",
+    "jackpot": "Max Jackpot",
     "t24h": "24h",
     "game": "Game",
     "user": "User",
@@ -43,7 +43,7 @@
     "h1Hint": "Percentage of winning spins during the last hour based on summery of published games",
     "h24Hint": "Percentage of winning spins during the last 24 hour based on summery of published games",
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
-    "jackpotHint": "Total jackpot of published games",
+    "jackpotHint": "Maximum jackpot of published games",
     "userHint": "Number of users who monitor statistics",
     "h1GameHint": "Percentage of winning spins during the last hour",
     "h24GameHint": "Percentage of winning spins during the last 24 hour"
@@ -59,8 +59,12 @@
     "p1m": "Win rate last 1 month",
     "p1y": "Win rate last 1 year",
     "all": "Win rate all time",
-    "jackpot": "jackpot"
+    "jackpot": "jackpot",
+    "sortBy": "sort by"
   },
+
+  "search": "Search",
+
   "notification": {
     "notification": "The jackpot has been drawn"
   },
