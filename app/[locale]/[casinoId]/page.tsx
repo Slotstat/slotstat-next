@@ -48,6 +48,7 @@ const Casino = async ({
           <Table
             keyWord={keyWord}
             orderBy={orderBy}
+            direction={direction}
             tableBodyData={gameListWithCasinoOnTop}
             showFilter={true}
             isGame={true}

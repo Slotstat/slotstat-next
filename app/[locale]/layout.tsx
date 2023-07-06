@@ -12,9 +12,9 @@ import TooltipClientSide from "../components/TooltipClientSide";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ka" }];
-}
+// export function generateStaticParams() {
+//   return [{ locale: "en" }, { locale: "ka" }];
+// }
 
 export const metadata: Metadata = {
   title: "slot stat",

@@ -1,8 +1,6 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
+import { useCallback, useEffect, useState } from "react";
 import { live } from "../assets";
-import { breakpoints } from "../utils";
 import Image from "next/image";
 import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
@@ -63,6 +61,7 @@ const StatCard = ({
   game,
   redirectUrl,
   additionalProps,
+  valueType,
 }: StatCardProp) => {
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
@@ -75,24 +74,26 @@ const StatCard = ({
   };
 
   const renderValueColor = () => {
-    if (name.toLocaleLowerCase() === "jackpot") return "text-green1";
+    if (valueType === "Jackpot") return "text-green1";
     if (casino || game) return "text-white";
 
     return "text-blue1";
   };
 
   return (
-    <div className="flex flex-col rounded-2xl bg-dark2 p-4 lg:p-6  grow">
+    <div className="flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6  grow ">
       <div className="flex items-center justify-between">
-        {!!isImgUrl(imageUrl) && (
-          <Image
-            src={imageUrl}
-            alt=""
-            className="h-4 w-4 lg:h-6 lg:w-6 "
-            width={24}
-            height={24}
-          />
-        )}
+        <div>
+          {!!isImgUrl(imageUrl) && (
+            <Image
+              src={imageUrl}
+              alt=""
+              className="h-4 w-4 lg:h-6 lg:w-6 "
+              width={24}
+              height={24}
+            />
+          )}
+        </div>
         {isLive && (
           <Image
             src={live}
@@ -139,7 +140,6 @@ const LiveCards = ({
   casino = false,
   game = false,
   cardsData,
-  rows = 1,
   casinoId,
   gameId,
 }: {
@@ -150,16 +150,6 @@ const LiveCards = ({
 } & PagesAndStyleDiff) => {
   const { newJackpot } = useStore();
   const [cardsDataState, setCardsDataState] = useState(cardsData);
-
-  const [sliderRef] = useKeenSlider<HTMLDivElement>({
-    initial: 0,
-    slides: { perView: 1.8, spacing: 16 },
-    breakpoints: {
-      [breakpoints.sm]: { slides: { perView: 2, spacing: 16 } },
-      [breakpoints.md]: { slides: { perView: 3, spacing: 24 } },
-      [breakpoints.xl]: { slides: { perView: 4, spacing: 24 } },
-    },
-  });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUpdatedCasinoCardsData = useCallback(
@@ -202,6 +192,7 @@ const LiveCards = ({
     newJackpot,
     game,
   ]);
+
   return (
     <div className="my-4 px-4 lg:my-6">
       <div className=" grid lg:gap-4 lg:grid-cols-4 sm:gap-2 sm:grid-cols-2 ">
