@@ -1,5 +1,5 @@
 "use client";
-import { logo } from "../assets";
+import { logo, slotLogo } from "../assets";
 import SubscribeButton from "./SubscribeButton";
 import Link from "next-intl/link";
 import LanguageToggleButton from "./navbar/LanguageToggleButton";
@@ -16,12 +16,14 @@ const Footer = () => {
       <div className="grid grid-cols-1 px-4 lg:grid-cols-flexauto w-[100%] max-w-screen-xl">
         <div className="flex items-start justify-center lg:justify-start">
           <div className="flex flex-1 items-center justify-between lg:justify-start">
-            <>
-              <Image src={logo} alt="logo of slotstat" width={40} height={40} />
-              <span className="ml-2 hidden text-[26px] font-bold text-white lg:inline">
-                {t("slotstat")}
-              </span>
-            </>
+            <Link href="/" className="flex items-center">
+              <Image
+                src={slotLogo}
+                alt="logo of slotstat"
+                width={140}
+                height={40}
+              />
+            </Link>
             <LanguageToggleButton css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1" />
           </div>
         </div>

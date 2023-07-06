@@ -8,10 +8,10 @@ const BulletIcon = ({ color = "#5887F6", size = 20 }) => {
       viewBox="0 0 20 20"
     >
       <circle cx={10} cy={10} r={9} stroke={color} strokeWidth={2} />
-      <circle cx={10} cy={10} r={5.238} fill="url(#a)" />
+      <circle cx={10} cy={10} r={5.238} fill={`url(${color})`} />
       <defs>
         <linearGradient
-          id="a"
+          id={color.slice(1)}
           x1={10}
           x2={10}
           y1={4.762}

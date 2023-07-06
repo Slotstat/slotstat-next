@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import { remove } from "../../assets";
 import { forward, fullscreen } from "../../assets";
-import BulletIcon from "../BulletIcon";
+import BulletIcon from "../../assets/svg/BulletIcon";
 import Image from "next/image";
 import { FILTERS, SERIE_COLORS } from "./chartUtils";
 import { useTranslations } from "next-intl";

@@ -6,7 +6,7 @@ export default async function TermsOfUse( ) {
       <p className="mb-4">{`These slotstat.ge Terms of Use (the "Terms") govern your access to and use of our website (domains and subdomains) and mobile application(s) (mobile applications may have it’s own terms if so, those terms will be primat to these) (collectively, the "Platform"), and associated content, features, software and applications in the Platform (collectively, the "Service"). These Terms also include our Privacy Policy.`}</p>
       <p>{`The Platform and the Service is administered and maintained by Gambling Herald Limited LLC, a Georgia limited liability company. The terms “company”, "we", "us" and "our" also refer to Gambling Herald Limited LLC. The term "you" refers to the person visiting the Platform.
 Please read these Terms carefully. They contain important information regarding your legal rights, including limitations on company’s and certain third parties' liability, disclaimers of warranties and a submission to jurisdiction. Each time you access the Service by any means (for example, through the Internet or on a mobile device), you irrevocably agree to comply with the version of the Terms posted on the Platform at the time you access the Platform. You may not use the Platform or the Service if you do not agree to these Terms.`}</p>
-      <h3>Eligibility</h3>
+      <h2>Eligibility</h2>
       <p className="mb-4">
         To access or use the Service, you must be at least of legal age in your
         respective jurisdiction. The Service is strictly for your personal,
@@ -15,7 +15,7 @@ Please read these Terms carefully. They contain important information regarding 
         terminated any account of yours or banned you from use of the Platform
         or the Service.
       </p>
-      <h3>License</h3>
+      <h4>License</h4>
       <p>
         You must only use the Service as expressly permitted by these Terms. All
         rights not expressly granted to you are reserved by the company, its

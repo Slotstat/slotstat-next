@@ -13,9 +13,11 @@ export const getTooltip = (xv: string, yv: string, color: string) => {
           <div style="display: flex; align-items: center; margin-top: 12px;">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9" stroke="${color}" stroke-width="2" />
-                  <circle cx="10" cy="9.99981" r="5.2381" fill="url(#paint0_linear_2249_4511)" />
+                  <circle cx="10" cy="9.99981" r="5.2381" fill="url(${color})" />
                   <defs>
-                      <linearGradient id="paint0_linear_2249_4511" x1="10" y1="4.76172" x2="10" y2="15.2379"
+                      <linearGradient id="${color.slice(
+                        1
+                      )}" x1="10" y1="4.76172" x2="10" y2="15.2379"
                           gradientUnits="userSpaceOnUse">
                           <stop stop-color="${color}" />
                           <stop offset="1" stop-color="${color}" stop-opacity="0" />

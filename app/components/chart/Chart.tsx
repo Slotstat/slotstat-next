@@ -6,7 +6,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { live } from "../../assets";
-import BulletIcon from "../BulletIcon";
+import BulletIcon from "../../assets/svg/BulletIcon";
 import Image from "next/image";
 
 import {
@@ -89,8 +89,11 @@ const ChartComponent = ({
       ]);
 
       modifiedArrayWithOneOrTwoValue = [...game1];
-      game2.map((elm, i) => {
-        modifiedArrayWithOneOrTwoValue[i].winRate2 = elm.winRate;
+
+      game2.reverse().map((elm, i) => {
+        modifiedArrayWithOneOrTwoValue[
+          modifiedArrayWithOneOrTwoValue.length - 1 - i
+        ].winRate2 = elm.winRate;
       });
     } else {
       const statistics = await getAndCorrectStatisticsData(gameId);
@@ -124,12 +127,21 @@ const ChartComponent = ({
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     const data = await getAndCorrectStatisticsData(compareGameId);
-    if (chartRef.current?.data[0].winRate2) {
+    if (chartRef.current?.data[chartRef.current?.data.length - 1].winRate2) {
       chartRef.current.series.removeIndex(1);
     }
 
-    data.map((elm, i) => {
-      if (chartRef.current) chartRef.current.data[i].winRate2 = elm.winRate;
+    chartRef?.current?.data.map((element) => {
+      if (element.winRate2) {
+        delete element.winRate2;
+      }
+    });
+    // todo
+    // console.log("object", data.length, chartRef?.current?.data.length);
+    data.reverse()?.map((elm, i) => {
+      if (chartRef.current)
+        chartRef.current.data[chartRef.current.data.length - 1 - i].winRate2 =
+          elm.winRate;
     });
 
     if (chartRef.current?.data) {
