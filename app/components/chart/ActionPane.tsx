@@ -23,7 +23,7 @@ const ActionPane = ({
   return (
     <div className="flex items-center justify-between p-[18px]">
       <div className="flex items-center">
-        {activeFilterId === "1Y" || activeFilterId === "All" ? null : (
+        {/* {activeFilterId === "1Y" || activeFilterId === "All" ? null : ( */}
           <button
             onClick={onPressCompare}
             className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
@@ -39,7 +39,7 @@ const ActionPane = ({
               height={18}
             />
           </button>
-        )}
+        {/* )} */}
         {compareGameObject && (
           <>
             <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
@@ -89,9 +89,9 @@ const ActionPane = ({
               // eslint-disable-next-line react-hooks/exhaustive-deps
               [activeFilterId]
             );
-            if (compareGameObject && (index === 3 || index === 4)) {
-              return null;
-            }
+            // if (compareGameObject && (index === 3 || index === 4)) {
+            //   return null;
+            // }
             return (
               <button
                 disabled={filterDisabled}

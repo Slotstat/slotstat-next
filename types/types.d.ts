@@ -150,8 +150,9 @@ type gamesList = {
 };
 
 type StatisticsData = {
-  betCount: number;
-  winRate: number;
+  betCount?: number;
+  betCount2?: number;
+  winRate?: number;
   winRate2?: number;
   date: Date;
   timeStamp: number;

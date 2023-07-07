@@ -61,23 +61,19 @@ const ChartComponent = ({
     let statistics: StatisticsData[] = await statisticsData;
 
     // needs to be reversed to correctly show charts.
-    const reversedStatistics = statistics.reverse();
+    const reversedStatistics = statistics;
 
     for (let index = 0; index < reversedStatistics.length; index++) {
       reversedStatistics[index].date = new Date(reversedStatistics[index].date);
     }
-    setLiveResultForMainGame(
-      reversedStatistics[reversedStatistics.length - 1].winRate
-    );
+    setLiveResultForMainGame(reversedStatistics[0].winRate);
     return reversedStatistics;
   };
 
   // fetching and updating data for main and compareGame
   const getAndUpdateStatisticsData = async () => {
     hideLoadingIndicator();
-    let modifiedArrayWithOneOrTwoValue:
-      | StatisticsData[]
-      | { winRate2: number }[] = [];
+    let modifiedArrayWithOneOrTwoValue: StatisticsData[] = [];
     chartRef.current && showLoadingIndicator(chartRef.current);
     if (selectedGames.length > 1) {
       const gameStatistics1 = getAndCorrectStatisticsData(selectedGames[0]);
@@ -90,22 +86,44 @@ const ChartComponent = ({
 
       modifiedArrayWithOneOrTwoValue = [...game1];
 
-      game2.reverse().map((elm, i) => {
-        modifiedArrayWithOneOrTwoValue[
-          modifiedArrayWithOneOrTwoValue.length - 1 - i
-        ].winRate2 = elm.winRate;
-      });
+      if (game2.length > game1.length) {
+        game2?.map((elm, i) => {
+          if (!modifiedArrayWithOneOrTwoValue[i]) {
+            modifiedArrayWithOneOrTwoValue.push({
+              date: elm.date,
+              timeStamp: elm.timeStamp,
+              betCount2: elm.betCount,
+              winRate2: elm.winRate,
+            });
+          } else {
+            modifiedArrayWithOneOrTwoValue[i].date = elm.date;
+            modifiedArrayWithOneOrTwoValue[i].timeStamp = elm.timeStamp;
+            modifiedArrayWithOneOrTwoValue[i].betCount2 = elm.betCount;
+            modifiedArrayWithOneOrTwoValue[i].winRate2 = elm.winRate;
+
+            modifiedArrayWithOneOrTwoValue[i].betCount =
+              modifiedArrayWithOneOrTwoValue[i].betCount;
+            modifiedArrayWithOneOrTwoValue[i].winRate =
+              modifiedArrayWithOneOrTwoValue[i].winRate;
+          }
+        });
+      } else {
+        game2.map((elm, i) => {
+          modifiedArrayWithOneOrTwoValue[i].winRate2 = elm.winRate;
+        });
+      }
     } else {
       const statistics = await getAndCorrectStatisticsData(gameId);
       modifiedArrayWithOneOrTwoValue = statistics;
     }
+
     if (!chartRef.current) {
       const chart = am4core.create("chartdiv", am4charts.XYChart);
       chartRef.current = chart;
-      chart.data = modifiedArrayWithOneOrTwoValue;
+      chart.data = modifiedArrayWithOneOrTwoValue.reverse();
       setChartParameters(chart);
     } else {
-      chartRef.current.data = modifiedArrayWithOneOrTwoValue;
+      chartRef.current.data = modifiedArrayWithOneOrTwoValue.reverse();
 
       hideLoadingIndicator();
       setFilterDisabled(false);
@@ -131,18 +149,56 @@ const ChartComponent = ({
       chartRef.current.series.removeIndex(1);
     }
 
-    chartRef?.current?.data.map((element) => {
+    let chartRefData = chartRef?.current?.data;
+
+    chartRefData?.map((element) => {
       if (element.winRate2) {
         delete element.winRate2;
       }
     });
-    // todo
-    // console.log("object", data.length, chartRef?.current?.data.length);
-    data.reverse()?.map((elm, i) => {
-      if (chartRef.current)
-        chartRef.current.data[chartRef.current.data.length - 1 - i].winRate2 =
-          elm.winRate;
-    });
+
+    if (chartRefData && data > chartRefData) {
+      chartRefData.reverse();
+      data?.map((elm, i) => {
+        if (chartRefData) {
+          if (!chartRefData[i]) {
+            chartRefData.push({
+              date: elm.date,
+              timeStamp: elm.timeStamp,
+              betCount2: elm.betCount,
+              winRate2: elm.winRate,
+            });
+          } else {
+            chartRefData[i].date = elm.date;
+            chartRefData[i].timeStamp = elm.timeStamp;
+            chartRefData[i].betCount2 = elm.betCount;
+            chartRefData[i].winRate2 = elm.winRate;
+            chartRefData[i].betCount = chartRefData[i].betCount;
+            chartRefData[i].winRate = chartRefData[i].winRate;
+          }
+        }
+      });
+
+      chartRefData.reverse();
+    } else {
+      data?.map((elm, i) => {
+        if (chartRef.current)
+          chartRef.current.data[chartRef.current.data.length - 1 - i].winRate2 =
+            elm.winRate;
+      });
+
+      const requiredKeys = ["winRate", "winRate2"];
+
+      const filteredArray: any = chartRef?.current?.data.filter((obj) => {
+        for (const key of requiredKeys) {
+          if (!(key in obj)) {
+            return false; // Exclude objects that don't contain the required keys
+          }
+        }
+        return true; // Include objects that contain all required keys
+      });
+      if (chartRef.current) chartRef.current.data = filteredArray;
+    }
 
     if (chartRef.current?.data) {
       const series2 = chartRef.current.series.push(new am4charts.LineSeries());
@@ -220,7 +276,7 @@ const ChartComponent = ({
           const lastItemInSeries1 = series1.dataItems.getIndex(
             Series1Length - 1
           );
-          if (lastItemInSeries1) {
+          if (lastItemInSeries1 && statistics.winRate) {
             lastItemInSeries1.valueY = statistics.winRate;
           }
         }
