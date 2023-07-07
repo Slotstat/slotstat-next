@@ -12,6 +12,7 @@ import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
 import MoreIcon from "@/app/assets/svg/MoreIcon";
+import MinusBlue from "@/app/assets/svg/MinusBlue";
 
 export default function RenderRowCells({
   row,
@@ -104,7 +105,7 @@ export default function RenderRowCells({
     return (
       <div className="flex flex-row justify-between">
         {randomize(chartsComponentsArray)}
-        <RenderGoTo />
+        {/* <RenderGoTo /> */}
       </div>
     );
   };
@@ -118,7 +119,7 @@ export default function RenderRowCells({
     } else if (indicator === -1) {
       return <DownIconBlue className=" mr-2" />;
     } else {
-      return;
+      return <MinusBlue className=" " />;
     }
   };
 

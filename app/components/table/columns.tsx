@@ -121,8 +121,8 @@ export const casinoColumns = (t: any, isGame: boolean) => {
     {
       Header: t("t24h"),
       accessor: "t24h",
-      maxWidth: 169,
-      width: 169,
+      maxWidth: 139,
+      width: 139,
       minWidth: 50,
     },
   ];
