@@ -68,7 +68,25 @@ export const createSeries = (
   s.tooltip.background.cornerRadius = 14;
   s.tooltip.background.strokeOpacity = 0;
   s.tooltip.background.fill = am4core.color("#24262C");
-  // s.tooltip.pointerOrientation = "vertical";
+  s.tooltip.background.fill = am4core.color("#24262C");
+  // s.tooltip.tooltip.pointerOrientation = "none";
+  s.tooltip.background.pointerLength = 30;
+  s.tooltip.background.pointerBaseWidth = 0;
+  // s.tooltip.followCursor = true;
+
+  // s.tooltip.getFillFromObject = false;
+  // s.tooltip.adapter.add("dx", function (dx, target) {
+  //   return target.tooltipX -10;
+  // });
+  // s.tooltip.adapter.add("dy", function (dy, target) {
+  //   // if (yv === "winRate") {
+  //   //   return target.tooltipY - 0;
+  //   // } else {
+  //   return target.tooltipY - 20;
+  //   // }
+  // });
+
+  s.tooltip.pointerOrientation = "vertical";
 
   // s.tooltip.dx = -50;
   // s.tooltip.dy = -20;
@@ -145,12 +163,13 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   const series1 = chart.series.push(new am4charts.LineSeries());
   createSeries(series1, "date", "winRate", SERIE_COLORS[0]);
 
-  const cursor = new am4charts.XYCursor();
-  cursor.lineX.stroke = am4core.color("#fff");
-  cursor.lineY.stroke = am4core.color("#fff");
+  chart.cursor = new am4charts.XYCursor();
+
+  chart.cursor.lineX.stroke = am4core.color("#fff");
+  chart.cursor.lineY.stroke = am4core.color("#fff");
   // cursor.behavior = 'panX';
-  chart.cursor = cursor;
   chart.cursor.keepSelection = true;
+  chart.cursor.maxTooltipDistance = 2000;
 
   chart.mouseWheelBehavior = "panXY";
 

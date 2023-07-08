@@ -21,7 +21,7 @@ import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/getStatistics";
 
-am4core.useTheme(am4themes_animated);
+// am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
@@ -51,6 +51,9 @@ const ChartComponent = ({
 
   const isCompare = useMemo(() => selectedGames.length > 1, [selectedGames]);
 
+  const onPressCompare = () => {
+    setOpen(true);
+  };
   // fetching data, fixing date for chart and reversing it.
   const getAndCorrectStatisticsData = async (newGameId: string) => {
     const statisticsData: Promise<StatisticsData[]> = getStatistics(
@@ -130,10 +133,6 @@ const ChartComponent = ({
     }
   };
 
-  const onPressCompare = () => {
-    setOpen(true);
-  };
-
   // add game for compare
   const onAddToCompare = async (GameData: GameData) => {
     const { gameId: compareGameId } = GameData;
@@ -181,6 +180,8 @@ const ChartComponent = ({
 
       chartRefData.reverse();
     } else {
+      console.log("333", chartRef?.current?.data);
+
       data?.map((elm, i) => {
         if (chartRef.current)
           chartRef.current.data[chartRef.current.data.length - 1 - i].winRate2 =
@@ -190,12 +191,11 @@ const ChartComponent = ({
       const requiredKeys = ["winRate", "winRate2"];
 
       const filteredArray: any = chartRef?.current?.data.filter((obj) => {
-        for (const key of requiredKeys) {
-          if (!(key in obj)) {
-            return false; // Exclude objects that don't contain the required keys
-          }
+        if (!obj.winRate && !obj.winRate2) {
+          return false;
+        } else {
+          return true; // Include objects that contain all required keys
         }
-        return true; // Include objects that contain all required keys
       });
       if (chartRef.current) chartRef.current.data = filteredArray;
     }

@@ -24,28 +24,28 @@ const ActionPane = ({
     <div className="flex items-center justify-between p-[18px]">
       <div className="flex items-center">
         {/* {activeFilterId === "1Y" || activeFilterId === "All" ? null : ( */}
-          <button
-            onClick={onPressCompare}
-            className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
-          >
-            <span className="text-sm font-bold leading-4 text-white">
-              {t("compare")}
-            </span>
-            <Image
-              src={forward}
-              alt=""
-              className="ml-2 h-[18px] w-[18px]"
-              width={18}
-              height={18}
-            />
-          </button>
+        <button
+          onClick={onPressCompare}
+          className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
+        >
+          <span className="text-sm font-bold leading-4 text-white">
+            {t("compare")}
+          </span>
+          <Image
+            src={forward}
+            alt=""
+            className="ml-2 h-[18px] w-[18px]"
+            width={18}
+            height={18}
+          />
+        </button>
         {/* )} */}
         {compareGameObject && (
           <>
             <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
               <BulletIcon color={SERIE_COLORS[0]} size={20} />
               <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {mainGameObject?.name}
+                {mainGameObject?.casinoName} {mainGameObject?.name}
               </span>
             </div>
             <div className="ml-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
@@ -56,7 +56,7 @@ const ActionPane = ({
             <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
               <BulletIcon color={SERIE_COLORS[1]} size={20} />
               <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {compareGameObject.name}
+                {compareGameObject.casinoName} {compareGameObject.name}
               </span>
               <button onClick={onPressRemove} className="pointer">
                 <Image
