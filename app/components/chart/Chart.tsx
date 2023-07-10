@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
@@ -20,8 +20,9 @@ import ActionPane from "./ActionPane";
 import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/getStatistics";
+import _ from "lodash";
 
-// am4core.useTheme(am4themes_animated);
+am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
@@ -180,8 +181,6 @@ const ChartComponent = ({
 
       chartRefData.reverse();
     } else {
-      console.log("333", chartRef?.current?.data);
-
       data?.map((elm, i) => {
         if (chartRef.current)
           chartRef.current.data[chartRef.current.data.length - 1 - i].winRate2 =
@@ -202,6 +201,7 @@ const ChartComponent = ({
 
     if (chartRef.current?.data) {
       const series2 = chartRef.current.series.push(new am4charts.LineSeries());
+
       createSeries(series2, "date", "winRate2", SERIE_COLORS[1]);
       chartRef.current.validateData();
       hideLoadingIndicator();
@@ -261,7 +261,7 @@ const ChartComponent = ({
       // fixing date for chart
       statistics.date = new Date(statistics.date);
 
-      // compare timestamps of last item in data and newly fetched. if the are different it means we have to add new date on dateAxis
+      // compare timestamps of last item in data and newly fetched. if they are different it means we have to add new date on dateAxis
       if (
         statistics.timeStamp !=
         chartRef.current.data[chartRef.current.data.length - 1].timeStamp
@@ -287,6 +287,9 @@ const ChartComponent = ({
           );
           if (lastItemInSeries2) {
             lastItemInSeries2.valueY = statistics.winRate2;
+            // setTimeout(function () {
+            //   series2.invalidateData();
+            // }, 100);
             setLiveResultForCompareGame(statistics.winRate2);
           }
         }
@@ -294,6 +297,14 @@ const ChartComponent = ({
       setLiveResultForMainGame(statistics.winRate);
     }
   };
+
+  // debounce statistic update 
+  // const debounceUpdateStatistic = useCallback(
+  //   _.debounce((gameId, timeStamp, compareGameId) => {
+  //     updateStatistic(gameId, timeStamp, compareGameId);
+  //   }, 2000),
+  //   []
+  // );
 
   // calling signalR and checking for updates
   useEffect(() => {
