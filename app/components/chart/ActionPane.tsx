@@ -2,11 +2,13 @@
 import { useMemo } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import { remove } from "../../assets";
-import { forward, fullscreen } from "../../assets";
+import { fullscreen } from "../../assets";
 import BulletIcon from "../../assets/svg/BulletIcon";
 import Image from "next/image";
 import { FILTERS, SERIE_COLORS } from "./chartUtils";
 import { useTranslations } from "next-intl";
+import DashedButton from "@/app/assets/svg/DashedButton";
+import Plus from "@/app/assets/svg/Plus";
 
 const ActionPane = ({
   onPressCompare,
@@ -24,7 +26,7 @@ const ActionPane = ({
     <div className="flex items-center justify-between p-[18px]">
       <div className="flex items-center">
         {/* {activeFilterId === "1Y" || activeFilterId === "All" ? null : ( */}
-        <button
+        {/* <button
           onClick={onPressCompare}
           className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
         >
@@ -38,37 +40,49 @@ const ActionPane = ({
             width={18}
             height={18}
           />
-        </button>
+        </button> */}
         {/* )} */}
-        {compareGameObject && (
-          <>
-            <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
-              <BulletIcon color={SERIE_COLORS[0]} size={20} />
-              <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {mainGameObject?.casinoName} {mainGameObject?.name}
+
+        <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
+          <BulletIcon color={SERIE_COLORS[0]} size={20} />
+          <span className="ml-2 text-sm font-bold leading-4 text-white">
+            {mainGameObject?.casinoName} {mainGameObject?.name}
+          </span>
+        </div>
+        <div className="mx-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
+          <span className="text-sm font-bold leading-4 text-white">
+            {t("vs")}
+          </span>
+        </div>
+
+        {!compareGameObject ? (
+          <div className=" w-28 h-11" onClick={onPressCompare}>
+            <div className="pointer absolute w-28 h-11  flex items-center justify-center rounded-xl  py-3 px-2">
+              <Plus />
+              <span className="text-sm   ml-2  leading-4 text-white">
+                {t("compare")}
               </span>
             </div>
-            <div className="ml-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
-              <span className="text-sm font-bold leading-4 text-white">
-                {t("vs")}
-              </span>
+            <div>
+              <DashedButton />
             </div>
-            <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
-              <BulletIcon color={SERIE_COLORS[1]} size={20} />
-              <span className="ml-2 text-sm font-bold leading-4 text-white">
-                {compareGameObject.casinoName} {compareGameObject.name}
-              </span>
-              <button onClick={onPressRemove} className="pointer">
-                <Image
-                  src={remove}
-                  alt=""
-                  className="ml-3 h-4 w-4"
-                  width={16}
-                  height={16}
-                />
-              </button>
-            </div>
-          </>
+          </div>
+        ) : (
+          <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
+            <BulletIcon color={SERIE_COLORS[1]} size={20} />
+            <span className="ml-2 text-sm font-bold leading-4 text-white">
+              {compareGameObject.casinoName} {compareGameObject.name}
+            </span>
+            <button onClick={onPressRemove} className="pointer">
+              <Image
+                src={remove}
+                alt=""
+                className="ml-3 h-4 w-4"
+                width={16}
+                height={16}
+              />
+            </button>
+          </div>
         )}
       </div>
       <div className="flex items-center">

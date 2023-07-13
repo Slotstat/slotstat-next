@@ -22,7 +22,7 @@ export default async function getCasinosClientSide({
       method: "GET",
       params: {
         direction,
-        orderBy,
+        orderBy: orderBy || "asc",
         keyWord,
       },
     });

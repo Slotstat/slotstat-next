@@ -11,7 +11,7 @@ export default async function getCasinos({
       method: "GET",
       params: {
         direction,
-        orderBy,
+        orderBy: orderBy || "asc",
         keyWord,
       },
     });

@@ -8,7 +8,6 @@ export default async function getStatistics(
   timeStamp?: number
 ) {
   const cookie = getCookie("NEXT_LOCALE"); // => 'value'
-  console.log("object", cookie);
   const lang = cookie === "en" ? "en-US" : "ka-GE";
   const slotStatClientInstance = axios.create({
     baseURL: "https://api.slotstat.ge",
