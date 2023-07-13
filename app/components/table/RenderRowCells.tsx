@@ -151,7 +151,7 @@ export default function RenderRowCells({
           decimals={2}
           decimal="."
           prefix={row.original.jackpotCurrency + " " || ""}
-          suffix="  "
+          // suffix="  "
           // onEnd={}
           delay={0}
         >
