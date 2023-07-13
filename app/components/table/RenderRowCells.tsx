@@ -13,6 +13,7 @@ import MenuComponent from "../MenuComponent";
 
 import MoreIcon from "@/app/assets/svg/MoreIcon";
 import MinusBlue from "@/app/assets/svg/MinusBlue";
+import CountUp from "react-countup";
 
 export default function RenderRowCells({
   row,
@@ -142,8 +143,24 @@ export default function RenderRowCells({
   } else if (index === 6) {
     return (
       <div className=" text-green1">
-        {row.original.jackpotCurrency}{" "}
-        {cell.value ? row.original.jackpot.toFixed(2) : renderEmptyValue()}
+        <CountUp
+          start={0}
+          end={Number(row.original.jackpot)}
+          duration={1.5}
+          separator=" "
+          decimals={2}
+          decimal="."
+          prefix={row.original.jackpotCurrency || ""}
+          // suffix=" left"
+          // onEnd={}
+          delay={0}
+        >
+          {({ countUpRef }) => (
+            <div>
+              <span ref={countUpRef} />
+            </div>
+          )}
+        </CountUp>
       </div>
     );
   } else if (index === 7) {
