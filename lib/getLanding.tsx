@@ -2,7 +2,7 @@ import slotStatClient from "./instance";
 
 export async function getLandingCards() {
   try {
-    const res = await slotStatClient.request({
+    const res = await slotStatClient().request({
       url: `/api/landing/card`,
       method: "GET",
     });
@@ -14,7 +14,7 @@ export async function getLandingCards() {
 }
 export async function getLandingOffers() {
   try {
-    const res = await slotStatClient.request({
+    const res = await slotStatClient().request({
       url: `/api/landing/offer`,
       method: "GET",
     });

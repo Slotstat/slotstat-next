@@ -1,9 +1,8 @@
 import { Metadata } from "next";
-
 import LiveCards from "../components/LiveCards";
 import Slider from "../components/Slider";
 import Table from "../components/table/Table";
-import { getLandingCards } from "@/lib/getLanding";
+import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
 import { notFound } from "next/navigation";
 
@@ -22,6 +21,7 @@ export default async function Home({
     keyWord,
     direction,
   });
+  const landingOffersData: Promise<Offer[]> = getLandingOffers();
 
   const landingCardsData: Promise<Card[]> = getLandingCards();
   const [casinos, landingCards] = await Promise.all([
@@ -34,7 +34,7 @@ export default async function Home({
   return (
     <>
       <LiveCards cardsData={landingCards} />
-      <Slider />
+      <Slider landingOffersData={landingOffersData}/>
       <div className="my-6 px-4 lg:my-18 ">
         <Table
           orderBy={orderBy || ""}

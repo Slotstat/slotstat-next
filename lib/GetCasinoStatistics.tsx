@@ -5,7 +5,7 @@ export default async function getCasinoStatistics(
   activeFilterId: string,
   timeStamp?: number
 ) {
-  const res = await slotStatClient.request({
+  const res = await slotStatClient().request({
     url: `/api/statistic/casino/${casinoId}?interval=_${activeFilterId}`,
     method: "GET",
     params: {

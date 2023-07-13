@@ -1,7 +1,7 @@
 import slotStatClient from "./instance";
 
 export default async function getCasino(casinoId: string) {
-  const res = await slotStatClient.request({
+  const res = await slotStatClient().request({
     url: `/api/casino/aggregated/${casinoId}`,
     method: "GET",
   });

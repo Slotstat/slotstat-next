@@ -7,6 +7,7 @@ import getGamesList from "@/lib/getGamesList";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+
 export const metadata: Metadata = {
   title: "slot-stat statistic",
   description: "statistic chart for comparing two different games!",
@@ -35,8 +36,8 @@ export default async function Casino({
         cardsData={gameCards}
         rows={2}
         game={true}
-        gameId={gameId}
         casinoId={casinoId}
+        gamesCardsData={gamesCardsData}
       />
       <ChartComponent gameId={gameId} gamesList={gamesList.results} />
       <div className="my-6 px-4 lg:my-18 ">

@@ -5,8 +5,8 @@ import Image from "next/image";
 import Table from "./table/Table";
 import { back, close } from "../assets";
 import { useEffect, useState } from "react";
-import getGamesList from "@/lib/getGamesList";
-import getCasinos from "@/lib/getCasinos";
+import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
+import getCasinosClientSide from "@/lib/clientSide/getCasinosClientSide";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslations } from "next-intl";
@@ -34,7 +34,10 @@ export default function BottomSheetModal({
   ) => {
     setLoading(true);
 
-    const gamesListData: Promise<gamesList> = getGamesList(casino.casinoId, {});
+    const gamesListData: Promise<gamesList> = getGameListClientSide(
+      casino.casinoId,
+      {}
+    );
     const games = await gamesListData;
     setGames(games);
     setCasino(casino);
@@ -43,7 +46,7 @@ export default function BottomSheetModal({
 
   const getAllCasinos = async () => {
     setLoading(true);
-    const casinosData: Promise<CasinoData[]> = getCasinos({
+    const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
       //   orderBy,
       //   keyWord,
       //   direction,

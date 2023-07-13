@@ -125,12 +125,15 @@ const KeenSlider = ({ data }: { data: Offer[] }) => {
   );
 };
 
-const Slider = () => {
+const Slider = ({
+  landingOffersData,
+}: {
+  landingOffersData: Promise<Offer[]>;
+}) => {
   const [offersData, setOffersData] = useState<Offer[]>();
   const [loading, setLoading] = useState(true);
 
   const getOffers = async () => {
-    const landingOffersData: Promise<Offer[]> = getLandingOffers();
     const landingOffers: Offer[] = await landingOffersData;
     setOffersData(landingOffers);
     setLoading(false);

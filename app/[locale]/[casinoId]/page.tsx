@@ -38,6 +38,7 @@ const Casino = async ({
           rows={2}
           casino={true}
           casinoId={casinoId}
+          casinoCardsData={casinoCardsData}
         />
       )}
       <div className="my-18 px-4 lg:my-18 ">

@@ -1,6 +1,5 @@
 "use client";
-
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
@@ -19,7 +18,7 @@ import {
 import ActionPane from "./ActionPane";
 import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
-import getStatistics from "@/lib/getStatistics";
+import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
 
 am4core.useTheme(am4themes_animated);
@@ -298,7 +297,7 @@ const ChartComponent = ({
     }
   };
 
-  // debounce statistic update 
+  // debounce statistic update
   // const debounceUpdateStatistic = useCallback(
   //   _.debounce((gameId, timeStamp, compareGameId) => {
   //     updateStatistic(gameId, timeStamp, compareGameId);

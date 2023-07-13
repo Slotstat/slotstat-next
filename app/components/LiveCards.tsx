@@ -141,12 +141,14 @@ const LiveCards = ({
   game = false,
   cardsData,
   casinoId,
-  gameId,
+  casinoCardsData,
+  gamesCardsData,
 }: {
   cardsData: Array<Card>;
   rows?: number;
   casinoId?: string;
-  gameId?: string;
+  casinoCardsData?: Promise<Card[]>;
+  gamesCardsData?: Promise<Card[]>;
 } & PagesAndStyleDiff) => {
   const { newJackpot } = useStore();
   const [cardsDataState, setCardsDataState] = useState(cardsData);
@@ -154,8 +156,7 @@ const LiveCards = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUpdatedCasinoCardsData = useCallback(
     _.debounce(async () => {
-      if (casinoId) {
-        const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
+      if (casinoCardsData) {
         const updatedCasinoCardsData = await casinoCardsData;
         setCardsDataState(updatedCasinoCardsData);
       }
@@ -166,8 +167,7 @@ const LiveCards = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUpdatedGameCardsData = useCallback(
     _.debounce(async () => {
-      if (gameId) {
-        const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
+      if (gamesCardsData) {
         const updatedGamesCardsData = await gamesCardsData;
         setCardsDataState(updatedGamesCardsData);
       }

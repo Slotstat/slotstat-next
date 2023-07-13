@@ -2,7 +2,7 @@ import slotStatClient from "./instance";
 
 export default async function getCasinoCards(casinoId: string) {
   try {
-    const res = await slotStatClient.request({
+    const res = await slotStatClient().request({
       url: `/api/casino/cards/${casinoId}`,
       method: "GET",
     });
@@ -11,6 +11,8 @@ export default async function getCasinoCards(casinoId: string) {
 
     return res.data;
   } catch (error) {
+    throw new Error(`An error has occurred: ${error}`);
+
     return false;
   }
 }

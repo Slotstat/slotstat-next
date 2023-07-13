@@ -6,7 +6,7 @@ export default async function getCasinos({
   direction,
 }: QueryParams) {
   try {
-    const res = await slotStatClient.request({
+    const res = await slotStatClient().request({
       url: "/api/casino/aggregated",
       method: "GET",
       params: {
@@ -18,6 +18,7 @@ export default async function getCasinos({
     if (res.status != 200) throw new Error("failed to fetch");
     return res.data;
   } catch (error) {
+    throw new Error(`An error has occurred: ${error}`);
     return false;
   }
 }

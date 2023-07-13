@@ -5,7 +5,7 @@ export default async function getGamesList(
   { keyWord, direction, orderBy }: QueryParams
 ) {
   try {
-    const res = await slotStatClient.request({
+    const res = await slotStatClient().request({
       url: `/api/Game/aggregated/${casinoId}`,
       method: "GET",
       params: {
@@ -18,7 +18,6 @@ export default async function getGamesList(
 
     return res.data;
   } catch (error) {
-    console.error("error", error);
-    return false;
+    throw new Error("Can't successfully fetch data");
   }
 }
