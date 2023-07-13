@@ -150,8 +150,8 @@ export default function RenderRowCells({
           separator=" "
           decimals={2}
           decimal="."
-          prefix={row.original.jackpotCurrency || ""}
-          // suffix=" left"
+          prefix={row.original.jackpotCurrency + " " || ""}
+          suffix="  "
           // onEnd={}
           delay={0}
         >
