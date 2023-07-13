@@ -15,12 +15,14 @@ type BottomSheetModalProps = {
   open: boolean;
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameId: GameData) => void;
+  gameId: string;
 };
 
 export default function BottomSheetModal({
   open,
   setOpen,
   onAddToCompare,
+  gameId,
 }: BottomSheetModalProps) {
   const t = useTranslations("bottomSheetModal");
 
@@ -39,6 +41,11 @@ export default function BottomSheetModal({
       {}
     );
     const games = await gamesListData;
+    const removeIndex = games.results
+      .map((item) => item.gameId)
+      .indexOf(gameId);
+    ~removeIndex && games.results.splice(removeIndex, 1);
+
     setGames(games);
     setCasino(casino);
     setLoading(false);

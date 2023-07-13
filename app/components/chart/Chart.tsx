@@ -440,6 +440,7 @@ const ChartComponent = ({
         open={open}
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
+        gameId={gameId}
       />
     </>
   );
