@@ -43,31 +43,34 @@ const ActionPane = ({
         </button> */}
         {/* )} */}
 
-        <div className="pointer ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
+        <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
           <BulletIcon color={SERIE_COLORS[0]} size={20} />
           <span className="ml-2 text-sm font-bold leading-4 text-white">
             {mainGameObject?.casinoName} {mainGameObject?.name}
           </span>
         </div>
-        <div className="mx-3 flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
+        <div className="mx-3 cursor-default flex h-11 items-center justify-center rounded-xl bg-dark2 px-4">
           <span className="text-sm font-bold leading-4 text-white">
             {t("vs")}
           </span>
         </div>
 
         {!compareGameObject ? (
-          <div className=" w-28 h-11" onClick={onPressCompare}>
-            <div className="pointer absolute w-28 h-11  flex items-center justify-center rounded-xl  py-3 px-2">
-              <Plus />
-              <span className="text-sm   ml-2  leading-4 text-white">
-                {t("compare")}
-              </span>
-            </div>
-            <div>
-              <DashedButton />
-            </div>
+          <div onClick={onPressCompare}>
+            <DashedButton text={t("compare")} />
           </div>
         ) : (
+          // <div className="cursor-pointer w-28 h-11" onClick={onPressCompare}>
+          //   <div className=" absolute w-28 h-11  flex items-center justify-center rounded-xl  py-3 px-2">
+          //     <Plus />
+          //     <span className="text-sm   ml-2  leading-4 text-white">
+          //       {t("compare")}
+          //     </span>
+          //   </div>
+          //   <div>
+          //     <DashedButton text={t("compare")} />
+          //   </div>
+          // </div>
           <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
             <BulletIcon color={SERIE_COLORS[1]} size={20} />
             <span className="ml-2 text-sm font-bold leading-4 text-white">
