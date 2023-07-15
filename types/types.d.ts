@@ -121,6 +121,7 @@ interface CasinoData extends GameData {
   t1H: number;
   t24h: number;
   redirectUrl: string;
+  isForAllGames?: boolean;
 }
 
 type GameData = {

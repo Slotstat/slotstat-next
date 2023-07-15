@@ -57,6 +57,9 @@ module.exports = withMT({
       gridTemplateColumns: {
         flexauto: "1fr auto",
       },
+      zIndex: {
+        '1': '1',
+      },
     },
   },
   plugins: [],

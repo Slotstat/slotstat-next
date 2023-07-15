@@ -8,7 +8,6 @@ import Image from "next/image";
 import { FILTERS, SERIE_COLORS } from "./chartUtils";
 import { useTranslations } from "next-intl";
 import DashedButton from "@/app/assets/svg/DashedButton";
-import Plus from "@/app/assets/svg/Plus";
 
 const ActionPane = ({
   onPressCompare,
@@ -25,24 +24,6 @@ const ActionPane = ({
   return (
     <div className="flex items-center justify-between p-[18px]">
       <div className="flex items-center">
-        {/* {activeFilterId === "1Y" || activeFilterId === "All" ? null : ( */}
-        {/* <button
-          onClick={onPressCompare}
-          className="pointer flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3"
-        >
-          <span className="text-sm font-bold leading-4 text-white">
-            {t("compare")}
-          </span>
-          <Image
-            src={forward}
-            alt=""
-            className="ml-2 h-[18px] w-[18px]"
-            width={18}
-            height={18}
-          />
-        </button> */}
-        {/* )} */}
-
         <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
           <BulletIcon color={SERIE_COLORS[0]} size={20} />
           <span className="ml-2 text-sm font-bold leading-4 text-white">
@@ -60,17 +41,6 @@ const ActionPane = ({
             <DashedButton text={t("compare")} />
           </div>
         ) : (
-          // <div className="cursor-pointer w-28 h-11" onClick={onPressCompare}>
-          //   <div className=" absolute w-28 h-11  flex items-center justify-center rounded-xl  py-3 px-2">
-          //     <Plus />
-          //     <span className="text-sm   ml-2  leading-4 text-white">
-          //       {t("compare")}
-          //     </span>
-          //   </div>
-          //   <div>
-          //     <DashedButton text={t("compare")} />
-          //   </div>
-          // </div>
           <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
             <BulletIcon color={SERIE_COLORS[1]} size={20} />
             <span className="ml-2 text-sm font-bold leading-4 text-white">

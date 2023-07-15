@@ -1,5 +1,6 @@
 import LiveCards from "@/app/components/LiveCards";
 import Table from "@/app/components/table/Table";
+import getCasino from "@/lib/getCasino";
 import getCasinoCards from "@/lib/getCasinoCards";
 
 import getGamesList from "@/lib/getGamesList";
@@ -22,13 +23,23 @@ const Casino = async ({
     orderBy,
   });
   const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
+  // const casinoData: Promise<CasinoData> = getCasino(casinoId);
 
-  const [gamesList, casinoCard] = await Promise.all([
+  const [
+    gamesList,
+    casinoCard,
+    //  casino
+  ] = await Promise.all([
     gamesListData,
     casinoCardsData,
+    // casinoData,
   ]);
   if (!gamesList.results) return notFound();
   const gameListWithCasinoOnTop = gamesList.results;
+  // casino.name = "all games";
+  // casino.isForAllGames = true;
+
+  // gameListWithCasinoOnTop.unshift(casino);
 
   return (
     <>

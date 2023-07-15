@@ -35,6 +35,8 @@ type Props = {
     casinoId,
     name,
   }: GetGamesFromChosenCasinoProps) => void;
+  setSearchKeyInBottomSheet?: (text: string) => void;
+  setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
 };
 
 const Table = ({
@@ -46,6 +48,8 @@ const Table = ({
   direction,
   getGamesFromChosenCasino,
   isGame,
+  setSearchKeyInBottomSheet,
+  setOrderByKeyInBottomSheet,
 }: Props) => {
   const t = useTranslations("table");
 
@@ -128,7 +132,12 @@ const Table = ({
               keyWord={keyWord || ""}
               setCasinoFilter={(keyWord) => {
                 setScrollY(window.scrollY);
-                setQueryParams({ keyWord });
+                if (setSearchKeyInBottomSheet) {
+                  console.log(333, keyWord);
+                  setSearchKeyInBottomSheet(keyWord);
+                } else {
+                  setQueryParams({ keyWord });
+                }
               }}
             />
             <div className="flex">
@@ -136,7 +145,11 @@ const Table = ({
                 orderBy={orderBy}
                 onChange={(orderBy) => {
                   setScrollY(window.scrollY);
-                  setQueryParams({ orderBy });
+                  if (setOrderByKeyInBottomSheet) {
+                    setOrderByKeyInBottomSheet(orderBy);
+                  } else {
+                    setQueryParams({ orderBy });
+                  }
                 }}
               />
 

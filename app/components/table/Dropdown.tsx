@@ -39,7 +39,7 @@ const Dropdown = ({
   }, [orderBy]);
 
   return (
-    <div className="z-10  h-10 w-full md:w-72 ">
+    <div className="z-1  h-10 w-full md:w-72 ">
       <Listbox value={selected} onChange={search}>
         {({ open }) => (
           <div className="relative">

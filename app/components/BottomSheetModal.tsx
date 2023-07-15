@@ -4,12 +4,13 @@ import "react-spring-bottom-sheet/dist/style.css";
 import Image from "next/image";
 import Table from "./table/Table";
 import { back, close } from "../assets";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import getCasinosClientSide from "@/lib/clientSide/getCasinosClientSide";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslations } from "next-intl";
+import _ from "lodash";
 
 type BottomSheetModalProps = {
   open: boolean;
@@ -30,15 +31,21 @@ export default function BottomSheetModal({
   const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
   const [games, setGames] = useState<gamesList>();
   const [loading, setLoading] = useState(false);
+  const [keyWord, setKeyWord] = useState<string>("");
+  const [orderBy, setOrderBy] = useState<string>("");
 
   const getGamesFromChosenCasino = async (
     casino: GetGamesFromChosenCasinoProps
   ) => {
-    setLoading(true);
+    !keyWord && setLoading(true);
 
     const gamesListData: Promise<gamesList> = getGameListClientSide(
       casino.casinoId,
-      {}
+      {
+        orderBy,
+        keyWord,
+        // direction,
+      }
     );
     const games = await gamesListData;
     const removeIndex = games.results
@@ -52,11 +59,11 @@ export default function BottomSheetModal({
   };
 
   const getAllCasinos = async () => {
-    setLoading(true);
+    !keyWord && setLoading(true);
     const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
-      //   orderBy,
-      //   keyWord,
-      //   direction,
+      orderBy,
+      keyWord: keyWord,
+      // direction,
     });
     const casinos = await casinosData;
     setCasinos(casinos);
@@ -69,12 +76,24 @@ export default function BottomSheetModal({
     setCasino(undefined);
   };
 
+  const setSearchKeyInBottomSheet = useCallback(
+    _.debounce((key) => {
+      setKeyWord(key);
+    }, 500),
+    []
+  );
+
   useEffect(() => {
-    getAllCasinos();
-  }, []);
+    if (games && casino) {
+      getGamesFromChosenCasino(casino);
+    } else {
+      getAllCasinos();
+    }
+  }, [keyWord, orderBy]);
 
   return (
     <BottomSheet
+      blocking={false}
       snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight / 0.6]}
       open={open}
       onDismiss={() => {
@@ -83,7 +102,7 @@ export default function BottomSheetModal({
         setGames(undefined);
       }}
     >
-      <div className="bg-dark1 py-8 px-4 flex justify-center">
+      <div className="bg-dark1 py-8 px-4 flex justify-center  ">
         <div className=" w-[100%] max-w-screen-xl">
           <div className="flex items-center justify-between">
             {games ? (
@@ -136,19 +155,31 @@ export default function BottomSheetModal({
           <div className="py-8">
             {casinos && !games && !loading ? (
               <Table
-                //   orderBy={orderBy || ""}
-                //   keyWord={keyWord || ""}
+                keyWord={keyWord}
+                orderBy={orderBy}
+                // direction={direction}
                 tableBodyData={casinos}
-                showFilter={false}
+                showFilter={true}
                 getGamesFromChosenCasino={getGamesFromChosenCasino}
                 isGame={false}
+                setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+                setOrderByKeyInBottomSheet={(order) =>
+                  order && setOrderBy(order)
+                }
               />
             ) : games && !loading ? (
               <Table
+                keyWord={keyWord}
+                orderBy={orderBy}
+                // direction={direction}
                 isGame={true}
                 tableBodyData={games.results}
-                showFilter={false}
+                showFilter={true}
                 onAddToCompare={onAddToCompareAndClearBottomSheet}
+                setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+                setOrderByKeyInBottomSheet={(order) =>
+                  order && setOrderBy(order)
+                }
               />
             ) : (
               <SkeletonTheme baseColor="#24262C" highlightColor="#444">
