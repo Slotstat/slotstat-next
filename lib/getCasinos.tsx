@@ -4,7 +4,9 @@ export default async function getCasinos({
   orderBy,
   keyWord,
   direction,
+  isCrypto,
 }: QueryParams) {
+  console.log("isCrypto", typeof isCrypto);
   try {
     const res = await slotStatClient().request({
       url: "/api/casino/aggregated",
@@ -13,6 +15,7 @@ export default async function getCasinos({
         direction,
         orderBy: orderBy || "asc",
         keyWord,
+        isCrypto: isCrypto === "true" ? true : false,
       },
     });
     if (res.status != 200) throw new Error("failed to fetch");

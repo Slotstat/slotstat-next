@@ -22,10 +22,13 @@ module.exports = withMT({
         dark3: "#36383D",
         grey1: "#969CB0",
         grey2: "#2F323D",
+        grey3: "#2E3137",
         blue1: "#5887F6",
         blue2: "#5887F5",
+        blue3: "#2D3A59",
         green1: "#00D685",
         opaque1: "#FFFFFF66",
+
         sky: {
           50: "#f0f9ff",
           100: "#e0f2fe",
@@ -58,7 +61,7 @@ module.exports = withMT({
         flexauto: "1fr auto",
       },
       zIndex: {
-        '1': '1',
+        1: "1",
       },
     },
   },

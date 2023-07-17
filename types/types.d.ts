@@ -178,6 +178,7 @@ type QueryParams = {
   keyWord?: string;
   direction?: string;
   type?: type;
+  isCrypto?: string;
 };
 
 type GetGamesFromChosenCasinoProps = {

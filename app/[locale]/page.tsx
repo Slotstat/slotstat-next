@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({
-  searchParams: { orderBy, keyWord, direction },
+  searchParams: { orderBy, keyWord, direction, isCrypto },
 }: {
   searchParams: QueryParams;
 }) {
@@ -20,6 +20,7 @@ export default async function Home({
     orderBy,
     keyWord,
     direction,
+    isCrypto,
   });
   const landingOffersData: Promise<Offer[]> = getLandingOffers();
 
@@ -34,15 +35,17 @@ export default async function Home({
   return (
     <>
       <LiveCards cardsData={landingCards} />
-      <Slider landingOffersData={landingOffersData}/>
+      <Slider landingOffersData={landingOffersData} />
       <div className="my-6 px-4 lg:my-18 ">
         <Table
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}
           direction={direction}
+          isCrypto={isCrypto || "true"}
           tableBodyData={casinos}
           showFilter={true}
           isGame={false}
+          showCryptoFiatSwitcher={true}
         />
       </div>
     </>

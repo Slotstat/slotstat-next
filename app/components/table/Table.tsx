@@ -22,6 +22,7 @@ import { useTranslations } from "next-intl";
 import { casinoColumns } from "./columns";
 
 import { usePathname, useRouter } from "next-intl/client";
+import FiatCryptoButton from "./FiatCryptoButton";
 
 type Props = {
   showFilter: boolean;
@@ -30,6 +31,7 @@ type Props = {
   orderBy?: string;
   keyWord?: string;
   direction?: string;
+  isCrypto?: string;
   isGame: boolean;
   getGamesFromChosenCasino?: ({
     casinoId,
@@ -37,6 +39,7 @@ type Props = {
   }: GetGamesFromChosenCasinoProps) => void;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
+  showCryptoFiatSwitcher: boolean;
 };
 
 const Table = ({
@@ -46,10 +49,12 @@ const Table = ({
   orderBy,
   keyWord,
   direction,
+  isCrypto,
   getGamesFromChosenCasino,
   isGame,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
+  showCryptoFiatSwitcher,
 }: Props) => {
   const t = useTranslations("table");
 
@@ -136,25 +141,46 @@ const Table = ({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY, keyWord, orderBy, direction]);
+  }, [scrollY, keyWord, orderBy, direction, isCrypto]);
 
   return (
     <>
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
         {showFilter && (
           <>
-            <SearchInput
-              keyWord={keyWord || ""}
-              setCasinoFilter={(keyWord) => {
-                setScrollY(window.scrollY);
-                if (setSearchKeyInBottomSheet) {
-                  console.log(333, keyWord);
-                  setSearchKeyInBottomSheet(keyWord);
-                } else {
-                  setQueryParams({ keyWord });
-                }
-              }}
-            />
+            <div className="flex">
+              <SearchInput
+                keyWord={keyWord || ""}
+                setCasinoFilter={(keyWord) => {
+                  setScrollY(window.scrollY);
+                  if (setSearchKeyInBottomSheet) {
+                    setSearchKeyInBottomSheet(keyWord);
+                  } else {
+                    setQueryParams({ keyWord });
+                  }
+                }}
+              />
+              {showCryptoFiatSwitcher && (
+                <>
+                  <FiatCryptoButton
+                    title={"Fiat casinos"}
+                    active={isCrypto === "false" && true}
+                    click={() => {
+                      setScrollY(window.scrollY);
+                      setQueryParams({ isCrypto: "false" });
+                    }}
+                  />
+                  <FiatCryptoButton
+                    title={"Crypto casinos"}
+                    active={isCrypto === "true" && true}
+                    click={() => {
+                      setScrollY(window.scrollY);
+                      setQueryParams({ isCrypto: "true" });
+                    }}
+                  />
+                </>
+              )}
+            </div>
             <div className="flex">
               <Dropdown
                 orderBy={orderBy}
