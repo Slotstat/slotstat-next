@@ -20,18 +20,21 @@ import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
+import getCasinoStatistic from "@/lib/clientSide/getCasinoStatistic";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
 
 const ChartComponent = ({
   gameId,
-  gamesList,
+  mainGame,
+  type,
 }: {
   gameId: string;
-  gamesList: GameData[];
+  mainGame: GameData;
+  type: Type;
 }) => {
-  const casinoName = gamesList[0]?.casinoName;
+  const casinoName = mainGame?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
   const [activeFilterId, setActiveFilterId] = useState<FiltersKey>("1D");
@@ -56,12 +59,20 @@ const ChartComponent = ({
   };
   // fetching data, fixing date for chart and reversing it.
   const getAndCorrectStatisticsData = async (newGameId: string) => {
-    const statisticsData: Promise<StatisticsData[]> = getStatistics(
-      newGameId,
-      activeFilterId
-    );
+    let statistics: StatisticsData[];
 
-    let statistics: StatisticsData[] = await statisticsData;
+    if (type) {
+      const statisticsDataFromCasino: Promise<StatisticsData[]> =
+        getCasinoStatistic(newGameId, activeFilterId);
+
+      statistics = await statisticsDataFromCasino;
+    } else {
+      const statisticsData: Promise<StatisticsData[]> = getStatistics(
+        newGameId,
+        activeFilterId
+      );
+      statistics = await statisticsData;
+    }
 
     // needs to be reversed to correctly show charts.
     const reversedStatistics = statistics;
@@ -135,7 +146,13 @@ const ChartComponent = ({
 
   // add game for compare
   const onAddToCompare = async (GameData: GameData) => {
-    const { gameId: compareGameId } = GameData;
+    let compareGameId: string;
+    if (type === "AllGames" && GameData.casinoId) {
+      compareGameId = GameData.casinoId;
+    } else {
+      compareGameId = GameData.gameId;
+    }
+
     setCompareGameObject(GameData);
     setOpen(false);
 
@@ -230,19 +247,15 @@ const ChartComponent = ({
   ) => {
     if (chartRef.current) {
       let statistics;
-      const statisticsData: Promise<StatisticsData[]> = getStatistics(
-        newGameId,
-        activeFilterId,
-        timeStamp
-      );
+      const statisticsData: Promise<StatisticsData[]> = type
+        ? getCasinoStatistic(newGameId, activeFilterId, timeStamp)
+        : getStatistics(newGameId, activeFilterId, timeStamp);
 
       // if we are comparing one game to another this statement will happen
       if (compareGameId) {
-        const compareStatisticsData: Promise<StatisticsData[]> = getStatistics(
-          compareGameId,
-          activeFilterId,
-          timeStamp
-        );
+        const compareStatisticsData: Promise<StatisticsData[]> = type
+          ? getCasinoStatistic(compareGameId, activeFilterId, timeStamp)
+          : getStatistics(compareGameId, activeFilterId, timeStamp);
         const [mainStatistic, compareStatistics] = await Promise.all([
           statisticsData,
           compareStatisticsData,
@@ -343,9 +356,6 @@ const ChartComponent = ({
 
   // setting main game object to the state
   useEffect(() => {
-    const mainGame = gamesList.find((x) => {
-      return x.gameId === gameId;
-    });
     setMainGameObject(mainGame);
 
     const handleVisibilityChange = () => {
@@ -441,6 +451,7 @@ const ChartComponent = ({
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
         gameId={gameId}
+        type={type}
       />
     </>
   );

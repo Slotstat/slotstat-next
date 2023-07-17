@@ -140,6 +140,7 @@ type GameData = {
   casinoId?: string;
   casinoName: string;
   redirectUrl: string;
+  type?: "AllGames";
 };
 
 type gamesList = {
@@ -171,11 +172,12 @@ type ActionPaneProps = {
   setFilterDisabled: (boolean: boolean) => void;
   filterDisabled: boolean;
 };
-
+type Type = "AllGames" | "Game";
 type QueryParams = {
   orderBy?: string;
   keyWord?: string;
   direction?: string;
+  type?: type;
 };
 
 type GetGamesFromChosenCasinoProps = {

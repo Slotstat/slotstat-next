@@ -1,6 +1,6 @@
 import LiveCards from "@/app/components/LiveCards";
 import Table from "@/app/components/table/Table";
-import getCasino from "@/lib/getCasino";
+// import getCasino from "@/lib/getCasino";
 import getCasinoCards from "@/lib/getCasinoCards";
 
 import getGamesList from "@/lib/getGamesList";
@@ -36,6 +36,7 @@ const Casino = async ({
   ]);
   if (!gamesList.results) return notFound();
   const gameListWithCasinoOnTop = gamesList.results;
+
   // casino.name = "all games";
   // casino.isForAllGames = true;
 

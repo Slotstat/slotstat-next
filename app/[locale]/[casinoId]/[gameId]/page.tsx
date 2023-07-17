@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Casino({
   params,
-  searchParams: { orderBy, keyWord, direction },
+  searchParams: { orderBy, keyWord, direction, type },
 }: {
   params: { casinoId: string; gameId: string };
   searchParams: QueryParams;
@@ -25,39 +25,63 @@ export default async function Casino({
     direction,
     orderBy,
   });
-  const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
+  // const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
 
-  const [gamesList, gameCards] = await Promise.all([
+  const [
+    gamesList,
+    // gameCards
+  ] = await Promise.all([
     gamesListData,
-    gamesCardsData,
+    // gamesCardsData,
   ]);
-  console.log("gamesList", gamesList);
-  const GameExists = gamesList?.results?.find((obj) => obj.gameId === gameId);
-  if (!GameExists) return notFound();
+
+  const mainGame: GameData | undefined = gamesList?.results?.find((x) => {
+    if (type === "AllGames") {
+      return x.casinoId === gameId;
+    } else {
+      return x.gameId === gameId;
+    }
+  });
+
+  if (casinoId === gameId && gamesList) {
+    gamesList.results.shift();
+  } else {
+    const removeIndex = gamesList.results
+      .map((item) => item.gameId)
+      .indexOf(gameId);
+    ~removeIndex && gamesList.results.splice(removeIndex, 1);
+  }
+
+  // const GameExists = gamesList?.results?.find((obj) => obj.gameId === gameId);
+  // if (!GameExists) return notFound();
 
   return (
     <>
-      <LiveCards
+      {/* <LiveCards
         cardsData={gameCards}
         rows={2}
         game={true}
         casinoId={casinoId}
         gamesCardsData={gamesCardsData}
-      />
-      <ChartComponent gameId={gameId} gamesList={gamesList.results} />
-      <div className="my-6 px-4 lg:my-18 ">
-        <OtherGames casinoName={gamesList.results[0].casinoName} />
-        <div className="my-4 lg:my-6">
-          <Table
-            keyWord={keyWord}
-            orderBy={orderBy}
-            direction={direction}
-            tableBodyData={gamesList.results}
-            showFilter={true}
-            isGame={true}
-          />
+      /> */}
+      {mainGame && (
+        <ChartComponent gameId={gameId} mainGame={mainGame} type={type} />
+      )}
+      {gamesList && (
+        <div className="my-6 px-4 lg:my-18 ">
+          <OtherGames casinoName={gamesList.results[0].casinoName} />
+          <div className="my-4 lg:my-6">
+            <Table
+              keyWord={keyWord}
+              orderBy={orderBy}
+              direction={direction}
+              tableBodyData={gamesList.results}
+              showFilter={true}
+              isGame={true}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

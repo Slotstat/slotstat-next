@@ -8,7 +8,7 @@ export default function useQueryParams() {
   const searchParams = useSearchParams();
   const urlSearchParams = new URLSearchParams(searchParams.toString());
 
-  function setQueryParams(param: QueryParams) {
+  function setQueryParams(param: QueryParams, pathNameForCasinoStat?: string) {
     Object.entries(param).forEach(([key, value]) => {
       if (!value) {
         return urlSearchParams.delete(key);
@@ -17,10 +17,12 @@ export default function useQueryParams() {
       }
     });
 
-    const search = urlSearchParams.toString();
-    const query = search ? `?${search}` : "";
+    const filter = urlSearchParams.toString();
+    const query = filter ? `?${filter}` : "";
 
-    router.push(`${pathname}${query}`);
+    router.push(
+      `${pathNameForCasinoStat ? pathNameForCasinoStat : pathname}${query}`
+    );
   }
 
   return { setQueryParams };

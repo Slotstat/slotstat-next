@@ -17,6 +17,7 @@ type BottomSheetModalProps = {
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameId: GameData) => void;
   gameId: string;
+  type: Type;
 };
 
 export default function BottomSheetModal({
@@ -24,6 +25,7 @@ export default function BottomSheetModal({
   setOpen,
   onAddToCompare,
   gameId,
+  type,
 }: BottomSheetModalProps) {
   const t = useTranslations("bottomSheetModal");
 
@@ -53,6 +55,12 @@ export default function BottomSheetModal({
       .indexOf(gameId);
     ~removeIndex && games.results.splice(removeIndex, 1);
 
+    if (type === "AllGames") {
+      games.results.splice(1);
+    } else {
+      games.results.shift();
+    }
+
     setGames(games);
     setCasino(casino);
     setLoading(false);
@@ -66,6 +74,9 @@ export default function BottomSheetModal({
       // direction,
     });
     const casinos = await casinosData;
+    var removeIndex = casinos.map((item) => item.casinoId).indexOf(gameId);
+    ~removeIndex && casinos.splice(removeIndex, 1);
+
     setCasinos(casinos);
     setLoading(false);
   };

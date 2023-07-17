@@ -72,14 +72,29 @@ const Table = ({
       });
     } else {
       const segments = pathName.split("/");
-      if (segments.length === 3) {
-        return router.push(`/${segments[1]}/${row.original.gameId}`);
-      } else {
-        const path = row.original.gameId
-          ? `${pathName}/${row.original.gameId}`
-          : `${row.original.casinoId}`;
 
-        return router.push(path);
+      if (row.original.type === "AllGames") {
+        let PathNameForAllGames: string;
+        if (segments.length === 3) {
+          PathNameForAllGames = segments[1];
+          setQueryParams({ type: row.original.type }, `${PathNameForAllGames}`);
+        } else {
+          PathNameForAllGames = pathName;
+          setQueryParams(
+            { type: row.original.type },
+            `${PathNameForAllGames}/${row.original.casinoId}`
+          );
+        }
+      } else {
+        if (segments.length === 3) {
+          return router.push(`/${segments[1]}/${row.original.gameId}`);
+        } else {
+          const path = row.original.gameId
+            ? `${pathName}/${row.original.gameId}`
+            : `${row.original.casinoId}`;
+
+          return router.push(path);
+        }
       }
     }
   };
