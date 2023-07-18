@@ -64,6 +64,10 @@
     "sortBy": "დალაგება"
   },
   "search": "ძებნა",
+  "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",
+  "fiatCasinos": "ფიატ კაზინოები",
+  "cryptoCasinos": "კრიპტო კაზინოები",
+
   "notification": {
     "notification": "ჯეკპოტი გათამაშდა"
   },

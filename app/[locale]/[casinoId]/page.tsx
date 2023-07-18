@@ -22,12 +22,13 @@ const Casino = async ({
     direction,
     orderBy,
   });
+
   const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
   // const casinoData: Promise<CasinoData> = getCasino(casinoId);
 
   const [
     gamesList,
-    casinoCard,
+    casinoCards,
     //  casino
   ] = await Promise.all([
     gamesListData,
@@ -36,7 +37,6 @@ const Casino = async ({
   ]);
   if (!gamesList.results) return notFound();
   const gameListWithCasinoOnTop = gamesList.results;
-
   // casino.name = "all games";
   // casino.isForAllGames = true;
 
@@ -44,9 +44,9 @@ const Casino = async ({
 
   return (
     <>
-      {!!casinoCard && (
+      {!!casinoCards && (
         <LiveCards
-          cardsData={casinoCard}
+          cardsData={casinoCards}
           rows={2}
           casino={true}
           casinoId={casinoId}

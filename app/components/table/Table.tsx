@@ -57,6 +57,7 @@ const Table = ({
   showCryptoFiatSwitcher,
 }: Props) => {
   const t = useTranslations("table");
+  const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
@@ -162,16 +163,16 @@ const Table = ({
               {showCryptoFiatSwitcher && (
                 <>
                   <FiatCryptoButton
-                    title={"Fiat casinos"}
-                    active={isCrypto === "false" && true}
+                    title={f("fiatCasinos")}
+                    active={isCrypto === "false"}
                     click={() => {
                       setScrollY(window.scrollY);
                       setQueryParams({ isCrypto: "false" });
                     }}
                   />
                   <FiatCryptoButton
-                    title={"Crypto casinos"}
-                    active={isCrypto === "true" && true}
+                    title={f("cryptoCasinos")}
+                    active={isCrypto === "true"}
                     click={() => {
                       setScrollY(window.scrollY);
                       setQueryParams({ isCrypto: "true" });

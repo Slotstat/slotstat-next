@@ -21,6 +21,7 @@ import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
 import getCasinoStatistic from "@/lib/clientSide/getCasinoStatistic";
+import { useTranslations } from "next-intl";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -28,12 +29,13 @@ am4core.addLicense("ch-custom-attribution");
 const ChartComponent = ({
   gameId,
   mainGame,
-  type,
+  isAllGames,
 }: {
   gameId: string;
   mainGame: GameData;
-  type: Type;
+  isAllGames: boolean;
 }) => {
+  const t = useTranslations();
   const casinoName = mainGame?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
@@ -42,6 +44,7 @@ const ChartComponent = ({
   const [filterDisabled, setFilterDisabled] = useState(false);
 
   const [open, setOpen] = useState(false);
+  const [noStatisticsYet, setNoStatisticsYet] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
   const [mainGameObject, setMainGameObject] = useState<GameData>();
   const [compareGameObject, setCompareGameObject] = useState<GameData>();
@@ -61,7 +64,7 @@ const ChartComponent = ({
   const getAndCorrectStatisticsData = async (newGameId: string) => {
     let statistics: StatisticsData[];
 
-    if (type) {
+    if (isAllGames) {
       const statisticsDataFromCasino: Promise<StatisticsData[]> =
         getCasinoStatistic(newGameId, activeFilterId);
 
@@ -73,15 +76,15 @@ const ChartComponent = ({
       );
       statistics = await statisticsData;
     }
-
-    // needs to be reversed to correctly show charts.
-    const reversedStatistics = statistics;
-
-    for (let index = 0; index < reversedStatistics.length; index++) {
-      reversedStatistics[index].date = new Date(reversedStatistics[index].date);
+    if (statistics.length === 0) {
+      setNoStatisticsYet(true);
+      return [];
     }
-    setLiveResultForMainGame(reversedStatistics[0].winRate);
-    return reversedStatistics;
+    for (let index = 0; index < statistics.length; index++) {
+      statistics[index].date = new Date(statistics[index].date);
+    }
+    setLiveResultForMainGame(statistics[0].winRate);
+    return statistics;
   };
 
   // fetching and updating data for main and compareGame
@@ -147,7 +150,7 @@ const ChartComponent = ({
   // add game for compare
   const onAddToCompare = async (GameData: GameData) => {
     let compareGameId: string;
-    if (type === "AllGames" && GameData.casinoId) {
+    if (isAllGames && GameData.casinoId) {
       compareGameId = GameData.casinoId;
     } else {
       compareGameId = GameData.gameId;
@@ -247,13 +250,13 @@ const ChartComponent = ({
   ) => {
     if (chartRef.current) {
       let statistics;
-      const statisticsData: Promise<StatisticsData[]> = type
+      const statisticsData: Promise<StatisticsData[]> = isAllGames
         ? getCasinoStatistic(newGameId, activeFilterId, timeStamp)
         : getStatistics(newGameId, activeFilterId, timeStamp);
 
       // if we are comparing one game to another this statement will happen
       if (compareGameId) {
-        const compareStatisticsData: Promise<StatisticsData[]> = type
+        const compareStatisticsData: Promise<StatisticsData[]> = isAllGames
           ? getCasinoStatistic(compareGameId, activeFilterId, timeStamp)
           : getStatistics(compareGameId, activeFilterId, timeStamp);
         const [mainStatistic, compareStatistics] = await Promise.all([
@@ -428,21 +431,28 @@ const ChartComponent = ({
         </div>
         <div className="mt-6 rounded-3xl bg-dark2 p-6">
           <div className="rounded-3xl bg-dark1">
-            <ActionPane
-              compareGameObject={compareGameObject}
-              mainGameObject={mainGameObject}
-              onPressCompare={onPressCompare}
-              onPressRemove={onPressRemove}
-              activeFilterId={activeFilterId}
-              onPressFilter={setActiveFilterId}
-              setFilterDisabled={setFilterDisabled}
-              filterDisabled={filterDisabled}
-            />
-
-            <div
-              id="chartdiv"
-              className="h-[550px] w-full rounded-3xl bg-dark1"
-            ></div>
+            {noStatisticsYet ? (
+              <div className=" text-white w-full text-center">
+                {t("noStatistic")}
+              </div>
+            ) : (
+              <>
+                <ActionPane
+                  compareGameObject={compareGameObject}
+                  mainGameObject={mainGameObject}
+                  onPressCompare={onPressCompare}
+                  onPressRemove={onPressRemove}
+                  activeFilterId={activeFilterId}
+                  onPressFilter={setActiveFilterId}
+                  setFilterDisabled={setFilterDisabled}
+                  filterDisabled={filterDisabled}
+                />
+                <div
+                  id="chartdiv"
+                  className="h-[550px] w-full rounded-3xl bg-dark1"
+                ></div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -451,7 +461,7 @@ const ChartComponent = ({
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
         gameId={gameId}
-        type={type}
+        isAllGames={isAllGames}
       />
     </>
   );

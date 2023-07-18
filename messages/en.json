@@ -64,6 +64,9 @@
   },
 
   "search": "Search",
+  "noStatistic": "Oops we will update statistics soon!!",
+  "fiatCasinos":"Fiat casinos",
+  "cryptoCasinos":"Crypto casinos",
 
   "notification": {
     "notification": "The jackpot has been drawn"

@@ -41,7 +41,7 @@ export default async function Home({
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}
           direction={direction}
-          isCrypto={isCrypto || "true"}
+          isCrypto={isCrypto || "false"}
           tableBodyData={casinos}
           showFilter={true}
           isGame={false}

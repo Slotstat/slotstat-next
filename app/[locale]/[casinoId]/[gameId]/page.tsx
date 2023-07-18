@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function Casino({
   params,
-  searchParams: { orderBy, keyWord, direction, type },
+  searchParams: { orderBy, keyWord, direction },
 }: {
   params: { casinoId: string; gameId: string };
   searchParams: QueryParams;
@@ -28,7 +28,7 @@ export default async function Casino({
   });
 
   const gamesCardsData: Promise<Card[]> =
-    type === "AllGames" ? getCasinoCards(casinoId) : getGameCards(gameId);
+    casinoId === gameId ? getCasinoCards(casinoId) : getGameCards(gameId);
 
   const [gamesList, gameCards] = await Promise.all([
     gamesListData,
@@ -36,7 +36,7 @@ export default async function Casino({
   ]);
 
   const mainGame: GameData | undefined = gamesList?.results?.find((x) => {
-    if (type === "AllGames") {
+    if (casinoId === gameId) {
       return x.casinoId === gameId;
     } else {
       return x.gameId === gameId;
@@ -66,9 +66,13 @@ export default async function Casino({
         // casinoCardsData={casinoCardsData}
       />
       {mainGame && (
-        <ChartComponent gameId={gameId} mainGame={mainGame} type={type} />
+        <ChartComponent
+          gameId={gameId}
+          mainGame={mainGame}
+          isAllGames={casinoId === gameId}
+        />
       )}
-      {gamesList && (
+      {gamesList.results[0] && (
         <div className="my-6 px-4 lg:my-18 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
           <div className="my-4 lg:my-6">

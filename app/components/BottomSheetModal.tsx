@@ -17,7 +17,7 @@ type BottomSheetModalProps = {
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameId: GameData) => void;
   gameId: string;
-  type: Type;
+  isAllGames: boolean;
 };
 
 export default function BottomSheetModal({
@@ -25,7 +25,7 @@ export default function BottomSheetModal({
   setOpen,
   onAddToCompare,
   gameId,
-  type,
+  isAllGames,
 }: BottomSheetModalProps) {
   const t = useTranslations("bottomSheetModal");
 
@@ -55,7 +55,7 @@ export default function BottomSheetModal({
       .indexOf(gameId);
     ~removeIndex && games.results.splice(removeIndex, 1);
 
-    if (type === "AllGames") {
+    if (isAllGames) {
       games.results.splice(1);
     } else {
       games.results.shift();

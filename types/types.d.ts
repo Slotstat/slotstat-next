@@ -178,7 +178,7 @@ type QueryParams = {
   orderBy?: string;
   keyWord?: string;
   direction?: string;
-  type?: type;
+  type?: Type;
   isCrypto?: string;
 };
 
