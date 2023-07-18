@@ -39,7 +39,7 @@ type Props = {
   }: GetGamesFromChosenCasinoProps) => void;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
-  showCryptoFiatSwitcher: boolean;
+  showCryptoFiatSwitcher?: boolean;
 };
 
 const Table = ({
