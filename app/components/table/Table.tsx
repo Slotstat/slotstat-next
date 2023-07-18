@@ -57,7 +57,6 @@ const Table = ({
   showCryptoFiatSwitcher,
 }: Props) => {
   const t = useTranslations("table");
-
   const { setQueryParams } = useQueryParams();
   const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);

@@ -2,6 +2,7 @@ import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
 import Table from "@/app/components/table/Table";
+import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import { Metadata } from "next";
@@ -25,14 +26,13 @@ export default async function Casino({
     direction,
     orderBy,
   });
-  // const gamesCardsData: Promise<Card[]> = getGameCards(gameId);
 
-  const [
-    gamesList,
-    // gameCards
-  ] = await Promise.all([
+  const gamesCardsData: Promise<Card[]> =
+    type === "AllGames" ? getCasinoCards(casinoId) : getGameCards(gameId);
+
+  const [gamesList, gameCards] = await Promise.all([
     gamesListData,
-    // gamesCardsData,
+    gamesCardsData,
   ]);
 
   const mainGame: GameData | undefined = gamesList?.results?.find((x) => {
@@ -57,13 +57,14 @@ export default async function Casino({
 
   return (
     <>
-      {/* <LiveCards
+      <LiveCards
         cardsData={gameCards}
         rows={2}
         game={true}
         casinoId={casinoId}
         gamesCardsData={gamesCardsData}
-      /> */}
+        // casinoCardsData={casinoCardsData}
+      />
       {mainGame && (
         <ChartComponent gameId={gameId} mainGame={mainGame} type={type} />
       )}

@@ -196,9 +196,10 @@ const LiveCards = ({
   return (
     <div className="my-4 px-4 lg:my-6">
       <div className=" grid lg:gap-4 lg:grid-cols-4 sm:gap-2 sm:grid-cols-2 ">
-        {cardsDataState.map((card, i) => (
-          <StatCard key={i} {...card} casino={casino} game={game} />
-        ))}
+        {cardsDataState &&
+          cardsDataState.map((card, i) => (
+            <StatCard key={i} {...card} casino={casino} game={game} />
+          ))}
       </div>
     </div>
   );

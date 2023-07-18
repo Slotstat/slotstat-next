@@ -26,9 +26,19 @@ export default function RenderRowCells({
   index: number;
   onRowPress: () => void;
 }) {
+  const {
+    redirectUrl,
+    imageUrl,
+    name,
+    t1H,
+    t24h,
+    jackpot,
+    jackpotCurrency,
+    casinoCurrency,
+  } = row.original;
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
-    window.open(row.original.redirectUrl, "_blank", "noreferrer");
+    window.open(redirectUrl, "_blank", "noreferrer");
   };
 
   const goToStatistics = (event: { stopPropagation: () => void }) => {
@@ -67,17 +77,15 @@ export default function RenderRowCells({
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
   const CasinoGameName = () => {
-    const isCasino = !!row.original.casinoId;
-
     return (
       <MenuComponent listItems={[GoToStatistic, goToCasino]}>
         <div className="flex flex-row items-center">
           <div className="w-12 h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
             <div className=" relative w-12 h-12 ">
-              {!!isImgUrl(row.original.imageUrl) && (
+              {!!isImgUrl(imageUrl) && (
                 <Image
-                  src={row.original.imageUrl}
-                  alt={row.original.name}
+                  src={imageUrl}
+                  alt={name}
                   fill
                   sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
@@ -129,14 +137,14 @@ export default function RenderRowCells({
   } else if (index === 3) {
     return (
       <div className="flex flex-row items-center">
-        {showUpOrDownIcon(row.original.t1H)}
+        {showUpOrDownIcon(t1H)}
         {cell.render("Cell")}%
       </div>
     );
   } else if (index === 4) {
     return (
       <div className="flex flex-row items-center">
-        {showUpOrDownIcon(row.original.t24h)}
+        {showUpOrDownIcon(t24h)}
         {cell.render("Cell")}%
       </div>
     );
@@ -145,14 +153,16 @@ export default function RenderRowCells({
       <div className=" text-green1">
         <CountUp
           start={0}
-          end={Number(row.original.jackpot)}
+          end={Number(jackpot)}
           duration={1.5}
           separator=" "
           decimals={2}
           decimal="."
           prefix={
-            row.original.jackpotCurrency
-              ? row.original.jackpotCurrency + " "
+            jackpotCurrency
+              ? jackpotCurrency + " "
+              : casinoCurrency
+              ? casinoCurrency + " "
               : ""
           }
           // suffix="  "

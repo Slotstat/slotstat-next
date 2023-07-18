@@ -141,6 +141,7 @@ type GameData = {
   casinoName: string;
   redirectUrl: string;
   type?: "AllGames";
+  casinoCurrency?: string;
 };
 
 type gamesList = {
