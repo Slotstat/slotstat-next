@@ -306,7 +306,7 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@material-tailwind/react@^2.0.7":
+"@material-tailwind/react@^2.0.6":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@material-tailwind/react/-/react-2.0.7.tgz#7688f35c1d85cb8e3aa74bd8657a7119a36f89e6"
   integrity sha512-knZFeK4NcYX+d7duCsosvn+GP2Ov3QTh56CYILQs47nhOilOk2OutIZh55NKEt9+OQJaLBA4t098Mu5Z3G3MlA==
