@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next-intl/client";
 import Link from "next-intl/link";
-import { Collapse } from "@material-tailwind/react";
+// import { Collapse } from "@material-tailwind/react";
 
 import { menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
@@ -74,9 +74,11 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <Collapse open={navbarOpen}>
-        <div className="lg:hidden">{/* <NavList  /> */}</div>
-      </Collapse>
+      {/* <Collapse open={navbarOpen}>
+        <div className="lg:hidden">
+          <NavList />
+        </div>
+      </Collapse> */}
     </header>
   );
 };
