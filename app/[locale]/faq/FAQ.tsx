@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 export default async function FAQ() {
   const t = useTranslations("faq");
 
+  
   return (
     <div className="px-4 py-6 ">
       <div className='relative flex w-full flex-col  justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/chart-pattern.png")] bg-right bg-no-repeat py-12 px-9 lg:py-24 lg:px-28'>
