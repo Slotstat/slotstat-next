@@ -46,7 +46,9 @@
     "jackpotHint": "Maximum jackpot of published games",
     "userHint": "Number of users who monitor statistics",
     "h1GameHint": "Percentage of winning spins during the last hour",
-    "h24GameHint": "Percentage of winning spins during the last 24 hour"
+    "h24GameHint": "Percentage of winning spins during the last 24 hour",
+    "GoToStatistic":"Go to statistic",
+    "GoToCasino":"Go to casino"
   },
   "gamePage": {
     "other": "Other",
@@ -60,13 +62,16 @@
     "p1y": "Win rate last 1 year",
     "all": "Win rate all time",
     "jackpot": "jackpot",
-    "sortBy": "sort by"
+    "sortBy": "sort by",
+    "t1hLong": "Win rate of last 1 hour",
+    "t24hLong": "Win rate of last 24 hours"
   },
 
   "search": "Search",
-  "noStatistic": "Oops we will update statistics soon!!",
-  "fiatCasinos":"Fiat casinos",
-  "cryptoCasinos":"Crypto casinos",
+  "noStatistic": "Oops, we will update statistics soon!!",
+  "fiatCasinos": "Fiat casinos",
+  "cryptoCasinos": "Crypto casinos",
+  "itemNotFound": "Oops, item not found",
 
   "notification": {
     "notification": "The jackpot has been drawn"

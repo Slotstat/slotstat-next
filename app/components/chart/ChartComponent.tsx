@@ -437,7 +437,7 @@ const ChartComponent = ({
               </div>
             ) : (
               <>
-                <ActionPane
+                {/* <ActionPane
                   compareGameObject={compareGameObject}
                   mainGameObject={mainGameObject}
                   onPressCompare={onPressCompare}
@@ -446,10 +446,10 @@ const ChartComponent = ({
                   onPressFilter={setActiveFilterId}
                   setFilterDisabled={setFilterDisabled}
                   filterDisabled={filterDisabled}
-                />
+                /> */}
                 <div
                   id="chartdiv"
-                  className="h-[550px] w-full rounded-3xl bg-dark1"
+                  className="lg:h-[550px] md:h-96  w-full rounded-3xl bg-dark1"
                 ></div>
               </>
             )}

@@ -14,6 +14,7 @@ import MenuComponent from "../MenuComponent";
 import MoreIcon from "@/app/assets/svg/MoreIcon";
 import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
+import { useTranslations } from "next-intl";
 
 export default function RenderRowCells({
   row,
@@ -26,6 +27,8 @@ export default function RenderRowCells({
   index: number;
   onRowPress: () => void;
 }) {
+  const t = useTranslations("table");
+
   const {
     redirectUrl,
     imageUrl,
@@ -49,17 +52,17 @@ export default function RenderRowCells({
   const GoToStatistic = (
     <div
       onClick={goToStatistics}
-      className=" text-white font-bold hover:bg-dark1 block w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
+      className=" text-white text-xs font-bold hover:bg-dark1 block w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
     >
-      Go to statistic
+      {t("GoToStatistic")}
     </div>
   );
   const goToCasino = (
     <div
       onClick={onGoToWebSiteClick}
-      className=" flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
+      className="text-xs  flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
     >
-      Go to casino <LinkIcon className="ml-2" />
+      {t("GoToCasino")} <LinkIcon className="ml-2" />
     </div>
   );
   const RenderGoTo = () => {
@@ -95,7 +98,7 @@ export default function RenderRowCells({
             </div>
           </div>
 
-          <h3 className="text-white font-bold ">{cell.render("Cell")}</h3>
+          <h3 className="text-white font-bold truncate max-w-[110px] ">{cell.render("Cell")}</h3>
           <LinkIcon className=" ml-2" />
         </div>
       </MenuComponent>

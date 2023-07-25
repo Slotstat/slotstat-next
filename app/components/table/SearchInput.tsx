@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";
@@ -26,6 +26,9 @@ export const SearchInput = ({
     }, debounce),
     []
   );
+  useEffect(() => {
+    setValue(keyWord);
+  }, [keyWord]);
 
   return (
     <div className=" relative input w-full md:w-72 border-grey1 ">
