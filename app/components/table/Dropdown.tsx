@@ -14,8 +14,8 @@ const Dropdown = ({
 
   const SORT_BY = [
     { label: t("none"), id: "0", value: "" },
-    { label: t("t1hLong"), id: "8", value: "t1h" },
-    { label: t("t24hLong"), id: "9", value: "t24h" },
+    { label: t("t1hLong"), id: "8", value: "p1h" },
+    { label: t("t24hLong"), id: "9", value: "p24h" },
     // { label: t("p24h"), id: "1", value: "p24h" },
     // { label: t("p1h"), id: "2", value: "p1h" },
     // { label: t("p1m"), id: "4", value: "p1m" },
