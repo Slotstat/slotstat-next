@@ -22,7 +22,7 @@ export default async function getGameListClientSide(
       params: {
         keyWord,
         direction: direction || "desc",
-        orderBy,
+        ord: orderBy,
       },
     });
     if (res.status != 200) throw new Error("Can't successfully fetch data");

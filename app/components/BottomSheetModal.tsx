@@ -4,7 +4,7 @@ import "react-spring-bottom-sheet/dist/style.css";
 import Image from "next/image";
 import Table from "./table/Table";
 import { back, close } from "../assets";
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import getCasinosClientSide from "@/lib/clientSide/getCasinosClientSide";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -20,13 +20,13 @@ type BottomSheetModalProps = {
   isAllGames: boolean;
 };
 
-export default function BottomSheetModal({
+const BottomSheetModal = ({
   open,
   setOpen,
   onAddToCompare,
   gameId,
   isAllGames,
-}: BottomSheetModalProps) {
+}: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
 
   const [casinos, setCasinos] = useState<CasinoData[]>();
@@ -206,4 +206,14 @@ export default function BottomSheetModal({
       </div>
     </BottomSheet>
   );
-}
+};
+
+const arePropsEqual = (prevProps: any, nextProps: any) => {
+  // Add your custom logic here to compare the props.
+  // Return true if you want to skip re-render, or false if re-render is needed.
+
+  // For example, if you want to skip re-render when the "count" prop doesn't change:
+
+  return prevProps.open === nextProps.open;
+};
+export default memo(BottomSheetModal, arePropsEqual);

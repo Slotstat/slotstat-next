@@ -4,22 +4,13 @@ export default async function getGamesList(
   casinoId: string,
   { keyWord, direction, orderBy }: QueryParams
 ) {
-  console.log(
-    "111",
-    {
-      keyWord,
-      orderBy,
-      direction: direction || "desc",
-    },
-    `/api/Game/aggregated/${casinoId}`
-  );
   try {
     const res = await slotStatClient().request({
       url: `/api/Game/aggregated/${casinoId}`,
       method: "GET",
       params: {
         keyWord,
-        orderBy,
+        ord: orderBy,
         direction: direction || "desc",
       },
     });
