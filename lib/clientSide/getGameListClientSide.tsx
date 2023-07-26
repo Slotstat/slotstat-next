@@ -21,7 +21,7 @@ export default async function getGameListClientSide(
       method: "GET",
       params: {
         keyWord,
-        direction,
+        direction: direction || "desc",
         orderBy,
       },
     });

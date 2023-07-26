@@ -71,9 +71,9 @@ const Dropdown = ({
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-dark2 py-1 text-base shadow-lg ring-1 ring-dark3 ring-opacity-5 focus:outline-none sm:text-sm">
-                {SORT_BY.map((item, personIdx) => (
+                {SORT_BY.map((item, i) => (
                   <Listbox.Option
-                    key={personIdx}
+                    key={i}
                     className={({ active, selected }) =>
                       `relative cursor-default select-none  py-2  px-2 rounded-md ${
                         active ? "bg-dark1 text-blue2" : "text-white"

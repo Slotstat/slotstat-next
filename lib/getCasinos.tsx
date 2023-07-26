@@ -11,12 +11,13 @@ export default async function getCasinos({
       url: "/api/casino/aggregated",
       method: "GET",
       params: {
-        direction,
-        orderBy: orderBy || "asc",
+        direction: direction || "desc",
+        orderBy,
         keyWord,
         isCrypto: isCrypto === "true" ? true : false,
       },
     });
+
     if (res.status != 200) throw new Error("failed to fetch");
     return res.data;
   } catch (error) {

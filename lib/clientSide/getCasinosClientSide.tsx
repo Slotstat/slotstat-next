@@ -21,8 +21,8 @@ export default async function getCasinosClientSide({
       url: "/api/casino/aggregated",
       method: "GET",
       params: {
-        direction,
-        orderBy: orderBy || "asc",
+        direction: direction || "desc",
+        orderBy,
         keyWord,
       },
     });
