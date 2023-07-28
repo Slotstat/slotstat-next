@@ -5,9 +5,7 @@ import Image from "next/image";
 import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
 import useStore from "@/app/(store)/store";
-import getCasinoCards from "@/lib/getCasinoCards";
 import _ from "lodash";
-import getGameCards from "@/lib/getGameCards";
 import CountUp from "react-countup";
 
 type PagesAndStyleDiff = {
@@ -38,8 +36,10 @@ const AnimatedCounterComponent = ({
       decimals={additionalProps ? 2 : 0}
       decimal="."
       prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
-      // suffix=" left"
-      onEnd={() => setStart(Number(value))}
+      onEnd={() => {
+        setStart(Number(value));
+
+      }}
       delay={0}
     >
       {({ countUpRef }) => (

@@ -1,6 +1,11 @@
 import { create } from "zustand";
 type newRate = { casinoId: string; gameId: string };
-type newJackpot = { casinoId: string; jackpotId: string };
+type newJackpot = {
+  casinoId: string;
+  jackpotId: string;
+  amount: string;
+  ccy: string;
+};
 type jackpotHasBeenDrawn = {
   casinoId: string;
   jackpotHasBeenDrawn: string;

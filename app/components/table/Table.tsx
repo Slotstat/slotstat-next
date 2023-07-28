@@ -59,9 +59,11 @@ const Table = ({
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
+  const [scrollY, setScrollY] = useState<number | null>(null);
+  
   const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
-  const [scrollY, setScrollY] = useState<number | null>(null);
+  
 
   const router = useRouter();
   const pathName = usePathname();

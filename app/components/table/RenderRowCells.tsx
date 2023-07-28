@@ -7,7 +7,7 @@ import {
 } from "@/app/assets/svg/SmallCharts";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
@@ -15,6 +15,58 @@ import MoreIcon from "@/app/assets/svg/MoreIcon";
 import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
+import useStore from "@/app/(store)/store";
+
+const CountUpForJackpots = ({
+  jackpot,
+  jackpotCurrency,
+  casinoCurrency,
+  casinoId,
+}: any) => {
+  const { newJackpot } = useStore();
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(jackpot);
+  useEffect(() => {
+    if (
+      newJackpot?.casinoId &&
+      newJackpot?.ccy &&
+      newJackpot?.casinoId + newJackpot?.ccy === casinoId
+    ) {
+      console.log(newJackpot.amount);
+      setEnd(Number(newJackpot.amount));
+    }
+  }, [newJackpot]);
+  return (
+    <div className=" text-green1">
+      <CountUp
+        start={start}
+        end={end}
+        duration={2}
+        separator=" "
+        decimals={2}
+        decimal="."
+        prefix={
+          jackpotCurrency
+            ? jackpotCurrency + " "
+            : casinoCurrency
+            ? casinoCurrency + " "
+            : ""
+        }
+        onEnd={() => {
+          setStart(Number(end));
+          setEnd(end + .5);
+        }}
+        delay={0}
+      >
+        {({ countUpRef }) => (
+          <div>
+            <span ref={countUpRef} />
+          </div>
+        )}
+      </CountUp>
+    </div>
+  );
+};
 
 export default function RenderRowCells({
   row,
@@ -38,7 +90,9 @@ export default function RenderRowCells({
     jackpot,
     jackpotCurrency,
     casinoCurrency,
+    casinoId,
   } = row.original;
+
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
     window.open(redirectUrl, "_blank", "noreferrer");
@@ -98,7 +152,9 @@ export default function RenderRowCells({
             </div>
           </div>
 
-          <h3 className="text-white font-bold truncate max-w-[110px] ">{cell.render("Cell")}</h3>
+          <h3 className="text-white font-bold truncate max-w-[110px] ">
+            {cell.render("Cell")}
+          </h3>
           <LinkIcon className=" ml-2" />
         </div>
       </MenuComponent>
@@ -153,32 +209,36 @@ export default function RenderRowCells({
     );
   } else if (index === 6) {
     return (
-      <div className=" text-green1">
-        <CountUp
-          start={0}
-          end={Number(jackpot)}
-          duration={1.5}
-          separator=" "
-          decimals={2}
-          decimal="."
-          prefix={
-            jackpotCurrency
-              ? jackpotCurrency + " "
-              : casinoCurrency
-              ? casinoCurrency + " "
-              : ""
-          }
-          // suffix="  "
-          // onEnd={}
-          delay={0}
-        >
-          {({ countUpRef }) => (
-            <div>
-              <span ref={countUpRef} />
-            </div>
-          )}
-        </CountUp>
-      </div>
+      <CountUpForJackpots
+        jackpot={jackpot}
+        jackpotCurrency={jackpotCurrency}
+        casinoCurrency={casinoCurrency}
+        casinoId={casinoId}
+      />
+      // <div className=" text-green1">
+      //   <CountUp
+      //     start={0}
+      //     end={Number(jackpot)}
+      //     duration={1.5}
+      //     separator=" "
+      //     decimals={2}
+      //     decimal="."
+      //     prefix={
+      //       jackpotCurrency
+      //         ? jackpotCurrency + " "
+      //         : casinoCurrency
+      //         ? casinoCurrency + " "
+      //         : ""
+      //     }
+      //     delay={0}
+      //   >
+      //     {({ countUpRef }) => (
+      //       <div>
+      //         <span ref={countUpRef} />
+      //       </div>
+      //     )}
+      //   </CountUp>
+      // </div>
     );
   } else if (index === 7) {
     return generateSmallCharts();
