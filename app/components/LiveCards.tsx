@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { live } from "../assets";
@@ -12,7 +13,7 @@ type PagesAndStyleDiff = {
   landing?: boolean;
   casino?: boolean;
   game?: boolean;
-  casinoId: string;
+  casinoId?: string;
 };
 type StatCardProp = Card & PagesAndStyleDiff;
 
@@ -25,7 +26,7 @@ const AnimatedCounterComponent = ({
   value: string;
   style: string;
   additionalProps: string[];
-  casinoId: string;
+  casinoId?: string;
 }) => {
   const { newJackpot } = useStore();
   const [start, setStart] = useState(0);
@@ -210,6 +211,7 @@ const LiveCards = ({
       }
     },
     [
+      // uncomment when users count is needed but check jackpots logic after uncommenting.
       // casino,
       // casinoId,
       // getUpdatedCasinoCardsData,
