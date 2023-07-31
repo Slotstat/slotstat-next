@@ -31,7 +31,7 @@ const AnimatedCounterComponent = ({
     <CountUp
       start={start}
       end={Number(value)}
-      duration={2.75}
+      duration={2}
       separator=" "
       decimals={additionalProps ? 2 : 0}
       decimal="."

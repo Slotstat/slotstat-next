@@ -32,7 +32,6 @@ const CountUpForJackpots = ({
       newJackpot?.ccy &&
       newJackpot?.casinoId + newJackpot?.ccy === casinoId
     ) {
-      console.log(newJackpot.amount);
       setEnd(Number(newJackpot.amount));
     }
   }, [newJackpot]);
@@ -54,7 +53,7 @@ const CountUpForJackpots = ({
         }
         onEnd={() => {
           setStart(Number(end));
-          setEnd(end + .5);
+          jackpot !== 0 && setEnd(end + 0.2);
         }}
         delay={0}
       >

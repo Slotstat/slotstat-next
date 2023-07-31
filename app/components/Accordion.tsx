@@ -65,8 +65,7 @@ const AccordionItem = ({
       </div>
     )}
     buttonProps={{
-      className: ({ isEnter }) =>
-        `flex w-full text-left hover:bg-slate-100 ${isEnter && "bg-slate-200"}`,
+      className: ({ isEnter }) => `flex w-full text-left `,
     }}
     contentProps={{
       className:
