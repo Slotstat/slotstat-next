@@ -51,7 +51,7 @@ const AnimatedCounterComponent = ({
       end={end}
       duration={2}
       separator=" "
-      decimals={2}
+      decimals={additionalProps ? 2 : 0}
       decimal="."
       prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
       onEnd={() => {
