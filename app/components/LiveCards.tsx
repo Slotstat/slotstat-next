@@ -25,20 +25,26 @@ const AnimatedCounterComponent = ({
   additionalProps: string[];
 }) => {
   const [start, setStart] = useState(0);
-  useEffect(() => {}, [value]);
+  // useEffect(() => {}, [value]);
+
+  const [end, setEnd] = useState(Number(value));
+  useEffect(() => {
+    setEnd(Number(value));
+  }, [value]);
 
   return (
     <CountUp
       start={start}
-      end={Number(value)}
+      end={end}
       duration={2}
       separator=" "
-      decimals={additionalProps ? 2 : 0}
+      decimals={2}
       decimal="."
       prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
       onEnd={() => {
-        setStart(Number(value));
-
+        // setStart(Number(value));
+        setStart(Number(end));
+        Number(value) !== 0 && setEnd(end + 0.2);
       }}
       delay={0}
     >
