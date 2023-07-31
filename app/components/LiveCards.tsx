@@ -12,6 +12,7 @@ type PagesAndStyleDiff = {
   landing?: boolean;
   casino?: boolean;
   game?: boolean;
+  casinoId: string;
 };
 type StatCardProp = Card & PagesAndStyleDiff;
 
@@ -19,18 +20,29 @@ const AnimatedCounterComponent = ({
   value,
   style,
   additionalProps,
+  casinoId,
 }: {
   value: string;
   style: string;
   additionalProps: string[];
+  casinoId: string;
 }) => {
+  const { newJackpot } = useStore();
   const [start, setStart] = useState(0);
-  // useEffect(() => {}, [value]);
-
   const [end, setEnd] = useState(Number(value));
-  useEffect(() => {
-    setEnd(Number(value));
-  }, [value]);
+
+  const increaseJackpot = () => {
+    if (
+      newJackpot?.casinoId &&
+      newJackpot?.ccy &&
+      newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
+      end !== Number(newJackpot.amount)
+    ) {
+      setEnd(Number(newJackpot.amount));
+    } else {
+      Number(value) !== 0 && setEnd(end + 0.2);
+    }
+  };
 
   return (
     <CountUp
@@ -42,9 +54,8 @@ const AnimatedCounterComponent = ({
       decimal="."
       prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
       onEnd={() => {
-        // setStart(Number(value));
         setStart(Number(end));
-        Number(value) !== 0 && setEnd(end + 0.2);
+        increaseJackpot();
       }}
       delay={0}
     >
@@ -68,6 +79,7 @@ const StatCard = ({
   redirectUrl,
   additionalProps,
   valueType,
+  casinoId,
 }: StatCardProp) => {
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
@@ -121,6 +133,7 @@ const StatCard = ({
               additionalProps={additionalProps}
               value={value}
               style={renderValueColor()}
+              casinoId={casinoId}
             />
           ) : (
             <span className={renderValueColor()}>{value}</span>
@@ -181,30 +194,43 @@ const LiveCards = ({
     []
   );
 
-  useEffect(() => {
-    // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
-    if (newJackpot?.casinoId === casinoId && casinoId !== undefined && casino) {
-      getUpdatedCasinoCardsData();
-    }
-    // if we are on a Game page and we have new jackpot data from this game owner casino,  we Update game Cards Data.
-    if (newJackpot?.casinoId === casinoId && casinoId !== undefined && game) {
-      getUpdatedGameCardsData();
-    }
-  }, [
-    casino,
-    casinoId,
-    getUpdatedCasinoCardsData,
-    getUpdatedGameCardsData,
-    newJackpot,
-    game,
-  ]);
+  useEffect(
+    () => {
+      // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
+      if (
+        newJackpot?.casinoId === casinoId &&
+        casinoId !== undefined &&
+        casino
+      ) {
+        getUpdatedCasinoCardsData();
+      }
+      // if we are on a Game page and we have new jackpot data from this game owner casino,  we Update game Cards Data.
+      if (newJackpot?.casinoId === casinoId && casinoId !== undefined && game) {
+        getUpdatedGameCardsData();
+      }
+    },
+    [
+      // casino,
+      // casinoId,
+      // getUpdatedCasinoCardsData,
+      // getUpdatedGameCardsData,
+      // newJackpot,
+      // game,
+    ]
+  );
 
   return (
     <div className="my-4 px-4 lg:my-6">
       <div className=" grid lg:gap-4 lg:grid-cols-4 sm:gap-2 sm:grid-cols-2 ">
         {cardsDataState &&
           cardsDataState.map((card, i) => (
-            <StatCard key={i} {...card} casino={casino} game={game} />
+            <StatCard
+              key={i}
+              {...card}
+              casinoId={casinoId}
+              casino={casino}
+              game={game}
+            />
           ))}
       </div>
     </div>

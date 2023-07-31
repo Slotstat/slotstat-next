@@ -25,16 +25,21 @@ const CountUpForJackpots = ({
 }: any) => {
   const { newJackpot } = useStore();
   const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(jackpot);
-  useEffect(() => {
+  const [end, setEnd] = useState(Number(jackpot));
+
+  const increaseJackpot = () => {
     if (
       newJackpot?.casinoId &&
       newJackpot?.ccy &&
-      newJackpot?.casinoId + newJackpot?.ccy === casinoId
+      newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
+      end !== Number(newJackpot.amount)
     ) {
       setEnd(Number(newJackpot.amount));
+    } else {
+      jackpot !== 0 && setEnd(end + 0.2);
     }
-  }, [newJackpot]);
+  };
+
   return (
     <div className=" text-green1">
       <CountUp
@@ -53,7 +58,8 @@ const CountUpForJackpots = ({
         }
         onEnd={() => {
           setStart(Number(end));
-          jackpot !== 0 && setEnd(end + 0.2);
+          increaseJackpot();
+          // jackpot !== 0 && setEnd(end + 0.2);
         }}
         delay={0}
       >
