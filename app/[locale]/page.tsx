@@ -29,6 +29,7 @@ export default async function Home({
     casinosData,
     landingCardsData,
   ]);
+
   if (!casinos && !landingCards) {
     notFound();
   }

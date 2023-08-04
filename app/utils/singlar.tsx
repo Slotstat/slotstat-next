@@ -23,7 +23,6 @@ const signalR = async () => {
         useStore.setState({ jackpotHasBeenDrawn: message });
       });
     } catch (err) {
-      console.log("err:", err);
       setTimeout(start, 5000);
     }
   }
