@@ -397,6 +397,7 @@ const ChartComponent = ({
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
               {/* {casinoName} {mainGameObject?.name} chart */}
+              {/* todo tooltip */}
               Hit rate
             </h2>
             <div className="mt-3 flex items-center justify-between lg:mt-0">
