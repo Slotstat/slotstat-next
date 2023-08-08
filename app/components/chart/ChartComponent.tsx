@@ -37,7 +37,6 @@ const ChartComponent = ({
   isAllGames: boolean;
 }) => {
   const t = useTranslations();
-  const casinoName = mainGame?.casinoName;
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
   const [activeFilterId, setActiveFilterId] = useState<FiltersKey>("1D");
@@ -396,7 +395,7 @@ const ChartComponent = ({
         <div className="px-4 py-6 lg:py-18 lg:w-3/4 md:w-full sm:w-full ">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-              {/* {casinoName} {mainGameObject?.name} chart */}
+
               {/* todo tooltip */}
               Hit rate
             </h2>
@@ -408,7 +407,7 @@ const ChartComponent = ({
                 >
                   <BulletIcon color={SERIE_COLORS[0]} size={20} />
                   <span className="ml-2 text-sm font-bold leading-4 text-white">
-                    {casinoName} {mainGameObject?.name}{" "}
+                    {mainGameObject?.casinoName} {mainGameObject?.name}{" "}
                   </span>
                   <span className="ml-2 text-blue2 font-bold w-14">
                     {liveResultForMainGame}%
@@ -460,8 +459,14 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
+        <div className="px-4 py-6 lg:py-18 lg:w-1/4 md:w-full  sm:w-full">
+          <h3 className=" flex flex-1 items-center justify-between text-[24px] font-bold text-white h-[48px]">
+            RTP
+          </h3>
+         {mainGameObject && <RTP color="#5887F6" gameObject={mainGameObject} />}
 
-        <RTP />
+          {compareGameObject && <RTP color="#877CF2"  gameObject={compareGameObject} />}
+        </div>
       </div>
       <BottomSheetModal
         open={open}
