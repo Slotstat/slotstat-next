@@ -16,7 +16,7 @@ import Image from "next/image";
 import RenderRowCells from "./RenderRowCells";
 import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
-import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
+// import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
 import { casinoColumns } from "./columns";

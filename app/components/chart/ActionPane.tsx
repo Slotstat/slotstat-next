@@ -22,11 +22,11 @@ const ActionPane = ({
   const t = useTranslations("actionPane");
 
   return (
-    <div className="flex items-center justify-between p-[18px]">
+    <div className="flex items-center justify-between overflow-scroll p-3">
       <div className="flex items-center">
-        <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4">
+        <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 max-w-[224px]	">
           <BulletIcon color={SERIE_COLORS[0]} size={20} />
-          <span className="ml-2 text-sm font-bold leading-4 text-white">
+          <span className="ml-2 text-sm font-bold leading-4 text-white truncate">
             {mainGameObject?.casinoName} {mainGameObject?.name}
           </span>
         </div>
@@ -41,9 +41,9 @@ const ActionPane = ({
             <DashedButton text={t("compare")} />
           </div>
         ) : (
-          <div className=" ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3">
+          <div className="mr-2 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3  max-w-[224px]">
             <BulletIcon color={SERIE_COLORS[1]} size={20} />
-            <span className="ml-2 text-sm font-bold leading-4 text-white">
+            <span className="ml-2 text-sm font-bold leading-4 text-white truncate ">
               {compareGameObject.casinoName} {compareGameObject.name}
             </span>
             <button onClick={onPressRemove} className="pointer">
@@ -59,7 +59,7 @@ const ActionPane = ({
         )}
       </div>
       <div className="flex items-center">
-        <button className="ml-3 flex items-center justify-center rounded-[10px] p-3 hover:bg-dark3 lg:hidden">
+        {/* <button className="ml-3 flex items-center justify-center rounded-[10px] p-3 hover:bg-dark3 lg:hidden">
           <Image
             src={fullscreen}
             alt=""
@@ -67,7 +67,7 @@ const ActionPane = ({
             width={16}
             height={16}
           />
-        </button>
+        </button> */}
         <div className="hidden items-center space-x-1 rounded-xl bg-dark2 py-1 px-1 lg:flex">
           {Object.keys(FILTERS).map((filterKey, index) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
