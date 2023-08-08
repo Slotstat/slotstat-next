@@ -51,9 +51,9 @@ const AnimatedCounterComponent = ({
       end={end}
       duration={2}
       separator=" "
-      decimals={additionalProps ? 2 : 0}
+      decimals={2}
       decimal="."
-      prefix={additionalProps ? `${additionalProps[0]}  ` : " "}
+      prefix={`${additionalProps[0]}  `}
       onEnd={() => {
         setStart(Number(end));
         increaseJackpot();
@@ -129,7 +129,7 @@ const StatCard = ({
           className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base md:text-sm ${renderNameColor()}`}
         >
           <span className=" mr-1">{name}:</span>
-          {isLive ? (
+          {isLive && additionalProps ? (
             <AnimatedCounterComponent
               additionalProps={additionalProps}
               value={value}

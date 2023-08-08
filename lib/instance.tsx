@@ -7,7 +7,9 @@ const slotStatClient = () => {
   let uniqueId = cookies().get("uniqueId")?.value;
 
   const cookie = cookies().get("NEXT_LOCALE")?.value;
+
   let lang = cookie === "en" ? "en-US" : "ka-GE";
+
   return axios.create({
     baseURL: baseUrl,
     // timeout: 10000,
