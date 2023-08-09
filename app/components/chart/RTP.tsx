@@ -146,7 +146,11 @@ export default function RTP({
                   fontSize="12"
                   fontFamily="modernist"
                 >
-                  Casino is in profit
+                  {angle === 96.5
+                    ? "neutral"
+                    : angle > 96.5
+                    ? "Casino is losing"
+                    : "Casino is in profit"}
                 </text>
                 <defs>
                   <linearGradient
