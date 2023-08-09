@@ -37,7 +37,7 @@ export default async function Home({
     <>
       <LiveCards cardsData={landingCards} />
       <Slider landingOffersData={landingOffersData} />
-      <div className="my-6 px-4 lg:my-18 ">
+      <div className="my-6 px-4 lg:my-18">
         <Table
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}

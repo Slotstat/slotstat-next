@@ -33,7 +33,7 @@
   font-family: modernist;
 }
 
-*:lang(ge) {
+*:lang(ka) {
   font-family: cursor;
 }
 
@@ -95,6 +95,10 @@
 
 .szh-accordion__item-content {
   transition: height 0.2s ease-in-out;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 #redify * {

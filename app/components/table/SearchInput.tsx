@@ -11,9 +11,11 @@ const debounce = 500;
 export const SearchInput = ({
   setCasinoFilter,
   keyWord,
+  externalClasses,
 }: {
   setCasinoFilter: (text: string) => void;
   keyWord: string;
+  externalClasses?: string;
 }) => {
   const t = useTranslations();
 
@@ -31,7 +33,9 @@ export const SearchInput = ({
   }, [keyWord]);
 
   return (
-    <div className=" relative input w-full md:w-72 border-grey1 ">
+    <div
+      className={`relative input w-full md:w-72 border-grey1 ${externalClasses}`}
+    >
       <input
         placeholder={t("search")}
         value={value || ""}
