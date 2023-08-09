@@ -15,7 +15,7 @@ import _ from "lodash";
 type BottomSheetModalProps = {
   open: boolean;
   setOpen: (trueFalse: boolean) => void;
-  onAddToCompare: (gameId: GameData) => void;
+  onAddToCompare: (gameData: GameData) => void;
   gameId: string;
   isAllGames: boolean;
 };

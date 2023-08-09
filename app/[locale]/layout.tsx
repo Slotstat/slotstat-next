@@ -27,7 +27,7 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
   // todo
-  params: { locale: any };
+  params: { locale: "en" | "ka" };
 }) {
   let messages;
   try {
