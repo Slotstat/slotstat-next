@@ -22,7 +22,7 @@ const ActionPane = ({
   const t = useTranslations("actionPane");
 
   return (
-    <div className="flex items-center justify-between overflow-scroll p-3">
+    <div className="hidden items-center justify-between overflow-scroll p-3 sm:flex">
       <div className="flex items-center">
         <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 max-w-[224px]	">
           <BulletIcon color={SERIE_COLORS[0]} size={20} />

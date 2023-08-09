@@ -392,10 +392,9 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap">
-        <div className="px-4 py-6 lg:py-18 lg:w-3/4 md:w-full sm:w-full ">
+        <div className="lg:px-3 py-6 lg:py-18 lg:w-3/4 w-full ">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-
               {/* todo tooltip */}
               Hit rate
             </h2>
@@ -432,7 +431,7 @@ const ChartComponent = ({
               )}
             </div>
           </div>
-          <div className="mt-6 rounded-3xl bg-dark2 p-6 ">
+          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-1">
             <div className="rounded-3xl bg-dark1">
               {noStatisticsYet ? (
                 <div className=" text-white w-full text-center">
@@ -452,20 +451,30 @@ const ChartComponent = ({
                   />
                   <div
                     id="chartdiv"
-                    className="lg:h-[450px] md:h-96  w-full rounded-3xl bg-dark1"
+                    className="lg:h-[470px] h-80 w-full rounded-3xl bg-dark1"
                   ></div>
                 </>
               )}
             </div>
           </div>
         </div>
-        <div className="px-4 py-6 lg:py-18 lg:w-1/4 md:w-full  sm:w-full">
+        <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full">
           <h3 className=" flex flex-1 items-center justify-between text-[24px] font-bold text-white h-[48px]">
             RTP
           </h3>
-         {mainGameObject && <RTP color="#5887F6" gameObject={mainGameObject} />}
+          <div>
+            {mainGameObject && (
+              <RTP color="#5887F6" gameObject={mainGameObject} />
+            )}
 
-          {compareGameObject && <RTP color="#877CF2"  gameObject={compareGameObject} />}
+            <RTP
+              color="#877CF2"
+              gameObject={compareGameObject}
+              onPressCompare={onPressCompare}
+              setOpen={setOpen}
+              onPressRemove={onPressRemove}
+            />
+          </div>
         </div>
       </div>
       <BottomSheetModal
