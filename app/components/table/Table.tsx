@@ -60,10 +60,9 @@ const Table = ({
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
-  
+
   const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
-  
 
   const router = useRouter();
   const pathName = usePathname();
@@ -150,7 +149,7 @@ const Table = ({
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
         {showFilter && (
           <>
-            <div className="flex">
+            <div className="flex w-full md:w-auto">
               <SearchInput
                 keyWord={keyWord || ""}
                 setCasinoFilter={(keyWord) => {
@@ -183,7 +182,7 @@ const Table = ({
                 </>
               )}
             </div>
-            <div className="flex">
+            <div className="flex w-full md:w-auto">
               <Dropdown
                 orderBy={orderBy}
                 onChange={(orderBy) => {
@@ -212,73 +211,78 @@ const Table = ({
       </div>
 
       {data?.length > 0 ? (
-        <table {...getTableProps()} className="w-full relative">
-          <thead>
-            {headerGroups.map((headerGroup, index) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={index}>
-                {headerGroup.headers.map((col, i) => {
-                  return (
-                    <th
-                      {...col.getHeaderProps({
-                        style: {
-                          maxWidth: col.maxWidth,
-                          minWidth: col.minWidth,
-                          width: col.width,
-                        },
-                      })}
-                      key={i}
-                    >
-                      <div className="flex items-center">
-                        {col.render("Header")}
-                        {/*  @ts-ignore: Unreachable code error*/}
-                        {col.hint && <TooltipComponent text={col.hint} />}
-                      </div>
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, index) => {
-              prepareRow(row);
-
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  onClick={() => {
-                    onRowPress(row);
-                  }}
-                  key={index}
-                  className=" hover:bg-dark2 cursor-pointer"
-                >
-                  {row.cells.map((cell, index) => {
+        <div className="w-full overflow-x-scroll no-scroll">
+          <table
+            {...getTableProps()}
+            className="relative w-[1013px] text-xs xl:w-full md:text-base"
+          >
+            <thead>
+              {headerGroups.map((headerGroup, index) => (
+                <tr {...headerGroup.getHeaderGroupProps()} key={index}>
+                  {headerGroup.headers.map((col, i) => {
                     return (
-                      <td
-                        {...cell.getCellProps({
+                      <th
+                        {...col.getHeaderProps({
                           style: {
-                            maxWidth: cell.column.maxWidth,
-                            minWidth: cell.column.minWidth,
-                            width: cell.column.width,
+                            maxWidth: col.maxWidth,
+                            minWidth: col.minWidth,
+                            width: col.width,
                           },
                         })}
-                        key={index}
+                        key={i}
                       >
-                        <RenderRowCells
-                          cell={cell}
-                          row={row}
-                          index={index}
-                          onRowPress={() => onRowPress(row)}
-                        />
-                      </td>
+                        <div className="flex items-center">
+                          {col.render("Header")}
+                          {/*  @ts-ignore: Unreachable code error*/}
+                          {col.hint && <TooltipComponent text={col.hint} />}
+                        </div>
+                      </th>
                     );
                   })}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+
+            <tbody {...getTableBodyProps()} className="xl:w-full">
+              {page.map((row, index) => {
+                prepareRow(row);
+
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    onClick={() => {
+                      onRowPress(row);
+                    }}
+                    key={index}
+                    className="hover:bg-dark2 cursor-pointer"
+                  >
+                    {row.cells.map((cell, index) => {
+                      return (
+                        <td
+                          {...cell.getCellProps({
+                            style: {
+                              maxWidth: cell.column.maxWidth,
+                              minWidth: cell.column.minWidth,
+                              width: cell.column.width,
+                            },
+                          })}
+                          key={index}
+                        >
+                          <RenderRowCells
+                            cell={cell}
+                            row={row}
+                            index={index}
+                            onRowPress={() => onRowPress(row)}
+                          />
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">
           {f("itemNotFound")}
