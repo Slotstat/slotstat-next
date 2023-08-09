@@ -100,7 +100,7 @@ const StatCard = ({
   };
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6  grow ">
+    <div className="flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ">
       <div className="flex items-center justify-between">
         <div>
           {!!isImgUrl(imageUrl) && (
@@ -126,7 +126,7 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-sm leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base md:text-sm ${renderNameColor()}`}
         >
           <span className=" mr-1">{name}:</span>
           {isLive && additionalProps ? (
@@ -222,8 +222,8 @@ const LiveCards = ({
   );
 
   return (
-    <div className="my-4 px-4 lg:my-6">
-      <div className=" grid lg:gap-4 lg:grid-cols-4 sm:gap-2 sm:grid-cols-2 ">
+    <div className="my-4 px-4 overflow-x-scroll whitespace-nowrap lg:my-6 md:overflow-auto md:whitespace-normal no-scroll">
+      <div className="grid grid-cols-4 w-[250%] md:w-full gap-4">
         {cardsDataState &&
           cardsDataState.map((card, i) => (
             <StatCard

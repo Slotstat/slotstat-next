@@ -69,8 +69,8 @@
   },
   "search": "ძებნა",
   "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",
-  "fiatCasinos": "ფიატ კაზინოები",
-  "cryptoCasinos": "კრიპტო კაზინოები",
+  "fiatCasinos": "ფიატ",
+  "cryptoCasinos": "კრიპტო",
   "itemNotFound": "უპს, აითემი ვერ მოიძებნა",
 
   "notification": {

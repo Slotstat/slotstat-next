@@ -142,8 +142,8 @@ export default function RenderRowCells({
     return (
       <MenuComponent listItems={[GoToStatistic, goToCasino]}>
         <div className="flex flex-row items-center">
-          <div className="w-12 h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
-            <div className=" relative w-12 h-12 ">
+          <div className="h-6 w-6 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
+            <div className="relative h-6 w-6 md:w-12 md:h-12 ">
               {!!isImgUrl(imageUrl) && (
                 <Image
                   src={imageUrl}
@@ -157,10 +157,10 @@ export default function RenderRowCells({
             </div>
           </div>
 
-          <h3 className="text-white font-bold truncate max-w-[110px] ">
+          <h3 className="text-white font-bold truncate max-w-[110px] text-xs md:text-base">
             {cell.render("Cell")}
           </h3>
-          <LinkIcon className=" ml-2" />
+          <LinkIcon className="ml-2" />
         </div>
       </MenuComponent>
     );
@@ -188,9 +188,9 @@ export default function RenderRowCells({
 
   const showUpOrDownIcon = (indicator: number) => {
     if (indicator === 1) {
-      return <UpIconBlue className=" mr-2" />;
+      return <UpIconBlue className="mr-2" />;
     } else if (indicator === -1) {
-      return <DownIconBlue className=" mr-2" />;
+      return <DownIconBlue className="mr-2" />;
     } else {
       return <MinusBlue className=" " />;
     }

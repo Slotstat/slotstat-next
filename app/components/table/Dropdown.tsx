@@ -48,7 +48,7 @@ const Dropdown = ({
             <Listbox.Button
               className={`relative border ${
                 open ? "border-blue1" : "border-grey1"
-              } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm`}
+              } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2  text-sm`}
             >
               <span className="block truncate text-white">
                 <span className="text-grey1">{t("sortBy")}: </span>{" "}
@@ -70,7 +70,7 @@ const Dropdown = ({
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-dark2 py-1 text-base shadow-lg ring-1 ring-dark3 ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-dark2 py-1 shadow-lg ring-1 ring-dark3 ring-opacity-5 focus:outline-none text-sm">
                 {SORT_BY.map((item, i) => (
                   <Listbox.Option
                     key={i}
@@ -84,7 +84,7 @@ const Dropdown = ({
                     {({ selected }) => (
                       <>
                         <span
-                          className={`block truncate ${
+                          className={`block truncate text-xs md:text-base ${
                             selected ? "text-blue2" : "font-normal"
                           }`}
                         >
