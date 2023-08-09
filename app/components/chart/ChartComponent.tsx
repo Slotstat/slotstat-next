@@ -391,7 +391,7 @@ const ChartComponent = ({
 
   return (
     <>
-      <div className="px-4 py-6 lg:py-18 w-[966px]">
+      <div className="px-4 py-6 lg:py-18 w-full">
         <div className="flex flex-col items-center justify-between lg:flex-row">
           <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
             {casinoName} {mainGameObject?.name} chart
@@ -449,7 +449,7 @@ const ChartComponent = ({
                 />
                 <div
                   id="chartdiv"
-                  className="lg:h-[450px] md:h-96  w-full rounded-3xl bg-dark1"
+                  className="lg:h-[550px] md:h-96  w-full rounded-3xl bg-dark1"
                 ></div>
               </>
             )}
