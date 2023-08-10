@@ -392,7 +392,7 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap">
-        <div className="lg:px-3 py-6 lg:py-18 lg:w-3/4 w-full ">
+        <div className="w-full px-4 py-6 lg:px-3 lg:py-18 lg:w-3/4">
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
               {/* todo tooltip */}
@@ -431,7 +431,7 @@ const ChartComponent = ({
               )}
             </div>
           </div>
-          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-1">
+          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-4">
             <div className="rounded-3xl bg-dark1">
               {noStatisticsYet ? (
                 <div className=" text-white w-full text-center">
@@ -458,8 +458,8 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
-        <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full">
-          <h3 className=" flex flex-1 items-center justify-between text-[24px] font-bold text-white h-[48px]">
+        <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
+          <h3 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white h-[48px]">
             RTP
           </h3>
           <div>
