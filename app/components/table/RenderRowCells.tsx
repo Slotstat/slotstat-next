@@ -16,6 +16,7 @@ import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
+import RTPListing from "./RTPListing";
 
 const CountUpForJackpots = ({
   jackpot,
@@ -198,21 +199,21 @@ export default function RenderRowCells({
 
   if (index === 0) {
     return <CasinoGameName />;
-  } else if (index === 3) {
+  } else if (index === 2) {
     return (
       <div className="flex flex-row items-center">
         {showUpOrDownIcon(t1H)}
         {cell.render("Cell")}%
       </div>
     );
-  } else if (index === 4) {
+  } else if (index === 3) {
     return (
       <div className="flex flex-row items-center">
         {showUpOrDownIcon(t24h)}
         {cell.render("Cell")}%
       </div>
     );
-  } else if (index === 6) {
+  } else if (index === 5) {
     return (
       <CountUpForJackpots
         jackpot={jackpot}
@@ -220,34 +221,15 @@ export default function RenderRowCells({
         casinoCurrency={casinoCurrency}
         casinoId={casinoId}
       />
-      // <div className=" text-green1">
-      //   <CountUp
-      //     start={0}
-      //     end={Number(jackpot)}
-      //     duration={1.5}
-      //     separator=" "
-      //     decimals={2}
-      //     decimal="."
-      //     prefix={
-      //       jackpotCurrency
-      //         ? jackpotCurrency + " "
-      //         : casinoCurrency
-      //         ? casinoCurrency + " "
-      //         : ""
-      //     }
-      //     delay={0}
-      //   >
-      //     {({ countUpRef }) => (
-      //       <div>
-      //         <span ref={countUpRef} />
-      //       </div>
-      //     )}
-      //   </CountUp>
-      // </div>
     );
-  } else if (index === 7) {
-    return generateSmallCharts();
-  } else {
+  } else if (index === 6) {
+    return <RTPListing />;
+  }
+  //  if we go to old design uncomment and fix index (fake small charts)
+  //  else if (index === 7) {
+  //   return generateSmallCharts();
+  // }
+  else {
     return renderEmptyValue();
   }
 }
