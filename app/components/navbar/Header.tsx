@@ -62,16 +62,17 @@ const Header = () => {
               height={40}
             />
           </Link>
-          <div className="hidden items-center lg:flex">
+          <div className="flex items-center">
             <NavList />
-            <LanguageToggleButton css="mt-4 hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex" />
+            <LanguageToggleButton css="mt-4 ml-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex" />
           </div>
-          <button
+
+          {/* <button
             className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
             onClick={toggleNav}
           >
             <Image src={menu} alt="" width={32} height={32} />
-          </button>
+          </button> */}
         </div>
       </div>
       {/* <Collapse open={navbarOpen}>

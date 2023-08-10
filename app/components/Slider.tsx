@@ -32,7 +32,7 @@ const Arrow = ({ isLeft = false, disabled, onClick }: TArrowProps) => {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`absolute top-0 ${dir} flex h-28 w-12 items-center justify-center rounded-xl bg-white/5 backdrop-blur-md lg:h-38`}
+      className={`absolute top-0 ${dir} h-28 w-12 items-center justify-center rounded-xl bg-white/5 backdrop-blur-md lg:h-38 hidden md:flex`}
     >
       <Image src={arrow} className={iconStyle} alt="" />
     </button>
