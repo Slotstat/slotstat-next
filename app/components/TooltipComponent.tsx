@@ -6,7 +6,7 @@ export default function TooltipComponent({
   big = false,
 }: {
   text: string;
-  big: boolean;
+  big?: boolean;
 }) {
   const [color, setColor] = useState("#969CB0");
 
