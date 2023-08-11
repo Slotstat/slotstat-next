@@ -393,7 +393,11 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap">
-        <div className="w-full px-4 py-6 lg:px-3 lg:py-18 lg:w-3/4">
+        <div
+          className={`w-full px-4 py-6 lg:px-3 lg:py-18 ${
+            isAllGames ? "w-full" : "lg:w-3/4"
+          } `}
+        >
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="flex flex-row items-center">
               <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
@@ -461,31 +465,33 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
-        <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
-          <div className="flex flex-row items-center  justify-between">
-            <div className="flex flex-row items-center ">
-              <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
-                RTP
-              </h3>
-              <TooltipComponent big={true} text={"wefwerfwerfwe"} />
+        {!isAllGames && (
+          <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
+            <div className="flex flex-row items-center  justify-between">
+              <div className="flex flex-row items-center ">
+                <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
+                  RTP
+                </h3>
+                <TooltipComponent big={true} text={"wefwerfwerfwe"} />
+              </div>
+              <Image src={live} alt="" className="ml-3 w-10 h-10" />
             </div>
-            <Image src={live} alt="" className="ml-3 w-10 h-10" />
-          </div>
 
-          <div>
-            {mainGameObject && (
-              <RTP color="#5887F6" gameObject={mainGameObject} />
-            )}
+            <div>
+              {mainGameObject && (
+                <RTP color="#5887F6" gameObject={mainGameObject} />
+              )}
 
-            <RTP
-              color="#877CF2"
-              gameObject={compareGameObject}
-              onPressCompare={onPressCompare}
-              setOpen={setOpen}
-              onPressRemove={onPressRemove}
-            />
+              <RTP
+                color="#877CF2"
+                gameObject={compareGameObject}
+                onPressCompare={onPressCompare}
+                setOpen={setOpen}
+                onPressRemove={onPressRemove}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <BottomSheetModal
         open={open}

@@ -8,7 +8,7 @@ type RTPListingProps = {
 
 export default function RTPListing({ provider, rtp }: RTPListingProps) {
   const { value, preferredValue, max, min } = rtp;
-  console.log(value, preferredValue, max, min);
+
   const [RTP, setRTP] = useState(value);
 
   useEffect(() => {
