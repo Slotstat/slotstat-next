@@ -19,7 +19,7 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
         return Number(otherRange.toFixed(2));
       }
       setRTP(biasedRandomNumber());
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
   const casinoLoosingIndicatorSizeCounter =

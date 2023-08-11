@@ -29,15 +29,15 @@ export default function RTP({
   useEffect(() => {
     const interval = setInterval(() => {
       function biasedRandomNumber() {
-        const range70to110 = Math.random() * 40 + 70;
-        const otherRange = Math.random() * 180;
+        const range = Math.random() * 40 + 80;
+        // const otherRange = Math.random() * 180;
 
         // Choose between the two ranges with a probability of 70% for 70-110 range
-        const number = Math.random() < 0.7 ? range70to110 : otherRange;
-        return Number(number.toFixed(2));
+        // const number = Math.random() < 0.7 ? range70to110 : otherRange;
+        return Number(range.toFixed(2));
       }
       setAngle(biasedRandomNumber());
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
