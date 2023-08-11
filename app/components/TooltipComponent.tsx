@@ -1,20 +1,25 @@
 "use client";
 import React, { useState } from "react";
 
-export default function TooltipComponent({ text }: { text: string }) {
+export default function TooltipComponent({
+  text,
+  big = false,
+}: {
+  text: string;
+  big: boolean;
+}) {
   const [color, setColor] = useState("#969CB0");
 
   return (
-    <>
+    <div className={big ? "w-6 h-6" : "w-4 h-4"}>
       <a data-tooltip-id="my-tooltip" data-tooltip-content={text}>
         <svg
-          className=" ml-2"
           onMouseEnter={() => setColor("#5887F5")}
           onMouseLeave={() => setColor("#969CB0")}
+          className="ml-2 w-full h-full"
           xmlns="http://www.w3.org/2000/svg"
-          width={16}
-          height={16}
           fill="none"
+          viewBox="0 0 16 16"
         >
           <path
             fill={color}
@@ -26,6 +31,6 @@ export default function TooltipComponent({ text }: { text: string }) {
           />
         </svg>
       </a>
-    </>
+    </div>
   );
 }

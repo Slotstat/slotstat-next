@@ -269,6 +269,7 @@ const Table = ({
                           key={index}
                         >
                           <RenderRowCells
+                            isGame={isGame}
                             cell={cell}
                             row={row}
                             index={index}

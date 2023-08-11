@@ -8,16 +8,14 @@ type RTPListingProps = {
 
 export default function RTPListing({ provider, rtp }: RTPListingProps) {
   const { value, preferredValue, max, min } = rtp;
+  console.log(value, preferredValue, max, min);
   const [RTP, setRTP] = useState(value);
 
   useEffect(() => {
     const interval = setInterval(() => {
       function biasedRandomNumber() {
-        // const range70to110 = Math.random() * 20 + 80;
         const otherRange = Math.random() * 40 + 80;
 
-        // Choose between the two ranges with a probability of 70% for 70-110 range
-        // const number = Math.random() < 0.7 ? range70to110 : otherRange;
         return Number(otherRange.toFixed(2));
       }
       setRTP(biasedRandomNumber());

@@ -24,7 +24,6 @@ const signalR = async () => {
         useStore.setState({ jackpotHasBeenDrawn: message });
       });
       connection.on("newRtp", (message) => {
-        console.log("newRtp", message);
         useStore.setState({ newRtp: message });
       });
       connection.on("newUser", (message) => {

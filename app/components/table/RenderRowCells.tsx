@@ -60,7 +60,6 @@ const CountUpForJackpots = ({
         onEnd={() => {
           setStart(Number(end));
           increaseJackpot();
-          // jackpot !== 0 && setEnd(end + 0.2);
         }}
         delay={0}
       >
@@ -79,11 +78,13 @@ export default function RenderRowCells({
   cell,
   index,
   onRowPress,
+  isGame,
 }: {
   cell: Cell<GameData, any> | Cell<CasinoData, any>;
   row: Row<GameData> | Row<CasinoData>;
   index: number;
   onRowPress: () => void;
+  isGame: boolean;
 }) {
   const t = useTranslations("table");
 
@@ -100,7 +101,6 @@ export default function RenderRowCells({
     provider,
     rtp,
   } = row.original;
-  // console.log("row.original", row.original);
 
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
@@ -142,6 +142,7 @@ export default function RenderRowCells({
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
+
   const CasinoGameName = () => {
     return (
       <MenuComponent listItems={[GoToStatistic, goToCasino]}>
@@ -200,39 +201,73 @@ export default function RenderRowCells({
     }
   };
 
-  if (index === 0) {
-    return <CasinoGameName />;
-  } else if (index === 2) {
-    return (
-      <div className="flex flex-row items-center">
-        {showUpOrDownIcon(t1H)}
-        {cell.render("Cell")}%
-      </div>
-    );
-  } else if (index === 3) {
-    return (
-      <div className="flex flex-row items-center">
-        {showUpOrDownIcon(t24h)}
-        {cell.render("Cell")}%
-      </div>
-    );
-  } else if (index === 5) {
-    return (
-      <CountUpForJackpots
-        jackpot={jackpot}
-        jackpotCurrency={jackpotCurrency}
-        casinoCurrency={casinoCurrency}
-        casinoId={casinoId}
-      />
-    );
-  } else if (index === 6 && rtp) {
-    return <RTPListing rtp={rtp} provider={provider} />;
-  }
-  //  if we go to old design uncomment and fix index (fake small charts)
-  //  else if (index === 7) {
-  //   return generateSmallCharts();
-  // }
-  else {
-    return renderEmptyValue();
+  if (isGame) {
+    switch (index) {
+      case 0:
+        return <CasinoGameName />;
+      case 2:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t1H)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 3:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t24h)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 5:
+        return (
+          <CountUpForJackpots
+            jackpot={jackpot}
+            jackpotCurrency={jackpotCurrency}
+            casinoCurrency={casinoCurrency}
+            casinoId={casinoId}
+          />
+        );
+      case 6:
+        return name !== "All Games" && rtp ? (
+          <RTPListing rtp={rtp} provider={provider} />
+        ) : (
+          <>--</>
+        );
+      default:
+        return renderEmptyValue();
+    }
+  } else {
+    switch (index) {
+      case 0:
+        return <CasinoGameName />;
+      case 3:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t1H)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 4:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t24h)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 6:
+        return (
+          <CountUpForJackpots
+            jackpot={jackpot}
+            jackpotCurrency={jackpotCurrency}
+            casinoCurrency={casinoCurrency}
+            casinoId={casinoId}
+          />
+        );
+      case 7:
+        return generateSmallCharts();
+      default:
+        return renderEmptyValue();
+    }
   }
 }
