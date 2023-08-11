@@ -7,22 +7,22 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       width: 266,
       minWidth: 100,
     },
-    {
-      Header: t("providers"),
-      accessor: "providers",
-      maxWidth: 118,
-      width: 118,
-      minWidth: 100,
-    },
-    // when Bounties are needed we uncomment and in RenderRowCells fix index
     // {
-    //   Header: t("bounties"),
-    //   accessor: "bounties",
-    //   maxWidth: 194,
-    //   width: 194,
-    //   minWidth: 80,
-    //   hint: t("bountiesHint"),
+    //   Header: t("providers"),
+    //   accessor: "providers",
+    //   maxWidth: 118,
+    //   width: 118,
+    //   minWidth: 100,
     // },
+    // when Bounties are needed we uncomment and in RenderRowCells fix index
+    {
+      Header: t("bounties"),
+      accessor: "bounties",
+      maxWidth: 194,
+      width: 194,
+      minWidth: 80,
+      hint: t("bountiesHint"),
+    },
     {
       Header: t("h1"),
       accessor: "p1h",
@@ -81,7 +81,7 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       minWidth: 100,
     },
     {
-      Header: t("providers"),
+      Header: t("provider"),
       accessor: "provider",
       maxWidth: 168,
       width: 168,

@@ -97,7 +97,10 @@ export default function RenderRowCells({
     jackpotCurrency,
     casinoCurrency,
     casinoId,
+    provider,
+    rtp,
   } = row.original;
+  // console.log("row.original", row.original);
 
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
@@ -222,8 +225,8 @@ export default function RenderRowCells({
         casinoId={casinoId}
       />
     );
-  } else if (index === 6) {
-    return <RTPListing />;
+  } else if (index === 6 && rtp) {
+    return <RTPListing rtp={rtp} provider={provider} />;
   }
   //  if we go to old design uncomment and fix index (fake small charts)
   //  else if (index === 7) {

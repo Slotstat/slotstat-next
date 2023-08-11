@@ -31,7 +31,8 @@
   "actionPane": { "compare": "შედარება", "vs": "VS" },
   "table": {
     "casinoName": "კაზინოს სახელი",
-    "providers": "პროვაიდერი",
+    "providers": "პროვაიდერები",
+    "provider": "პროვაიდერი",
     "bounties": "ბონუსები",
     "h1": "1სთ %",
     "h24": "24სთ %",

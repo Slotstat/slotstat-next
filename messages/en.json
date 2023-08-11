@@ -31,6 +31,7 @@
   "table": {
     "casinoName": "Casino name",
     "providers": "Providers",
+    "provider": "Provider",
     "bounties": "Bounties",
     "h1": "1h %",
     "h24": "24h %",
