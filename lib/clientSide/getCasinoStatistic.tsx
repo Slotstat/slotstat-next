@@ -1,16 +1,12 @@
 "use client";
-import axios from "axios";
-import { getCookie } from "cookies-next";
-import { baseUrl } from "../baseURL";
+
 import slotStatClientInstance from "./clientInstance";
 
 export default async function getCasinoStatistic(
-    casinoId: string,
+  casinoId: string,
   activeFilterId: string,
   timeStamp?: number
 ) {
-
-  
   const res = await slotStatClientInstance().request({
     url: `/api/statistic/casino/range/${casinoId}?`,
     method: "GET",

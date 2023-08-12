@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { baseUrl } from "../baseURL";

@@ -1,6 +1,4 @@
-import axios from "axios";
-import { getCookie } from "cookies-next";
-import { baseUrl } from "../baseURL";
+"use client";
 import slotStatClientInstance from "./clientInstance";
 
 export default async function getCasinosClientSide({

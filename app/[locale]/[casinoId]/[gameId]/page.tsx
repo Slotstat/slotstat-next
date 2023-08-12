@@ -26,16 +26,18 @@ export default async function Casino({
     direction,
     orderBy,
   });
+  const AllGamesListData: Promise<gamesList> = getGamesList(casinoId, {});
 
   const gamesCardsData: Promise<Card[]> =
     casinoId === gameId ? getCasinoCards(casinoId) : getGameCards(gameId);
 
-  const [gamesList, gameCards] = await Promise.all([
+  const [AllGamesList, gamesList, gameCards] = await Promise.all([
+    AllGamesListData,
     gamesListData,
     gamesCardsData,
   ]);
 
-  const mainGame: GameData | undefined = gamesList?.results?.find((x) => {
+  const mainGame: GameData | undefined = AllGamesList?.results?.find((x) => {
     if (casinoId === gameId) {
       return x.casinoId === gameId;
     } else {
@@ -52,9 +54,6 @@ export default async function Casino({
     ~removeIndex && gamesList.results.splice(removeIndex, 1);
   }
 
-  // const GameExists = gamesList?.results?.find((obj) => obj.gameId === gameId);
-  // if (!GameExists) return notFound();
-
   return (
     <>
       <LiveCards
@@ -63,7 +62,6 @@ export default async function Casino({
         game={true}
         casinoId={casinoId}
         gamesCardsData={gamesCardsData}
-        // casinoCardsData={casinoCardsData}
       />
       {mainGame && (
         <ChartComponent
