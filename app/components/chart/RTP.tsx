@@ -175,7 +175,9 @@ export default function RTP({
                   left: 0,
                   top: "100%",
                   transformOrigin: "right center",
-                  transform: `rotate(${angle}deg)`,
+                  transform: `rotate(${
+                    angle > 90 ? angle + 10 : angle < 90 ? angle - 10 : 90
+                  }deg)`,
                   transition: "transform 0.5s ease-in-out",
                 }}
               >
