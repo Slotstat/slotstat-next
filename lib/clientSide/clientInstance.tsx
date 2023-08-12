@@ -5,7 +5,7 @@ import { baseUrl } from "../baseURL";
 
 const slotStatClientInstance = () => {
   let uniqueId = getCookie("uniqueId");
-  const cookie = getCookie("NEXT_LOCALE"); // => 'value'
+  const cookie = getCookie("NEXT_LOCALE");
   const lang = cookie === "en" ? "en-US" : "ka-GE";
 
   return axios.create({

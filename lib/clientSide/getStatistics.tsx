@@ -1,7 +1,5 @@
 "use client";
-import axios from "axios";
-import { getCookie } from "cookies-next";
-import { baseUrl } from "../baseURL";
+
 import slotStatClientInstance from "./clientInstance";
 
 export default async function getStatistics(

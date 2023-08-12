@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import signalR from "@/app/utils/singlar";
 import useStore from "../(store)/store";
 import Image from "next/image";
-import { close } from "../assets";
+import { close, moneyBag } from "../assets";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 
@@ -59,9 +59,15 @@ export default function JackpotNotification() {
 
   if (showNotification) {
     return (
-      <div className="z-10 fixed right-0 rounded-xl border border-green1 p-5 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 shadow-2xl bg-dark2  ">
-        <div className="flex justify-between ">
-          <div className=" text-grey1 font-black">{time}</div>
+      <div className="z-10 w-[400px] fixed right-0 rounded-xl border border-grey1 p-6 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 shadow-2xl bg-dark2">
+        <div className="flex justify-between mb-3">
+          <Image
+            src={moneyBag}
+            alt=""
+            className="h-9 w-9"
+            width={36}
+            height={36}
+          />
           <button
             className="flex items-center justify-center"
             onClick={() => {
@@ -71,30 +77,15 @@ export default function JackpotNotification() {
             <Image
               src={close}
               alt=""
-              className="h-5 w-5"
-              width={20}
-              height={20}
+              className="h-6 w-6"
+              width={24}
+              height={24}
             />
           </button>
         </div>
-        <div className="flex flex-col items-center">
-          <h2 className=" text-white text-lg font-black py-3 px-2">
-            {t("notification")}
-          </h2>
-          <h3 className=" text-white text-lg font-black px-2">
-            {jackpotHasBeenDrawn?.casinoName}
-          </h3>
 
-          {jackpotHasBeenDrawn?.imageUrl && (
-            <Image
-              src={jackpotHasBeenDrawn?.imageUrl}
-              alt=""
-              className="h-8 w-8 py-2"
-              width={32}
-              height={32}
-            />
-          )}
-          <h1 className=" text-green1 text-3xl font-black text-center">
+        <div className="flex flex-col my-3 text-sm">
+          <h4 className=" text-green1  font-black mb-2">
             <CountUp
               start={0}
               end={Number(jackpotHasBeenDrawn?.amount)}
@@ -103,8 +94,6 @@ export default function JackpotNotification() {
               decimals={2}
               decimal="."
               prefix={`${jackpotHasBeenDrawn?.ccy} `}
-              // suffix=" left"
-              // onEnd={}
               delay={0}
             >
               {({ countUpRef }) => (
@@ -113,7 +102,15 @@ export default function JackpotNotification() {
                 </div>
               )}
             </CountUp>
-          </h1>
+          </h4>
+          <h6 className=" text-grey1 font-black ">{t("notification")}</h6>
+        </div>
+
+        <div className="flex flex-row justify-between text-sm">
+          <h3 className=" text-white font-black  ">
+            {jackpotHasBeenDrawn?.casinoName} 
+          </h3>
+          <div className=" text-grey1 font-black">{time}</div>
         </div>
       </div>
     );
