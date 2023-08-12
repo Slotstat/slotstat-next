@@ -15,7 +15,7 @@ export default function RTP({
   setOpen?: (trueFalse: boolean) => void;
   onPressRemove?: () => void;
 }) {
-  const [angle, setAngle] = useState(96.5);
+  const [angle, setAngle] = useState(90);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -29,7 +29,7 @@ export default function RTP({
   useEffect(() => {
     const interval = setInterval(() => {
       function biasedRandomNumber() {
-        const range = Math.random() * 40 + 80;
+        const range = Math.random() * 20 + 80;
         // const otherRange = Math.random() * 180;
 
         // Choose between the two ranges with a probability of 70% for 70-110 range
@@ -37,7 +37,7 @@ export default function RTP({
         return Number(range.toFixed(2));
       }
       setAngle(biasedRandomNumber());
-    }, 5000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -134,7 +134,7 @@ export default function RTP({
                   fontSize="28"
                   fontFamily="modernist"
                 >
-                  {angle}%
+                  {angle + 6.5}%
                 </text>
                 <text
                   x="50%"
