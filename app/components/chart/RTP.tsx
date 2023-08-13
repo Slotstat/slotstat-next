@@ -15,7 +15,9 @@ export default function RTP({
   setOpen?: (trueFalse: boolean) => void;
   onPressRemove?: () => void;
 }) {
-  const [angle, setAngle] = useState(Math.random() * 20 + 80);
+  const [angle, setAngle] = useState(
+    Number((Math.random() * 20 + 80).toFixed(2))
+  );
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
