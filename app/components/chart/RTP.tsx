@@ -54,7 +54,7 @@ export default function RTP({
           >
             {setOpen && isHovered && (
               <div
-                className="absolute top-0 bottom-0  z-50"
+                className="absolute top-0 bottom-0  z-10"
                 onClick={onPressRemove}
               >
                 <svg

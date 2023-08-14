@@ -74,10 +74,14 @@
   "fiatCasinos": "Fiat",
   "cryptoCasinos": "Crypto",
   "itemNotFound": "Oops, item not found",
-  "Win-spinRate":"Win-spin rate",
+  "Win-spinRate": "Win-spin rate",
 
   "notification": {
-    "notification": "The jackpot has been drawn"
+    "notification": "The jackpot has been drawn",
+    "cookieText": "By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in your marketing efforts.",
+    " AcceptAllCookies": "Accept All Cookies",
+    "RejectAll": "Reject All"
+
   },
   "bottomSheetModal": {
     "choose-game-from": "Choose Game from",

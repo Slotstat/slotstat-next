@@ -53,7 +53,7 @@ const Header = () => {
   return (
     <header className="px-4 py-6 lg:border-b lg:border-b-dark3  justify-center items-center	">
       <div className="flex justify-center">
-        <div className="flex items-center justify-between w-[100%] max-w-screen-xl">
+        <div className="flex items-center justify-between w-[100%] px-4 max-w-screen-xl">
           <Link href="/" className="flex items-center">
             <Image
               src={slotLogo}
