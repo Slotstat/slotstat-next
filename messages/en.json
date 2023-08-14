@@ -50,7 +50,8 @@
     "h1GameHint": "Percentage of winning spins during the last hour",
     "h24GameHint": "Percentage of winning spins during the last 24 hour",
     "GoToStatistic": "Go to statistic",
-    "GoToCasino": "Go to casino"
+    "GoToCasino": "Go to casino",
+    "RTPhint": "RTP is short for Return to Player. It is used to describe the percentage of wagered money that players can expect to win back over time. It is calculated by dividing the amount of money out of a slot by the amount of money in,and multiplying by 100."
   },
   "gamePage": {
     "other": "Other",
@@ -81,7 +82,6 @@
     "cookieText": "By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in your marketing efforts.",
     " AcceptAllCookies": "Accept All Cookies",
     "RejectAll": "Reject All"
-
   },
   "bottomSheetModal": {
     "choose-game-from": "Choose Game from",

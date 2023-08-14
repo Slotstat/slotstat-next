@@ -478,10 +478,7 @@ const ChartComponent = ({
             </div>
 
             <div>
-              {mainGameObject && (
-                <RTP color="#5887F6" gameObject={mainGameObject} />
-              )}
-
+              <RTP color="#5887F6" gameObject={mainGameObject} />
               <RTP
                 color="#877CF2"
                 gameObject={compareGameObject}

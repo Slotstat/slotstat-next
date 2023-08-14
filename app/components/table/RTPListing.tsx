@@ -14,12 +14,12 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       function biasedRandomNumber() {
-        const otherRange = Math.random() * 40 + 80;
+        const randomBetween = Math.random() * (max - min) + min;
 
-        return Number(otherRange.toFixed(2));
+        return Number(randomBetween.toFixed(2));
       }
       setRTP(biasedRandomNumber());
-    }, 5000);
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
   const casinoLoosingIndicatorSizeCounter =

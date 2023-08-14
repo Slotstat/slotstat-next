@@ -51,7 +51,9 @@
     "h1GameHint": "მომგებიანი სპინების საშუალო პროცენტი ბოლო საათის განმავლობაში ",
     "h24GameHint": "მომგებიანი სპინების საშუალო პროცენტი ბოლო 24 საათის განმავლობაში ",
     "GoToStatistic": "სტატისტიკაზე გადასვლა",
-    "GoToCasino": "კაზინოს საიტი"
+    "GoToCasino": "კაზინოს საიტი",
+    "RTPhint":"RTP stands for Return to Player and represents the percentage of the total bet that a player can expect to win back over the long term"
+
   },
   "gamePage": {
     "other": "სხვა",

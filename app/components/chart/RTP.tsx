@@ -15,9 +15,8 @@ export default function RTP({
   setOpen?: (trueFalse: boolean) => void;
   onPressRemove?: () => void;
 }) {
-  const [angle, setAngle] = useState(
-    Number((Math.random() * 20 + 80).toFixed(2))
-  );
+  const [angle, setAngle] = useState<number>(90);
+
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -29,17 +28,27 @@ export default function RTP({
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: any;
+    // if (gameObject?.rtp) {
+    //   const { value, preferredValue, max, min } = gameObject?.rtp;
+
+    //   interval = setInterval(() => {
+    //     function biasedRandomNumber() {
+    //       const randomBetween = Math.random() * (max - min) + min;
+
+    //       return Number(randomBetween.toFixed(2));
+    //     }
+    //     setAngle(biasedRandomNumber());
+    //   }, 1000);
+    // } else {
+    interval = setInterval(() => {
       function biasedRandomNumber() {
         const range = Math.random() * 20 + 80;
-        // const otherRange = Math.random() * 180;
-
-        // Choose between the two ranges with a probability of 70% for 70-110 range
-        // const number = Math.random() < 0.7 ? range70to110 : otherRange;
         return Number(range.toFixed(2));
       }
       setAngle(biasedRandomNumber());
-    }, 60000);
+    }, 30000);
+    // }
     return () => clearInterval(interval);
   }, []);
 
@@ -125,7 +134,7 @@ export default function RTP({
                   fontSize="14"
                   fontFamily="modernist"
                 >
-                  RTP 96.5%
+                  RTP {gameObject?.rtp?.preferredValue}%
                 </text>
                 <text
                   x="50%"

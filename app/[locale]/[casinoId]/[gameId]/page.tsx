@@ -54,6 +54,10 @@ export default async function Casino({
     ~removeIndex && gamesList.results.splice(removeIndex, 1);
   }
 
+  if (!mainGame) {
+    notFound();
+  }
+
   return (
     <>
       <LiveCards

@@ -131,6 +131,8 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       // maxWidth: 169,
       // width: 169,
       // minWidth: 50,
+      hint: t("RTPhint"),
+
     },
     // {
     //   Header: t("t24h"),
