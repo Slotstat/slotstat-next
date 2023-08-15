@@ -18,7 +18,21 @@
     "joinUs": "Join 7,000+ subscribers on\nTelegram",
     "stayInLoop": "Stay in the loop with everything you need to know.",
     "subscribe": "Subscribe ",
-    "telegramChan": " to our Telegram channel"
+    "telegramChan": "to our Telegram channel",
+    "WhatIsHappeningHere": "What's happening here?",
+    "WhatIsHappeningHereParams": "Here on Slotstat you can find 3 main branches of gambling parameters:",
+    "WhatIsHappeningHereA": "a. Hitrate (Shown on graphs);",
+    "WhatIsHappeningHereB": "b. Jackpots;",
+    "WhatIsHappeningHereC": "c. RTP fluctuation.",
+    "WhatIsHappeningHereEnd": "cThose parameters may defer by casinos, providers and/or games.",
+    "WhatIsSlotstat": "What is Slotstat?",
+    "WhatIsSlotstatContent": "We do gambling sector statistics. In order to reduce our analitical work service fees, we partly share information with general public. Mainly Slotstat is a side-effect of our analitical sevices.",
+    "WhatsHitRate": "What is hit rate?",
+    "WhatsHitRateContent": "Hit Rate is the frequency of winning spins, for which win spin is a spin issuing a higher win than the initial bet.",
+    "WhatIsRTP": "What's RTP?",
+    "WhatIsRTPContent": "RTP meaning is Return to Player, it's static number All casinos have their RTP. It may vary from rpovider to provider even within one casino.",
+    "fluctuation": "What's RTP fluctuation?",
+    "fluctuationContent": " RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it's better to play a long run or a short one."
   },
   "footer": {
     "company": "Company",

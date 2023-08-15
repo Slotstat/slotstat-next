@@ -22,6 +22,7 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
     }, 30000);
     return () => clearInterval(interval);
   }, []);
+
   const casinoLoosingIndicatorSizeCounter =
     (RTP - preferredValue) * (150 / (max - preferredValue));
   const casinoWiningIndicatorSizeCounter =

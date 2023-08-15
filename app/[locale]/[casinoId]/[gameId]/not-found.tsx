@@ -1,9 +1,10 @@
+"use client";
 import Error404 from "@/app/components/Error404";
 import { useEffect } from "react";
 
 export default function NotFound({
   error,
-  reset,
+
 }: {
   error: Error;
   reset: () => void;
@@ -13,5 +14,5 @@ export default function NotFound({
   //   console.error(error);
   // }, [error]);
 
-  return <Error404 reset={reset} />;
+  return <Error404 />;
 }

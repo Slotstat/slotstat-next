@@ -18,7 +18,21 @@
     "joinUs": "Join 7,000+ subscribers on\nTelegram",
     "stayInLoop": "Stay in the loop with everything you need to know.",
     "subscribe": "გამოგვყევი ",
-    "telegramChan": " ჩვენს ტელეგრამ არხზე"
+    "telegramChan": " ჩვენს ტელეგრამ არხზე",
+    "WhatIsHappeningHere": "რა ხდება აქ?",
+    "WhatIsHappeningHereParams": "აქ Slotstat-ზე შეგიძლიათ იპოვოთ აზარტული თამაშების პარამეტრების 3 ძირითადი მიმართულება:",
+    "WhatIsHappeningHereA": "ა. Hitrate (გამოსახულია გრაფიკებზე);",
+    "WhatIsHappeningHereB": "ბ. ჯეკპოტები;",
+    "WhatIsHappeningHereC": "გ. RTP-ის მერყევადობა.",
+    "WhatIsHappeningHereEnd": "ეს პარამეტრები შეიძლება იცვლებოდეს კაზინოების, პროვაიდერების და/ან თამაშების მიხედვით.",
+    "WhatIsSlotstat": "რა არის Slotstat?",
+    "WhatIsSlotstatContent": "ჩვენ ვაკეთებთ აზარტული თამაშების სექტორის სტატისტიკას. ჩვენი ანალიტიკური სამუშაოს მომსახურების საფასურის შესამცირებლად, ნაწილობრივ ვუზიარებთ ინფორმაციას ფართო საზოგადოებას. ძირითადად Slotstat არის ჩვენი ანალიტიკური სერვისების გვერდითი ეფექტი.",
+    "WhatsHitRate": "რა არის hit rate?",
+    "WhatsHitRateContent": "HitRate არის მომგებიანი სპინების სიხშირე, რომლისთვისაც მომგებიანი სპინი არის სპინი, რომლის მომგებიანობა, მეტია ვიდრე საწყისი ფსონი.",
+    "WhatIsRTP": "რა არის RTP?",
+    "WhatIsRTPContent": "RTP ნიშნავს “მოთამაშისთვის დაბრუნებულ თანხას”, ეს არის სტატიკური რიცხვი. ყველა კაზინოს აქვს თავისი RTP. ის შეიძლება განსხვავდებოდეს პროვაიდერიდან პროვაიდერამდე, თუნდაც ერთსა და იმავე კაზინოში.",
+    "fluctuation": "რა არის RTP მერყევადობა?",
+    "fluctuationContent": " RTP, როგორც პარამეტრი, სტატიკურია, მაგრამ როდესაც საქმე რეალურ სიტუაციებს ეხება, ის მხოლოდ იდეალური პარამეტრია, რომლისკენაც კაზინოები მხოლოდ მიისწრაფიან. არცერთმა მოთამაშემ იცოდა მიმდინარე დროის RTP, სანამ ჩვენ გავმართავდით Slotstat-ს. მაგრამ ახლა მოყვარულმა მკვლევარებმა შეიძლება გააკეთონ საკუთარი პროგნოზები იმის შესახებ თუ, როგორი უჯობს - ხანგრძლივი მშვიდი თუ მოკლე თამაში."
   },
   "footer": {
     "company": "კომპანია",
@@ -52,8 +66,7 @@
     "h24GameHint": "მომგებიანი სპინების საშუალო პროცენტი ბოლო 24 საათის განმავლობაში ",
     "GoToStatistic": "სტატისტიკაზე გადასვლა",
     "GoToCasino": "კაზინოს საიტი",
-    "RTPhint":"RTP stands for Return to Player and represents the percentage of the total bet that a player can expect to win back over the long term"
-
+    "RTPhint": "RTP stands for Return to Player and represents the percentage of the total bet that a player can expect to win back over the long term"
   },
   "gamePage": {
     "other": "სხვა",

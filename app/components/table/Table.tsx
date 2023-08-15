@@ -19,7 +19,7 @@ import _ from "lodash";
 // import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
-import { casinoColumns } from "./columns";
+import { casinoOrGameColumns } from "./columns";
 
 import { usePathname, useRouter } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
@@ -61,7 +61,7 @@ const Table = ({
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
 
-  const columns = useMemo(() => casinoColumns(t, isGame), [t, isGame]);
+  const columns = useMemo(() => casinoOrGameColumns(t, isGame), [t, isGame]);
   const data = useMemo(() => [...tableBodyData], [tableBodyData]);
 
   const router = useRouter();

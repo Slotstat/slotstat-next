@@ -3,13 +3,15 @@
 import Accordion from "@/app/components/Accordion";
 import SubscribeButton from "@/app/components/SubscribeButton";
 
-import { ACCORDION_DATA } from "@/app/utils/mockData";
+import { accordionData } from "@/app/utils/mockData";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 export default async function FAQ() {
   const t = useTranslations("faq");
 
-  
+  const columns = useMemo(() => accordionData(t), [t]);
+
   return (
     <div className="px-4 py-6 ">
       <div className='relative flex w-full flex-col  justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/chart-pattern.png")] bg-right bg-no-repeat py-12 px-9 lg:py-24 lg:px-28'>
@@ -30,7 +32,7 @@ export default async function FAQ() {
           </h1>
         </div>
         <div className="mt-16 lg:mt-0 lg:flex-1">
-          <Accordion data={ACCORDION_DATA} />
+          <Accordion data={columns} />
         </div>
       </div>
       <div className="relative mt-28 mb-12 flex w-full flex-col flex-wrap items-center rounded-3xl bg-dark2 py-16 px-9 lg:flex-row lg:space-x-40 lg:py-20 lg:px-28">

@@ -7,7 +7,7 @@ import {
 
 type TAccordionItem = {
   header: string;
-  content: string;
+  content: any;
 };
 
 type TAccordionData = {

@@ -1,4 +1,4 @@
-export const casinoColumns = (t: any, isGame: boolean) => {
+export const casinoOrGameColumns = (t: any, isGame: boolean) => {
   const casinoColumns = [
     {
       Header: t("casinoName"),
