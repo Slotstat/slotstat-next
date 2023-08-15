@@ -125,9 +125,10 @@ export default function RenderRowCells({
       onClick={onGoToWebSiteClick}
       className="text-xs  flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
     >
-      {t("GoToCasino")} <LinkIcon className="ml-2" />
+      {isGame ? t("GoToGame") : t("GoToCasino")} <LinkIcon className="ml-2" />
     </div>
   );
+
   const RenderGoTo = () => {
     return (
       <MenuComponent
