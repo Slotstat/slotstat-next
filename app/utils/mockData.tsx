@@ -25,10 +25,10 @@ export const accordionData = (t: any) => {
       content: (
         <div>
           <p>{t("WhatIsHappeningHereParams")}</p>
-          <p>{t("WhatIsHappeningHereA")}</p>
-          <p>{t("WhatIsHappeningHereB")}</p>
-          <p>{t("WhatIsHappeningHereC")}</p>
-          <p>{t("WhatIsHappeningHereEnd")}</p>
+          <p className="ml-3">{t("WhatIsHappeningHereA")}</p>
+          <p className="ml-3">{t("WhatIsHappeningHereB")}</p>
+          <p className="ml-3">{t("WhatIsHappeningHereC")}</p>
+          <p >{t("WhatIsHappeningHereEnd")}</p>
         </div>
       ),
     },
