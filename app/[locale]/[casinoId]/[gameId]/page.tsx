@@ -32,13 +32,21 @@ export default async function Casino({
   const gamesCardsData: Promise<Card[]> =
     casinoId === gameId ? getCasinoCards(casinoId) : getGameCards(gameId);
 
-  const [mainGame, gamesList, gameCards] = await Promise.all([
-    mainGameData,
-    gamesListData,
-    gamesCardsData,
-  ]);
-
-
+  let mainGameObj: GameData;
+  if (casinoId !== gameId) {
+    var [mainGame, gamesList, gameCards] = await Promise.all([
+      mainGameData,
+      gamesListData,
+      gamesCardsData,
+    ]);
+    mainGameObj = mainGame;
+  } else {
+    var [gamesList, gameCards] = await Promise.all([
+      gamesListData,
+      gamesCardsData,
+    ]);
+    mainGameObj = gamesList.results[0];
+  }
 
   if (casinoId === gameId && gamesList) {
     gamesList.results.shift();
@@ -49,7 +57,7 @@ export default async function Casino({
     ~removeIndex && gamesList.results.splice(removeIndex, 1);
   }
 
-  if (!mainGame) {
+  if (!mainGameObj) {
     return notFound();
   }
   return (
@@ -61,10 +69,10 @@ export default async function Casino({
         casinoId={casinoId}
         gamesCardsData={gamesCardsData}
       />
-      {mainGame && (
+      {mainGameObj && (
         <ChartComponent
           gameId={gameId}
-          mainGame={mainGame}
+          mainGame={mainGameObj}
           isAllGames={casinoId === gameId}
         />
       )}
