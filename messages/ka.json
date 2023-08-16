@@ -101,5 +101,12 @@
   "bottomSheetModal": {
     "choose-game-from": "აირჩიე თამაში",
     "choose-casino": "აიჩიე კაზინო"
+  },
+  "RTP": {
+    "provideInfo": "RTP-ს ინფორმაცია მალე დაემატება",
+    "Compare": "შედარება",
+    "neutral": "ნეიტრალური",
+    "CasinoIsLosing": "კაზინო აგებს",
+    "CasinoIsInProfit": "კაზინო იგებს"
   }
 }

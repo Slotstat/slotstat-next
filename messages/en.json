@@ -101,5 +101,12 @@
   "bottomSheetModal": {
     "choose-game-from": "Choose Game from",
     "choose-casino": "Choose Casino"
+  },
+  "RTP": {
+    "provideInfo": "We will provide RTP Information soon",
+    "Compare": "Compare",
+    "neutral": "neutral",
+    "CasinoIsLosing": "Casino is losing",
+    "CasinoIsInProfit": "Casino is in profit"
   }
 }
