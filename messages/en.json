@@ -95,7 +95,7 @@
   "notification": {
     "notification": "The jackpot has been drawn",
     "cookieText": "By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in your marketing efforts.",
-    " AcceptAllCookies": "Accept All Cookies",
+    "AcceptAllCookies": "Accept All Cookies",
     "RejectAll": "Reject All"
   },
   "bottomSheetModal": {
