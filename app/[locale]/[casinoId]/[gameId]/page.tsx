@@ -5,6 +5,7 @@ import Table from "@/app/components/table/Table";
 import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
+import getSingleGame from "@/lib/getSingleGame";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -26,24 +27,18 @@ export default async function Casino({
     direction,
     orderBy,
   });
-  const AllGamesListData: Promise<gamesList> = getGamesList(casinoId, {});
+  const mainGameData: Promise<GameData> = getSingleGame(gameId);
 
   const gamesCardsData: Promise<Card[]> =
     casinoId === gameId ? getCasinoCards(casinoId) : getGameCards(gameId);
 
-  const [AllGamesList, gamesList, gameCards] = await Promise.all([
-    AllGamesListData,
+  const [mainGame, gamesList, gameCards] = await Promise.all([
+    mainGameData,
     gamesListData,
     gamesCardsData,
   ]);
 
-  const mainGame: GameData | undefined = AllGamesList?.results?.find((x) => {
-    if (casinoId === gameId) {
-      return x.casinoId === gameId;
-    } else {
-      return x.gameId === gameId;
-    }
-  });
+
 
   if (casinoId === gameId && gamesList) {
     gamesList.results.shift();
@@ -54,9 +49,9 @@ export default async function Casino({
     ~removeIndex && gamesList.results.splice(removeIndex, 1);
   }
 
-  // if (!mainGame) {
-  //   notFound();
-  // } else {
+  if (!mainGame) {
+    return notFound();
+  }
   return (
     <>
       <LiveCards

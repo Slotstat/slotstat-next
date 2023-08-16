@@ -465,20 +465,21 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
-        {!isAllGames && mainGameObject?.rtp  && (
+        {!isAllGames && mainGameObject?.rtp && (
           <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
             <div className="flex flex-row items-center  justify-between">
               <div className="flex flex-row items-center ">
                 <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
                   RTP
                 </h3>
-                <TooltipComponent big={true} text={"wefwerfwerfwe"} />
+                <TooltipComponent big={true} text={t("table.RTPhint")} />
               </div>
               <Image src={live} alt="" className="ml-3 w-10 h-10" />
             </div>
 
             <div>
               <RTP color="#5887F6" gameObject={mainGameObject} />
+              
               <RTP
                 color="#877CF2"
                 gameObject={compareGameObject}

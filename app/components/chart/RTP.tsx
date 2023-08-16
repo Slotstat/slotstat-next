@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useStore from "@/app/(store)/store";
 
 export default function RTP({
   color,
@@ -15,8 +16,10 @@ export default function RTP({
   setOpen?: (trueFalse: boolean) => void;
   onPressRemove?: () => void;
 }) {
-  const [angle, setAngle] = useState<number>(90);
-
+  const RTPCenterAngle = 90;
+  const { newRtp } = useStore();
+  const [angle, setAngle] = useState<number>();
+  const [RTP, setRTP] = useState<number>();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -28,34 +31,38 @@ export default function RTP({
   };
 
   useEffect(() => {
-    let interval: any;
-    // if (gameObject?.rtp) {
-    //   const { value, preferredValue, max, min } = gameObject?.rtp;
-
-    //   interval = setInterval(() => {
-    //     function biasedRandomNumber() {
-    //       const randomBetween = Math.random() * (max - min) + min;
-
-    //       return Number(randomBetween.toFixed(2));
-    //     }
-    //     setAngle(biasedRandomNumber());
-    //   }, 1000);
-    // } else {
-    interval = setInterval(() => {
-      function biasedRandomNumber() {
-        const range = Math.random() * 20 + 80;
-        return Number(range.toFixed(2));
-      }
-      setAngle(biasedRandomNumber());
-    }, 30000);
-    // }
-    return () => clearInterval(interval);
+    if (gameObject?.rtp) {
+      setAngle(gameObject.rtp.value - (gameObject.rtp.preferredValue - RTPCenterAngle));
+      setRTP(gameObject.rtp.value);
+    }
   }, []);
+
+  useEffect(() => {
+    if (newRtp && gameObject?.rtp && newRtp.rtpId === gameObject.rtp.id) {
+      const { value } = newRtp;
+      const { preferredValue, max, min } = gameObject.rtp;
+
+      if (value > preferredValue) {
+        const casinoLoosingIndicatorSizeCounter =
+        RTPCenterAngle + (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
+        setAngle(casinoLoosingIndicatorSizeCounter);
+      } else if (value < preferredValue) {
+        const casinoWiningIndicatorSizeCounter =
+        RTPCenterAngle - (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
+        setAngle(casinoWiningIndicatorSizeCounter);
+      } else {
+        setAngle(RTPCenterAngle);
+      }
+
+      setRTP(value);
+    }
+
+  }, [newRtp]);
 
   return (
     <div className=" w-full">
       <div className="rounded-3xl bg-dark2 lg:p-6 mt-6">
-        {gameObject ? (
+        {gameObject?.rtp && RTP ? (
           <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -145,7 +152,7 @@ export default function RTP({
                   fontSize="28"
                   fontFamily="modernist"
                 >
-                  {angle + 6.5}%
+                  {RTP}%
                 </text>
                 <text
                   x="50%"
@@ -157,9 +164,9 @@ export default function RTP({
                   fontSize="12"
                   fontFamily="modernist"
                 >
-                  {angle === 96.5
+                  {RTP === gameObject.rtp.preferredValue
                     ? "neutral"
-                    : angle > 96.5
+                    : RTP > gameObject.rtp.preferredValue
                     ? "Casino is losing"
                     : "Casino is in profit"}
                 </text>
@@ -186,9 +193,7 @@ export default function RTP({
                   left: 0,
                   top: "100%",
                   transformOrigin: "right center",
-                  transform: `rotate(${
-                    angle > 90 ? angle + 10 : angle < 90 ? angle - 10 : 90
-                  }deg)`,
+                  transform: `rotate(${angle}deg)`,
                   transition: "transform 0.5s ease-in-out",
                 }}
               >

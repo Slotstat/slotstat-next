@@ -7,11 +7,11 @@ import {
 } from "@/app/assets/svg/SmallCharts";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
-import MoreIcon from "@/app/assets/svg/MoreIcon";
+// import MoreIcon from "@/app/assets/svg/MoreIcon";
 import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
@@ -129,16 +129,16 @@ export default function RenderRowCells({
     </div>
   );
 
-  const RenderGoTo = () => {
-    return (
-      <MenuComponent
-        listItems={[GoToStatistic, goToCasino]}
-        className="-right-18"
-      >
-        <MoreIcon className="cursor-pointer" />
-      </MenuComponent>
-    );
-  };
+  // const RenderGoTo = () => {
+  //   return (
+  //     <MenuComponent
+  //       listItems={[GoToStatistic, goToCasino]}
+  //       className="-right-18"
+  //     >
+  //       <MoreIcon className="cursor-pointer" />
+  //     </MenuComponent>
+  //   );
+  // };
 
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
