@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useStore from "@/app/(store)/store";
+import { useTranslations } from "next-intl";
 
 export default function RTP({
   color,
@@ -15,7 +17,12 @@ export default function RTP({
   setOpen?: (trueFalse: boolean) => void;
   onPressRemove?: () => void;
 }) {
-  const [angle, setAngle] = useState(96.5);
+  const t = useTranslations("RTP");
+
+  const RTPCenterAngle = 90;
+  const { newRtp } = useStore();
+  const [angle, setAngle] = useState<number>();
+  const [RTP, setRTP] = useState<number>();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -27,24 +34,41 @@ export default function RTP({
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      function biasedRandomNumber() {
-        const range70to110 = Math.random() * 40 + 70;
-        const otherRange = Math.random() * 180;
-
-        // Choose between the two ranges with a probability of 70% for 70-110 range
-        const number = Math.random() < 0.7 ? range70to110 : otherRange;
-        return Number(number.toFixed(2));
-      }
-      setAngle(biasedRandomNumber());
-    }, 3000);
-    return () => clearInterval(interval);
+    if (gameObject?.rtp) {
+      setAngle(
+        gameObject.rtp.value - (gameObject.rtp.preferredValue - RTPCenterAngle)
+      );
+      setRTP(gameObject.rtp.value);
+    }
   }, []);
+
+  useEffect(() => {
+    if (newRtp && gameObject?.rtp && newRtp.rtpId === gameObject.rtp.id) {
+      const { value } = newRtp;
+      const { preferredValue, max, min } = gameObject.rtp;
+
+      if (value > preferredValue) {
+        const casinoLoosingIndicatorSizeCounter =
+          RTPCenterAngle +
+          (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
+        setAngle(casinoLoosingIndicatorSizeCounter);
+      } else if (value < preferredValue) {
+        const casinoWiningIndicatorSizeCounter =
+          RTPCenterAngle -
+          (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
+        setAngle(casinoWiningIndicatorSizeCounter);
+      } else {
+        setAngle(RTPCenterAngle);
+      }
+
+      setRTP(value);
+    }
+  }, [newRtp]);
 
   return (
     <div className=" w-full">
       <div className="rounded-3xl bg-dark2 lg:p-6 mt-6">
-        {gameObject ? (
+        {gameObject?.rtp && RTP ? (
           <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -52,7 +76,7 @@ export default function RTP({
           >
             {setOpen && isHovered && (
               <div
-                className="absolute top-0 bottom-0  z-50"
+                className="absolute top-0 bottom-0  z-10"
                 onClick={onPressRemove}
               >
                 <svg
@@ -123,7 +147,7 @@ export default function RTP({
                   fontSize="14"
                   fontFamily="modernist"
                 >
-                  RTP 96.5%
+                  RTP {gameObject?.rtp?.preferredValue}%
                 </text>
                 <text
                   x="50%"
@@ -134,7 +158,7 @@ export default function RTP({
                   fontSize="28"
                   fontFamily="modernist"
                 >
-                  {angle}%
+                  {RTP}%
                 </text>
                 <text
                   x="50%"
@@ -146,11 +170,11 @@ export default function RTP({
                   fontSize="12"
                   fontFamily="modernist"
                 >
-                  {angle === 96.5
-                    ? "neutral"
-                    : angle > 96.5
-                    ? "Casino is losing"
-                    : "Casino is in profit"}
+                  {RTP === gameObject.rtp.preferredValue
+                    ? t("neutral")
+                    : RTP > gameObject.rtp.preferredValue
+                    ? t("CasinoIsLosing")
+                    : t("CasinoIsInProfit")}
                 </text>
                 <defs>
                   <linearGradient
@@ -186,10 +210,12 @@ export default function RTP({
               </motion.div>
             </div>
           </div>
+        ) : gameObject && !gameObject.rtp ? (
+          <div className="rounded-3xl bg-dark1 h-[233px] flex flex-col justify-center px-4 items-center text-white text-center">
+            {t("provideInfo")}
+          </div>
         ) : (
-          <div
-            className={`rounded-3xl bg-dark1 h-[233px] flex flex-col items-center `}
-          >
+          <div className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -214,7 +240,7 @@ export default function RTP({
                 fill={"white"}
                 fontSize="14"
               >
-                Compare
+                {t("Compare")}
               </text>
 
               <path

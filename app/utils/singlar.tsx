@@ -1,10 +1,11 @@
 "ise client";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import useStore from "../(store)/store";
+import { baseUrl } from "@/lib/baseURL";
 
 const signalR = async () => {
   const connection = new HubConnectionBuilder()
-    .withUrl(`https://api.slotstat.ge/events`)
+    .withUrl(`${baseUrl}/events`)
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -21,6 +22,13 @@ const signalR = async () => {
       });
       connection.on("jackpothasbeendrawn", (message) => {
         useStore.setState({ jackpotHasBeenDrawn: message });
+      });
+      connection.on("newRtp", (message) => {
+        useStore.setState({ newRtp: message });
+      });
+      connection.on("newUser", (message) => {
+        // console.log("newUser", message);
+        useStore.setState({ newUser: message });
       });
     } catch (err) {
       setTimeout(start, 5000);

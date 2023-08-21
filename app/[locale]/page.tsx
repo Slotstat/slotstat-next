@@ -25,6 +25,7 @@ export default async function Home({
   const landingOffersData: Promise<Offer[]> = getLandingOffers();
 
   const landingCardsData: Promise<Card[]> = getLandingCards();
+
   const [casinos, landingCards] = await Promise.all([
     casinosData,
     landingCardsData,

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { getCookie } from "cookies-next";
+"use client";
+import slotStatClientInstance from "./clientInstance";
 
 export default async function getCasinosClientSide({
   orderBy,
@@ -7,17 +7,7 @@ export default async function getCasinosClientSide({
   direction,
 }: QueryParams) {
   try {
-    const cookie = getCookie("NEXT_LOCALE"); // => 'value'
-    const lang = cookie === "en" ? "en-US" : "ka-GE";
-    const slotStatClientInstance = axios.create({
-      baseURL: "https://api.slotstat.ge",
-      // timeout: 10000,
-      headers: {
-        "Content-Type": "application/json",
-        "Accept-Language": lang,
-      },
-    });
-    const res = await slotStatClientInstance.request({
+    const res = await slotStatClientInstance().request({
       url: "/api/casino/aggregated",
       method: "GET",
       params: {

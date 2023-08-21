@@ -18,7 +18,21 @@
     "joinUs": "Join 7,000+ subscribers on\nTelegram",
     "stayInLoop": "Stay in the loop with everything you need to know.",
     "subscribe": "Subscribe ",
-    "telegramChan": " to our Telegram channel"
+    "telegramChan": "to our Telegram channel",
+    "WhatIsHappeningHere": "What's happening here?",
+    "WhatIsHappeningHereParams": "Here on Slotstat you can find 3 main branches of gambling parameters:",
+    "WhatIsHappeningHereA": "a. Hitrate (Shown on graphs);",
+    "WhatIsHappeningHereB": "b. Jackpots;",
+    "WhatIsHappeningHereC": "c. RTP fluctuation.",
+    "WhatIsHappeningHereEnd": "cThose parameters may defer by casinos, providers and/or games.",
+    "WhatIsSlotstat": "What is Slotstat?",
+    "WhatIsSlotstatContent": "We do gambling sector statistics. In order to reduce our analitical work service fees, we partly share information with general public. Mainly Slotstat is a side-effect of our analitical sevices.",
+    "WhatsHitRate": "What is hit rate?",
+    "WhatsHitRateContent": "Hit Rate is the frequency of winning spins, for which win spin is a spin issuing a higher win than the initial bet.",
+    "WhatIsRTP": "What's RTP?",
+    "WhatIsRTPContent": "RTP meaning is Return to Player, it's static number All casinos have their RTP. It may vary from rpovider to provider even within one casino.",
+    "fluctuation": "What's RTP fluctuation?",
+    "fluctuationContent": " RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it's better to play a long run or a short one."
   },
   "footer": {
     "company": "Company",
@@ -31,12 +45,14 @@
   "table": {
     "casinoName": "Casino name",
     "providers": "Providers",
+    "provider": "Provider",
     "bounties": "Bounties",
     "h1": "1h %",
     "h24": "24h %",
     "source": "Source",
     "jackpot": "Max Jackpot",
     "t24h": "24h",
+    "RTP": "RTP / Fluctuation",
     "game": "Game",
     "user": "User",
     "bountiesHint": "Information about casino gift offers",
@@ -48,11 +64,15 @@
     "h1GameHint": "Percentage of winning spins during the last hour",
     "h24GameHint": "Percentage of winning spins during the last 24 hour",
     "GoToStatistic": "Go to statistic",
-    "GoToCasino": "Go to casino"
+    "GoToCasino": "Go to casino",
+    "GoToGame": "Go to Game",
+    "RTPhint": "RTP meaning is Return to Player, it’s static number All casinos have their RTP. It may vary from provider to provider even within one casino. RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it’s better to play a long run or a short one."
   },
   "gamePage": {
     "other": "Other",
-    "games": "games"
+    "games": "games",
+    "Win-spinRate": "Win-spin rate",
+    "Win-spinRateHint": "Win spin rate is the frequency of winning spins, for which win spin is a spin issuing a higher win than the initial bet."
   },
   "sortBy": {
     "none": "None",
@@ -74,10 +94,20 @@
   "itemNotFound": "Oops, item not found",
 
   "notification": {
-    "notification": "The jackpot has been drawn"
+    "notification": "The jackpot has been drawn",
+    "cookieText": "By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in your marketing efforts.",
+    "AcceptAllCookies": "Accept All Cookies",
+    "RejectAll": "Reject All"
   },
   "bottomSheetModal": {
     "choose-game-from": "Choose Game from",
     "choose-casino": "Choose Casino"
+  },
+  "RTP": {
+    "provideInfo": "We will provide RTP Information soon",
+    "Compare": "Compare",
+    "neutral": "neutral",
+    "CasinoIsLosing": "Casino is losing",
+    "CasinoIsInProfit": "Casino is in profit"
   }
 }

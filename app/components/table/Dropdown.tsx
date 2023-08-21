@@ -50,8 +50,13 @@ const Dropdown = ({
                 open ? "border-blue1" : "border-grey1"
               } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2  text-sm`}
             >
-              <span className="block truncate text-white">
-                <span className="text-grey1">{t("sortBy")}: </span>{" "}
+              <span
+                title={selected.label}
+                className="block truncate text-white"
+              >
+                <span title={t("sortBy")} className="text-grey1">
+                  {t("sortBy")}:{" "}
+                </span>{" "}
                 {selected.label}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -84,6 +89,7 @@ const Dropdown = ({
                     {({ selected }) => (
                       <>
                         <span
+                          title={item.label}
                           className={`block truncate text-xs md:text-base ${
                             selected ? "text-blue2" : "font-normal"
                           }`}

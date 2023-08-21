@@ -23,6 +23,7 @@ import _ from "lodash";
 import getCasinoStatistic from "@/lib/clientSide/getCasinoStatistic";
 import { useTranslations } from "next-intl";
 import RTP from "./RTP";
+import TooltipComponent from "../TooltipComponent";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -392,12 +393,21 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap">
-        <div className="lg:px-3 py-6 lg:py-18 lg:w-3/4 w-full ">
+        <div
+          className={`w-full px-4 py-6 lg:px-3 lg:py-18 ${
+            isAllGames || !mainGameObject?.rtp ? "w-full" : "lg:w-3/4"
+          } `}
+        >
           <div className="flex flex-col items-center justify-between lg:flex-row">
-            <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-              {/* todo tooltip */}
-              Hit rate
-            </h2>
+            <div className="flex flex-row items-center">
+              <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
+                {t("gamePage.Win-spinRate")}
+              </h2>
+              <TooltipComponent
+                big={true}
+                text={t("gamePage.Win-spinRateHint")}
+              />
+            </div>
             <div className="mt-3 flex items-center justify-between lg:mt-0">
               {selectedGames.length && (
                 <div
@@ -431,7 +441,7 @@ const ChartComponent = ({
               )}
             </div>
           </div>
-          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-1">
+          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-4">
             <div className="rounded-3xl bg-dark1">
               {noStatisticsYet ? (
                 <div className=" text-white w-full text-center">
@@ -458,24 +468,31 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
-        <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full">
-          <h3 className=" flex flex-1 items-center justify-between text-[24px] font-bold text-white h-[48px]">
-            RTP
-          </h3>
-          <div>
-            {mainGameObject && (
-              <RTP color="#5887F6" gameObject={mainGameObject} />
-            )}
+        {!isAllGames && mainGameObject?.rtp && (
+          <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
+            <div className="flex flex-row items-center  justify-between">
+              <div className="flex flex-row items-center ">
+                <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
+                  RTP / Fluctuation
+                </h3>
+                <TooltipComponent big={true} text={t("table.RTPhint")} />
+              </div>
+              <Image src={live} alt="" className="ml-3 w-10 h-10" />
+            </div>
 
-            <RTP
-              color="#877CF2"
-              gameObject={compareGameObject}
-              onPressCompare={onPressCompare}
-              setOpen={setOpen}
-              onPressRemove={onPressRemove}
-            />
+            <div>
+              <RTP color="#5887F6" gameObject={mainGameObject} />
+
+              <RTP
+                color="#877CF2"
+                gameObject={compareGameObject}
+                onPressCompare={onPressCompare}
+                setOpen={setOpen}
+                onPressRemove={onPressRemove}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <BottomSheetModal
         open={open}

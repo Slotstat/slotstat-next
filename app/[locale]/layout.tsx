@@ -11,6 +11,8 @@ import JackpotNotification from "../components/JackpotNotification";
 import TooltipClientSide from "../components/TooltipClientSide";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import CookieNotification from "../components/CookieNotification";
+import { cookies } from "next/headers";
 
 // export function generateStaticParams() {
 //   return [{ locale: "en" }, { locale: "ka" }];
@@ -35,6 +37,8 @@ export default async function RootLayout({
   } catch (error) {
     notFound();
   }
+  const uniqueId = cookies().get("uniqueId")?.value;
+  
 
   return (
     <html lang={locale}>
@@ -47,6 +51,7 @@ export default async function RootLayout({
           </div>
           <Footer />
           <JackpotNotification />
+          <CookieNotification uniqueId={uniqueId} />
           <TooltipClientSide />
         </NextIntlClientProvider>
       </body>

@@ -22,6 +22,8 @@ import search from "./svg/search.svg";
 import skewed_arrow from "./svg/skewed_arrow.svg";
 import telegram from "./svg/telegram.svg";
 import slotLogo from "./img/slotLogo.png";
+import moneyBag from "./img/moneyBag.png";
+import cookie from "./img/cookie.png";
 
 export {
   logo,
@@ -48,4 +50,6 @@ export {
   live,
   search,
   slotLogo,
+  moneyBag,
+  cookie,
 };

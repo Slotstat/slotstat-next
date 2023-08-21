@@ -1,8 +1,4 @@
-"use client"; // Error components must be Client components
-
-import { useEffect } from "react";
-
-export default function Error404({ reset }: { reset: () => void }) {
+export default function Error404({ reset }: { reset?: () => void }) {
   return (
     <div>
       <section>
@@ -272,15 +268,17 @@ export default function Error404({ reset }: { reset: () => void }) {
               <p className="text-sm md:text-base text-white p-2 mb-4">
                 The stuff you were looking for does not exist
               </p>
-              <div
-                onClick={
-                  // Attempt to recover by trying to re-render the segment
-                  () => reset()
-                }
-                className="bg-transparent hover:bg-blue1 text-blue1 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-blue1 hover:border-transparent"
-              >
-                Retry
-              </div>
+              {reset && (
+                <div
+                  onClick={
+                    // Attempt to recover by trying to re-render the segment
+                    () => reset()
+                  }
+                  className="bg-transparent hover:bg-blue1 text-blue1 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-blue1 hover:border-transparent"
+                >
+                  Retry
+                </div>
+              )}
             </div>
           </div>
         </div>

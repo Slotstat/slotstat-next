@@ -142,6 +142,20 @@ type GameData = {
   redirectUrl: string;
   type?: "AllGames";
   casinoCurrency?: string;
+  rtp?: RTP;
+};
+
+type RTP = {
+  casinoId: string;
+  displayOnCasionListing: boolean;
+  id: string;
+  isDemoActive: boolean;
+  max: number;
+  min: number;
+  name: string;
+  preferredValue: number;
+  provider: string;
+  value: number;
 };
 
 type gamesList = {

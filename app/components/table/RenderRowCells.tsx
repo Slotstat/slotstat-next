@@ -7,15 +7,16 @@ import {
 } from "@/app/assets/svg/SmallCharts";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
-import MoreIcon from "@/app/assets/svg/MoreIcon";
+// import MoreIcon from "@/app/assets/svg/MoreIcon";
 import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
+import RTPListing from "./RTPListing";
 
 const CountUpForJackpots = ({
   jackpot,
@@ -59,7 +60,6 @@ const CountUpForJackpots = ({
         onEnd={() => {
           setStart(Number(end));
           increaseJackpot();
-          // jackpot !== 0 && setEnd(end + 0.2);
         }}
         delay={0}
       >
@@ -78,11 +78,13 @@ export default function RenderRowCells({
   cell,
   index,
   onRowPress,
+  isGame,
 }: {
   cell: Cell<GameData, any> | Cell<CasinoData, any>;
   row: Row<GameData> | Row<CasinoData>;
   index: number;
   onRowPress: () => void;
+  isGame: boolean;
 }) {
   const t = useTranslations("table");
 
@@ -96,6 +98,8 @@ export default function RenderRowCells({
     jackpotCurrency,
     casinoCurrency,
     casinoId,
+    provider,
+    rtp,
   } = row.original;
 
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
@@ -121,23 +125,25 @@ export default function RenderRowCells({
       onClick={onGoToWebSiteClick}
       className="text-xs  flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
     >
-      {t("GoToCasino")} <LinkIcon className="ml-2" />
+      {isGame ? t("GoToGame") : t("GoToCasino")} <LinkIcon className="ml-2" />
     </div>
   );
-  const RenderGoTo = () => {
-    return (
-      <MenuComponent
-        listItems={[GoToStatistic, goToCasino]}
-        className="-right-18"
-      >
-        <MoreIcon className="cursor-pointer" />
-      </MenuComponent>
-    );
-  };
+
+  // const RenderGoTo = () => {
+  //   return (
+  //     <MenuComponent
+  //       listItems={[GoToStatistic, goToCasino]}
+  //       className="-right-18"
+  //     >
+  //       <MoreIcon className="cursor-pointer" />
+  //     </MenuComponent>
+  //   );
+  // };
 
   const isImgUrl = (url: string) => {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
+
   const CasinoGameName = () => {
     return (
       <MenuComponent listItems={[GoToStatistic, goToCasino]}>
@@ -157,9 +163,9 @@ export default function RenderRowCells({
             </div>
           </div>
 
-          <h3 className="text-white font-bold truncate max-w-[110px] text-xs md:text-base">
+          <p title={name} className="text-white font-bold truncate max-w-[110px] text-xs md:text-base">
             {cell.render("Cell")}
-          </h3>
+          </p>
           <LinkIcon className="ml-2" />
         </div>
       </MenuComponent>
@@ -196,58 +202,73 @@ export default function RenderRowCells({
     }
   };
 
-  if (index === 0) {
-    return <CasinoGameName />;
-  } else if (index === 3) {
-    return (
-      <div className="flex flex-row items-center">
-        {showUpOrDownIcon(t1H)}
-        {cell.render("Cell")}%
-      </div>
-    );
-  } else if (index === 4) {
-    return (
-      <div className="flex flex-row items-center">
-        {showUpOrDownIcon(t24h)}
-        {cell.render("Cell")}%
-      </div>
-    );
-  } else if (index === 6) {
-    return (
-      <CountUpForJackpots
-        jackpot={jackpot}
-        jackpotCurrency={jackpotCurrency}
-        casinoCurrency={casinoCurrency}
-        casinoId={casinoId}
-      />
-      // <div className=" text-green1">
-      //   <CountUp
-      //     start={0}
-      //     end={Number(jackpot)}
-      //     duration={1.5}
-      //     separator=" "
-      //     decimals={2}
-      //     decimal="."
-      //     prefix={
-      //       jackpotCurrency
-      //         ? jackpotCurrency + " "
-      //         : casinoCurrency
-      //         ? casinoCurrency + " "
-      //         : ""
-      //     }
-      //     delay={0}
-      //   >
-      //     {({ countUpRef }) => (
-      //       <div>
-      //         <span ref={countUpRef} />
-      //       </div>
-      //     )}
-      //   </CountUp>
-      // </div>
-    );
-  } else if (index === 7) {
-    return generateSmallCharts();
+  if (isGame) {
+    switch (index) {
+      case 0:
+        return <CasinoGameName />;
+      case 2:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t1H)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 3:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t24h)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 5:
+        return (
+          <CountUpForJackpots
+            jackpot={jackpot}
+            jackpotCurrency={jackpotCurrency}
+            casinoCurrency={casinoCurrency}
+            casinoId={casinoId}
+          />
+        );
+      case 6:
+        return name !== "All Games" && rtp ? (
+          <RTPListing rtp={rtp} provider={provider} />
+        ) : (
+          <>--</>
+        );
+      default:
+        return renderEmptyValue();
+    }
   } else {
-    return renderEmptyValue();
+    switch (index) {
+      case 0:
+        return <CasinoGameName />;
+      case 3:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t1H)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 4:
+        return (
+          <div className="flex flex-row items-center">
+            {showUpOrDownIcon(t24h)}
+            {cell.render("Cell")}%
+          </div>
+        );
+      case 6:
+        return (
+          <CountUpForJackpots
+            jackpot={jackpot}
+            jackpotCurrency={jackpotCurrency}
+            casinoCurrency={casinoCurrency}
+            casinoId={casinoId}
+          />
+        );
+      case 7:
+        return generateSmallCharts();
+      default:
+        return renderEmptyValue();
+    }
   }
 }

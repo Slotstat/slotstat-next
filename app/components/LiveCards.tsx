@@ -8,6 +8,7 @@ import TooltipComponent from "./TooltipComponent";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
 import CountUp from "react-countup";
+import { getLandingCardsClientSide } from "@/lib/clientSide/getLAndingClient";
 
 type PagesAndStyleDiff = {
   landing?: boolean;
@@ -170,10 +171,19 @@ const LiveCards = ({
   casinoCardsData?: Promise<Card[]>;
   gamesCardsData?: Promise<Card[]>;
 } & PagesAndStyleDiff) => {
-  const { newJackpot } = useStore();
+  const { newJackpot, newUser } = useStore();
   const [cardsDataState, setCardsDataState] = useState(cardsData);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getUpdatedLandingCardsData = useCallback(
+    _.debounce(async () => {
+      const landingCardsData: Promise<Card[]> = getLandingCardsClientSide();
+      const updatedLandingCardsData = await landingCardsData;
+      console.log(updatedLandingCardsData);
+      setCardsDataState(updatedLandingCardsData);
+    }, 2000),
+    []
+  );
   const getUpdatedCasinoCardsData = useCallback(
     _.debounce(async () => {
       if (casinoCardsData) {
@@ -197,6 +207,21 @@ const LiveCards = ({
 
   useEffect(
     () => {
+      // users count on each page
+      // if (newUser) {
+      //   console.log("111");
+      //   if (casino) {
+      //     console.log("222");
+      //     getUpdatedCasinoCardsData();
+      //   } else if (game) {
+      //     console.log("333");
+      //     getUpdatedGameCardsData();
+      //   } else {
+      //     console.log("444");
+      //     getUpdatedLandingCardsData();
+      //   }
+      // }
+
       // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
       if (
         newJackpot?.casinoId === casinoId &&
@@ -211,6 +236,7 @@ const LiveCards = ({
       }
     },
     [
+      // newUser,
       // uncomment when users count is needed but check jackpots logic after uncommenting.
       // casino,
       // casinoId,

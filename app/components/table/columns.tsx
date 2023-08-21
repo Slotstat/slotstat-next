@@ -1,4 +1,4 @@
-export const casinoColumns = (t: any, isGame: boolean) => {
+export const casinoOrGameColumns = (t: any, isGame: boolean) => {
   const casinoColumns = [
     {
       Header: t("casinoName"),
@@ -61,6 +61,13 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       width: 169,
       minWidth: 50,
     },
+    // {
+    //   Header: t("RTP"),
+    //   accessor: "RTP",
+    //   // maxWidth: 169,
+    //   // width: 169,
+    //   // minWidth: 50,
+    // },
   ];
 
   const CASINO_GAME_COLS = [
@@ -72,20 +79,20 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       minWidth: 100,
     },
     {
-      Header: t("providers"),
+      Header: t("provider"),
       accessor: "provider",
       maxWidth: 168,
       width: 168,
       minWidth: 100,
     },
-    {
-      Header: t("user"),
-      accessor: "user",
-      maxWidth: 129,
-      width: 129,
-      minWidth: 80,
-      hint: t("userHint"),
-    },
+    // {
+    //   Header: t("user"),
+    //   accessor: "user",
+    //   maxWidth: 129,
+    //   width: 129,
+    //   minWidth: 80,
+    //   hint: t("userHint"),
+    // },
     {
       Header: t("h1"),
       accessor: "p1h",
@@ -119,12 +126,21 @@ export const casinoColumns = (t: any, isGame: boolean) => {
       hint: t("jackpotHint"),
     },
     {
-      Header: t("t24h"),
-      accessor: "t24h",
-      maxWidth: 139,
-      width: 139,
-      minWidth: 50,
+      Header: t("RTP"),
+      accessor: "RTP",
+      // maxWidth: 169,
+      // width: 169,
+      // minWidth: 50,
+      hint: t("RTPhint"),
+
     },
+    // {
+    //   Header: t("t24h"),
+    //   accessor: "t24h",
+    //   maxWidth: 139,
+    //   width: 139,
+    //   minWidth: 50,
+    // },
   ];
 
   return isGame ? CASINO_GAME_COLS : casinoColumns;
