@@ -403,7 +403,10 @@ const ChartComponent = ({
               <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
                 {t("gamePage.Win-spinRate")}
               </h2>
-              <TooltipComponent big={true} text={t("gamePage.Win-spinRateHint")} />
+              <TooltipComponent
+                big={true}
+                text={t("gamePage.Win-spinRateHint")}
+              />
             </div>
             <div className="mt-3 flex items-center justify-between lg:mt-0">
               {selectedGames.length && (
@@ -470,7 +473,7 @@ const ChartComponent = ({
             <div className="flex flex-row items-center  justify-between">
               <div className="flex flex-row items-center ">
                 <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
-                  RTP
+                  RTP / Fluctuation
                 </h3>
                 <TooltipComponent big={true} text={t("table.RTPhint")} />
               </div>
@@ -479,7 +482,7 @@ const ChartComponent = ({
 
             <div>
               <RTP color="#5887F6" gameObject={mainGameObject} />
-              
+
               <RTP
                 color="#877CF2"
                 gameObject={compareGameObject}
