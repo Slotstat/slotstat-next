@@ -66,11 +66,13 @@
     "GoToStatistic": "Go to statistic",
     "GoToCasino": "Go to casino",
     "GoToGame": "Go to Game",
-    "RTPhint": "RTP is short for Return to Player. It is used to describe the percentage of wagered money that players can expect to win back over time. It is calculated by dividing the amount of money out of a slot by the amount of money in,and multiplying by 100."
+    "RTPhint": "RTP meaning is Return to Player, it’s static number All casinos have their RTP. It may vary from provider to provider even within one casino. RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it’s better to play a long run or a short one."
   },
   "gamePage": {
     "other": "Other",
-    "games": "games"
+    "games": "games",
+    "Win-spinRate": "Win-spin rate",
+    "Win-spinRateHint": "Win spin rate is the frequency of winning spins, for which win spin is a spin issuing a higher win than the initial bet."
   },
   "sortBy": {
     "none": "None",
@@ -90,7 +92,6 @@
   "fiatCasinos": "Fiat",
   "cryptoCasinos": "Crypto",
   "itemNotFound": "Oops, item not found",
-  "Win-spinRate": "Win-spin rate",
 
   "notification": {
     "notification": "The jackpot has been drawn",

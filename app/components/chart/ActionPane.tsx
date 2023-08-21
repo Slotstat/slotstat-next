@@ -26,7 +26,12 @@ const ActionPane = ({
       <div className="flex items-center">
         <div className="cursor-default ml-3 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 max-w-[224px]	">
           <BulletIcon color={SERIE_COLORS[0]} size={20} />
-          <span className="ml-2 text-sm font-bold leading-4 text-white truncate">
+          <span
+            title={
+              mainGameObject && mainGameObject.casinoName + mainGameObject.name
+            }
+            className="ml-2 text-sm font-bold leading-4 text-white truncate"
+          >
             {mainGameObject?.casinoName} {mainGameObject?.name}
           </span>
         </div>
@@ -43,7 +48,10 @@ const ActionPane = ({
         ) : (
           <div className="mr-2 flex items-center justify-center rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3  max-w-[224px]">
             <BulletIcon color={SERIE_COLORS[1]} size={20} />
-            <span className="ml-2 text-sm font-bold leading-4 text-white truncate ">
+            <span
+              title={compareGameObject.casinoName + compareGameObject.name}
+              className="ml-2 text-sm font-bold leading-4 text-white truncate "
+            >
               {compareGameObject.casinoName} {compareGameObject.name}
             </span>
             <button onClick={onPressRemove} className="pointer">

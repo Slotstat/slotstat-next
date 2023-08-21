@@ -401,9 +401,9 @@ const ChartComponent = ({
           <div className="flex flex-col items-center justify-between lg:flex-row">
             <div className="flex flex-row items-center">
               <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-                {t("Win-spinRate")}
+                {t("gamePage.Win-spinRate")}
               </h2>
-              <TooltipComponent big={true} text={"wefwerfwerfwe"} />
+              <TooltipComponent big={true} text={t("gamePage.Win-spinRateHint")} />
             </div>
             <div className="mt-3 flex items-center justify-between lg:mt-0">
               {selectedGames.length && (
