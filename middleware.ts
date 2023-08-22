@@ -16,13 +16,13 @@ export default async function middleware(request: NextRequest) {
   });
   const response = handleI18nRouting(request);
 
-  // let uniqueId = request.cookies.get("uniqueId")?.value;
-  // if (!uniqueId) {
-  //   //   // If not found, generate a new unique ID
-  //   uniqueId = generateUniqueId();
-  //   //   // Store the unique ID in localStorage to use it across renders
-  //   response.cookies.set("uniqueId", uniqueId);
-  // }
+  let uniqueId = request.cookies.get("uniqueId")?.value;
+  if (!uniqueId) {
+    //   // If not found, generate a new unique ID
+    uniqueId = generateUniqueId();
+    //   // Store the unique ID in localStorage to use it across renders
+    response.cookies.set("uniqueId", uniqueId);
+  }
 
   // Step 3: Alter the response
   response.headers.set("x-default-locale", defaultLocale);

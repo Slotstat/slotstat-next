@@ -1,10 +1,7 @@
-// export const dynamic = 'force-static';
 import "../globals.css";
-
 import { ReactNode } from "react";
 
 import type { Metadata } from "next";
-// import Breadcrumbs from "../components/Breadcrumbs";
 import Header from "../components/navbar/Header";
 import Footer from "../components/Footer";
 import JackpotNotification from "../components/JackpotNotification";
@@ -13,10 +10,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import CookieNotification from "../components/CookieNotification";
 import { cookies } from "next/headers";
-
-// export function generateStaticParams() {
-//   return [{ locale: "en" }, { locale: "ka" }];
-// }
+import GoogleAnalytics from "../components/GoogleAnalytics";
+import CookieBanner from "../components/CookieBanner";
+// import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "slot stat",
@@ -28,7 +24,6 @@ export default async function RootLayout({
   params: { locale },
 }: {
   children: ReactNode;
-  // todo
   params: { locale: "en" | "ka" };
 }) {
   let messages;
@@ -38,10 +33,10 @@ export default async function RootLayout({
     notFound();
   }
   const uniqueId = cookies().get("uniqueId")?.value;
-  
 
   return (
     <html lang={locale}>
+      <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
@@ -53,6 +48,7 @@ export default async function RootLayout({
           <JackpotNotification />
           <CookieNotification uniqueId={uniqueId} />
           <TooltipClientSide />
+          <CookieBanner />
         </NextIntlClientProvider>
       </body>
     </html>
