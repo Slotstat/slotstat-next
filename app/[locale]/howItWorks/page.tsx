@@ -34,7 +34,7 @@ export default async function HowItWorks() {
       <p className="mb-8">
         {`Welcome to the "How it works" section of Slotstat.ge, where we offer an in-depth overview of our platform's functionalities and features. Let's delve into the three main pages and their capabilities:`}
       </p>
-      <ol className="list-decimal list-inside">
+      <ol className="list-decimal list-inside ">
         <li className="mb-8">
           {`Landing Page: Upon visiting Slotstat.ge, users will be directed to our
           dynamic landing page. This page displays a tailored list of casinos
@@ -43,7 +43,7 @@ export default async function HowItWorks() {
           details include:`}
         </li>
 
-        <ul className="list-disc  list-inside">
+        <ul className="list-disc  list-inside ml-5">
           <li className="mb-8">
             {`RTP (Return to Player) Percentage: This is a predicted, ideal number
             that represents the casino's tendency to realize payouts. It serves
