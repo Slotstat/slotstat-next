@@ -2,7 +2,7 @@
 import { logo, slotLogo } from "../assets";
 import SubscribeButton from "./SubscribeButton";
 import Link from "next-intl/link";
-import LanguageToggleButton from "./navbar/LanguageToggleButton";
+// import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
@@ -24,7 +24,7 @@ const Footer = () => {
                 height={40}
               />
             </Link>
-            <LanguageToggleButton css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1" />
+            {/* <LanguageToggleButton css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1" /> */}
           </div>
         </div>
         <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mt-0 lg:flex-row lg:justify-start">

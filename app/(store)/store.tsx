@@ -14,6 +14,7 @@ type jackpotHasBeenDrawn = {
   ccy: string;
   imageUrl: string;
   jackpotId: string;
+  provider: string;
 };
 
 type RTPEvent = {

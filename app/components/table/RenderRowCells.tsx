@@ -163,7 +163,10 @@ export default function RenderRowCells({
             </div>
           </div>
 
-          <p title={name} className="text-white font-bold truncate max-w-[110px] text-xs md:text-base">
+          <p
+            title={name}
+            className=" text-white font-bold truncate max-w-[110px] text-xs md:text-base"
+          >
             {cell.render("Cell")}
           </p>
           <LinkIcon className="ml-2" />

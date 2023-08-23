@@ -51,7 +51,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="px-4 py-6 lg:border-b lg:border-b-dark3  justify-center items-center	">
+    <header className=" py-6 lg:border-b lg:border-b-dark3  justify-center items-center	">
       <div className="flex justify-center">
         <div className="flex items-center justify-between w-[100%] px-4 max-w-screen-xl">
           <Link href="/" className="flex items-center">
@@ -64,7 +64,7 @@ const Header = () => {
           </Link>
           <div className="flex items-center">
             <NavList />
-            <LanguageToggleButton css="mt-4 ml-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex" />
+            <LanguageToggleButton />
           </div>
 
           {/* <button

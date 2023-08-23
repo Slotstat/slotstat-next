@@ -23,7 +23,7 @@ export default function JackpotNotification() {
       // Get current date and time
       var currentDate = new Date();
 
-      // Create an array of month names
+      // an array of month names
       var monthNames = [
         "Jan",
         "Feb",
@@ -108,7 +108,7 @@ export default function JackpotNotification() {
 
         <div className="flex flex-row justify-between text-sm">
           <h3 className=" text-white font-black  ">
-            {jackpotHasBeenDrawn?.casinoName} 
+            {jackpotHasBeenDrawn?.casinoName} / {jackpotHasBeenDrawn?.provider}
           </h3>
           <div className=" text-grey1 font-black">{time}</div>
         </div>

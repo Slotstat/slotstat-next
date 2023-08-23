@@ -30,8 +30,6 @@ export default function CookieNotification({
 
     setLocalStorage("cookie_consent", cookieConsent);
 
-    //For Testing
-    console.log("Cookie Consent: ", cookieConsent);
   }, [cookieConsent]);
 
   // uncomment if we need to set user count cookie from here

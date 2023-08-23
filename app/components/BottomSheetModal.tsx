@@ -113,7 +113,7 @@ const BottomSheetModal = ({
         setGames(undefined);
       }}
     >
-      <div className="bg-dark1 py-8 px-4 flex justify-center  ">
+      <div className="bg-dark1 py-8 flex justify-center  ">
         <div className=" w-[100%] max-w-screen-xl">
           <div className="flex items-center justify-between">
             {games ? (

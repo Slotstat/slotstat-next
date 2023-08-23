@@ -12,7 +12,6 @@ import CookieNotification from "../components/CookieNotification";
 import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 import CookieBanner from "../components/CookieBanner";
-// import Breadcrumbs from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "slot stat",
@@ -40,9 +39,8 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          {/* <Breadcrumbs /> */}
           <div className="flex justify-center">
-            <div className=" w-[100%] max-w-screen-xl">{children}</div>
+            <div className=" w-[100%] max-w-screen-xl px-4">{children}</div>
           </div>
           <Footer />
           <JackpotNotification />

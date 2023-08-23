@@ -1,6 +1,6 @@
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 import LiveCards from "@/app/components/LiveCards";
 import Table from "@/app/components/table/Table";
-// import getCasino from "@/lib/getCasino";
 import getCasinoCards from "@/lib/getCasinoCards";
 
 import getGamesList from "@/lib/getGamesList";
@@ -24,26 +24,25 @@ const Casino = async ({
   });
 
   const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
-  // const casinoData: Promise<CasinoData> = getCasino(casinoId);
 
-  const [
-    gamesList,
-    casinoCards,
-    //  casino
-  ] = await Promise.all([
+  const [gamesList, casinoCards] = await Promise.all([
     gamesListData,
     casinoCardsData,
-    // casinoData,
   ]);
   if (!gamesList.results) return notFound();
   const gameListWithCasinoOnTop = gamesList.results;
-  // casino.name = "all games";
-  // casino.isForAllGames = true;
 
-  // gameListWithCasinoOnTop.unshift(casino);
+  const breadcrumbs = [
+    {
+      name: gamesList.results[0]?.casinoName,
+      // url: `/${casinoId}`
+    },
+  ];
 
   return (
     <>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
+
       {!!casinoCards && (
         <LiveCards
           cardsData={casinoCards}
@@ -53,7 +52,7 @@ const Casino = async ({
           casinoCardsData={casinoCardsData}
         />
       )}
-      <div className="md:my-18 my-10 px-4 lg:my-18 ">
+      <div className="md:my-18 my-10 lg:my-18 ">
         <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
           {gamesList.results[0]?.casinoName}
         </h2>
