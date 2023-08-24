@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const breadcrumbs = [{ name: "How it works" }];
 
-export default async function HowItWorks() {
+export default  function HowItWorks() {
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 const breadcrumbs = [{ name: "FAQ" }];
 
-export default async function FAQ() {
+export default function FAQ() {
   const t = useTranslations("faq");
 
   const columns = useMemo(() => accordionData(t), [t]);
