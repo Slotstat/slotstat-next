@@ -2745,14 +2745,14 @@ negotiator@^0.6.3:
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.3.tgz"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
-next-intl@^2.19.2:
-  version "2.19.2"
-  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-2.19.2.tgz#a95860f5b07a7fd3cf6c625e99cbcf0bd2bdc349"
-  integrity sha512-FNeIxpWr4RsIns2TvIH4YeTWLeSp/YFLlZn9y8t9/aSZ5NPFpaEAAWSppIqes8q1QSXLn77eaw7ROp+axmeckw==
+next-intl@^2.17.5:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-2.20.0.tgz#654f2ae2e069c4ec33fb834df5ff7a5d1c0a0fdb"
+  integrity sha512-zeGod4WuS/j8dhDM1eLlt+GTCqqq1b09l/eHxUWQjGrK87BeN+crKasHjZWMNm38g0ddWpBW6i9KDZcTn8/p1A==
   dependencies:
     "@formatjs/intl-localematcher" "^0.2.32"
     negotiator "^0.6.3"
-    use-intl "^2.19.2"
+    use-intl "^2.20.0"
 
 next-tick@^1.1.0:
   version "1.1.0"
@@ -4110,10 +4110,10 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-use-intl@^2.19.2:
-  version "2.19.2"
-  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-2.19.2.tgz#29291d0afab782fd649ff9ee5e9dfab61b5a2568"
-  integrity sha512-fBSwSoCWDQT1KOCE9LIIRXSo8cO8LgLUa6Le8yTWFiUfBh3StUFvM6LqnUOBrYeVrHZB2QD7Xl/3300wKWgdPw==
+use-intl@^2.20.0:
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-2.20.0.tgz#613554e8f85d59d4499c1340f8525ba381d18840"
+  integrity sha512-h9aOveHyqUSNshPvWSx88f0ny0w/F4kTG3oM1lGZYTlfK7vE6Ic9vVM7TDn/7idD3v6b2Vasp7q0le/opn6j/Q==
   dependencies:
     "@formatjs/ecma402-abstract" "^1.11.4"
     intl-messageformat "^9.3.18"
