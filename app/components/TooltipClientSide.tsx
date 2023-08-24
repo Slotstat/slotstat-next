@@ -14,9 +14,8 @@ export default function TooltipClientSide() {
         borderWidth: 1,
         borderRadius: 8,
         borderColor: "#36383D",
-        opacity: 1,
         fontSize: 12,
-        zIndex:10
+        zIndex: 10,
       }}
     />
   );

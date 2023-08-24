@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
@@ -60,8 +61,20 @@ export default async function Casino({
   if (!mainGameObj) {
     return notFound();
   }
+
+  const breadcrumbs = [
+    {
+      name: mainGameObj.casinoName,
+      url: `/${casinoId}`,
+    },
+    {
+      name: mainGameObj.name,
+    },
+  ];
   return (
     <>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
+
       <LiveCards
         cardsData={gameCards}
         rows={2}
@@ -77,7 +90,7 @@ export default async function Casino({
         />
       )}
       {gamesList.results[0] && (
-        <div className="my-6 px-4 lg:my-18 ">
+        <div className="my-6 lg:my-18 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
           <div className="my-4 lg:my-6">
             <Table

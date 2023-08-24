@@ -394,8 +394,8 @@ const ChartComponent = ({
     <>
       <div className="flex flex-row flex-wrap">
         <div
-          className={`w-full px-4 py-6 lg:px-3 lg:py-18 ${
-            isAllGames || !mainGameObject?.rtp ? "w-full" : "lg:w-3/4"
+          className={`w-full py-6 lg:pr-3 lg:py-18 ${
+            isAllGames ? "w-full" : "lg:w-3/4"
           } `}
         >
           <div className="flex flex-col items-center justify-between lg:flex-row">
@@ -468,7 +468,7 @@ const ChartComponent = ({
             </div>
           </div>
         </div>
-        {!isAllGames && mainGameObject?.rtp && (
+        {!isAllGames && (
           <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
             <div className="flex flex-row items-center  justify-between">
               <div className="flex flex-row items-center ">
