@@ -11,7 +11,6 @@ import { notFound } from "next/navigation";
 import CookieNotification from "../components/CookieNotification";
 import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
-// import CookieBanner from "../components/CookieBanner";
 
 export const metadata: Metadata = {
   title: "slot stat",
@@ -35,7 +34,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
+      <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
@@ -46,7 +45,6 @@ export default async function RootLayout({
           <JackpotNotification />
           <CookieNotification uniqueId={uniqueId} />
           <TooltipClientSide />
-          {/* <CookieBanner /> */}
         </NextIntlClientProvider>
       </body>
     </html>

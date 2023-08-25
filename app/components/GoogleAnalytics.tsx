@@ -1,23 +1,23 @@
 'use client';
 
-// import { pageView } from '@/lib/gtagHelper';
-// import { usePathname, useSearchParams } from 'next/navigation';
-// import Script from 'next/script'
-// import { useEffect } from 'react';
+import { pageView } from '@/lib/gtagHelper';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Script from 'next/script'
+import { useEffect } from 'react';
 
 export default function GoogleAnalytics({GA_MEASUREMENT_ID} : {GA_MEASUREMENT_ID : string}){
-    // const pathname = usePathname()
-    // const searchParams = useSearchParams()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
 
-    // useEffect(() => {
-    //     const url = pathname + searchParams.toString()
+    useEffect(() => {
+        const url = pathname + searchParams.toString()
     
-    //     pageView(GA_MEASUREMENT_ID, url);
+        pageView(GA_MEASUREMENT_ID, url);
         
-    // }, [pathname, searchParams, GA_MEASUREMENT_ID]);
+    }, [pathname, searchParams, GA_MEASUREMENT_ID]);
     return (
         <>
-            {/* <Script strategy="afterInteractive" 
+            <Script strategy="afterInteractive" 
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}/>
             <Script id='google-analytics' strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
@@ -35,6 +35,6 @@ export default function GoogleAnalytics({GA_MEASUREMENT_ID} : {GA_MEASUREMENT_ID
                 });
                 `,
                 }}
-            /> */}
+            />
         </>
 )}
