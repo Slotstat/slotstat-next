@@ -10,7 +10,6 @@ import { useKeenSlider } from "keen-slider/react";
 import { arrow } from "../assets";
 import { breakpoints } from "../utils";
 import Image from "next/image";
-import { getLandingOffers } from "@/lib/getLanding";
 
 type TOnClick = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -21,7 +20,7 @@ type TArrowProps = {
 };
 
 const Arrow = ({ isLeft = false, disabled, onClick }: TArrowProps) => {
-  const dir = useMemo(() => (isLeft ? "left-4 " : "right-4 "), [isLeft]);
+  const dir = useMemo(() => (isLeft ? "left-0 " : "right-0 "), [isLeft]);
   const iconStyle = useMemo(() => (isLeft ? "rotate-180" : ""), [isLeft]);
 
   if (disabled) {
