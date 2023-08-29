@@ -18,10 +18,10 @@ const LanguageToggleButton = () => {
 
   return (
     <div>
-      <div className="mt-4 ml-4 hover:bg-grey2 rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex">
+      <div className="mt-4 ml-4 hover:bg-grey2 cursor-pointer rounded-lg border border-grey1 text-[10px] font-normal text-grey1 lg:mt-0 lg:ml-8 lg:flex">
         <div
           onClick={changeLocale}
-          className="h-8 w-8 flex items-center justify-center "
+          className="h-8 w-8 flex items-center justify-center cursor-pointer "
         >
           {locale === "en" ? t("ka") : t("en")}
         </div>
