@@ -47,7 +47,6 @@ const ChartComponent = ({
   const [open, setOpen] = useState(false);
   const [noStatisticsYet, setNoStatisticsYet] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
-  const [mainGameObject, setMainGameObject] = useState<GameData>();
   const [compareGameObject, setCompareGameObject] = useState<GameData>();
   const [liveResultForMainGame, setLiveResultForMainGame] = useState<number>();
   const [visibilitychangeHandler, setVisibilitychangeHandler] =
@@ -360,8 +359,6 @@ const ChartComponent = ({
 
   // setting main game object to the state
   useEffect(() => {
-    setMainGameObject(mainGame);
-
     const handleVisibilityChange = () => {
       if (document.hidden) {
         // Window is not visible, user has switched tabs or minimized the window
@@ -416,7 +413,7 @@ const ChartComponent = ({
                 >
                   <BulletIcon color={SERIE_COLORS[0]} size={20} />
                   <span className="ml-2 text-sm font-bold leading-4 text-white">
-                    {mainGameObject?.casinoName} {mainGameObject?.name}{" "}
+                    {mainGame?.casinoName} {mainGame?.name}{" "}
                   </span>
                   <span className="ml-2 text-blue2 font-bold w-14">
                     {liveResultForMainGame}%
@@ -451,7 +448,7 @@ const ChartComponent = ({
                 <>
                   <ActionPane
                     compareGameObject={compareGameObject}
-                    mainGameObject={mainGameObject}
+                    mainGameObject={mainGame}
                     onPressCompare={onPressCompare}
                     onPressRemove={onPressRemove}
                     activeFilterId={activeFilterId}
@@ -481,7 +478,7 @@ const ChartComponent = ({
             </div>
 
             <div>
-              <RTP color="#5887F6" gameObject={mainGameObject} />
+              <RTP color="#5887F6" gameObject={mainGame} />
 
               <RTP
                 color="#877CF2"

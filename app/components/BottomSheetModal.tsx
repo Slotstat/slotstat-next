@@ -35,6 +35,7 @@ const BottomSheetModal = ({
   const [loading, setLoading] = useState(false);
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
+  const [isCrypto, setIsCrypto] = useState<boolean>(false);
 
   const getGamesFromChosenCasino = async (
     casino: GetGamesFromChosenCasinoProps
@@ -49,6 +50,7 @@ const BottomSheetModal = ({
         // direction,
       }
     );
+
     const games = await gamesListData;
     const removeIndex = games.results
       .map((item) => item.gameId)
@@ -70,7 +72,8 @@ const BottomSheetModal = ({
     !keyWord && setLoading(true);
     const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
       orderBy,
-      keyWord: keyWord,
+      keyWord,
+      isCrypto: isCrypto.toString(),
       // direction,
     });
     const casinos = await casinosData;
@@ -87,6 +90,7 @@ const BottomSheetModal = ({
     setCasino(undefined);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setSearchKeyInBottomSheet = useCallback(
     _.debounce((key) => {
       setKeyWord(key);
@@ -100,6 +104,7 @@ const BottomSheetModal = ({
     } else {
       getAllCasinos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord, orderBy]);
 
   return (
@@ -177,6 +182,8 @@ const BottomSheetModal = ({
                 setOrderByKeyInBottomSheet={(order) =>
                   order && setOrderBy(order)
                 }
+                // showCryptoFiatSwitcher={true}
+                // isCrypto={isCrypto}
               />
             ) : games && !loading ? (
               <Table
