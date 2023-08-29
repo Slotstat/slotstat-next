@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useStore from "@/app/(store)/store";
 import { useTranslations } from "next-intl";
+import Plus from "@/app/assets/svg/Plus";
 
 export default function RTP({
   color,
@@ -215,7 +216,7 @@ export default function RTP({
             {t("provideInfo")}
           </div>
         ) : (
-          <div className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center ">
+          <div className="relative rounded-3xl bg-dark1 h-[233px] flex flex-col items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -232,24 +233,11 @@ export default function RTP({
                 strokeDasharray="5 5"
                 rx={23}
               />
-              <text
-                x="51%"
-                y="55%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                fill={"white"}
-                fontSize="14"
-              >
-                {t("Compare")}
-              </text>
-
-              <path
-                fill="#fff"
-                fillRule="evenodd"
-                d="M128 99.416a.75.75 0 0 1 .75.751v5.083h5.083a.75.75 0 1 1 0 1.5h-5.083v5.083a.75.75 0 0 1-1.5 0v-5.083h-5.083a.75.75 0 0 1 0-1.5h5.083v-5.083a.75.75 0 0 1 .75-.75Z"
-                clipRule="evenodd"
-              />
             </svg>
+            <div className="absolute cursor-pointer w-full h-full flex flex-col items-center justify-center">
+              <Plus />
+              <p className=" text-white mt-2"> {t("Compare")}</p>
+            </div>
           </div>
         )}
       </div>
