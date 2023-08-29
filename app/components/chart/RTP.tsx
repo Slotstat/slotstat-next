@@ -223,7 +223,7 @@ export default function RTP({
               height="100%"
               fill="none"
               cursor="pointer"
-              onClick={onPressCompare}
+              
             >
               <rect
                 width="100%"
@@ -234,7 +234,7 @@ export default function RTP({
                 rx={23}
               />
             </svg>
-            <div className="absolute cursor-pointer w-full h-full flex flex-col items-center justify-center">
+            <div onClick={onPressCompare} className="absolute cursor-pointer w-full h-full flex flex-col items-center justify-center">
               <Plus />
               <p className=" text-white mt-2"> {t("Compare")}</p>
             </div>
