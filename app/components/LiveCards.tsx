@@ -179,7 +179,7 @@ const LiveCards = ({
     _.debounce(async () => {
       const landingCardsData: Promise<Card[]> = getLandingCardsClientSide();
       const updatedLandingCardsData = await landingCardsData;
-      console.log(updatedLandingCardsData);
+
       setCardsDataState(updatedLandingCardsData);
     }, 2000),
     []

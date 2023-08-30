@@ -34,6 +34,7 @@ export default async function Home({
   if (!casinos && !landingCards) {
     notFound();
   }
+  // console.log("landingCards", landingCards[0].name);
   return (
     <>
       <LiveCards cardsData={landingCards} />

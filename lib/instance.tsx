@@ -2,7 +2,6 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { baseUrl } from "./baseURL";
 
-
 const slotStatClient = () => {
   let uniqueId = cookies().get("uniqueId")?.value;
 
