@@ -36,8 +36,6 @@ export default async function Home({
   if (!casinos && !landingCards) {
     notFound();
   }
-  // console.log("landingCards", landingCards[0].name);
-  // console.log("locale", locale);
   return (
     <>
       <LiveCards cardsData={landingCards} />
