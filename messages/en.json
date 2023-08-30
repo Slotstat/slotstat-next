@@ -108,6 +108,7 @@
     "Compare": "Compare",
     "neutral": "neutral",
     "CasinoIsLosing": "Casino is losing",
-    "CasinoIsInProfit": "Casino is in profit"
+    "CasinoIsInProfit": "Casino is in profit",
+    "close": "Close"
   }
 }

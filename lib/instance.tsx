@@ -9,7 +9,6 @@ const slotStatClient = (locale?: string) => {
 
   let lang = cookie === "en" ? "en-US" : "ka-GE";
   let lang1 = locale === "en" ? "en-US" : locale === "ka" ? "ka-GE" : lang;
-  console.log("locale", lang1);
 
   return axios.create({
     baseURL: baseUrl,

@@ -5,6 +5,7 @@ import useStore from "@/app/(store)/store";
 import { useTranslations } from "next-intl";
 import Plus from "@/app/assets/svg/Plus";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import CloseRed from "@/app/assets/svg/CloseRed";
 
 export default function RTP({
   color,
@@ -43,7 +44,7 @@ export default function RTP({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className={`rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative `}
+          className={` rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative `}
         >
           {setOpen && isHovered && (
             <div
@@ -67,23 +68,11 @@ export default function RTP({
                   rx={23.5}
                   className=" z-50"
                 />
-                <path
-                  fill="#FA4611"
-                  d="M116.194 139.14c-2.814 0-4.69-1.974-4.69-4.942s1.876-4.942 4.69-4.942c2.198 0 4.018 1.47 4.522 3.682h-1.232c-.434-1.54-1.75-2.562-3.29-2.562-2.058 0-3.43 1.526-3.43 3.822 0 2.296 1.372 3.822 3.43 3.822 1.638 0 2.982-1.12 3.346-2.786h1.218c-.462 2.338-2.296 3.906-4.564 3.906Zm5.914-.14v-9.604h1.12V139h-1.12Zm5.98.14c-2.114 0-3.514-1.456-3.514-3.64s1.4-3.64 3.514-3.64 3.514 1.456 3.514 3.64-1.4 3.64-3.514 3.64Zm0-.98c1.442 0 2.394-1.064 2.394-2.66s-.952-2.66-2.394-2.66c-1.442 0-2.394 1.064-2.394 2.66s.952 2.66 2.394 2.66Zm7.304.98c-1.806 0-3.024-1.008-3.052-2.52h1.05c.028.924.826 1.54 2.002 1.54 1.148 0 1.904-.448 1.904-1.12 0-.588-.392-.84-1.974-1.204-1.932-.434-2.534-.896-2.534-1.96 0-1.204 1.036-2.016 2.604-2.016 1.26 0 2.352.714 2.73 1.778l-1.022.252c-.21-.63-.896-1.05-1.708-1.05-.896 0-1.484.378-1.484.952 0 .476.392.728 1.652 1.036 2.156.448 2.842.966 2.842 2.156 0 1.288-1.204 2.156-3.01 2.156Zm7.53 0c-2.114 0-3.514-1.456-3.514-3.64s1.4-3.64 3.514-3.64 3.514 1.498 3.514 3.752l-.112.112h-5.782c.056 1.456 1.008 2.436 2.38 2.436 1.036 0 1.932-.616 2.24-1.54h1.12a3.478 3.478 0 0 1-3.36 2.52Zm-2.324-4.396h4.648c-.266-1.218-1.106-1.904-2.324-1.904-1.218 0-2.058.686-2.324 1.904Z"
-                />
-                <circle
-                  cx={129}
-                  cy={106}
-                  r={9.5}
-                  stroke="#FA4611"
-                  transform="rotate(-90 129 106)"
-                />
-                <path
-                  stroke="#FA4611"
-                  strokeLinecap="round"
-                  d="m126.3 108.7 5.357-5.357M131.657 108.7l-5.357-5.357"
-                />
               </svg>
+              <div className=" absolute cursor-pointer w-full h-full top-0 flex flex-col items-center justify-center">
+                <CloseRed />
+                <p className="text-[#FA4611] mt-2">{t("close")}</p>
+              </div>
             </div>
           )}
           <p className=" text-lg text-white text-center mb-8 h-12">
