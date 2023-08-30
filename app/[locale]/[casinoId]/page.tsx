@@ -9,21 +9,23 @@ import { notFound } from "next/navigation";
 type Params = {
   params: {
     casinoId: string;
+    locale: string;
   };
+
   searchParams: QueryParams;
 };
 
 const Casino = async ({
-  params: { casinoId },
+  params: { casinoId, locale },
   searchParams: { orderBy, keyWord, direction },
 }: Params) => {
-  const gamesListData: Promise<gamesList> = getGamesList(casinoId, {
+  const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
     direction,
     orderBy,
   });
 
-  const casinoCardsData: Promise<Card[]> = getCasinoCards(casinoId);
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casinoId);
 
   const [gamesList, casinoCards] = await Promise.all([
     gamesListData,

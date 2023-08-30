@@ -13,18 +13,20 @@ export const metadata: Metadata = {
 
 export default async function Home({
   searchParams: { orderBy, keyWord, direction, isCrypto },
+  params: { locale },
 }: {
   searchParams: QueryParams;
+  params: { locale: string };
 }) {
-  const casinosData: Promise<CasinoData[]> = getCasinos({
+  const casinosData: Promise<CasinoData[]> = getCasinos(locale,{
     orderBy,
     keyWord,
     direction,
     isCrypto,
   });
-  const landingOffersData: Promise<Offer[]> = getLandingOffers();
+  const landingOffersData: Promise<Offer[]> = getLandingOffers(locale);
 
-  const landingCardsData: Promise<Card[]> = getLandingCards();
+  const landingCardsData: Promise<Card[]> = getLandingCards(locale);
 
   const [casinos, landingCards] = await Promise.all([
     casinosData,
@@ -35,6 +37,7 @@ export default async function Home({
     notFound();
   }
   // console.log("landingCards", landingCards[0].name);
+  // console.log("locale", locale);
   return (
     <>
       <LiveCards cardsData={landingCards} />
