@@ -19,11 +19,11 @@ export default async function Casino({
   params,
   searchParams: { orderBy, keyWord, direction },
 }: {
-  params: { casinoId: string; gameId: string };
+  params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
 }) {
-  const { casinoId, gameId } = params;
-  const gamesListData: Promise<gamesList> = getGamesList(casinoId, {
+  const { casinoId, gameId, locale } = params;
+  const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
     direction,
     orderBy,
@@ -31,7 +31,9 @@ export default async function Casino({
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
 
   const gamesCardsData: Promise<Card[]> =
-    casinoId === gameId ? getCasinoCards(casinoId) : getGameCards(gameId);
+    casinoId === gameId
+      ? getCasinoCards(locale, casinoId)
+      : getGameCards(locale, gameId);
 
   let mainGameObj: GameData;
   if (casinoId !== gameId) {
