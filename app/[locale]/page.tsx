@@ -18,7 +18,7 @@ export default async function Home({
   searchParams: QueryParams;
   params: { locale: string };
 }) {
-  const casinosData: Promise<CasinoData[]> = getCasinos(locale,{
+  const casinosData: Promise<CasinoData[]> = getCasinos(locale, {
     orderBy,
     keyWord,
     direction,
@@ -36,6 +36,7 @@ export default async function Home({
   if (!casinos && !landingCards) {
     notFound();
   }
+  console.log("casinos", casinos.length);
   return (
     <>
       <LiveCards cardsData={landingCards} />

@@ -111,7 +111,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
     },
     {
       Header: t("source"),
-      accessor: "source",
+      accessor: "dataSource",
       maxWidth: 140,
       width: 140,
       minWidth: 50,

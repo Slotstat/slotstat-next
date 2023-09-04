@@ -35,7 +35,7 @@ const BottomSheetModal = ({
   const [loading, setLoading] = useState(false);
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
-  const [isCrypto, setIsCrypto] = useState<boolean>(false);
+  const [isCrypto, setIsCrypto] = useState('false');
 
   const getGamesFromChosenCasino = async (
     casino: GetGamesFromChosenCasinoProps
@@ -182,8 +182,8 @@ const BottomSheetModal = ({
                 setOrderByKeyInBottomSheet={(order) =>
                   order && setOrderBy(order)
                 }
-                // showCryptoFiatSwitcher={true}
-                // isCrypto={isCrypto}
+                showCryptoFiatSwitcher={true}
+                isCrypto={isCrypto}
               />
             ) : games && !loading ? (
               <Table

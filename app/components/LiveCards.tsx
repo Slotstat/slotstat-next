@@ -8,7 +8,7 @@ import TooltipComponent from "./TooltipComponent";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
 import CountUp from "react-countup";
-import { getLandingCardsClientSide } from "@/lib/clientSide/getLAndingClient";
+// import { getLandingCardsClientSide } from "@/lib/clientSide/getLAndingClient";
 
 type PagesAndStyleDiff = {
   landing?: boolean;
@@ -175,15 +175,16 @@ const LiveCards = ({
   const [cardsDataState, setCardsDataState] = useState(cardsData);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getUpdatedLandingCardsData = useCallback(
-    _.debounce(async () => {
-      const landingCardsData: Promise<Card[]> = getLandingCardsClientSide();
-      const updatedLandingCardsData = await landingCardsData;
+  // const getUpdatedLandingCardsData = useCallback(
+  //   _.debounce(async () => {
+  //     const landingCardsData: Promise<Card[]> = getLandingCardsClientSide();
+  //     const updatedLandingCardsData = await landingCardsData;
 
-      setCardsDataState(updatedLandingCardsData);
-    }, 2000),
-    []
-  );
+  //     setCardsDataState(updatedLandingCardsData);
+  //   }, 2000),
+  //   []
+  // );
+
   const getUpdatedCasinoCardsData = useCallback(
     _.debounce(async () => {
       if (casinoCardsData) {

@@ -7,7 +7,7 @@ import {
 } from "@/app/assets/svg/SmallCharts";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
@@ -29,46 +29,70 @@ const CountUpForJackpots = ({
   const [end, setEnd] = useState(Number(jackpot));
 
   const increaseJackpot = () => {
-    if (
-      newJackpot?.casinoId &&
-      newJackpot?.ccy &&
-      newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
-      end !== Number(newJackpot.amount)
-    ) {
-      setEnd(Number(newJackpot.amount));
-    } else {
-      jackpot !== 0 && setEnd(end + 0.2);
+    setStart(Number(end));
+
+    if (jackpot !== 0) {
+      if (
+        newJackpot?.casinoId &&
+        newJackpot?.ccy &&
+        newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
+        end !== Number(newJackpot.amount)
+      ) {
+        setEnd(Number(newJackpot.amount));
+      } else {
+        setEnd(end + 0.2);
+      }
     }
   };
 
+  useEffect(() => {
+    console.log("object", jackpot);
+    setEnd(Number(jackpot));
+
+    return () => {
+      setStart(0);
+      setEnd(0);
+    };
+  }, [jackpot]);
+
   return (
     <div className=" text-green1">
-      <CountUp
-        start={start}
-        end={end}
-        duration={2}
-        separator=" "
-        decimals={2}
-        decimal="."
-        prefix={
-          jackpotCurrency
+      {end === 0 ? (
+        <div>
+          {jackpotCurrency
             ? jackpotCurrency + " "
             : casinoCurrency
             ? casinoCurrency + " "
-            : ""
-        }
-        onEnd={() => {
-          setStart(Number(end));
-          increaseJackpot();
-        }}
-        delay={0}
-      >
-        {({ countUpRef }) => (
-          <div>
-            <span ref={countUpRef} />
-          </div>
-        )}
-      </CountUp>
+            : ""}
+          {end}
+        </div>
+      ) : (
+        <CountUp
+          start={start}
+          end={end}
+          duration={2}
+          separator=" "
+          decimals={2}
+          decimal="."
+          prefix={
+            jackpotCurrency
+              ? jackpotCurrency + " "
+              : casinoCurrency
+              ? casinoCurrency + " "
+              : ""
+          }
+          onEnd={() => {
+            jackpot !== 0 && increaseJackpot();
+          }}
+          delay={0}
+        >
+          {({ countUpRef }) => (
+            <div>
+              <span ref={countUpRef} />
+            </div>
+          )}
+        </CountUp>
+      )}
     </div>
   );
 };
@@ -260,6 +284,8 @@ export default function RenderRowCells({
           </div>
         );
       case 6:
+        // console.log("test", jackpot, jackpotCurrency, casinoCurrency, casinoId);
+
         return (
           <CountUpForJackpots
             jackpot={jackpot}
