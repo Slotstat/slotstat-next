@@ -123,19 +123,20 @@ const Table = ({
     usePagination
   );
 
-  const ascendDescend = useCallback(
-    (direction: string, status: number) => {
-      if (ascDesc === status) {
-        setAscDesc(0);
-        setQueryParams({ direction: "" });
-      } else {
-        setAscDesc(status);
-        setQueryParams({ direction });
-      }
-      setScrollY(window.scrollY);
-    },
-    [ascDesc, setQueryParams]
-  );
+  // const ascendDescend = useCallback(
+  //   (direction: string, status: number) => {
+  //     if (ascDesc === status) {
+  //       setAscDesc(0);
+  //       setQueryParams({ direction: "" });
+  //     } else {
+  //       setAscDesc(status);
+  //       setQueryParams({ direction });
+  //     }
+  //     setScrollY(window.scrollY);
+  //   },
+  //   [ascDesc, setQueryParams]
+  // );
+
   // fix next js bug (after changing query it was scrolling to top but now it is fixed)
   useEffect(() => {
     const persistentScroll = scrollY;
