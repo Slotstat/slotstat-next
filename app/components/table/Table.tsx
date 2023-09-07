@@ -23,6 +23,7 @@ import { casinoOrGameColumns } from "./columns";
 
 import { usePathname, useRouter } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   showFilter: boolean;
@@ -40,6 +41,7 @@ type Props = {
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
   showCryptoFiatSwitcher?: boolean;
+  setIsCryptoState?: (text: string) => void;
 };
 
 const Table = ({
@@ -55,6 +57,7 @@ const Table = ({
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
+  setIsCryptoState,
 }: Props) => {
   const t = useTranslations("table");
   const f = useTranslations();
@@ -66,7 +69,7 @@ const Table = ({
 
   const router = useRouter();
   const pathName = usePathname();
-  const [ascDesc, setAscDesc] = useState<number>(0);
+  // const [ascDesc, setAscDesc] = useState<number>(0);
 
   const onRowPress = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
@@ -93,11 +96,13 @@ const Table = ({
         }
       } else {
         if (segments.length === 3) {
-          return router.push(`/${segments[1]}/${row.original.gameId}`);
+          return router.push(
+            `/${segments[1]}/${row.original.gameId}?isCrypto=${isCrypto}`
+          );
         } else {
           const path = row.original.gameId
-            ? `${pathName}/${row.original.gameId}`
-            : `${row.original.casinoId}`;
+            ? `${pathName}/${row.original.gameId}?isCrypto=${isCrypto}`
+            : `${row.original.casinoId}?isCrypto=${isCrypto}`;
 
           return router.push(path);
         }
@@ -170,6 +175,9 @@ const Table = ({
                     click={() => {
                       setScrollY(window.scrollY);
                       setQueryParams({ isCrypto: "false" });
+                      if (setIsCryptoState) {
+                        setIsCryptoState("false");
+                      }
                     }}
                   />
                   <FiatCryptoButton
@@ -178,6 +186,9 @@ const Table = ({
                     click={() => {
                       setScrollY(window.scrollY);
                       setQueryParams({ isCrypto: "true" });
+                      if (setIsCryptoState) {
+                        setIsCryptoState("true");
+                      }
                     }}
                   />
                 </>

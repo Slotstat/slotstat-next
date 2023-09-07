@@ -46,7 +46,6 @@ const CountUpForJackpots = ({
   };
 
   useEffect(() => {
-    console.log("object", jackpot);
     setEnd(Number(jackpot));
 
     return () => {
@@ -284,8 +283,6 @@ export default function RenderRowCells({
           </div>
         );
       case 6:
-        // console.log("test", jackpot, jackpotCurrency, casinoCurrency, casinoId);
-
         return (
           <CountUpForJackpots
             jackpot={jackpot}

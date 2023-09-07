@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default async function Casino({
   params,
-  searchParams: { orderBy, keyWord, direction },
+  searchParams: { orderBy, keyWord, direction, isCrypto, compareGameId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
@@ -51,6 +51,13 @@ export default async function Casino({
     mainGameObj = gamesList.results[0];
   }
 
+  let compareGame;
+  // using if statement "casinoId !== gameId" for avoiding all games crush
+  if (compareGameId && casinoId !== gameId) {
+    const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
+    compareGame = await compareGameData;
+  }
+
   if (casinoId === gameId && gamesList) {
     gamesList.results.shift();
   } else {
@@ -67,12 +74,13 @@ export default async function Casino({
   const breadcrumbs = [
     {
       name: mainGameObj.casinoName,
-      url: `/${casinoId}`,
+      url: `/${casinoId}?isCrypto=${isCrypto || "false"}`,
     },
     {
       name: mainGameObj.name,
     },
   ];
+
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
@@ -88,7 +96,10 @@ export default async function Casino({
         <ChartComponent
           gameId={gameId}
           mainGame={mainGameObj}
+          compareGame={compareGame}
           isAllGames={casinoId === gameId}
+          isCrypto={isCrypto || "false"}
+          compareGameId={compareGameId}
         />
       )}
       {gamesList.results[0] && (
@@ -102,6 +113,7 @@ export default async function Casino({
               tableBodyData={gamesList.results}
               showFilter={true}
               isGame={true}
+              isCrypto={isCrypto || "false"}
             />
           </div>
         </div>

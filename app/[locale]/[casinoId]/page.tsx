@@ -17,7 +17,7 @@ type Params = {
 
 const Casino = async ({
   params: { casinoId, locale },
-  searchParams: { orderBy, keyWord, direction },
+  searchParams: { orderBy, keyWord, direction, isCrypto },
 }: Params) => {
   const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
@@ -66,6 +66,7 @@ const Casino = async ({
             tableBodyData={gameListWithCasinoOnTop}
             showFilter={true}
             isGame={true}
+            isCrypto={isCrypto || "false"}
           />
         </div>
       </div>
