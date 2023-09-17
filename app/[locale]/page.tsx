@@ -6,10 +6,7 @@ import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
 import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "SlotStat",
-  description: "slot stat high level",
-};
+
 
 export default async function Home({
   searchParams: { orderBy, keyWord, direction, isCrypto },

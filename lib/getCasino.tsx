@@ -3,10 +3,7 @@ import slotStatClient from "./instance";
 export default async function getCasino(casinoId: string) {
   try {
     const res = await slotStatClient().request({
-      url: `/api/casino/aggregated/${casinoId.substring(
-        0,
-        casinoId.length - 3
-      )}`,
+      url: `/api/casino/aggregated/${casinoId}`,
       method: "GET",
     });
 
