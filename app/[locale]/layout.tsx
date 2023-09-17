@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: "slot stat high level",
   verification: {
     google:
-      "google-site-verification=GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
+      "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
   },
 };
 
