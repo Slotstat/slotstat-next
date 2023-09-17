@@ -15,9 +15,44 @@ type Params = {
   searchParams: QueryParams;
 };
 
-const Casino = async ({
+export async function generateMetadata({
   params: { casinoId, locale },
   searchParams: { orderBy, keyWord, direction },
+}: Params) {
+  try {
+    const gamesList: gamesList = await getGamesList(locale, casinoId, {
+      orderBy,
+      keyWord,
+      direction,
+    });
+    if (!gamesList)
+      return {
+        title: "Not found",
+        description: "The page you are looking for doesn't exists",
+      };
+
+    return {
+      title: gamesList.results[0].casinoName,
+      description: gamesList.results[0].casinoName,
+      alternates: {
+        canonical: `/${casinoId}`,
+        languages: {
+          en: `en/${casinoId}`,
+          ka: `ka/${casinoId}`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
+
+const Casino = async ({
+  params: { casinoId, locale },
+  searchParams: { orderBy, keyWord, direction, isCrypto },
 }: Params) => {
   const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
@@ -32,11 +67,12 @@ const Casino = async ({
     casinoCardsData,
   ]);
   if (!gamesList.results) return notFound();
+
   const gameListWithCasinoOnTop = gamesList.results;
 
   const breadcrumbs = [
     {
-      name: gamesList.results[0]?.casinoName,
+      name: gameListWithCasinoOnTop[0]?.casinoName,
       // url: `/${casinoId}`
     },
   ];
@@ -66,6 +102,7 @@ const Casino = async ({
             tableBodyData={gameListWithCasinoOnTop}
             showFilter={true}
             isGame={true}
+            isCrypto={isCrypto || "false"}
           />
         </div>
       </div>

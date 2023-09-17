@@ -27,7 +27,6 @@ const signalR = async () => {
         useStore.setState({ newRtp: message });
       });
       connection.on("newUser", (message) => {
-        // console.log("newUser", message);
         useStore.setState({ newUser: message });
       });
     } catch (err) {

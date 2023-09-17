@@ -13,8 +13,16 @@ import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  title: "slot stat",
+  metadataBase: new URL("https://slotstat.net"),
+  title: {
+    default: "SlotStat",
+    template: `%s | SlotStat`,
+  },
   description: "slot stat high level",
+  verification: {
+    google:
+      "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
+  },
 };
 
 export default async function RootLayout({

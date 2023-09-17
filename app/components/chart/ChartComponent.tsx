@@ -24,6 +24,7 @@ import getCasinoStatistic from "@/lib/clientSide/getCasinoStatistic";
 import { useTranslations } from "next-intl";
 import RTP from "./RTP";
 import TooltipComponent from "../TooltipComponent";
+import useQueryParams from "@/app/utils/useQueryParams";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -32,18 +33,25 @@ const ChartComponent = ({
   gameId,
   mainGame,
   isAllGames,
+  isCrypto,
+  compareGame,
+  compareGameId,
 }: {
   gameId: string;
   mainGame: GameData;
   isAllGames: boolean;
+  isCrypto?: string;
+  compareGame?: GameData;
+  compareGameId?: string;
 }) => {
   const t = useTranslations();
+  const { setQueryParams } = useQueryParams();
+
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
+  const [scrollY, setScrollY] = useState<number | null>(null);
   const [activeFilterId, setActiveFilterId] = useState<FiltersKey>("1D");
-
   const [filterDisabled, setFilterDisabled] = useState(false);
-
   const [open, setOpen] = useState(false);
   const [noStatisticsYet, setNoStatisticsYet] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([gameId]);
@@ -206,8 +214,6 @@ const ChartComponent = ({
             elm.winRate;
       });
 
-      const requiredKeys = ["winRate", "winRate2"];
-
       const filteredArray: any = chartRef?.current?.data.filter((obj) => {
         if (!obj.winRate && !obj.winRate2) {
           return false;
@@ -227,6 +233,8 @@ const ChartComponent = ({
       setFilterDisabled(false);
     }
     setLiveResultForCompareGame(data[data.length - 1].winRate);
+    setScrollY(window.scrollY);
+    setQueryParams({ compareGameId: compareGameId });
   };
 
   // remove game for compare
@@ -240,6 +248,8 @@ const ChartComponent = ({
         if (chartRef.current) delete chartRef.current.data[i].winRate2;
       });
     }
+    setScrollY(window.scrollY);
+    setQueryParams({ compareGameId: "" });
   };
 
   // for statistics live update
@@ -349,6 +359,7 @@ const ChartComponent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilterId]);
 
+  // setting main game object to the state
   useEffect(() => {
     if (visibilitychangeHandler) {
       getAndUpdateStatisticsData();
@@ -357,8 +368,11 @@ const ChartComponent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibilitychangeHandler]);
 
-  // setting main game object to the state
+  // if user leaves page more than 2 minutes it will recall statistic update
   useEffect(() => {
+    if (compareGame) {
+      onAddToCompare(compareGame);
+    }
     const handleVisibilityChange = () => {
       if (document.hidden) {
         // Window is not visible, user has switched tabs or minimized the window
@@ -386,6 +400,13 @@ const ChartComponent = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const persistentScroll = scrollY;
+    if (persistentScroll === null) return;
+
+    window.scrollTo({ top: Number(scrollY) });
+  }, [scrollY, compareGameId]);
 
   return (
     <>
@@ -497,6 +518,7 @@ const ChartComponent = ({
         onAddToCompare={onAddToCompare}
         gameId={gameId}
         isAllGames={isAllGames}
+        isCrypto={isCrypto || "false"}
       />
     </>
   );

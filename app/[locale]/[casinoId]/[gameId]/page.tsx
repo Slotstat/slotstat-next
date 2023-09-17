@@ -3,32 +3,72 @@ import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
 import Table from "@/app/components/table/Table";
+import getCasino from "@/lib/getCasino";
 import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "slot-stat statistic",
-  description: "statistic chart for comparing two different games!",
-};
-
-export default async function Casino({
-  params,
-  searchParams: { orderBy, keyWord, direction },
+export async function generateMetadata({
+  params: { casinoId, gameId, locale },
+  searchParams: { orderBy, keyWord, direction, isCrypto, compareGameId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
 }) {
-  const { casinoId, gameId, locale } = params;
+  try {
+    var mainGame: GameData | undefined;
+    if (casinoId !== gameId) {
+      mainGame = await getSingleGame(gameId);
+    } else {
+      const gamesListData: gamesList = await getGamesList(locale, casinoId, {
+        keyWord,
+        direction,
+        orderBy,
+      });
+      mainGame = gamesListData.results[0];
+    }
+
+    if (!mainGame)
+      return {
+        title: "Not found",
+        description: "The page you are looking for doesn't exists",
+      };
+
+    return {
+      title: mainGame.casinoName + " | " + mainGame.name,
+      description: mainGame.provider,
+      alternates: {
+        canonical: `/${casinoId}/${gameId}`,
+        languages: {
+          en: `en/${casinoId}/${gameId}`,
+          ka: `ka/${casinoId}/${gameId}`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
+
+export default async function Casino({
+  params: { casinoId, gameId, locale },
+  searchParams: { orderBy, keyWord, direction, isCrypto, compareGameId },
+}: {
+  params: { casinoId: string; gameId: string; locale: string };
+  searchParams: QueryParams;
+}) {
   const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
     direction,
     orderBy,
   });
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
+  // const casinoStatisticsData: Promise<GameData> = getCasino(casinoId);
 
   const gamesCardsData: Promise<Card[]> =
     casinoId === gameId
@@ -51,6 +91,13 @@ export default async function Casino({
     mainGameObj = gamesList.results[0];
   }
 
+  let compareGame;
+  // using if statement "casinoId !== gameId" for avoiding all games crush
+  if (compareGameId && casinoId !== gameId) {
+    const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
+    compareGame = await compareGameData;
+  }
+
   if (casinoId === gameId && gamesList) {
     gamesList.results.shift();
   } else {
@@ -67,12 +114,13 @@ export default async function Casino({
   const breadcrumbs = [
     {
       name: mainGameObj.casinoName,
-      url: `/${casinoId}`,
+      url: `/${casinoId}?isCrypto=${isCrypto || "false"}`,
     },
     {
       name: mainGameObj.name,
     },
   ];
+
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
@@ -88,7 +136,10 @@ export default async function Casino({
         <ChartComponent
           gameId={gameId}
           mainGame={mainGameObj}
+          compareGame={compareGame}
           isAllGames={casinoId === gameId}
+          isCrypto={isCrypto || "false"}
+          compareGameId={compareGameId}
         />
       )}
       {gamesList.results[0] && (
@@ -102,6 +153,7 @@ export default async function Casino({
               tableBodyData={gamesList.results}
               showFilter={true}
               isGame={true}
+              isCrypto={isCrypto || "false"}
             />
           </div>
         </div>

@@ -194,6 +194,7 @@ type QueryParams = {
   direction?: string;
   type?: Type;
   isCrypto?: string;
+  compareGameId?: string;
 };
 
 type GetGamesFromChosenCasinoProps = {
