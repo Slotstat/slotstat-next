@@ -42,8 +42,8 @@ export async function generateMetadata({
       alternates: {
         canonical: `/${casinoId}/${gameId}`,
         languages: {
-          en: `en/${casinoId}/${gameId}`,
-          ka: `ka/${casinoId}/${gameId}`,
+          "en-US": `en/${casinoId}/${gameId}`,
+          "ka-GE": `ka/${casinoId}/${gameId}`,
         },
       },
     };
