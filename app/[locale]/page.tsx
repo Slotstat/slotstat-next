@@ -6,8 +6,6 @@ import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
 import { notFound } from "next/navigation";
 
-
-
 export default async function Home({
   searchParams: { orderBy, keyWord, direction, isCrypto },
   params: { locale },
@@ -21,6 +19,7 @@ export default async function Home({
     direction,
     isCrypto,
   });
+
   const landingOffersData: Promise<Offer[]> = getLandingOffers(locale);
 
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
