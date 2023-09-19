@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-  description: "slot stat high level",
+  description: "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
     google:
       "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",

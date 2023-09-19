@@ -2,13 +2,14 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "slot stat",
-  description: "slot stat high level",
+  title: "How Slotstat works?",
+  description:
+    "Unique platform which gives you opportunity to choose where to play and win! ",
 };
 
 const breadcrumbs = [{ name: "How it works" }];
 
-export default  function HowItWorks() {
+export default function HowItWorks() {
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
