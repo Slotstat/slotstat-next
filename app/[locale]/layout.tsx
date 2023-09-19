@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     google:
       "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
   },
+  // openGraph: {
+  //   images: '/opengraph-image.png',
+  // },
 };
 
 export default async function RootLayout({
