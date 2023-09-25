@@ -5,7 +5,7 @@ export default async function getCasinosClientSide({
   orderBy,
   keyWord,
   direction,
-  isCrypto,
+  isFiat,
 }: QueryParams) {
   try {
     const res = await slotStatClientInstance().request({
@@ -15,7 +15,7 @@ export default async function getCasinosClientSide({
         direction: direction || "desc",
         orderBy,
         keyWord,
-        isCrypto,
+        isFiat,
       },
     });
     if (res.status != 200) throw new Error("failed to fetch");

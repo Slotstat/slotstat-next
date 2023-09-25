@@ -32,7 +32,7 @@ type Props = {
   orderBy?: string;
   keyWord?: string;
   direction?: string;
-  isCrypto?: string;
+  isFiat?: string;
   isGame: boolean;
   getGamesFromChosenCasino?: ({
     casinoId,
@@ -41,7 +41,7 @@ type Props = {
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
   showCryptoFiatSwitcher?: boolean;
-  setIsCryptoState?: (text: string) => void;
+  setIsFiatState?: (text: string) => void;
 };
 
 const Table = ({
@@ -51,13 +51,13 @@ const Table = ({
   orderBy,
   keyWord,
   direction,
-  isCrypto,
+  isFiat,
   getGamesFromChosenCasino,
   isGame,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
-  setIsCryptoState,
+  setIsFiatState,
 }: Props) => {
   const t = useTranslations("table");
   const f = useTranslations();
@@ -97,12 +97,12 @@ const Table = ({
       } else {
         if (segments.length === 3) {
           return router.push(
-            `/${segments[1]}/${row.original.gameId}?isCrypto=${isCrypto}`
+            `/${segments[1]}/${row.original.gameId}?isFiat=${isFiat}`
           );
         } else {
           const path = row.original.gameId
-            ? `${pathName}/${row.original.gameId}?isCrypto=${isCrypto}`
-            : `${row.original.casinoId}?isCrypto=${isCrypto}`;
+            ? `${pathName}/${row.original.gameId}?isFiat=${isFiat}`
+            : `${row.original.casinoId}?isFiat=${isFiat}`;
 
           return router.push(path);
         }
@@ -148,7 +148,7 @@ const Table = ({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY, keyWord, orderBy, direction, isCrypto]);
+  }, [scrollY, keyWord, orderBy, direction, isFiat]);
 
   return (
     <>
@@ -170,24 +170,24 @@ const Table = ({
               {showCryptoFiatSwitcher && (
                 <>
                   <FiatCryptoButton
-                    title={f("fiatCasinos")}
-                    active={isCrypto === "false"}
+                    title={f("cryptoCasinos")}
+                    active={isFiat === "false"}
                     click={() => {
                       setScrollY(window.scrollY);
-                      setQueryParams({ isCrypto: "false" });
-                      if (setIsCryptoState) {
-                        setIsCryptoState("false");
+                      setQueryParams({ isFiat: "false" });
+                      if (setIsFiatState) {
+                        setIsFiatState("false");
                       }
                     }}
                   />
                   <FiatCryptoButton
-                    title={f("cryptoCasinos")}
-                    active={isCrypto === "true"}
+                    title={f("fiatCasinos")}
+                    active={isFiat === "true"}
                     click={() => {
                       setScrollY(window.scrollY);
-                      setQueryParams({ isCrypto: "true" });
-                      if (setIsCryptoState) {
-                        setIsCryptoState("true");
+                      setQueryParams({ isFiat: "true" });
+                      if (setIsFiatState) {
+                        setIsFiatState("true");
                       }
                     }}
                   />

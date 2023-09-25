@@ -12,7 +12,7 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params: { casinoId, gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isCrypto, compareGameId },
+  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
@@ -57,7 +57,7 @@ export async function generateMetadata({
 
 export default async function Casino({
   params: { casinoId, gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isCrypto, compareGameId },
+  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
@@ -114,7 +114,7 @@ export default async function Casino({
   const breadcrumbs = [
     {
       name: mainGameObj.casinoName,
-      url: `/${casinoId}?isCrypto=${isCrypto || "false"}`,
+      url: `/${casinoId}?isFiat=${isFiat || "false"}`,
     },
     {
       name: mainGameObj.name,
@@ -138,7 +138,7 @@ export default async function Casino({
           mainGame={mainGameObj}
           compareGame={compareGame}
           isAllGames={casinoId === gameId}
-          isCrypto={isCrypto || "false"}
+          isFiat={isFiat || "false"}
           compareGameId={compareGameId}
         />
       )}
@@ -153,7 +153,7 @@ export default async function Casino({
               tableBodyData={gamesList.results}
               showFilter={true}
               isGame={true}
-              isCrypto={isCrypto || "false"}
+              isFiat={isFiat || "false"}
             />
           </div>
         </div>

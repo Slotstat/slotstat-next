@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import LiveCards from "../components/LiveCards";
 import Slider from "../components/Slider";
 import Table from "../components/table/Table";
@@ -6,8 +5,21 @@ import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
 import { notFound } from "next/navigation";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Slotstat",
+  description:
+    "Unique platform which gives you opportunity to choose where to play and win! ",
+  openGraph: {
+    title: "Slotstat",
+    description:
+      "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+  },
+};
+
 export default async function Home({
-  searchParams: { orderBy, keyWord, direction, isCrypto },
+  searchParams: { orderBy, keyWord, direction, isFiat },
   params: { locale },
 }: {
   searchParams: QueryParams;
@@ -17,7 +29,7 @@ export default async function Home({
     orderBy,
     keyWord,
     direction,
-    isCrypto,
+    isFiat,
   });
 
   const landingOffersData: Promise<Offer[]> = getLandingOffers(locale);
@@ -42,7 +54,7 @@ export default async function Home({
           orderBy={orderBy || ""}
           keyWord={keyWord || ""}
           direction={direction}
-          isCrypto={isCrypto || "false"}
+          isFiat={isFiat || "false"}
           tableBodyData={casinos}
           showFilter={true}
           isGame={false}

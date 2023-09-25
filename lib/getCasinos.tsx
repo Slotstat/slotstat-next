@@ -2,7 +2,7 @@ import slotStatClient from "./instance";
 
 export default async function getCasinos(
   locale: string | undefined,
-  { orderBy, keyWord, direction, isCrypto }: QueryParams
+  { orderBy, keyWord, direction, isFiat }: QueryParams
 ) {
   try {
     const res = await slotStatClient(locale).request({
@@ -12,7 +12,7 @@ export default async function getCasinos(
         direction: direction || "desc",
         orderBy,
         keyWord,
-        isCrypto: isCrypto === "true" ? true : false,
+        isFiat: isFiat === "true" ? true : false,
       },
     });
 

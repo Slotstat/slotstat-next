@@ -33,14 +33,14 @@ const ChartComponent = ({
   gameId,
   mainGame,
   isAllGames,
-  isCrypto,
+  isFiat,
   compareGame,
   compareGameId,
 }: {
   gameId: string;
   mainGame: GameData;
   isAllGames: boolean;
-  isCrypto?: string;
+  isFiat?: string;
   compareGame?: GameData;
   compareGameId?: string;
 }) => {
@@ -518,7 +518,7 @@ const ChartComponent = ({
         onAddToCompare={onAddToCompare}
         gameId={gameId}
         isAllGames={isAllGames}
-        isCrypto={isCrypto || "false"}
+        isFiat={isFiat || "false"}
       />
     </>
   );
