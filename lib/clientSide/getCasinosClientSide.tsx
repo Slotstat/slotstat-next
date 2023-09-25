@@ -15,7 +15,7 @@ export default async function getCasinosClientSide({
         direction: direction || "desc",
         orderBy,
         keyWord,
-        isFiat,
+        isCrypto: isFiat === "true" ? false : true,
       },
     });
     if (res.status != 200) throw new Error("failed to fetch");
