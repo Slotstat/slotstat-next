@@ -12,7 +12,7 @@ export default async function getCasinos(
         direction: direction || "desc",
         orderBy,
         keyWord,
-        isFiat: isFiat === "true" ? true : false,
+        isCrypto: isFiat === "true" ? false : true,
       },
     });
 

@@ -4,7 +4,7 @@ import Table from "../components/table/Table";
 import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import getCasinos from "@/lib/getCasinos";
 import { notFound } from "next/navigation";
-
+import { openGraphImage } from "@/app/shared-metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description:
     "Unique platform which gives you opportunity to choose where to play and win! ",
   openGraph: {
+    ...openGraphImage,
     title: "Slotstat",
     description:
       "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
