@@ -193,7 +193,7 @@ type QueryParams = {
   keyWord?: string;
   direction?: string;
   type?: Type;
-  isCrypto?: string;
+  isFiat?: string;
   compareGameId?: string;
 };
 

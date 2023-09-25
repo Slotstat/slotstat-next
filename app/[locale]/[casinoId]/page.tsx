@@ -52,7 +52,7 @@ export async function generateMetadata({
 
 const Casino = async ({
   params: { casinoId, locale },
-  searchParams: { orderBy, keyWord, direction, isCrypto },
+  searchParams: { orderBy, keyWord, direction, isFiat },
 }: Params) => {
   const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
     keyWord,
@@ -102,7 +102,7 @@ const Casino = async ({
             tableBodyData={gameListWithCasinoOnTop}
             showFilter={true}
             isGame={true}
-            isCrypto={isCrypto || "false"}
+            isFiat={isFiat || "false"}
           />
         </div>
       </div>

@@ -18,7 +18,7 @@ type BottomSheetModalProps = {
   onAddToCompare: (gameData: GameData) => void;
   gameId: string;
   isAllGames: boolean;
-  isCrypto?: string;
+  isFiat?: string;
 };
 
 const BottomSheetModal = ({
@@ -27,7 +27,7 @@ const BottomSheetModal = ({
   onAddToCompare,
   gameId,
   isAllGames,
-  isCrypto,
+  isFiat,
 }: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
   const [casinos, setCasinos] = useState<CasinoData[]>();
@@ -36,8 +36,8 @@ const BottomSheetModal = ({
   const [loading, setLoading] = useState(false);
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
-  const [isCryptoState, setIsCryptoState] = useState<string>(
-    isCrypto || "false"
+  const [isFiatState, setIsFiatState] = useState<string>(
+    isFiat || "false"
   );
 
   const getGamesFromChosenCasino = async (
@@ -76,7 +76,7 @@ const BottomSheetModal = ({
     const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
       orderBy,
       keyWord,
-      isCrypto: isCryptoState,
+      isFiat: isFiatState,
       // direction,
     });
     const casinos = await casinosData;
@@ -108,7 +108,7 @@ const BottomSheetModal = ({
       getAllCasinos();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, orderBy, isCryptoState]);
+  }, [keyWord, orderBy, isFiatState]);
 
   return (
     <BottomSheet
@@ -186,9 +186,9 @@ const BottomSheetModal = ({
                   order && setOrderBy(order)
                 }
                 showCryptoFiatSwitcher={true}
-                isCrypto={isCryptoState}
-                setIsCryptoState={(isCryptoState) =>
-                  setIsCryptoState(isCryptoState)
+                isFiat={isFiatState}
+                setIsFiatState={(isFiatState) =>
+                  setIsFiatState(isFiatState)
                 }
               />
             ) : games && !loading ? (

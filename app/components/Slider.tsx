@@ -76,7 +76,7 @@ const KeenSlider = ({ data }: { data: Offer[] }) => {
             <div
               onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
               key={index}
-              className="keen-slider__slide cursor-pointer   "
+              className="keen-slider__slide cursor-pointer"
             >
               <img
                 src={imageUrl}
