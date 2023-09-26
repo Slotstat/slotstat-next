@@ -44,9 +44,9 @@
   "actionPane": { "compare": "Compare", "vs": "VS" },
   "table": {
     "casinoName": "Casino name",
-    "providers": "Providers",
+    "games": "Games",
     "provider": "Provider",
-    "bounties": "Bounties",
+    "bonuses": "Bonuses",
     "h1": "1h %",
     "h24": "24h %",
     "source": "Source",
@@ -55,7 +55,7 @@
     "RTP": "RTP / Fluctuation",
     "game": "Game",
     "user": "User",
-    "bountiesHint": "Information about casino gift offers",
+    "bonusesHint": "Information about casino gift offers",
     "h1Hint": "Percentage of winning spins during the last hour based on summery of published games",
     "h24Hint": "Percentage of winning spins during the last 24 hour based on summery of published games",
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
@@ -66,7 +66,11 @@
     "GoToStatistic": "Go to statistic",
     "GoToCasino": "Go to casino",
     "GoToGame": "Go to Game",
-    "RTPhint": "RTP meaning is Return to Player, it’s static number All casinos have their RTP. It may vary from provider to provider even within one casino. RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it’s better to play a long run or a short one."
+    "RTPhint": "RTP meaning is Return to Player, it’s static number All casinos have their RTP. It may vary from provider to provider even within one casino. RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it’s better to play a long run or a short one.",
+    "casinoLink": "Casino link",
+    "playGame": "Play game",
+    "play": "Play",
+    "playHint": "playHint"
   },
   "gamePage": {
     "other": "Other",
@@ -89,8 +93,8 @@
 
   "search": "Search",
   "noStatistic": "Oops, we will update statistics soon!!",
-  "fiatCasinos": "Fiat",
-  "cryptoCasinos": "Crypto",
+  "fiatCasinos": "Fiat Casinos",
+  "cryptoCasinos": "Crypto Casinos",
   "itemNotFound": "Oops, item not found",
 
   "notification": {

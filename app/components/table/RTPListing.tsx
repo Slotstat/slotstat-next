@@ -23,25 +23,30 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
     return () => clearInterval(interval);
   }, []);
 
+  const RTPindicatorWidth = 100;
+
   const casinoLoosingIndicatorSizeCounter =
-    (RTP - preferredValue) * (150 / (max - preferredValue));
+    (RTP - preferredValue) * (RTPindicatorWidth / (max - preferredValue));
   const casinoWiningIndicatorSizeCounter =
-    (preferredValue - RTP) * (150 / (preferredValue - min));
+    (preferredValue - RTP) * (RTPindicatorWidth / (preferredValue - min));
 
   return (
-    <div>
+    <div className=" mr-6">
       <div className=" flex flex-row justify-between mb-3">
         <div className=" flex flex-row">
           <p className=" min-w-[64px]">{RTP}%</p>
           <p className=" mr-1">/</p>
           <p className=" text-grey1">{preferredValue}%</p>
         </div>
-        <p>{provider}</p>
+        {/* <p>{provider}</p> */}
       </div>
       <div className=" flex flex-row">
-        <div className="w-[150px] h-1 bg-blue1/30 mr-1 flex justify-end">
+        <div
+          style={{ width: RTPindicatorWidth }}
+          className={` h-1 bg-blue1/30 mr-1 flex justify-end`}
+        >
           <motion.div
-            className=" h-1 bg-blue1 "
+            className=" h-1 bg-blue1"
             initial={false}
             animate={{
               width:
@@ -49,9 +54,12 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
             }}
           ></motion.div>
         </div>
-        <div className="w-[150px] h-1 bg-blue1/30 ">
+        <div
+          style={{ width: RTPindicatorWidth }}
+          className={` h-1 bg-blue1/30`}
+        >
           <motion.div
-            className=" h-1 bg-blue1 "
+            className=" h-1 bg-blue1"
             initial={false}
             animate={{
               width:

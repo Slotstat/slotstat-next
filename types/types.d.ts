@@ -84,7 +84,7 @@ type Dictionary = {
   table: {
     casinoName: string;
     providers: string;
-    bounties: string;
+    bonuses: string;
     h1: string;
     h24: string;
     source: string;
@@ -92,7 +92,7 @@ type Dictionary = {
     t24h: string;
     game: string;
     user: string;
-    bountiesHint: string;
+    bonusesHint: string;
     bountiesHint: string;
     h1Hint: string;
     h24Hint: string;

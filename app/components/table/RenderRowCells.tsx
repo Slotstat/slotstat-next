@@ -17,6 +17,7 @@ import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
 import RTPListing from "./RTPListing";
+import MoreIcon from "@/app/assets/svg/MoreIcon";
 
 const CountUpForJackpots = ({
   jackpot,
@@ -169,32 +170,60 @@ export default function RenderRowCells({
 
   const CasinoGameName = () => {
     return (
-      <MenuComponent listItems={[GoToStatistic, goToCasino]}>
-        <div className="flex flex-row items-center">
-          <div className="h-6 w-6 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
-            <div className="relative h-6 w-6 md:w-12 md:h-12 ">
-              {!!isImgUrl(imageUrl) && (
-                <Image
-                  src={imageUrl}
-                  alt={name}
-                  fill
-                  sizes="(max-width: 24px) 100vw,
+      // <MenuComponent listItems={[GoToStatistic, goToCasino]}>
+      <div className="flex flex-row items-center">
+        <div className="h-6 w-6 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
+          <div className="relative h-6 w-6 md:w-12 md:h-12 ">
+            {!!isImgUrl(imageUrl) && (
+              <Image
+                src={imageUrl}
+                alt={name}
+                fill
+                sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
               33vw"
-                />
-              )}
-            </div>
+              />
+            )}
           </div>
-
-          <p
-            title={name}
-            className=" text-white font-bold truncate max-w-[110px] text-xs md:text-base"
-          >
-            {cell.render("Cell")}
-          </p>
-          <LinkIcon className="ml-2" />
         </div>
-      </MenuComponent>
+
+        <p
+          title={name}
+          className=" text-white font-bold truncate max-w-[110px] text-xs md:text-base"
+        >
+          {cell.render("Cell")}
+        </p>
+        {/* <LinkIcon className="ml-2" /> */}
+      </div>
+      // </MenuComponent>
+    );
+  };
+  const GoToCasino = () => {
+    const [isHovered, setIsHovered] = useState(false);
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+    return (
+      <div
+        onClick={onGoToWebSiteClick}
+        className="flex flex-row items-center"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <p
+          title={name}
+          className={`${
+            isHovered ? " text-blue1" : "text-white"
+          } text-blue1 font-bold truncate max-w-[110px] text-xs md:text-base`}
+        >
+          {t("GoToCasino")}
+        </p>
+        <LinkIcon className="ml-2" fill={isHovered ? "#5887F6" : "#fff"} />
+      </div>
     );
   };
 
@@ -212,6 +241,31 @@ export default function RenderRowCells({
         {randomize(chartsComponentsArray)}
         {/* <RenderGoTo /> */}
       </div>
+    );
+  };
+
+  const Play = () => {
+    const [isHovered, setIsHovered] = useState(false);
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+    return name !== "All Games" && rtp ? (
+      <div
+        onClick={onGoToWebSiteClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={`${
+          isHovered ? "text-white bg-blue1" : "text-grey1 bg-blue4"
+        }  w-32 items-center justify-center flex py-2 rounded-lg `}
+      >
+        <p>{t("playGame")}</p>
+      </div>
+    ) : (
+      <>--</>
     );
   };
 
@@ -246,7 +300,7 @@ export default function RenderRowCells({
             {cell.render("Cell")}%
           </div>
         );
-      case 5:
+      case 4:
         return (
           <CountUpForJackpots
             jackpot={jackpot}
@@ -255,12 +309,14 @@ export default function RenderRowCells({
             casinoId={casinoId}
           />
         );
-      case 6:
+      case 5:
         return name !== "All Games" && rtp ? (
           <RTPListing rtp={rtp} provider={provider} />
         ) : (
           <>--</>
         );
+      case 6:
+        return <Play />;
       default:
         return renderEmptyValue();
     }
@@ -293,6 +349,8 @@ export default function RenderRowCells({
         );
       case 7:
         return generateSmallCharts();
+      case 8:
+        return <GoToCasino />;
       default:
         return renderEmptyValue();
     }
