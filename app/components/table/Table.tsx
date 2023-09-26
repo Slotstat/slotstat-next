@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 import {
   Row,
@@ -23,7 +23,6 @@ import { casinoOrGameColumns } from "./columns";
 
 import { usePathname, useRouter } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
-import { useSearchParams } from "next/navigation";
 
 type Props = {
   showFilter: boolean;
