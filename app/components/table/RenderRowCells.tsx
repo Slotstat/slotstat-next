@@ -338,7 +338,7 @@ export default function RenderRowCells({
             {cell.render("Cell")}%
           </div>
         );
-      case 6:
+      case 5:
         return (
           <CountUpForJackpots
             jackpot={jackpot}
@@ -347,9 +347,9 @@ export default function RenderRowCells({
             casinoId={casinoId}
           />
         );
+      // case 7:
+      //   return generateSmallCharts();
       case 7:
-        return generateSmallCharts();
-      case 8:
         return <GoToCasino />;
       default:
         return renderEmptyValue();

@@ -50,7 +50,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <div className="flex justify-center">
-            <div className=" w-[100%] max-w-screen-xl px-4">{children}</div>
+            <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">{children}</div>
           </div>
           <Footer />
           <JackpotNotification />
