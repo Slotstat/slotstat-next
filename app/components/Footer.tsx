@@ -13,7 +13,7 @@ const Footer = () => {
 
   return (
     <footer className="flex justify-center bg-dark2  pt-8 pb-12  ">
-      <div className="grid grid-cols-1 px-4 lg:grid-cols-flexauto w-[100%] max-w-screen-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-flexauto w-[100%] max-w-screen-xl lg:px-0 px-4">
         <div className="flex items-start justify-center lg:justify-start">
           <div className="flex flex-1 items-center justify-between lg:justify-start">
             <Link href="/" className="flex items-center">
