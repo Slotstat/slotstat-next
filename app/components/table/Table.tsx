@@ -23,6 +23,7 @@ import { casinoOrGameColumns } from "./columns";
 
 import { usePathname, useRouter } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
+import Link from "next/link";
 
 type Props = {
   showFilter: boolean;
@@ -70,7 +71,7 @@ const Table = ({
   const pathName = usePathname();
   // const [ascDesc, setAscDesc] = useState<number>(0);
 
-  const onRowPress = (row: Row<CasinoData | GameData>) => {
+  const bottomSheetRowClick = (row: Row<CasinoData | GameData>) => {
     if (onAddToCompare) {
       return onAddToCompare(row.original);
     } else if (getGamesFromChosenCasino && row.original.casinoId) {
@@ -78,34 +79,33 @@ const Table = ({
         casinoId: row.original.casinoId,
         name: row.original.name,
       });
-    } else {
+    } else if (row.original.type === "AllGames") {
       const segments = pathName.split("/");
-
-      if (row.original.type === "AllGames") {
-        let PathNameForAllGames: string;
-        if (segments.length === 3) {
-          PathNameForAllGames = segments[1];
-          setQueryParams({ type: row.original.type }, `${PathNameForAllGames}`);
-        } else {
-          PathNameForAllGames = pathName;
-          setQueryParams(
-            { type: row.original.type },
-            `${PathNameForAllGames}/${row.original.casinoId}`
-          );
-        }
+      let PathNameForAllGames: string;
+      if (segments.length === 3) {
+        PathNameForAllGames = segments[1];
+        setQueryParams({ type: row.original.type }, `${PathNameForAllGames}`);
       } else {
-        if (segments.length === 3) {
-          return router.push(
-            `/${segments[1]}/${row.original.gameId}?isFiat=${isFiat}`
-          );
-        } else {
-          const path = row.original.gameId
-            ? `${pathName}/${row.original.gameId}?isFiat=${isFiat}`
-            : `${row.original.casinoId}?isFiat=${isFiat}`;
-
-          return router.push(path);
-        }
+        PathNameForAllGames = pathName;
+        setQueryParams(
+          { type: row.original.type },
+          `${PathNameForAllGames}/${row.original.casinoId}`
+        );
       }
+    }
+  };
+
+  const onRowPress = (row: Row<CasinoData | GameData>) => {
+    const segments = pathName.split("/");
+
+    if (segments.length === 3) {
+      return `/${segments[1]}/${row.original.gameId}?isFiat=${isFiat}`;
+    } else {
+      const path = row.original.gameId
+        ? `${pathName}/${row.original.gameId}?isFiat=${isFiat}`
+        : `${row.original.casinoId}?isFiat=${isFiat}`;
+
+      return path;
     }
   };
 
@@ -262,7 +262,13 @@ const Table = ({
                   <tr
                     {...row.getRowProps()}
                     onClick={() => {
-                      onRowPress(row);
+                      if (
+                        onAddToCompare ||
+                        getGamesFromChosenCasino ||
+                        row.original.type === "AllGames"
+                      ) {
+                        bottomSheetRowClick(row);
+                      }
                     }}
                     key={index}
                     className="hover:bg-dark2 cursor-pointer"
@@ -275,17 +281,37 @@ const Table = ({
                               maxWidth: cell.column.maxWidth,
                               minWidth: cell.column.minWidth,
                               width: cell.column.width,
+                              height: 97,
+                              paddingTop: 0,
+                              paddingBottom: 0,
                             },
                           })}
                           key={index}
                         >
-                          <RenderRowCells
-                            isGame={isGame}
-                            cell={cell}
-                            row={row}
-                            index={index}
-                            onRowPress={() => onRowPress(row)}
-                          />
+                          {onAddToCompare ||
+                          getGamesFromChosenCasino ||
+                          row.original.type === "AllGames" ? (
+                            <div className=" h-full flex items-center ">
+                              <RenderRowCells
+                                isGame={isGame}
+                                cell={cell}
+                                row={row}
+                                index={index}
+                              />
+                            </div>
+                          ) : (
+                            <Link
+                              href={onRowPress(row)}
+                              className=" h-full flex items-center "
+                            >
+                              <RenderRowCells
+                                isGame={isGame}
+                                cell={cell}
+                                row={row}
+                                index={index}
+                              />
+                            </Link>
+                          )}
                         </td>
                       );
                     })}

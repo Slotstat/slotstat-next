@@ -7,7 +7,7 @@ import {
 } from "@/app/assets/svg/SmallCharts";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cell, Row } from "react-table";
 import MenuComponent from "../MenuComponent";
 
@@ -101,13 +101,11 @@ export default function RenderRowCells({
   row,
   cell,
   index,
-  onRowPress,
   isGame,
 }: {
   cell: Cell<GameData, any> | Cell<CasinoData, any>;
   row: Row<GameData> | Row<CasinoData>;
   index: number;
-  onRowPress: () => void;
   isGame: boolean;
 }) {
   const t = useTranslations("table");
@@ -131,27 +129,27 @@ export default function RenderRowCells({
     window.open(redirectUrl, "_blank", "noreferrer");
   };
 
-  const goToStatistics = (event: { stopPropagation: () => void }) => {
-    event.stopPropagation();
-    onRowPress();
-  };
+  // const goToStatistics = (event: { stopPropagation: () => void }) => {
+  //   event.stopPropagation();
+  //   onRowPress();
+  // };
 
-  const GoToStatistic = (
-    <div
-      onClick={goToStatistics}
-      className=" text-white text-xs font-bold hover:bg-dark1 block w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
-    >
-      {t("GoToStatistic")}
-    </div>
-  );
-  const goToCasino = (
-    <div
-      onClick={onGoToWebSiteClick}
-      className="text-xs  flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
-    >
-      {isGame ? t("GoToGame") : t("GoToCasino")} <LinkIcon className="ml-2" />
-    </div>
-  );
+  // const GoToStatistic = (
+  //   <div
+  //     onClick={goToStatistics}
+  //     className=" text-white text-xs font-bold hover:bg-dark1 block w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
+  //   >
+  //     {t("GoToStatistic")}
+  //   </div>
+  // );
+  // const goToCasino = (
+  //   <div
+  //     onClick={onGoToWebSiteClick}
+  //     className="text-xs  flex flex-row items-center justify-between text-white font-bold hover:bg-dark1 w-full pt-[9px] pb-2 px-3 rounded-md text-start leading-tight cursor-pointer select-none transition-all hover:text-blue2  outline-none "
+  //   >
+  //     {isGame ? t("GoToGame") : t("GoToCasino")} <LinkIcon className="ml-2" />
+  //   </div>
+  // );
 
   // const RenderGoTo = () => {
   //   return (
@@ -301,7 +299,9 @@ export default function RenderRowCells({
           </div>
         );
       case 4:
-        return (
+        return jackpot === 0 ? (
+          renderEmptyValue()
+        ) : (
           <CountUpForJackpots
             jackpot={jackpot}
             jackpotCurrency={jackpotCurrency}
@@ -339,7 +339,9 @@ export default function RenderRowCells({
           </div>
         );
       case 5:
-        return (
+        return jackpot === 0 ? (
+          renderEmptyValue()
+        ) : (
           <CountUpForJackpots
             jackpot={jackpot}
             jackpotCurrency={jackpotCurrency}
