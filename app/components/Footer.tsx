@@ -69,10 +69,19 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="order-last mt-8 flex items-end justify-center py-0 lg:order-none lg:mt-0 lg:justify-start lg:py-4.5">
-          <span className="text-sm font-normal text-grey1">
-            {tFooter("allRightsReserved")}
-          </span>
+        <div className="order-last mt-8 flex items-end justify-center py-0 lg:order-none lg:mt-0 lg:justify-start lg:py-4.5 ">
+          <div className="flex flex-col">
+            <a
+              className="text-sm font-normal text-white mb-3"
+              href={`mailto:info@slotstat.net`}
+            >
+              info@slotstat.net
+            </a>
+
+            <span className="text-sm font-normal text-grey1">
+              {tFooter("allRightsReserved")}
+            </span>
+          </div>
         </div>
         <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
           <SubscribeButton

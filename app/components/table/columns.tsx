@@ -83,7 +83,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       accessor: "name",
       maxWidth: 276,
       width: 276,
-      minWidth: 100,
+      minWidth: 276,
     },
     {
       Header: t("provider"),
