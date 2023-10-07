@@ -177,16 +177,21 @@ type StatisticsData = {
 
 type FiltersKey = "1D" | "1W" | "1M" | "1Y" | "All" | string;
 
-type ActionPaneProps = {
-  onPressCompare: () => void;
-  onPressRemove: () => void;
+type DateFilterForChartProps = {
   activeFilterId: FiltersKey;
   onPressFilter: (key: FiltersKey) => void;
-  compareGameObject: GameData | undefined;
-  mainGameObject: GameData | undefined;
   setFilterDisabled: (boolean: boolean) => void;
   filterDisabled: boolean;
 };
+type CasinoNamesWithCompareButtonProps = {
+  onPressCompare: () => void;
+  onPressRemove: () => void;
+  compareGameObject: GameData | undefined;
+  mainGameObject: GameData | undefined;
+};
+type ActionPaneProps = CasinoNamesWithCompareButtonProps &
+  DateFilterForChartProps;
+  
 type Type = "AllGames" | "Game";
 type QueryParams = {
   orderBy?: string;
