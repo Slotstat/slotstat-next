@@ -249,7 +249,7 @@ export default function RTP({
 
   return (
     <div className=" w-full">
-      <div className="rounded-3xl bg-dark2 lg:p-6 mt-6">{whichToRender()}</div>
+      <div className="rounded-3xl bg-dark2 mt-6 p-4 lg:p-6 ">{whichToRender()}</div>
     </div>
   );
 }

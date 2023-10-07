@@ -173,9 +173,12 @@ export const createSeries = (
 };
 
 export const setChartParameters = (chart: am4charts.XYChart) => {
-  const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-
   chart.hiddenState.properties.opacity = 0;
+  if (window.innerWidth < 768) {
+    chart.paddingLeft = 0;
+  }
+  
+  const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
   dateAxis.dateFormatter = new am4core.DateFormatter();
   dateAxis.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
 
@@ -210,7 +213,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // grid
   dateAxis.renderer.grid.template.stroke = "#FFFFFF66";
   valueAxis.renderer.grid.template.stroke = "#FFFFFF66";
-  dateAxis.renderer.grid.template.location = 0;
+  dateAxis.renderer.grid.template.location = 2;
   // dateAxis.renderer.grid.template.disabled = true;
   // valueAxis.renderer.grid.template.disabled = true;
   // dateAxis.renderer.minGridDistance = 60;
@@ -234,7 +237,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.cursor.maxTooltipDistance = 2000;
 
   chart.plotContainer.tooltipPosition = "pointer";
-  // chart.plotContainer.tooltipHTML = "<div>wefvwefv</div> ";
   chart.plotContainer.tooltip.label.padding(0, 0, 0, 0);
   chart.plotContainer.tooltip.getFillFromObject = false;
 

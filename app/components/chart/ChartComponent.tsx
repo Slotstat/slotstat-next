@@ -7,7 +7,6 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { live } from "../../assets";
 import BulletIcon from "../../assets/svg/BulletIcon";
 import Image from "next/image";
-
 import {
   SERIE_COLORS,
   createSeries,
@@ -15,7 +14,10 @@ import {
   showLoadingIndicator,
   hideLoadingIndicator,
 } from "./chartUtils";
-import ActionPane from "./ActionPane";
+import ActionPane, {
+  CasinoNamesWithCompareButton,
+  DateFilterForChart,
+} from "./ActionPane";
 import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
@@ -416,50 +418,68 @@ const ChartComponent = ({
             isAllGames ? "w-full" : "lg:w-3/4"
           } `}
         >
-          <div className="flex flex-col items-center justify-between lg:flex-row">
-            <div className="flex flex-row items-center">
-              <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
-                {t("gamePage.Win-spinRate")}
-              </h2>
+          <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
+            <div className="flex flex-row items-center ">
+              <div>
+                <h2 className="flex flex-1 items-center  lg:text-[24px] font-bold text-white ">
+                  {t("gamePage.Win-spinRate")}
+                </h2>
+              </div>
               <TooltipComponent
                 big={true}
                 text={t("gamePage.Win-spinRateHint")}
               />
             </div>
-            <div className="mt-3 flex items-center justify-between lg:mt-0">
+            <div className="mt-3 items-center justify-between lg:mt-0 lg:flex">
               {selectedGames.length && (
                 <div
-                  className="pointer flex items-center justify-center rounded-xl py-3 px-4 "
+                  className="w-full pointer flex items-center justify-between rounded-xl py-3 px-4  lg:w-auto md:w-auto "
                   style={{ backgroundColor: SERIE_COLORS[0] + "3D" }}
                 >
-                  <BulletIcon color={SERIE_COLORS[0]} size={20} />
-                  <span className="ml-2 text-sm font-bold leading-4 text-white">
-                    {mainGame?.casinoName} {mainGame?.name}{" "}
-                  </span>
-                  <span className="ml-2 text-blue2 font-bold w-14">
-                    {liveResultForMainGame}%
-                  </span>
-                  <Image src={live} alt="" className="ml-3" />
+                  <div className="flex items-center">
+                    <BulletIcon color={SERIE_COLORS[0]} size={20} />
+                    <span className="ml-2 text-sm font-bold leading-4 text-white">
+                      {mainGame?.casinoName} {mainGame?.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className=" text-blue2 font-bold w-14 lg:ml-2">
+                      {liveResultForMainGame}%
+                    </span>
+                    <Image src={live} alt="" className="ml-2" />
+                  </div>
                 </div>
               )}
               {isCompare && (
                 <div
-                  className="pointer ml-3 flex items-center justify-center rounded-xl py-3 px-4"
+                  className="w-full pointer flex items-center justify-between rounded-xl py-3 px-4  lg:w-auto md:w-auto  mt-3 lg:mt-0 lg:ml-3"
                   style={{ backgroundColor: SERIE_COLORS[1] + "3D" }}
                 >
-                  <BulletIcon color={SERIE_COLORS[1]} size={20} />
-                  <span className="ml-2 text-sm font-bold leading-4 text-white">
-                    {compareGameObject?.casinoName} {compareGameObject?.name}
-                  </span>
-                  <span className="ml-2 text-blue2 font-bold w-14">
-                    {liveResultForCompareGame}%
-                  </span>
-                  <Image src={live} alt="" className="ml-3" />
+                  <div className="flex items-center">
+                    <BulletIcon color={SERIE_COLORS[1]} size={20} />
+                    <span className="ml-2 text-sm font-bold leading-4 text-white">
+                      {compareGameObject?.casinoName} {compareGameObject?.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="ml-2 text-blue2 font-bold w-14">
+                      {liveResultForCompareGame}%
+                    </span>
+                    <Image src={live} alt="" className="ml-2" />
+                  </div>
                 </div>
               )}
             </div>
           </div>
-          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-4">
+          <div className="lg:hidden">
+            <DateFilterForChart
+              activeFilterId={activeFilterId}
+              filterDisabled={filterDisabled}
+              onPressFilter={setActiveFilterId}
+              setFilterDisabled={setFilterDisabled}
+            />
+          </div>
+          <div className="mt-6 rounded-3xl bg-dark2 lg:p-6 p-1">
             <div className="rounded-3xl bg-dark1">
               {noStatisticsYet ? (
                 <div className=" text-white w-full text-center">
@@ -467,16 +487,18 @@ const ChartComponent = ({
                 </div>
               ) : (
                 <>
-                  <ActionPane
-                    compareGameObject={compareGameObject}
-                    mainGameObject={mainGame}
-                    onPressCompare={onPressCompare}
-                    onPressRemove={onPressRemove}
-                    activeFilterId={activeFilterId}
-                    onPressFilter={setActiveFilterId}
-                    setFilterDisabled={setFilterDisabled}
-                    filterDisabled={filterDisabled}
-                  />
+                  <div className="hidden lg:block">
+                    <ActionPane
+                      compareGameObject={compareGameObject}
+                      mainGameObject={mainGame}
+                      onPressCompare={onPressCompare}
+                      onPressRemove={onPressRemove}
+                      activeFilterId={activeFilterId}
+                      onPressFilter={setActiveFilterId}
+                      setFilterDisabled={setFilterDisabled}
+                      filterDisabled={filterDisabled}
+                    />
+                  </div>
                   <div
                     id="chartdiv"
                     className="lg:h-[470px] h-80 w-full rounded-3xl bg-dark1"
@@ -484,6 +506,14 @@ const ChartComponent = ({
                 </>
               )}
             </div>
+          </div>
+          <div>
+            <CasinoNamesWithCompareButton
+              mainGameObject={mainGame}
+              compareGameObject={compareGameObject}
+              onPressCompare={onPressCompare}
+              onPressRemove={onPressRemove}
+            />
           </div>
         </div>
         {!isAllGames && (
