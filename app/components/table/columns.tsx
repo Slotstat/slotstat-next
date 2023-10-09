@@ -90,7 +90,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       accessor: "provider",
       maxWidth: 168,
       width: 168,
-      minWidth: 100,
+      minWidth: 168,
     },
     // {
     //   Header: t("user"),
@@ -105,7 +105,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       accessor: "p1h",
       maxWidth: 121,
       width: 121,
-      minWidth: 50,
+      minWidth: 121,
       hint: t("h1GameHint"),
     },
     {
@@ -113,7 +113,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       accessor: "p24h",
       maxWidth: 129,
       width: 129,
-      minWidth: 50,
+      minWidth: 129,
       hint: t("h24GameHint"),
     },
     // {
@@ -129,7 +129,7 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       accessor: "jackpot",
       maxWidth: 164,
       width: 164,
-      minWidth: 50,
+      minWidth: 164,
       hint: t("jackpotHint"),
     },
     {

@@ -9,7 +9,7 @@ export default function Breadcrumbs({
   breadcrumbs: breadcrumbsType;
 }) {
   return (
-    <div className=" my-4  lg:my-6 flex flex-row items-center">
+    <div className="my-4 flex flex-row items-center text-xs lg:text-sm lg:my-6">
       <Link href="/" className={"text-opaque1  mr-2"}>
         Home
       </Link>

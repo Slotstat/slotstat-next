@@ -145,7 +145,7 @@ export default async function Casino({
       {gamesList.results[0] && (
         <div className="my-6 lg:my-18 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
-          <div className="my-4 lg:my-6">
+          <div className="my-0 lg:my-6">
             <Table
               keyWord={keyWord}
               orderBy={orderBy}
