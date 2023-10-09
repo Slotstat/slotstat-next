@@ -36,9 +36,7 @@ export const CasinoNamesWithCompareButton = ({
       </div>
 
       {!compareGameObject ? (
-        <div onClick={onPressCompare}>
-          <DashedButton text={t("compare")} />
-        </div>
+        <DashedButton onPressCompare={onPressCompare} text={t("compare")} />
       ) : (
         <div className=" flex items-center justify-between rounded-xl bg-dark2 py-3 px-4 hover:bg-dark3 w-full lg:max-w-[224px]  lg:mr-2">
           <div className="flex items-center lg:max-w-[168px] ">
