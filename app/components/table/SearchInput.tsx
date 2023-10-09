@@ -45,7 +45,7 @@ export const SearchInput = ({
         }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className={`w-full rounded-lg text-sm border-grey1 text-grey1 bg-dark1 border  h-10 px-3 focus:border-blue1 focus:outline-none`}
+        className="w-full rounded-lg text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none "
       />
       <span className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center">
         <Image src={search} alt="" height={12} width={12} />

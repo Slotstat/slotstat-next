@@ -90,6 +90,12 @@ export const DateFilterForChart = ({
             // eslint-disable-next-line react-hooks/exhaustive-deps
             [activeFilterId]
           );
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const textColor = useMemo(
+            () => (activeFilterId === filterKey ? "text-white" : "text-grey1"),
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            [activeFilterId]
+          );
 
           return (
             <button
@@ -101,7 +107,9 @@ export const DateFilterForChart = ({
               }}
               className={`flex items-center justify-center rounded-[10px] py-2 px-5 hover:bg-dark3 ${background}`}
             >
-              <span className="text-sm leading-4 text-grey1">
+              <span
+                className={`text-xs leading-4 text-grey1 lg:text-sm ${textColor}`}
+              >
                 {/*@ts-ignore */}
                 {FILTERS[filterKey].label}
               </span>

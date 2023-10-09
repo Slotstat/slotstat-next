@@ -438,12 +438,12 @@ const ChartComponent = ({
                 >
                   <div className="flex items-center">
                     <BulletIcon color={SERIE_COLORS[0]} size={20} />
-                    <span className="ml-2 text-sm font-bold leading-4 text-white">
+                    <span className="ml-2 font-bold leading-4 text-white text-xs lg:text-sm">
                       {mainGame?.casinoName} {mainGame?.name}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span className=" text-blue2 font-bold w-14 lg:ml-2">
+                    <span className=" text-blue2 font-bold w-14 text-sm lg:ml-2 lg:text-base">
                       {liveResultForMainGame}%
                     </span>
                     <Image src={live} alt="" className="ml-2" />
@@ -457,12 +457,12 @@ const ChartComponent = ({
                 >
                   <div className="flex items-center">
                     <BulletIcon color={SERIE_COLORS[1]} size={20} />
-                    <span className="ml-2 text-sm font-bold leading-4 text-white">
+                    <span className="ml-2 font-bold leading-4 text-white text-xs lg:text-sm">
                       {compareGameObject?.casinoName} {compareGameObject?.name}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span className="ml-2 text-blue2 font-bold w-14">
+                    <span className="ml-2 text-blue2 text-sm lg:text-base font-bold w-14">
                       {liveResultForCompareGame}%
                     </span>
                     <Image src={live} alt="" className="ml-2" />
@@ -501,13 +501,13 @@ const ChartComponent = ({
                   </div>
                   <div
                     id="chartdiv"
-                    className="lg:h-[470px] h-80 w-full rounded-3xl bg-dark1"
+                    className="lg:h-[470px] h-56 w-full rounded-3xl bg-dark1"
                   ></div>
                 </>
               )}
             </div>
           </div>
-          <div>
+          <div className=" lg:hidden">
             <CasinoNamesWithCompareButton
               mainGameObject={mainGame}
               compareGameObject={compareGameObject}
@@ -517,10 +517,10 @@ const ChartComponent = ({
           </div>
         </div>
         {!isAllGames && (
-          <div className="lg:px-3 lg:pt-18 lg:w-1/4 w-full  sm:w-full px-4">
+          <div className="w-full lg:px-3 lg:pt-18 lg:w-1/4">
             <div className="flex flex-row items-center  justify-between">
               <div className="flex flex-row items-center ">
-                <h3 className="flex items-center text-[24px] font-bold text-white h-[48px]">
+                <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
                   RTP / Fluctuation
                 </h3>
                 <TooltipComponent big={true} text={t("table.RTPhint")} />

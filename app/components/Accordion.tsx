@@ -53,7 +53,7 @@ const AccordionItem = ({
   <RItem
     {...rest}
     header={({ state: { isEnter } }) => (
-      <div className="mb-4 flex flex-1 items-center justify-between text-[24px] font-bold text-white">
+      <div className="mb-4 flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
         {header}
         <div
           className={`ml-auto transition-transform duration-200 ease-in-out ${

@@ -48,7 +48,7 @@ const Dropdown = ({
             <Listbox.Button
               className={`relative border ${
                 open ? "border-blue1" : "border-grey1"
-              } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2  text-sm`}
+              } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 text-xs lg:text-sm`}
             >
               <span
                 title={selected.label}

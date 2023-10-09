@@ -44,7 +44,7 @@ export default function RTP({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className={` rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative `}
+          className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative"
         >
           {setOpen && isHovered && (
             <div
@@ -249,7 +249,9 @@ export default function RTP({
 
   return (
     <div className=" w-full">
-      <div className="rounded-3xl bg-dark2 mt-6 p-4 lg:p-6 ">{whichToRender()}</div>
+      <div className="rounded-3xl bg-dark2 mt-6 p-4 lg:p-6 ">
+        {whichToRender()}
+      </div>
     </div>
   );
 }

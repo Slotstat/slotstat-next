@@ -127,7 +127,7 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base md:text-sm ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
         >
           <span className=" mr-1">{name}:</span>
           {isLive && additionalProps ? (

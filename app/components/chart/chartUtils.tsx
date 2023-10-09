@@ -174,10 +174,12 @@ export const createSeries = (
 
 export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.hiddenState.properties.opacity = 0;
-  if (window.innerWidth < 768) {
-    chart.paddingLeft = 0;
-  }
-  
+  const isSmallerThan768 = window.innerWidth < 768;
+  chart.paddingLeft = isSmallerThan768 ? 0 : 16;
+  // if (window.innerWidth < 768) {
+  //   chart.paddingLeft = 0;
+  // }
+  chart.tapToActivate = true;
   const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
   dateAxis.dateFormatter = new am4core.DateFormatter();
   dateAxis.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -189,7 +191,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   dateAxis.tooltip.disabled = true;
   dateAxis.renderer.labels.template.fill = am4core.color("#969CB0");
-  dateAxis.renderer.labels.template.fontSize = 12;
+  dateAxis.renderer.labels.template.fontSize = isSmallerThan768 ? 10 : 12;
   dateAxis.renderer.labels.template.fontWeight = "normal";
 
   dateAxis.startLocation = 0.5;
@@ -201,7 +203,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   valueAxis.tooltip.disabled = true;
   valueAxis.renderer.labels.template.fill = am4core.color("#969CB0");
-  valueAxis.renderer.labels.template.fontSize = 12;
+  valueAxis.renderer.labels.template.fontSize = isSmallerThan768 ? 10 : 12;
   valueAxis.renderer.labels.template.fontWeight = "normal";
 
   valueAxis.numberFormatter = new am4core.NumberFormatter();
@@ -213,11 +215,11 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // grid
   dateAxis.renderer.grid.template.stroke = "#FFFFFF66";
   valueAxis.renderer.grid.template.stroke = "#FFFFFF66";
-  dateAxis.renderer.grid.template.location = 2;
+  dateAxis.renderer.grid.template.location = 0.2;
   // dateAxis.renderer.grid.template.disabled = true;
   // valueAxis.renderer.grid.template.disabled = true;
-  // dateAxis.renderer.minGridDistance = 60;
-  // valueAxis.renderer.minGridDistance = 50;
+  dateAxis.renderer.minGridDistance = isSmallerThan768 ? 40 : 70;
+  valueAxis.renderer.minGridDistance = isSmallerThan768 ? 20 : 40;
 
   // zoom
   // dateAxis.showOnInit = false;
@@ -250,94 +252,99 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
     const y = e.target.chart.yAxes.getIndex(0);
     const s = e.target.chart.series.getIndex(0);
     const s2 = e.target.chart.series.getIndex(1);
-
     if (x && y && s) {
-      const { values } = s.dataItems;
       const cursorPosition = x.toAxisPosition(e.target.xPosition);
-      const cursorDate = x.positionToDate(cursorPosition);
-      const t = cursorDate.getTime();
+      const cursorPositionY = y.toAxisPosition(e.target.yPosition);
 
-      let v = null;
-      let i = 0;
+      if (cursorPosition > 0.99 && cursorPositionY > 0.9) {
+        chart.plotContainer.tooltipHTML = "";
+      } else {
+        const { values } = s.dataItems;
+        const cursorDate = x.positionToDate(cursorPosition);
+        const t = cursorDate.getTime();
 
-      do {
-        let dateEnd = 1;
-        const dateStart = values[i].dateX.getTime();
-        if (!values[i + 1]?.dateX?.getTime()) {
-          dateEnd = dateStart + 7.2e6;
-        } else {
-          dateEnd = values[i + 1].dateX.getTime();
-        }
-        if (t >= dateStart && t <= dateEnd) v = values[i];
-        i += 1;
-      } while (i < values.length);
-
-      let v2 = null;
-      let i2 = 0;
-
-      if (s2) {
-        const values2 = s2.dataItems.values;
+        let v = null;
+        let i = 0;
 
         do {
-          let dateEnd2 = 1;
-          const dateStart = values2[i2].dateX.getTime();
-          if (!values2[i2 + 1]?.dateX?.getTime()) {
-            dateEnd2 = dateStart + 7.2e6;
+          let dateEnd = 1;
+          const dateStart = values[i].dateX.getTime();
+          if (!values[i + 1]?.dateX?.getTime()) {
+            dateEnd = dateStart + 7.2e6;
           } else {
-            dateEnd2 = values2[i2 + 1].dateX.getTime();
+            dateEnd = values[i + 1].dateX.getTime();
           }
-          if (t >= dateStart && t <= dateEnd2) v2 = values2[i2];
-          i2 += 1;
-        } while (i2 < values2.length);
-      }
+          if (t >= dateStart && t <= dateEnd) v = values[i];
+          i += 1;
+        } while (i < values.length);
 
-      if (v && !v2) {
-        const dateX = v?.dates?.dateX;
-        const series1value = v?.values?.valueY?.value;
-        const date = new Date(dateX);
-        const formattedDate = date.toLocaleDateString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        });
-        const formattedTime = date.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        });
+        let v2 = null;
+        let i2 = 0;
 
-        chart.plotContainer.tooltipHTML = getTooltip2(
-          series1value,
-          formattedDate,
-          formattedTime
-        );
-      }
+        if (s2) {
+          const values2 = s2.dataItems.values;
 
-      if (v2) {
-        const dateX = v2?.dates?.dateX;
-        const series1value = v?.values?.valueY?.value;
-        const series2value = v2?.values?.valueY?.value;
+          do {
+            let dateEnd2 = 1;
+            const dateStart = values2[i2].dateX.getTime();
+            if (!values2[i2 + 1]?.dateX?.getTime()) {
+              dateEnd2 = dateStart + 7.2e6;
+            } else {
+              dateEnd2 = values2[i2 + 1].dateX.getTime();
+            }
+            if (t >= dateStart && t <= dateEnd2) v2 = values2[i2];
+            i2 += 1;
+          } while (i2 < values2.length);
+        }
 
-        const date = new Date(dateX);
-        const formattedDate = date.toLocaleDateString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        });
-        const formattedTime = date.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        });
+        if (v && !v2) {
+          const dateX = v?.dates?.dateX;
+          const series1value = v?.values?.valueY?.value;
+          const date = new Date(dateX);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+          });
+          const formattedTime = date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          });
 
-        chart.plotContainer.tooltipHTML = getTooltip3(
-          series1value,
-          formattedDate,
-          formattedTime,
-          series2value
-        );
+          chart.plotContainer.tooltipHTML = getTooltip2(
+            series1value,
+            formattedDate,
+            formattedTime
+          );
+        }
+
+        if (v2) {
+          const dateX = v2?.dates?.dateX;
+          const series1value = v?.values?.valueY?.value;
+          const series2value = v2?.values?.valueY?.value;
+
+          const date = new Date(dateX);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "numeric",
+          });
+          const formattedTime = date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          });
+
+          chart.plotContainer.tooltipHTML = getTooltip3(
+            series1value,
+            formattedDate,
+            formattedTime,
+            series2value
+          );
+        }
       }
     }
   });

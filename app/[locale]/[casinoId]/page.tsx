@@ -91,7 +91,7 @@ const Casino = async ({
         />
       )}
       <div className="md:my-18 my-10 lg:my-18 ">
-        <h2 className="flex flex-1 items-center justify-between text-[24px] font-bold text-white">
+        <h2 className="flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
           {gamesList.results[0]?.casinoName}
         </h2>
         <div className="my-4 lg:my-6">
