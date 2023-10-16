@@ -33,7 +33,7 @@ export default function IntroComponent() {
         animate={{ height: enabled ? 202 : 0 }}
         className="bg-dark2 rounded-2xl  my-6 overflow-hidden  "
       >
-        <div className="h-28 flex justify-between w-full m-12">
+        <div className="h-28 flex justify-between  m-12">
           <div>
             <h1 className="text-white text-3xl mb-6">
               Todays slot games statistics by Slotstat
