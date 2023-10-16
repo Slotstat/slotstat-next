@@ -34,14 +34,12 @@ am4core.addLicense("ch-custom-attribution");
 const ChartComponent = ({
   gameId,
   mainGame,
-  isAllGames,
   isFiat,
   compareGame,
   compareGameId,
 }: {
   gameId: string;
   mainGame: GameData;
-  isAllGames: boolean;
   isFiat?: string;
   compareGame?: GameData;
   compareGameId?: string;
@@ -74,18 +72,12 @@ const ChartComponent = ({
   const getAndCorrectStatisticsData = async (newGameId: string) => {
     let statistics: StatisticsData[];
 
-    if (isAllGames) {
-      const statisticsDataFromCasino: Promise<StatisticsData[]> =
-        getCasinoStatistic(newGameId, activeFilterId);
+    const statisticsData: Promise<StatisticsData[]> = getStatistics(
+      newGameId,
+      activeFilterId
+    );
+    statistics = await statisticsData;
 
-      statistics = await statisticsDataFromCasino;
-    } else {
-      const statisticsData: Promise<StatisticsData[]> = getStatistics(
-        newGameId,
-        activeFilterId
-      );
-      statistics = await statisticsData;
-    }
     if (statistics.length === 0) {
       setNoStatisticsYet(true);
       return [];
@@ -160,11 +152,8 @@ const ChartComponent = ({
   // add game for compare
   const onAddToCompare = async (GameData: GameData) => {
     let compareGameId: string;
-    if (isAllGames && GameData.casinoId) {
-      compareGameId = GameData.casinoId;
-    } else {
-      compareGameId = GameData.gameId;
-    }
+
+    compareGameId = GameData.gameId;
 
     setCompareGameObject(GameData);
     setOpen(false);
@@ -262,15 +251,19 @@ const ChartComponent = ({
   ) => {
     if (chartRef.current) {
       let statistics;
-      const statisticsData: Promise<StatisticsData[]> = isAllGames
-        ? getCasinoStatistic(newGameId, activeFilterId, timeStamp)
-        : getStatistics(newGameId, activeFilterId, timeStamp);
+      const statisticsData: Promise<StatisticsData[]> = getStatistics(
+        newGameId,
+        activeFilterId,
+        timeStamp
+      );
 
       // if we are comparing one game to another this statement will happen
       if (compareGameId) {
-        const compareStatisticsData: Promise<StatisticsData[]> = isAllGames
-          ? getCasinoStatistic(compareGameId, activeFilterId, timeStamp)
-          : getStatistics(compareGameId, activeFilterId, timeStamp);
+        const compareStatisticsData: Promise<StatisticsData[]> = getStatistics(
+          compareGameId,
+          activeFilterId,
+          timeStamp
+        );
         const [mainStatistic, compareStatistics] = await Promise.all([
           statisticsData,
           compareStatisticsData,
@@ -413,11 +406,7 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap">
-        <div
-          className={`w-full py-6 lg:pr-3 lg:py-18 ${
-            isAllGames ? "w-full" : "lg:w-3/4"
-          } `}
-        >
+        <div className="w-full py-6 lg:pr-3 lg:py-18 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">
               <div>
@@ -516,38 +505,36 @@ const ChartComponent = ({
             />
           </div>
         </div>
-        {!isAllGames && (
-          <div className="w-full lg:px-3 lg:pt-18 lg:w-1/4">
-            <div className="flex flex-row items-center  justify-between">
-              <div className="flex flex-row items-center ">
-                <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
-                  RTP / Fluctuation
-                </h3>
-                <TooltipComponent big={true} text={t("table.RTPhint")} />
-              </div>
-              <Image src={live} alt="" className="ml-3 w-10 h-10" />
-            </div>
 
-            <div>
-              <RTP color="#5887F6" gameObject={mainGame} />
-
-              <RTP
-                color="#877CF2"
-                gameObject={compareGameObject}
-                onPressCompare={onPressCompare}
-                setOpen={setOpen}
-                onPressRemove={onPressRemove}
-              />
+        <div className="w-full lg:px-3 lg:pt-18 lg:w-1/4">
+          <div className="flex flex-row items-center  justify-between">
+            <div className="flex flex-row items-center ">
+              <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
+                RTP / Fluctuation
+              </h3>
+              <TooltipComponent big={true} text={t("table.RTPhint")} />
             </div>
+            <Image src={live} alt="" className="ml-3 w-10 h-10" />
           </div>
-        )}
+
+          <div>
+            <RTP color="#5887F6" gameObject={mainGame} />
+
+            <RTP
+              color="#877CF2"
+              gameObject={compareGameObject}
+              onPressCompare={onPressCompare}
+              setOpen={setOpen}
+              onPressRemove={onPressRemove}
+            />
+          </div>
+        </div>
       </div>
       <BottomSheetModal
         open={open}
         setOpen={setOpen}
         onAddToCompare={onAddToCompare}
         gameId={gameId}
-        isAllGames={isAllGames}
         isFiat={isFiat || "false"}
       />
     </>

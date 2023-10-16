@@ -1,111 +1,33 @@
-export const casinoOrGameColumns = (t: any, isGame: boolean) => {
-  const casinoColumns = [
-    {
-      Header: t("casinoName"),
-      accessor: "name",
-      maxWidth: 263,
-      width: 263,
-      minWidth: 263,
-    },
-    {
-      Header: t("games"),
-      accessor: "providers",
-      maxWidth: 115,
-      width: 115,
-      minWidth: 115,
-    },
-    {
-      Header: t("bonuses"),
-      accessor: "bounties",
-      maxWidth: 210,
-      width: 210,
-      minWidth: 210,
-      hint: t("bonusesHint"),
-    },
-    {
-      Header: t("h1"),
-      accessor: "p1h",
-      maxWidth: 114,
-      width: 114,
-      minWidth: 114,
-      hint: t("h1Hint"),
-    },
-    {
-      Header: t("h24"),
-      accessor: "p24h",
-      maxWidth: 131,
-      width: 131,
-      minWidth: 131,
-      hint: t("h24Hint"),
-    },
-    {
-      Header: t("jackpot"),
-      accessor: "jackpot",
-      maxWidth: 222,
-      width: 222,
-      minWidth: 222,
-      hint: t("jackpotHint"),
-    },
-    {
-      Header: t("trust"),
-      accessor: "dataSource",
-      maxWidth: 106,
-      width: 106,
-      minWidth: 106,
-      hint: t("sourceHint"),
-    },
-    // {
-    //   Header: t("t24h"),
-    //   accessor: "t24h",
-    //   maxWidth: 169,
-    //   width: 169,
-    //   minWidth: 50,
-    // },
-    {
-      Header: t("casinoLink"),
-      accessor: "test",
-      maxWidth: 135,
-      width: 135,
-      minWidth: 135,
-    },
-    // {
-    //   Header: t("RTP"),
-    //   accessor: "RTP",
-    //   // maxWidth: 169,
-    //   // width: 169,
-    //   // minWidth: 50,
-    // },
-  ];
-
+export const casinoOrGameColumns = (t: any) => {
   const CASINO_GAME_COLS = [
     {
-      Header: t("game"),
+      Header: (
+        <div>
+          {t("game")} /<span className="text-grey1 ml-1">{t("provider")}</span>
+        </div>
+      ),
       accessor: "name",
-      maxWidth: 276,
-      width: 276,
-      minWidth: 276,
+      maxWidth: 279,
+      width: 279,
+      minWidth: 279,
     },
     {
-      Header: t("provider"),
-      accessor: "provider",
-      maxWidth: 168,
-      width: 168,
-      minWidth: 168,
+      Header: (
+        <div>
+          {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
+        </div>
+      ),
+      accessor: "casino",
+      maxWidth: 246,
+      width: 246,
+      minWidth: 246,
     },
-    // {
-    //   Header: t("user"),
-    //   accessor: "user",
-    //   maxWidth: 129,
-    //   width: 129,
-    //   minWidth: 80,
-    //   hint: t("userHint"),
-    // },
     {
       Header: t("h1"),
       accessor: "p1h",
-      maxWidth: 121,
-      width: 121,
-      minWidth: 121,
+      maxWidth: 116,
+      width: 116,
+      minWidth: 116,
       hint: t("h1GameHint"),
     },
     {
@@ -116,48 +38,39 @@ export const casinoOrGameColumns = (t: any, isGame: boolean) => {
       minWidth: 129,
       hint: t("h24GameHint"),
     },
-    // {
-    //   Header: t("source"),
-    //   accessor: "dataSource",
-    //   maxWidth: 140,
-    //   width: 140,
-    //   minWidth: 50,
-    //   hint: t("sourceHint"),
-    // },
+
     {
       Header: t("jackpot"),
       accessor: "jackpot",
-      maxWidth: 164,
-      width: 164,
-      minWidth: 164,
+      maxWidth: 218,
+      width: 218,
+      minWidth: 218,
       hint: t("jackpotHint"),
     },
     {
-      Header: t("RTP"),
+      Header: (
+        <div>
+          {t("RTP")} /
+          <span className="text-grey1 ml-1">{t("fluctuation")}</span>
+        </div>
+      ),
       accessor: "RTP",
-      // maxWidth: 169,
-      // width: 169,
-      // minWidth: 50,
+      maxWidth: 212,
+      width: 212,
+      minWidth: 212,
       hint: t("RTPhint"),
     },
     {
       Header: t("play"),
       accessor: "play",
-      // maxWidth: 169,
-      // width: 169,
-      // minWidth: 50,
+      maxWidth: 95,
+      width: 95,
+      minWidth: 95,
       hint: t("playHint"),
     },
-    // {
-    //   Header: t("t24h"),
-    //   accessor: "t24h",
-    //   maxWidth: 139,
-    //   width: 139,
-    //   minWidth: 50,
-    // },
   ];
 
-  return isGame ? CASINO_GAME_COLS : casinoColumns;
+  return CASINO_GAME_COLS;
 };
 
 // const SORT_BY = [

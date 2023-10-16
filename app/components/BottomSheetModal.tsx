@@ -3,10 +3,9 @@ import "react-spring-bottom-sheet/dist/style.css";
 
 import Image from "next/image";
 import Table from "./table/Table";
-import { back, close } from "../assets";
+import { close } from "../assets";
 import { memo, useCallback, useEffect, useState } from "react";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
-import getCasinosClientSide from "@/lib/clientSide/getCasinosClientSide";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslations } from "next-intl";
@@ -17,7 +16,6 @@ type BottomSheetModalProps = {
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameData: GameData) => void;
   gameId: string;
-  isAllGames: boolean;
   isFiat?: string;
 };
 
@@ -26,33 +24,24 @@ const BottomSheetModal = ({
   setOpen,
   onAddToCompare,
   gameId,
-  isAllGames,
   isFiat,
 }: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
-  const [casinos, setCasinos] = useState<CasinoData[]>();
-  const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
+
   const [games, setGames] = useState<gamesList>();
   const [loading, setLoading] = useState(false);
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
-  const [isFiatState, setIsFiatState] = useState<string>(
-    isFiat || "false"
-  );
+  const [isFiatState, setIsFiatState] = useState<string>(isFiat || "false");
 
-  const getGamesFromChosenCasino = async (
-    casino: GetGamesFromChosenCasinoProps
-  ) => {
+  const getGames = async () => {
     !keyWord && setLoading(true);
 
-    const gamesListData: Promise<gamesList> = getGameListClientSide(
-      casino.casinoId,
-      {
-        orderBy,
-        keyWord,
-        // direction,
-      }
-    );
+    const gamesListData: Promise<gamesList> = getGameListClientSide({
+      orderBy,
+      keyWord,
+      // direction,
+    });
 
     const games = await gamesListData;
     const removeIndex = games.results
@@ -60,37 +49,13 @@ const BottomSheetModal = ({
       .indexOf(gameId);
     ~removeIndex && games.results.splice(removeIndex, 1);
 
-    if (isAllGames) {
-      games.results.splice(1);
-    } else {
-      games.results.shift();
-    }
-
     setGames(games);
-    setCasino(casino);
-    setLoading(false);
-  };
-
-  const getAllCasinos = async () => {
-    !keyWord && setLoading(true);
-    const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
-      orderBy,
-      keyWord,
-      isFiat: isFiatState,
-      // direction,
-    });
-    const casinos = await casinosData;
-    var removeIndex = casinos.map((item) => item.casinoId).indexOf(gameId);
-    ~removeIndex && casinos.splice(removeIndex, 1);
-
-    setCasinos(casinos);
     setLoading(false);
   };
 
   const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
     onAddToCompare(GameData);
     setGames(undefined);
-    setCasino(undefined);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,11 +67,8 @@ const BottomSheetModal = ({
   );
 
   useEffect(() => {
-    if (games && casino) {
-      getGamesFromChosenCasino(casino);
-    } else {
-      getAllCasinos();
-    }
+    getGames();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyWord, orderBy, isFiatState]);
 
@@ -117,47 +79,20 @@ const BottomSheetModal = ({
       open={open}
       onDismiss={() => {
         setOpen(false);
-        setCasino(undefined);
         setGames(undefined);
       }}
     >
       <div className="bg-dark1 py-8 flex justify-center  ">
         <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">
           <div className="flex items-center justify-between">
-            {games ? (
-              <button
-                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-                onClick={() => {
-                  setGames(undefined);
-                  setCasino(undefined);
-                }}
-              >
-                <Image
-                  src={back}
-                  alt=""
-                  className="h-6 w-6"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            ) : (
-              <div></div>
-            )}
-            {casino ? (
-              <span className=" text-2xl leading-4  text-white">
-                {t("choose-game-from")} {casino.name}
-              </span>
-            ) : (
-              <span className=" text-2xl leading-4  text-white">
-                {t("choose-casino")}
-              </span>
-            )}
+            <span className=" text-2xl leading-4  text-white">
+              {t("choose-game-from")}
+            </span>
 
             <button
               className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
               onClick={() => {
                 setOpen(false);
-                setCasino(undefined);
                 setGames(undefined);
               }}
             >
@@ -172,31 +107,11 @@ const BottomSheetModal = ({
           </div>
 
           <div className="py-8">
-            {casinos && !games && !loading ? (
+            {games && !loading ? (
               <Table
                 keyWord={keyWord}
                 orderBy={orderBy}
                 // direction={direction}
-                tableBodyData={casinos}
-                showFilter={true}
-                getGamesFromChosenCasino={getGamesFromChosenCasino}
-                isGame={false}
-                setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
-                setOrderByKeyInBottomSheet={(order) =>
-                  order && setOrderBy(order)
-                }
-                showCryptoFiatSwitcher={true}
-                isFiat={isFiatState}
-                setIsFiatState={(isFiatState) =>
-                  setIsFiatState(isFiatState)
-                }
-              />
-            ) : games && !loading ? (
-              <Table
-                keyWord={keyWord}
-                orderBy={orderBy}
-                // direction={direction}
-                isGame={true}
                 tableBodyData={games.results}
                 showFilter={true}
                 onAddToCompare={onAddToCompareAndClearBottomSheet}

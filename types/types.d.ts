@@ -104,26 +104,6 @@ type Dictionary = {
   };
 };
 
-interface CasinoData extends GameData {
-  casinoId: string;
-  name: string;
-  imageUrl: string;
-  providers: number;
-  bounties: string;
-  dataSource: string;
-  jackpot: number;
-  jackpotCurrency: string;
-  s24h?: null[] | null;
-  p1h: number;
-  p24h: number;
-  users: number;
-  pallTime: number;
-  t1H: number;
-  t24h: number;
-  redirectUrl: string;
-  isForAllGames?: boolean;
-}
-
 type GameData = {
   gameId: string;
   name: string;
@@ -143,6 +123,10 @@ type GameData = {
   type?: "AllGames";
   casinoCurrency?: string;
   rtp?: RTP;
+  bounties: string;
+  currencyCode: string;
+  fixedRtp: string;
+  isCrypto: boolean;
 };
 
 type RTP = {
@@ -191,7 +175,7 @@ type CasinoNamesWithCompareButtonProps = {
 };
 type ActionPaneProps = CasinoNamesWithCompareButtonProps &
   DateFilterForChartProps;
-  
+
 type Type = "AllGames" | "Game";
 type QueryParams = {
   orderBy?: string;

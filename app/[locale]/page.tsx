@@ -1,64 +1,93 @@
 import LiveCards from "../components/LiveCards";
-import Slider from "../components/Slider";
 import Table from "../components/table/Table";
-import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
-import getCasinos from "@/lib/getCasinos";
+import { getLandingCards } from "@/lib/getLanding";
 import { notFound } from "next/navigation";
 import { openGraphImage } from "@/app/shared-metadata";
-import type { Metadata } from "next";
+import getGamesList from "@/lib/getGamesList";
+import IntroComponent from "../components/IntroComponent";
 
-export const metadata: Metadata = {
-  title: "Slotstat",
-  description:
-    "Unique platform which gives you opportunity to choose where to play and win! ",
-  openGraph: {
-    ...openGraphImage,
-    title: "Slotstat",
-    description:
-      "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
-  },
+type Params = {
+  params: {
+    locale: string;
+  };
+  searchParams: QueryParams;
 };
+
+export async function generateMetadata({
+  params: { locale },
+  searchParams: { orderBy, keyWord, direction },
+}: Params) {
+  try {
+    const gamesList: gamesList = await getGamesList(locale, {
+      orderBy,
+      keyWord,
+      direction,
+    });
+    if (!gamesList)
+      return {
+        title: "Not found",
+        description: "The page you are looking for doesn't exists",
+      };
+
+    return {
+      title: "Slotstat",
+      description:
+        "Unique platform which gives you opportunity to choose where to play and win! ",
+      openGraph: {
+        ...openGraphImage,
+        title: "Slotstat",
+        description:
+          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+      },
+      alternates: {
+        canonical: `/`,
+        languages: {
+          "en-US": `en/`,
+          "ka-GE": `ka/`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
 
 export default async function Home({
   searchParams: { orderBy, keyWord, direction, isFiat },
   params: { locale },
-}: {
-  searchParams: QueryParams;
-  params: { locale: string };
-}) {
-  const casinosData: Promise<CasinoData[]> = getCasinos(locale, {
-    orderBy,
+}: Params) {
+  const gamesListData: Promise<gamesList> = getGamesList(locale, {
     keyWord,
     direction,
-    isFiat,
+    orderBy,
   });
-
-  const landingOffersData: Promise<Offer[]> = getLandingOffers(locale);
 
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
 
-  const [casinos, landingCards] = await Promise.all([
-    casinosData,
+  const [games, landingCards] = await Promise.all([
+    gamesListData,
     landingCardsData,
   ]);
 
-  if (!casinos && !landingCards) {
+  if (!games && !landingCards) {
     notFound();
   }
 
   return (
     <>
       <LiveCards cardsData={landingCards} />
-      <Slider landingOffersData={landingOffersData} />
+      <IntroComponent />
       <div className="my-6 lg:my-18">
         <Table
-          orderBy={orderBy || ""}
-          keyWord={keyWord || ""}
+          keyWord={keyWord}
+          orderBy={orderBy}
           direction={direction}
-          isFiat={isFiat || "false"}
-          tableBodyData={casinos}
+          tableBodyData={games.results}
           showFilter={true}
-          isGame={false}
+          isFiat={isFiat || "false"}
           showCryptoFiatSwitcher={true}
         />
       </div>

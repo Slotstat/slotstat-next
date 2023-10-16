@@ -25,6 +25,8 @@ import telegram from "./svg/telegram.svg";
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
 import cookie from "./img/cookie.png";
+import laptop from "./img/laptop.png";
+import triangle from "./img/triangle.png";
 
 export {
   logo,
@@ -53,4 +55,6 @@ export {
   slotLogo,
   moneyBag,
   cookie,
+  laptop,
+  triangle,
 };

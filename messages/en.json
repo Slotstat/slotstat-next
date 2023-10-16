@@ -46,14 +46,14 @@
     "casinoName": "Casino name",
     "games": "Games",
     "provider": "Provider",
-    "bonuses": "Bonuses",
     "h1": "1h %",
     "h24": "24h %",
     "source": "Source",
     "trust": "Trust",
     "jackpot": "Max Jackpot",
     "t24h": "24h",
-    "RTP": "RTP / Fluctuation",
+    "RTP": "RTP",
+    "fluctuation": "Fluctuation",
     "game": "Game",
     "user": "User",
     "bonusesHint": "Information about casino gift offers",
@@ -69,9 +69,10 @@
     "GoToGame": "Go to Game",
     "RTPhint": "RTP meaning is Return to Player, it’s static number All casinos have their RTP. It may vary from provider to provider even within one casino. RTP as a parameter is static, but when it comes to real situations it’s only ideal, which casinos tend to. None of the gamblers knew current-time RTP before we ran Slotstat. But now amateur researchers may do their very own predictions about whether it’s better to play a long run or a short one.",
     "casinoLink": "Casino link",
-    "playGame": "Play game",
     "play": "Play",
-    "playHint": "playHint"
+    "playHint": "playHint",
+    "casino": "Casino",
+    "bonus": "Bonus"
   },
   "gamePage": {
     "other": "Other",
@@ -94,8 +95,8 @@
 
   "search": "Search",
   "noStatistic": "Oops, we will update statistics soon!!",
-  "fiatCasinos": "Fiat Casinos",
-  "cryptoCasinos": "Crypto Casinos",
+  "fiatCasinos": "Fiat",
+  "cryptoCasinos": "Crypto ",
   "itemNotFound": "Oops, item not found",
 
   "notification": {

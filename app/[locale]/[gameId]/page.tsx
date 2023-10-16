@@ -3,8 +3,6 @@ import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
 import Table from "@/app/components/table/Table";
-import getCasino from "@/lib/getCasino";
-import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
@@ -22,7 +20,7 @@ export async function generateMetadata({
     if (casinoId !== gameId) {
       mainGame = await getSingleGame(gameId);
     } else {
-      const gamesListData: gamesList = await getGamesList(locale, casinoId, {
+      const gamesListData: gamesList = await getGamesList(locale, {
         keyWord,
         direction,
         orderBy,
@@ -56,55 +54,35 @@ export async function generateMetadata({
 }
 
 export default async function Casino({
-  params: { casinoId, gameId, locale },
+  params: { gameId, locale },
   searchParams: { orderBy, keyWord, direction, isFiat, compareGameId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
 }) {
-  const gamesListData: Promise<gamesList> = getGamesList(locale, casinoId, {
+  const gamesListData: Promise<gamesList> = getGamesList(locale, {
     keyWord,
     direction,
     orderBy,
   });
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
-  // const casinoStatisticsData: Promise<GameData> = getCasino(casinoId);
 
-  const gamesCardsData: Promise<Card[]> =
-    casinoId === gameId
-      ? getCasinoCards(locale, casinoId)
-      : getGameCards(locale, gameId);
+  const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
   let mainGameObj: GameData;
-  if (casinoId !== gameId) {
-    var [mainGame, gamesList, gameCards] = await Promise.all([
-      mainGameData,
-      gamesListData,
-      gamesCardsData,
-    ]);
-    mainGameObj = mainGame;
-  } else {
-    var [gamesList, gameCards] = await Promise.all([
-      gamesListData,
-      gamesCardsData,
-    ]);
-    mainGameObj = gamesList.results[0];
-  }
+
+  var [mainGame, gamesList, gameCards] = await Promise.all([
+    mainGameData,
+    gamesListData,
+    gamesCardsData,
+  ]);
+  mainGameObj = mainGame;
 
   let compareGame;
-  // using if statement "casinoId !== gameId" for avoiding all games crush
-  if (compareGameId && casinoId !== gameId) {
+
+  if (compareGameId) {
     const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
     compareGame = await compareGameData;
-  }
-
-  if (casinoId === gameId && gamesList) {
-    gamesList.results.shift();
-  } else {
-    const removeIndex = gamesList.results
-      .map((item) => item.gameId)
-      .indexOf(gameId);
-    ~removeIndex && gamesList.results.splice(removeIndex, 1);
   }
 
   if (!mainGameObj) {
@@ -113,23 +91,17 @@ export default async function Casino({
 
   const breadcrumbs = [
     {
-      name: mainGameObj.casinoName,
-      url: `/${casinoId}?isFiat=${isFiat || "false"}`,
-    },
-    {
-      name: mainGameObj.name,
+      name: mainGameObj?.name,
     },
   ];
 
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
-
       <LiveCards
         cardsData={gameCards}
         rows={2}
         game={true}
-        casinoId={casinoId}
         gamesCardsData={gamesCardsData}
       />
       {mainGameObj && (
@@ -137,7 +109,6 @@ export default async function Casino({
           gameId={gameId}
           mainGame={mainGameObj}
           compareGame={compareGame}
-          isAllGames={casinoId === gameId}
           isFiat={isFiat || "false"}
           compareGameId={compareGameId}
         />
@@ -152,7 +123,6 @@ export default async function Casino({
               direction={direction}
               tableBodyData={gamesList.results}
               showFilter={true}
-              isGame={true}
               isFiat={isFiat || "false"}
             />
           </div>

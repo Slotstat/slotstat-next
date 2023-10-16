@@ -23,7 +23,7 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const RTPindicatorWidth = 100;
+  const RTPindicatorWidth = 80;
 
   const casinoLoosingIndicatorSizeCounter =
     (RTP - preferredValue) * (RTPindicatorWidth / (max - preferredValue));

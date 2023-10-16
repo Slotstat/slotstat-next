@@ -27,13 +27,12 @@ import Link from "next/link";
 
 type Props = {
   showFilter: boolean;
-  tableBodyData: CasinoData[] | GameData[];
+  tableBodyData: GameData[];
   onAddToCompare?: (gameId: GameData) => void;
   orderBy?: string;
   keyWord?: string;
   direction?: string;
   isFiat?: string;
-  isGame: boolean;
   getGamesFromChosenCasino?: ({
     casinoId,
     name,
@@ -53,7 +52,6 @@ const Table = ({
   direction,
   isFiat,
   getGamesFromChosenCasino,
-  isGame,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
@@ -63,15 +61,14 @@ const Table = ({
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
-
-  const columns = useMemo(() => casinoOrGameColumns(t, isGame), [t, isGame]);
-  const data = useMemo(() => [...tableBodyData], [tableBodyData]);
-
-  const router = useRouter();
-  const pathName = usePathname();
   // const [ascDesc, setAscDesc] = useState<number>(0);
 
-  const bottomSheetRowClick = (row: Row<CasinoData | GameData>) => {
+  const columns = useMemo(() => casinoOrGameColumns(t), [t]);
+  const data = useMemo(() => [...tableBodyData], [tableBodyData]);
+
+  const pathName = usePathname();
+
+  const bottomSheetRowClick = (row: Row<GameData>) => {
     if (onAddToCompare) {
       return onAddToCompare(row.original);
     } else if (getGamesFromChosenCasino && row.original.casinoId) {
@@ -92,20 +89,6 @@ const Table = ({
           `${PathNameForAllGames}/${row.original.casinoId}`
         );
       }
-    }
-  };
-
-  const onRowPress = (row: Row<CasinoData | GameData>) => {
-    const segments = pathName.split("/");
-
-    if (segments.length === 3) {
-      return `/${segments[1]}/${row.original.gameId}?isFiat=${isFiat}`;
-    } else {
-      const path = row.original.gameId
-        ? `${pathName}/${row.original.gameId}?isFiat=${isFiat}`
-        : `${row.original.casinoId}?isFiat=${isFiat}`;
-
-      return path;
     }
   };
 
@@ -262,11 +245,7 @@ const Table = ({
                   <tr
                     {...row.getRowProps()}
                     onClick={() => {
-                      if (
-                        onAddToCompare ||
-                        getGamesFromChosenCasino ||
-                        row.original.type === "AllGames"
-                      ) {
+                      if (onAddToCompare || getGamesFromChosenCasino) {
                         bottomSheetRowClick(row);
                       }
                     }}
@@ -288,12 +267,9 @@ const Table = ({
                           })}
                           key={index}
                         >
-                          {onAddToCompare ||
-                          getGamesFromChosenCasino ||
-                          row.original.type === "AllGames" ? (
+                          {onAddToCompare || getGamesFromChosenCasino ? (
                             <div className=" h-full flex items-center ">
                               <RenderRowCells
-                                isGame={isGame}
                                 cell={cell}
                                 row={row}
                                 index={index}
@@ -301,11 +277,10 @@ const Table = ({
                             </div>
                           ) : (
                             <Link
-                              href={onRowPress(row)}
+                              href={`${row.original.gameId}?isFiat=${isFiat}`}
                               className=" h-full flex items-center "
                             >
                               <RenderRowCells
-                                isGame={isGame}
                                 cell={cell}
                                 row={row}
                                 index={index}
