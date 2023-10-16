@@ -51,15 +51,15 @@ export default async function sitemap() {
   const baseUrlSitemap = "https://slotstat.net";
 
   var casinosIds: string[] = [];
-  const casinosData: CasinoData[] = await getCasinos();
-  const casinosUrls =
-    casinosData?.map((casino) => {
-      casinosIds.push(casino.casinoId);
-      return {
-        url: `${baseUrlSitemap}/${casino.casinoId}`,
-        lastModified: new Date(),
-      };
-    }) ?? [];
+  // const casinosData: CasinoData[] = await getCasinos();
+  // const casinosUrls =
+  //   casinosData?.map((casino) => {
+  //     casinosIds.push(casino.casinoId);
+  //     return {
+  //       url: `${baseUrlSitemap}/${casino.casinoId}`,
+  //       lastModified: new Date(),
+  //     };
+  //   }) ?? [];
 
   const allGamesIDs = await getGames(casinosIds);
   const allGamesURLs =
@@ -88,7 +88,7 @@ export default async function sitemap() {
       url: `${baseUrlSitemap}/howItWorks`,
       lastModified: new Date(),
     },
-    ...casinosUrls,
+    // ...casinosUrls,
     ...allGamesURLs,
   ];
 }
