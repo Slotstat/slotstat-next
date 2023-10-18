@@ -8,6 +8,15 @@ import { motion } from "framer-motion";
 export default function IntroComponent() {
   const [enabled, setEnabled] = useState(true);
   const [openVideo, setOpenVideo] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   return (
     <div>
       <div className="flex justify-between text-grey1">
@@ -17,7 +26,7 @@ export default function IntroComponent() {
           <Switch
             checked={enabled}
             onChange={setEnabled}
-            className={`${enabled ? "bg-blue1" : "bg-dark2"}
+            className={`${enabled ? "bg-blue1" : "bg-grey3"}
           relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
             <span className="sr-only">Use setting</span>
@@ -44,14 +53,23 @@ export default function IntroComponent() {
               of winning spins and jackpots... Read more
             </p>
           </div>
-          <div className="relative" onClick={() => setOpenVideo(true)}>
+          <div
+            className="relative cursor-pointer h-[106px] "
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => setOpenVideo(true)}
+          >
             <Image
               src={laptop}
               alt="slotstat video cover"
               width={306}
               height={106}
             />
-            <div className="absolute top-0 bottom-0 right-0 left-0  bg-dark1/50 flex justify-center items-center">
+            <div
+              className={`${
+                isHovered ? "bg-dark1/70" : "bg-dark1/50"
+              }  absolute top-0 bottom-0 right-0 left-0 rounded-xl flex justify-center items-center`}
+            >
               <div className="flex text-white items-center text-base">
                 <span>Watch now</span>
                 <Image

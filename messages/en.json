@@ -75,7 +75,7 @@
     "bonus": "Bonus"
   },
   "gamePage": {
-    "other": "Other",
+    "findYourGame": "Find your game",
     "games": "games",
     "Win-spinRate": "Win-spin rate",
     "Win-spinRateHint": "Win spin rate is the frequency of winning spins, for which win spin is a spin issuing a higher win than the initial bet."
@@ -90,7 +90,8 @@
     "jackpot": "jackpot",
     "sortBy": "sort by",
     "t1hLong": "Win rate of last 1 hour",
-    "t24hLong": "Win rate of last 24 hours"
+    "t24hLong": "Win rate of last 24 hours",
+    "RTP": "RTP"
   },
 
   "search": "Search",

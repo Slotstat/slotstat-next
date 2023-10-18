@@ -40,6 +40,7 @@ const BottomSheetModal = ({
     const gamesListData: Promise<gamesList> = getGameListClientSide({
       orderBy,
       keyWord,
+      isFiat,
       // direction,
     });
 
@@ -75,11 +76,18 @@ const BottomSheetModal = ({
   return (
     <BottomSheet
       blocking={false}
-      snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight / 0.6]}
+      snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight - 87]}
       open={open}
       onDismiss={() => {
         setOpen(false);
         setGames(undefined);
+      }}
+      onSpringStart={(event) => {
+        if (event.type === "SNAP" && event.source === "dragging") {
+          console.log(
+            "Starting a spring animation to user selected snap point"
+          );
+        }
       }}
     >
       <div className="bg-dark1 py-8 flex justify-center  ">
@@ -119,6 +127,7 @@ const BottomSheetModal = ({
                 setOrderByKeyInBottomSheet={(order) =>
                   order && setOrderBy(order)
                 }
+                showCryptoFiatSwitcher={true}
               />
             ) : (
               <SkeletonTheme baseColor="#24262C" highlightColor="#444">

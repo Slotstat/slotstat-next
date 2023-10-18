@@ -152,7 +152,7 @@ export default function RenderRowCells({
         <div>
           <p
             title={name}
-            className=" text-white font-bold truncate max-w-[110px] text-xs md:text-base"
+            className=" text-white font-bold truncate max-w-[160px] text-xs md:text-base"
           >
             {cell.render("Cell")} {provider}
           </p>
@@ -166,7 +166,7 @@ export default function RenderRowCells({
     return (
       <div className="text-base">
         <p>{casinoName}</p>
-        <p className="text-grey1 text-base">{bounties}</p>
+        <p className="text-grey1 text-base truncate max-w-[206px]">{bounties}</p>
       </div>
     );
   };
@@ -186,7 +186,7 @@ export default function RenderRowCells({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={`${
-          isHovered ? "text-white bg-blue1" : "text-grey1 bg-blue4"
+          isHovered ? "text-white bg-blue1" : "text-grey1 bg-grey3"
         }  w-32 items-center justify-center flex py-2 rounded-lg `}
       >
         <p>{t("play")}</p>

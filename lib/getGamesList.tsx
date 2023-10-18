@@ -3,7 +3,7 @@ import slotStatClient from "./instance";
 export default async function getGamesList(
   locale: string,
 
-  { keyWord, direction, orderBy }: QueryParams
+  { keyWord, direction, orderBy, isFiat }: QueryParams
 ) {
   try {
     const res = await slotStatClient(locale).request({
@@ -13,8 +13,10 @@ export default async function getGamesList(
         keyWord,
         ord: orderBy,
         direction: direction || "desc",
+        isCrypto: isFiat === "true" ? false : true,
       },
     });
+
     if (res.status != 200) throw new Error("Can't successfully fetch data");
 
     return res.data;

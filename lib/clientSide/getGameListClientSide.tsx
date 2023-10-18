@@ -5,6 +5,7 @@ export default async function getGameListClientSide({
   keyWord,
   direction,
   orderBy,
+  isFiat,
 }: QueryParams) {
   try {
     const res = await slotStatClientInstance().request({
@@ -14,6 +15,7 @@ export default async function getGameListClientSide({
         keyWord,
         direction: direction || "desc",
         ord: orderBy,
+        isCrypto: isFiat === "true" ? false : true,
       },
     });
     if (res.status != 200) throw new Error("Can't successfully fetch data");

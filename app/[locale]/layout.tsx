@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-  description: "Unique platform which gives you opportunity to choose where to play and win! ",
+  description:
+    "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
-    google:
-      "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
+    google: "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
   },
   openGraph: {
-    images: '/opengraph-image.png',
+    images: "/opengraph-image.png",
   },
 };
 
@@ -49,8 +49,10 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          <div className="flex justify-center">
-            <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">{children}</div>
+          <div className="flex justify-center mt-24">
+            <div className="w-[100%] max-w-screen-xl lg:px-0 px-4">
+              {children}
+            </div>
           </div>
           <Footer />
           <JackpotNotification />

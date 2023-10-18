@@ -7,7 +7,7 @@ export default function OtherGames({ casinoName }: { casinoName: string }) {
 
   return (
     <h2 className="flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
-      {t("other")} {casinoName} {t("games")}
+      {t("findYourGame")}
     </h2>
   );
 }

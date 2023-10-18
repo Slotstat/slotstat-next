@@ -51,7 +51,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className=" py-6 lg:border-b lg:border-b-dark3  justify-center items-center	">
+    <header className=" py-6 lg:border-b lg:border-b-dark3 backdrop-blur-sm justify-center items-center	 fixed top-0 left-0 right-0 z-50">
       <div className="flex justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
           <Link href="/" className="flex items-center">

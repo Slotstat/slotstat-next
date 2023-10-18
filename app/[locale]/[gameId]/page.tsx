@@ -24,6 +24,7 @@ export async function generateMetadata({
         keyWord,
         direction,
         orderBy,
+        isFiat,
       });
       mainGame = gamesListData.results[0];
     }
@@ -64,6 +65,7 @@ export default async function Casino({
     keyWord,
     direction,
     orderBy,
+    isFiat,
   });
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
 
@@ -89,21 +91,15 @@ export default async function Casino({
     return notFound();
   }
 
-  const breadcrumbs = [
-    {
-      name: mainGameObj?.name,
-    },
-  ];
+  // const breadcrumbs = [
+  //   {
+  //     name: mainGameObj?.name,
+  //   },
+  // ];
 
   return (
     <>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
-      <LiveCards
-        cardsData={gameCards}
-        rows={2}
-        game={true}
-        gamesCardsData={gamesCardsData}
-      />
+      {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       {mainGameObj && (
         <ChartComponent
           gameId={gameId}
@@ -113,6 +109,12 @@ export default async function Casino({
           compareGameId={compareGameId}
         />
       )}
+      <LiveCards
+        cardsData={gameCards}
+        rows={2}
+        game={true}
+        gamesCardsData={gamesCardsData}
+      />
       {gamesList.results[0] && (
         <div className="my-6 lg:my-18 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
@@ -130,5 +132,4 @@ export default async function Casino({
       )}
     </>
   );
-  // }
 }

@@ -15,13 +15,14 @@ type Params = {
 
 export async function generateMetadata({
   params: { locale },
-  searchParams: { orderBy, keyWord, direction },
+  searchParams: { orderBy, keyWord, direction, isFiat },
 }: Params) {
   try {
     const gamesList: gamesList = await getGamesList(locale, {
       orderBy,
       keyWord,
       direction,
+      isFiat,
     });
     if (!gamesList)
       return {
@@ -63,6 +64,7 @@ export default async function Home({
     keyWord,
     direction,
     orderBy,
+    isFiat
   });
 
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);

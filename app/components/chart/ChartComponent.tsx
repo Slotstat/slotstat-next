@@ -22,11 +22,11 @@ import useStore from "@/app/(store)/store";
 import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
-import getCasinoStatistic from "@/lib/clientSide/getCasinoStatistic";
 import { useTranslations } from "next-intl";
 import RTP from "./RTP";
 import TooltipComponent from "../TooltipComponent";
 import useQueryParams from "@/app/utils/useQueryParams";
+import ChartComponentHeader from "./ChartComponentHeader";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -405,8 +405,9 @@ const ChartComponent = ({
 
   return (
     <>
-      <div className="flex flex-row flex-wrap">
-        <div className="w-full py-6 lg:pr-3 lg:py-18 lg:w-3/4">
+      <div className="flex flex-row flex-wrap mt-72">
+        <ChartComponentHeader gameObj={mainGame} />
+        <div className="w-full py-6 lg:pr-3 lg:pt-14 lg:pb-12 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">
               <div>
@@ -506,7 +507,7 @@ const ChartComponent = ({
           </div>
         </div>
 
-        <div className="w-full lg:px-3 lg:pt-18 lg:w-1/4">
+        <div className="w-full lg:px-3 lg:pt-14 lg:pb-12 lg:w-1/4">
           <div className="flex flex-row items-center  justify-between">
             <div className="flex flex-row items-center ">
               <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
