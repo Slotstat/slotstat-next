@@ -4,6 +4,7 @@ import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
 import ChartComponentHeader from "@/app/components/chart/ChartComponentHeader";
 import Table from "@/app/components/table/Table";
+import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
@@ -57,9 +58,16 @@ export async function generateMetadata({
 
 export default async function Casino({
   params: { gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId, isGame },
+  searchParams: {
+    orderBy,
+    keyWord,
+    direction,
+    isFiat,
+    compareGameId,
+    isGame = "true",
+  },
 }: {
-  params: { casinoId: string; gameId: string; locale: string };
+  params: { gameId: string; locale: string };
   searchParams: QueryParams;
 }) {
   const gamesListData: Promise<gamesList> = getGamesList(locale, {
@@ -88,9 +96,18 @@ export default async function Casino({
     compareGame = await compareGameData;
   }
 
+  // if (mainGameObj?.casinoId && isGame === "true") {
+  //   casinoCards = await casinoCardsData;
+  // }
+
   if (!mainGameObj) {
     return notFound();
   }
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(
+    locale,
+    mainGameObj.casinoId
+  );
+  const casinoCards = await casinoCardsData;
 
   // const breadcrumbs = [
   //   {
@@ -102,7 +119,7 @@ export default async function Casino({
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
-      {isGame ? (
+      {isGame === "true" ? (
         <>
           {mainGameObj && (
             <ChartComponent
@@ -121,12 +138,17 @@ export default async function Casino({
           />
         </>
       ) : (
-        <LiveCards
-          cardsData={gameCards}
-          rows={2}
-          game={true}
-          gamesCardsData={gamesCardsData}
-        />
+        <div className="mt-72">
+          {!!casinoCards && mainGameObj?.casinoId && (
+            <LiveCards
+              cardsData={casinoCards}
+              rows={2}
+              casino={true}
+              casinoId={mainGameObj.casinoId}
+              casinoCardsData={casinoCardsData}
+            />
+          )}
+        </div>
       )}
       {gamesList.results[0] && (
         <div className="my-6 lg:my-18 ">

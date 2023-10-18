@@ -1,9 +1,10 @@
-'use client'
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { slot } from "../../assets";
 import FiatCryptoButton from "../table/FiatCryptoButton";
 import useQueryParams from "@/app/utils/useQueryParams";
+import { useTranslations } from "next-intl";
 
 export default function ChartComponentHeader({
   gameObj,
@@ -12,8 +13,9 @@ export default function ChartComponentHeader({
   gameObj: GameData;
   isGame?: string;
 }) {
-  const [scrollY, setScrollY] = useState<number | null>(null);
+  const t = useTranslations("table");
   const { setQueryParams } = useQueryParams();
+  const [scrollY, setScrollY] = useState<number | null>(null);
 
   const { casinoName, name, imageUrl, redirectUrl } = gameObj;
 
@@ -79,7 +81,7 @@ export default function ChartComponentHeader({
                 <p>{name}</p>
               </a>
             </div>
-            <div>
+            <div className=" flex ">
               <FiatCryptoButton
                 title={"game"}
                 active={isGame === "true"}
@@ -102,6 +104,15 @@ export default function ChartComponentHeader({
                   // }
                 }}
               />
+              <a
+                href={redirectUrl}
+                target="_blank"
+                className={
+                  "text-white bg-blue1 ml-6  items-center justify-center flex px-6 py-2 rounded-md"
+                }
+              >
+                <p>{t("play")}</p>
+              </a>
             </div>
           </div>
         </div>
