@@ -105,6 +105,7 @@ export default async function Casino({
   }
   const casinoCardsData: Promise<Card[]> = getCasinoCards(
     locale,
+    // @ts-ignore
     mainGameObj.casinoId
   );
   const casinoCards = await casinoCardsData;
