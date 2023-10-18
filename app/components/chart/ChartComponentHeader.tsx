@@ -1,18 +1,33 @@
+'use client'
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { slot } from "../../assets";
+import FiatCryptoButton from "../table/FiatCryptoButton";
+import useQueryParams from "@/app/utils/useQueryParams";
 
 export default function ChartComponentHeader({
   gameObj,
+  isGame,
 }: {
   gameObj: GameData;
+  isGame?: string;
 }) {
-  const { casinoName, name, imageUrl } = gameObj;
+  const [scrollY, setScrollY] = useState<number | null>(null);
+  const { setQueryParams } = useQueryParams();
+
+  const { casinoName, name, imageUrl, redirectUrl } = gameObj;
+
+  useEffect(() => {
+    const persistentScroll = scrollY;
+    if (persistentScroll === null) return;
+
+    window.scrollTo({ top: Number(scrollY) });
+  }, [scrollY]);
   return (
     <>
       <Image
         src={slot}
-        alt=""
+        alt="cover"
         className="absolute top-0 right-0 left-0 h-[352px] "
       />
 
@@ -26,30 +41,68 @@ export default function ChartComponentHeader({
             of winning spins and jackpots... Read more
           </p>
 
-          <div className=" flex items-center text-white text-sm font-bold">
-            <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
-              <Image
-                src={imageUrl}
-                alt={casinoName}
-                fill
-                className="h-12 w-12"
-                sizes="(max-width: 24px) 100vw,
+          <div className=" flex items-center justify-between text-white text-sm font-bold">
+            <div className=" flex items-center">
+              <a
+                href={redirectUrl}
+                target="_blank"
+                className=" flex items-center"
+              >
+                <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
+                  <Image
+                    src={imageUrl}
+                    alt={casinoName}
+                    fill
+                    className="h-12 w-12"
+                    sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
                 33vw"
-              />
-            </div>
-            <p>{casinoName}</p>
-            <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
-              <Image
-                src={imageUrl}
-                alt={name}
-                fill
-                sizes="(max-width: 24px) 100vw,
+                  />
+                </div>
+                <p>{casinoName}</p>
+              </a>
+              <a
+                href={redirectUrl}
+                target="_blank"
+                className=" flex items-center"
+              >
+                <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
+                  <Image
+                    src={imageUrl}
+                    alt={name}
+                    fill
+                    sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
                 33vw"
+                  />
+                </div>
+                <p>{name}</p>
+              </a>
+            </div>
+            <div>
+              <FiatCryptoButton
+                title={"game"}
+                active={isGame === "true"}
+                click={() => {
+                  setScrollY(window.scrollY);
+                  setQueryParams({ isGame: "true" });
+                  // if (setIsFiatState) {
+                  //   setIsFiatState("false");
+                  // }
+                }}
+              />
+              <FiatCryptoButton
+                title={"casino"}
+                active={isGame === "false"}
+                click={() => {
+                  setScrollY(window.scrollY);
+                  setQueryParams({ isGame: "false" });
+                  // if (setIsFiatState) {
+                  //   setIsFiatState("false");
+                  // }
+                }}
               />
             </div>
-            <p>{name}</p>
           </div>
         </div>
       </div>

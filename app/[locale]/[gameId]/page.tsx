@@ -2,6 +2,7 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
+import ChartComponentHeader from "@/app/components/chart/ChartComponentHeader";
 import Table from "@/app/components/table/Table";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
@@ -10,7 +11,7 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params: { casinoId, gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId },
+  searchParams: { orderBy, keyWord, direction, isFiat },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
@@ -56,7 +57,7 @@ export async function generateMetadata({
 
 export default async function Casino({
   params: { gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId },
+  searchParams: { orderBy, keyWord, direction, isFiat, compareGameId, isGame },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
   searchParams: QueryParams;
@@ -100,21 +101,33 @@ export default async function Casino({
   return (
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
-      {mainGameObj && (
-        <ChartComponent
-          gameId={gameId}
-          mainGame={mainGameObj}
-          compareGame={compareGame}
-          isFiat={isFiat || "false"}
-          compareGameId={compareGameId}
+      <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
+      {isGame ? (
+        <>
+          {mainGameObj && (
+            <ChartComponent
+              gameId={gameId}
+              mainGame={mainGameObj}
+              compareGame={compareGame}
+              isFiat={isFiat || "false"}
+              compareGameId={compareGameId}
+            />
+          )}
+          <LiveCards
+            cardsData={gameCards}
+            rows={2}
+            game={true}
+            gamesCardsData={gamesCardsData}
+          />
+        </>
+      ) : (
+        <LiveCards
+          cardsData={gameCards}
+          rows={2}
+          game={true}
+          gamesCardsData={gamesCardsData}
         />
       )}
-      <LiveCards
-        cardsData={gameCards}
-        rows={2}
-        game={true}
-        gamesCardsData={gamesCardsData}
-      />
       {gamesList.results[0] && (
         <div className="my-6 lg:my-18 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />

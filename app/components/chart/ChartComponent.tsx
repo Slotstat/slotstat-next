@@ -26,7 +26,6 @@ import { useTranslations } from "next-intl";
 import RTP from "./RTP";
 import TooltipComponent from "../TooltipComponent";
 import useQueryParams from "@/app/utils/useQueryParams";
-import ChartComponentHeader from "./ChartComponentHeader";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -406,7 +405,6 @@ const ChartComponent = ({
   return (
     <>
       <div className="flex flex-row flex-wrap mt-72">
-        <ChartComponentHeader gameObj={mainGame} />
         <div className="w-full py-6 lg:pr-3 lg:pt-14 lg:pb-12 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">

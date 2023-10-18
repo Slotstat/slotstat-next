@@ -40,7 +40,7 @@ const BottomSheetModal = ({
     const gamesListData: Promise<gamesList> = getGameListClientSide({
       orderBy,
       keyWord,
-      isFiat,
+      isFiat: isFiatState,
       // direction,
     });
 
@@ -127,6 +127,7 @@ const BottomSheetModal = ({
                 setOrderByKeyInBottomSheet={(order) =>
                   order && setOrderBy(order)
                 }
+                isFiat={isFiatState}
                 setIsFiatState={(isFiatState) => setIsFiatState(isFiatState)}
                 showCryptoFiatSwitcher={true}
               />

@@ -184,6 +184,7 @@ type QueryParams = {
   type?: Type;
   isFiat?: string;
   compareGameId?: string;
+  isGame?: string;
 };
 
 type GetGamesFromChosenCasinoProps = {
