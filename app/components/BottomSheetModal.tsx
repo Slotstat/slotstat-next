@@ -127,6 +127,7 @@ const BottomSheetModal = ({
                 setOrderByKeyInBottomSheet={(order) =>
                   order && setOrderBy(order)
                 }
+                setIsFiatState={(isFiatState) => setIsFiatState(isFiatState)}
                 showCryptoFiatSwitcher={true}
               />
             ) : (
