@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 export default function IntroComponent() {
   const [enabled, setEnabled] = useState(true);
+  const [openVideo, setOpenVideo] = useState(false);
   return (
     <div>
       <div className="flex justify-between text-grey1">
@@ -43,7 +44,7 @@ export default function IntroComponent() {
               of winning spins and jackpots... Read more
             </p>
           </div>
-          <div className="relative">
+          <div className="relative" onClick={() => setOpenVideo(true)}>
             <Image
               src={laptop}
               alt="slotstat video cover"
@@ -65,6 +66,21 @@ export default function IntroComponent() {
           </div>
         </div>
       </motion.div>
+      {openVideo && (
+        <div
+          onClick={() => setOpenVideo(false)}
+          className=" bg-dark1/80 top-0 bottom-0 right-0 left-0 fixed z-10 flex items-center justify-center"
+        >
+          <div onClick={(e) => e.stopPropagation()} className="">
+            <video controls className=" rounded-2xl">
+              <source
+                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
