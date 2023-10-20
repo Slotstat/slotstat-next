@@ -161,6 +161,7 @@ const Table = ({
                         setIsFiatState("false");
                       }
                     }}
+                    paddingY={"py-2"}
                   />
                   <FiatCryptoButton
                     title={f("fiatCasinos")}
@@ -172,6 +173,7 @@ const Table = ({
                         setIsFiatState("true");
                       }
                     }}
+                    paddingY={"py-2"}
                   />
                 </>
               )}

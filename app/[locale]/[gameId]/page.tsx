@@ -1,4 +1,4 @@
-import Breadcrumbs from "@/app/components/Breadcrumbs";
+// import Breadcrumbs from "@/app/components/Breadcrumbs";
 import LiveCards from "@/app/components/LiveCards";
 import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";

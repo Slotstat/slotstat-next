@@ -36,11 +36,25 @@ const NavList = () => {
   );
 };
 
+const smallHeaderHeight = "h-[60px]";
+const bigHeaderHeight = "h-[87px]";
+const bgTransparent0 = "bg-transparent";
+const bgTransparent90 = "bg-dark1/90";
+
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [navSize, setNavSize] = useState<string>(bigHeaderHeight);
+  const [navColor, setNavColor] = useState<string>(bgTransparent0);
+  const [hasBorder, setHasBorder] = useState<boolean>(true);
 
-  const toggleNav = () => {
-    setNavbarOpen(!navbarOpen);
+  const listenScrollEvent = () => {
+    window.scrollY > 15
+      ? setNavColor(bgTransparent90)
+      : setNavColor(bgTransparent0);
+    window.scrollY > 15
+      ? setNavSize(smallHeaderHeight)
+      : setNavSize(bigHeaderHeight);
+    window.scrollY > 170 ? setHasBorder(false) : setHasBorder(true);
   };
 
   useEffect(() => {
@@ -48,11 +62,24 @@ const Header = () => {
       "resize",
       () => window.innerWidth >= 1024 && setNavbarOpen(false)
     );
+    window.addEventListener("scroll", listenScrollEvent);
+
+    listenScrollEvent();
+    return () => {
+      window.removeEventListener("scroll", listenScrollEvent);
+    };
   }, []);
 
+  const toggleNav = () => {
+    setNavbarOpen(!navbarOpen);
+  };
   return (
-    <header className=" py-6 lg:border-b lg:border-b-dark3 backdrop-blur-sm justify-center items-center	 fixed top-0 left-0 right-0 z-50">
-      <div className="flex justify-center">
+    <header
+      className={`${navColor} ${navSize} ${
+        hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
+      } transition-all duration-150  flex justify-center items-center	fixed top-0 left-0 right-0 z-50 lg:border-b`}
+    >
+      <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
           <Link href="/" className="flex items-center">
             <Image
