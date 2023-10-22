@@ -17,11 +17,13 @@ export default function ChartComponentHeader({
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
+  const [headerSize, setHeaderSize] = useState<string>("h-24");
 
   const { casinoName, name, imageUrl, redirectUrl } = gameObj;
 
   const listenScrollEvent = () => {
     window.scrollY > 170 ? setShowSmallHeader(true) : setShowSmallHeader(false);
+    window.scrollY > 220 ? setHeaderSize("h-16") : setHeaderSize("h-24");
   };
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function ChartComponentHeader({
   }, [scrollY]);
 
   const buttons = () => (
-    <div className="flex ">
+    <div className="flex">
       <FiatCryptoButton
         title={"Game"}
         active={isGame === "true"}
@@ -77,10 +79,10 @@ export default function ChartComponentHeader({
       <div
         className={`${
           showSmallHeader ? "flex" : "hidden"
-        } transition-all top-0  right-0 left-0 h-24 w-full mt-15 flex-col justify-end fixed z-50`}
+        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-50`}
       >
         <div
-          className={`transition-all  h-24 w-full  flex items-center justify-center bg-dark1/90`}
+          className={`transition-all duration-300 ${headerSize} w-full  flex items-center justify-center bg-dark1/90`}
         >
           <div className="w-[100%] max-w-screen-xl flex justify-between h-12 ">
             <h1 className="text-white text-3xl font-bold mb-4 leading-[48px] ">

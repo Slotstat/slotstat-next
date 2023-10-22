@@ -54,7 +54,7 @@ const Header = () => {
     window.scrollY > 15
       ? setNavSize(smallHeaderHeight)
       : setNavSize(bigHeaderHeight);
-    window.scrollY > 170 ? setHasBorder(false) : setHasBorder(true);
+    window.scrollY > 15 ? setHasBorder(false) : setHasBorder(true);
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const Header = () => {
     <header
       className={`${navColor} ${navSize} ${
         hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
-      } transition-all duration-150  flex justify-center items-center	fixed top-0 left-0 right-0 z-50 lg:border-b`}
+      } transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-50 lg:border-b`}
     >
       <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
@@ -93,7 +93,6 @@ const Header = () => {
             <NavList />
             <LanguageToggleButton />
           </div>
-
           {/* <button
             className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
             onClick={toggleNav}
