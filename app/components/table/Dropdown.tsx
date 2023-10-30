@@ -42,12 +42,12 @@ const Dropdown = ({
   }, [orderBy]);
 
   return (
-    <div className="z-1  h-10 w-full md:w-72 ">
+    <div className="z-1  h-10 w-full md:w-72">
       <Listbox value={selected} onChange={search}>
         {({ open }) => (
           <div className="relative">
             <Listbox.Button
-              className={`relative border ${
+              className={`relative border cursor-pointer ${
                 open ? "border-blue1" : "border-grey1"
               } w-full h-10 cursor-default rounded-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 text-xs lg:text-sm`}
             >
