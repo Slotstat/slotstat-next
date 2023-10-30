@@ -6,7 +6,7 @@ import Image from "next/image";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
 
-const debounce = 500;
+const debounce = 1000;
 
 export const SearchInput = ({
   setCasinoFilter,
@@ -37,7 +37,7 @@ export const SearchInput = ({
       className={`relative input w-full md:w-72 border-grey1 ${externalClasses}`}
     >
       <input
-        placeholder={t("search")}
+        placeholder={t("searchPlaceholder")}
         value={value || ""}
         onChange={(e) => {
           setValue(e.target.value);
@@ -45,7 +45,7 @@ export const SearchInput = ({
         }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full rounded-lg text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none "
+        className="placeholder:text-grey1  w-full rounded-lg text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none "
       />
       <span className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center">
         <Image src={search} alt="" height={12} width={12} />

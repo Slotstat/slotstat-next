@@ -6,7 +6,7 @@ import Link from "next-intl/link";
 
 import { menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
-import LanguageToggleButton from "./LanguageToggleButton";
+// import LanguageToggleButton from "./LanguageToggleButton";
 import { useTranslations } from "next-intl";
 
 const NavList = () => {
@@ -17,16 +17,16 @@ const NavList = () => {
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
     const segments = pathName.split("/");
-    return segments[2] === path ? "text-white" : "text-grey1";
+    return segments[2] === path ? "text-white" : "text-grey1 hover:text-white";
   };
 
   return (
     <nav className="my-2 flex flex-col lg:my-0 lg:ml-auto lg:flex-row lg:items-center">
-      {/* <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
+      <span className="mt-4 text-sm font-normal hover:text-white lg:mt-0 lg:ml-8">
         <Link href={`/howItWorks`} className={checkIsActive("howItWorks")}>
-          {howItWorks}
+          {t("howItWorks")}
         </Link>
-      </span> */}
+      </span>
       <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
         <Link href={`/faq`} className={checkIsActive("faq")}>
           {t("faq")}
@@ -91,7 +91,7 @@ const Header = () => {
           </Link>
           <div className="flex items-center">
             <NavList />
-            <LanguageToggleButton />
+            {/* <LanguageToggleButton /> */}
           </div>
           {/* <button
             className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"

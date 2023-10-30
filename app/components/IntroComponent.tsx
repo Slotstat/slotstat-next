@@ -44,7 +44,7 @@ export default function IntroComponent() {
         className="bg-dark2 rounded-2xl  my-6 overflow-hidden  "
       >
         <div className="h-28 flex justify-between  m-12">
-          <div>
+          <div className="flex flex-col justify-center">
             <h1 className="text-white text-3xl mb-6">
               Todays slot games statistics by Slotstat
             </h1>

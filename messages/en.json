@@ -94,7 +94,7 @@
     "RTP": "RTP"
   },
 
-  "search": "Search",
+  "searchPlaceholder": "Search game, casino or provider",
   "noStatistic": "Oops, we will update statistics soon!!",
   "fiatCasinos": "Fiat",
   "cryptoCasinos": "Crypto ",

@@ -64,7 +64,7 @@ export default async function Home({
     keyWord,
     direction,
     orderBy,
-    isFiat
+    isFiat,
   });
 
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
@@ -82,7 +82,7 @@ export default async function Home({
     <>
       <LiveCards cardsData={landingCards} />
       <IntroComponent />
-      <div className="my-6 lg:my-18">
+      <div className="my-6 lg:my-12 my">
         <Table
           keyWord={keyWord}
           orderBy={orderBy}

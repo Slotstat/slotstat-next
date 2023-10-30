@@ -152,7 +152,7 @@ export default async function Casino({
         </div>
       )}
       {gamesList.results[0] && (
-        <div className="my-6 lg:my-18 ">
+        <div className="my-6 lg:my-12 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
           <div className="my-0 lg:my-6">
             <Table

@@ -256,7 +256,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
       const cursorPosition = x.toAxisPosition(e.target.xPosition);
       const cursorPositionY = y.toAxisPosition(e.target.yPosition);
 
-      if (cursorPosition > 0.99 && cursorPositionY > 0.9) {
+      if (cursorPosition > 0.99 && cursorPositionY > 0.8) {
         chart.plotContainer.tooltipHTML = "";
       } else {
         const { values } = s.dataItems;
