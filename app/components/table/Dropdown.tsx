@@ -81,7 +81,7 @@ const Dropdown = ({
                   <Listbox.Option
                     key={i}
                     className={({ active, selected }) =>
-                      `relative cursor-default select-none  py-2  px-2 rounded-md ${
+                      `relative cursor-pointer select-none  py-2  px-2 rounded-md ${
                         active ? "bg-dark1 text-blue2" : "text-white"
                       } ${selected ? "bg-dark1" : "bg-dark2"}`
                     }

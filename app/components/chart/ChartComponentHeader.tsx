@@ -69,7 +69,7 @@ export default function ChartComponentHeader({
           "text-white bg-blue1 ml-6  items-center justify-center flex px-6 py-3 rounded-lg"
         }
       >
-        <p>{t("play")}</p>
+        {isGame === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
       </a>
     </div>
   );
