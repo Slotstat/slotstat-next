@@ -17,7 +17,6 @@ const NavList = () => {
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
     const segments = pathName.split("/");
-    console.log("segments", segments);
     return segments[1] === path ? "text-white" : "text-grey1 hover:text-white";
   };
 
