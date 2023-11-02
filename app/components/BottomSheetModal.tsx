@@ -1,5 +1,5 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
-import "react-spring-bottom-sheet/dist/style.css";
+// import "react-spring-bottom-sheet/dist/style.css";
 
 import Image from "next/image";
 import Table from "./table/Table";
@@ -56,7 +56,8 @@ const BottomSheetModal = ({
 
   const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
     onAddToCompare(GameData);
-    setGames(undefined);
+    // setGames(undefined);
+    // setLoading(false);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,24 +85,20 @@ const BottomSheetModal = ({
       }}
       onSpringStart={(event) => {
         if (event.type === "SNAP" && event.source === "dragging") {
-          console.log(
-            "Starting a spring animation to user selected snap point"
-          );
         }
       }}
     >
       <div className="bg-dark1 py-8 flex justify-center  ">
         <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">
-          <div className="flex items-center justify-between">
+          <div className="fixed z-10 bg-dark1 flex top-0 h-20 items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
             <span className=" text-2xl leading-4  text-white">
-              {t("choose-game-from")}
+              {t("select-game-to-compare")}
             </span>
 
             <button
               className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
               onClick={() => {
                 setOpen(false);
-                setGames(undefined);
               }}
             >
               <Image

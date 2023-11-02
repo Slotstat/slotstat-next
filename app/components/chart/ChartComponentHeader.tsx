@@ -40,7 +40,7 @@ export default function ChartComponentHeader({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY]);
+  }, [scrollY, isGame]);
 
   const buttons = () => (
     <div className="flex">
@@ -66,7 +66,7 @@ export default function ChartComponentHeader({
         href={redirectUrl}
         target="_blank"
         className={
-          "text-white bg-blue1 ml-6  items-center justify-center flex px-6 py-3 rounded-lg"
+          "text-white bg-blue1 hover:bg-blue4 ml-6  items-center justify-center flex px-6 py-3 rounded-lg"
         }
       >
         {isGame === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
@@ -79,7 +79,7 @@ export default function ChartComponentHeader({
       <div
         className={`${
           showSmallHeader ? "flex" : "hidden"
-        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-50`}
+        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-[2]`}
       >
         <div
           className={`transition-all duration-300 ${headerSize} w-full  flex items-center justify-center bg-dark1/90`}

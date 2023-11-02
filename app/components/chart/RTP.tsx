@@ -36,8 +36,6 @@ export default function RTP({
     setIsHovered(false);
   };
 
-  // const RenderRTPUI=()=>
-
   const whichToRender = () => {
     if (gameObject?.rtp && RTP) {
       return (
@@ -48,7 +46,7 @@ export default function RTP({
         >
           {setOpen && isHovered && (
             <div
-              className="absolute top-0 bottom-0  z-10"
+              className="absolute top-0 bottom-0  z-1"
               onClick={onPressRemove}
             >
               <svg
@@ -66,7 +64,7 @@ export default function RTP({
                   stroke="#FA4611"
                   strokeDasharray="5 5"
                   rx={23.5}
-                  className=" z-50"
+                  className=" z-6"
                 />
               </svg>
               <div className=" absolute cursor-pointer w-full h-full top-0 flex flex-col items-center justify-center">
@@ -187,7 +185,11 @@ export default function RTP({
       );
     } else {
       return (
-        <div className="relative rounded-3xl bg-dark1 h-[233px] flex flex-col items-center ">
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative rounded-3xl bg-dark1 h-[233px] flex flex-col items-center "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
@@ -208,8 +210,10 @@ export default function RTP({
             onClick={onPressCompare}
             className="absolute cursor-pointer w-full h-full flex flex-col items-center justify-center"
           >
-            <Plus />
-            <p className=" text-white mt-2"> {t("Compare")}</p>
+            <Plus fill={`${isHovered ? "#969CB0" : "#fff"} `} />
+            <p className={`${isHovered ? "text-grey1" : "text-white"}  mt-2`}>
+              {t("Compare")}
+            </p>
           </div>
         </div>
       );

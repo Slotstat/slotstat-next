@@ -77,7 +77,7 @@ const Header = () => {
     <header
       className={`${navColor} ${navSize} ${
         hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
-      } transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-50 lg:border-b`}
+      } transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-10 lg:border-b`}
     >
       <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">

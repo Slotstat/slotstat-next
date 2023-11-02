@@ -529,13 +529,15 @@ const ChartComponent = ({
           </div>
         </div>
       </div>
-      <BottomSheetModal
-        open={open}
-        setOpen={setOpen}
-        onAddToCompare={onAddToCompare}
-        gameId={gameId}
-        isFiat={isFiat || "false"}
-      />
+      <div className="z-50">
+        <BottomSheetModal
+          open={open}
+          setOpen={setOpen}
+          onAddToCompare={onAddToCompare}
+          gameId={gameId}
+          isFiat={isFiat || "false"}
+        />
+      </div>
     </>
   );
 };

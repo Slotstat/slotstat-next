@@ -119,7 +119,6 @@ export default async function Casino({
   return (
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
-      <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
       {isGame === "true" ? (
         <>
           {mainGameObj && (
@@ -151,6 +150,7 @@ export default async function Casino({
           )}
         </div>
       )}
+
       {gamesList.results[0] && (
         <div className="my-6 lg:my-12 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
@@ -166,6 +166,7 @@ export default async function Casino({
           </div>
         </div>
       )}
+      <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
     </>
   );
 }
