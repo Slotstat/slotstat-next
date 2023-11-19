@@ -108,6 +108,7 @@ export default async function Casino({
     // @ts-ignore
     mainGameObj.casinoId
   );
+
   const casinoCards = await casinoCardsData;
 
   // const breadcrumbs = [
@@ -151,7 +152,7 @@ export default async function Casino({
         </div>
       )}
 
-      {gamesList.results[0] && (
+      {/* {gamesList.results[0] && (
         <div className="my-6 lg:my-12 ">
           <OtherGames casinoName={gamesList.results[0].casinoName} />
           <div className="my-0 lg:my-6">
@@ -165,7 +166,7 @@ export default async function Casino({
             />
           </div>
         </div>
-      )}
+      )} */}
       <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
     </>
   );

@@ -9,17 +9,17 @@ type RTPListingProps = {
 export default function RTPListing({ provider, rtp }: RTPListingProps) {
   const { value, preferredValue, max, min } = rtp;
 
-  const [RTP, setRTP] = useState(value);
+  const [RTP, setRTP] = useState<number>(value);
 
   useEffect(() => {
     const interval = setInterval(() => {
       function biasedRandomNumber() {
         const randomBetween = Math.random() * (max - min) + min;
 
-        return Number(randomBetween.toFixed(2));
+        return Number(randomBetween.toFixed(1));
       }
       setRTP(biasedRandomNumber());
-    }, 30000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -34,9 +34,9 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
     <div className=" mr-6">
       <div className=" flex flex-row justify-between mb-3">
         <div className=" flex flex-row">
-          <p className=" min-w-[64px]">{RTP}%</p>
-          <p className=" mr-1">/</p>
-          <p className=" text-grey1">{preferredValue}%</p>
+          <p className=" min-w-[54px]">{preferredValue}%</p>
+          <p className=" mr-2">/</p>
+          <p className=" text-grey1">{RTP}%</p>
         </div>
         {/* <p>{provider}</p> */}
       </div>

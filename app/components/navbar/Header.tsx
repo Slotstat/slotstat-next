@@ -4,7 +4,7 @@ import { usePathname } from "next-intl/client";
 import Link from "next-intl/link";
 // import { Collapse } from "@material-tailwind/react";
 
-import { menu, slotLogo } from "@/app/assets";
+import { logoSmall, menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 // import LanguageToggleButton from "./LanguageToggleButton";
 import { useTranslations } from "next-intl";
@@ -21,13 +21,13 @@ const NavList = () => {
   };
 
   return (
-    <nav className="my-2 flex flex-col lg:my-0 lg:ml-auto lg:flex-row lg:items-center">
-      <span className="mt-4 text-sm font-normal hover:text-white lg:mt-0 lg:ml-8">
+    <nav className="my-2 flex flex-row lg:my-0 ml-auto lg:items-center">
+      <span className="mt-4 text-xs font-normal ml-3  md:ml-8 hover:text-white lg:mt-0 md:text-sm">
         <Link href={`/howItWorks`} className={checkIsActive("howItWorks")}>
           {t("howItWorks")}
         </Link>
       </span>
-      <span className="mt-4 text-sm font-normal lg:mt-0 lg:ml-8">
+      <span className="mt-4 text-xs  font-normal ml-3  lg:mt-0 md:ml-8 md:text-sm ">
         <Link href={`/faq`} className={checkIsActive("faq")}>
           {t("faq")}
         </Link>
@@ -83,10 +83,18 @@ const Header = () => {
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
           <Link href="/" className="flex items-center">
             <Image
+              className="hidden md:flex"
               src={slotLogo}
               alt="logo of slotstat"
               width={140}
               height={40}
+            />
+            <Image
+              className="flex md:hidden"
+              src={logoSmall}
+              alt="logo of slotstat"
+              width={36}
+              height={36}
             />
           </Link>
           <div className="flex items-center">

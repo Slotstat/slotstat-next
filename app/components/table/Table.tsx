@@ -149,8 +149,10 @@ const Table = ({
                   }
                 }}
               />
+            </div>
+            <div className="flex w-full  justify-between">
               {showCryptoFiatSwitcher && (
-                <>
+                <div className="flex flex-row">
                   <FiatCryptoButton
                     title={f("cryptoCasinos")}
                     active={isFiat === "false"}
@@ -161,7 +163,7 @@ const Table = ({
                         setIsFiatState("false");
                       }
                     }}
-                    paddingY={"py-2"}
+                    className={"py-2 md:ml-3"}
                   />
                   <FiatCryptoButton
                     title={f("fiatCasinos")}
@@ -173,12 +175,10 @@ const Table = ({
                         setIsFiatState("true");
                       }
                     }}
-                    paddingY={"py-2"}
+                    className={"py-2 ml-2 mr-3 md:mr-0"}
                   />
-                </>
+                </div>
               )}
-            </div>
-            <div className="flex w-full md:w-auto">
               <Dropdown
                 orderBy={orderBy}
                 onChange={(orderBy) => {

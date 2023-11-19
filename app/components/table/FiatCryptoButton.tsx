@@ -18,8 +18,8 @@ export default function FiatCryptoButton(props: any) {
       onClick={props.click}
       className={`
       ${props.active || isHovered ? "bg-blue3" : "bg-grey3"} 
-      ${props.paddingY ? props.paddingY : "py-2"}
-      text-gray-800 font-bold px-4 rounded-lg inline-flex items-center ml-3`}
+      ${props.className}
+      text-gray-800 font-bold px-4 rounded-lg inline-flex items-center`}
     >
       <span
         className={`${

@@ -20,7 +20,7 @@ export default function IntroComponent() {
   return (
     <div>
       <div className="flex justify-between text-grey1">
-        <p>IntroComponent</p>
+        <p>video tutorial</p>
         <div className="flex items-center">
           <p className="mr-2">video tutorial</p>
           <Switch
@@ -43,8 +43,8 @@ export default function IntroComponent() {
         animate={{ height: enabled ? 202 : 0 }}
         className="bg-dark2 rounded-2xl  my-6 overflow-hidden  "
       >
-        <div className="h-28 flex justify-between  m-12">
-          <div className="flex flex-col justify-center">
+        <div className=" flex justify-between  lg:m-12 lg:h-28">
+          <div className="hidden flex-col justify-center md:flex">
             <h1 className="text-white text-3xl mb-6">
               Todays slot games statistics by Slotstat
             </h1>
@@ -54,16 +54,25 @@ export default function IntroComponent() {
             </p>
           </div>
           <div
-            className="relative cursor-pointer h-[106px] "
+            className="relative cursor-pointer lg:h-[106px] "
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={() => setOpenVideo(true)}
           >
             <Image
+              className="hidden lg:flex"
               src={laptop}
               alt="slotstat video cover"
               width={306}
               height={106}
+            />
+            <Image
+              className="lg:hidden flex"
+              src={laptop}
+              alt="slotstat video cover"
+              objectFit="cover"
+              // width={306}
+              // height={106}
             />
             <div
               className={`${

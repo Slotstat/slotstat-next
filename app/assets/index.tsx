@@ -28,6 +28,7 @@ import cookie from "./img/cookie.png";
 import laptop from "./img/laptop.png";
 import triangle from "./img/triangle.png";
 import slot from "./img/slot.png";
+import logoSmall from "./img/logoSmall.png";
 
 export {
   logo,
@@ -59,4 +60,5 @@ export {
   laptop,
   triangle,
   slot,
+  logoSmall
 };
