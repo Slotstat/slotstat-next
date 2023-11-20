@@ -6,10 +6,12 @@ export default function useQueryParams() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const urlSearchParams = new URLSearchParams(searchParams.toString());
-
+  
   function setQueryParams(param: QueryParams, pathNameForCasinoStat?: string) {
+    const urlSearchParams = new URLSearchParams(searchParams.toString());
+    console.log("urlSearchParams", urlSearchParams);
     Object.entries(param).forEach(([key, value]) => {
+      console.log("key, value", key, value);
       if (!value) {
         return urlSearchParams.delete(key);
       } else {
@@ -18,6 +20,7 @@ export default function useQueryParams() {
     });
 
     const filter = urlSearchParams.toString();
+    console.log("filter", filter);
     const query = filter ? `?${filter}` : "";
 
     router.push(

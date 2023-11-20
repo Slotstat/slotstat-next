@@ -143,8 +143,10 @@ const Table = ({
                 setCasinoFilter={(keyWord) => {
                   setScrollY(window.scrollY);
                   if (setSearchKeyInBottomSheet) {
+                    console.log('333');
                     setSearchKeyInBottomSheet(keyWord);
                   } else {
+                    console.log("keyWord:", keyWord);
                     setQueryParams({ keyWord });
                   }
                 }}

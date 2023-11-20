@@ -42,7 +42,7 @@ export default function RTP({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative"
+          className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center pt-4 lg:p-6 relative"
         >
           {setOpen && isHovered && (
             <div
@@ -73,7 +73,7 @@ export default function RTP({
               </div>
             </div>
           )}
-          <p className=" text-lg text-white text-center mb-8 h-12">
+          <p className="text-lg text-white text-center mb-8 h-12">
             {gameObject?.casinoName} {gameObject?.name}
           </p>
           <div className="relative">
