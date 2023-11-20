@@ -163,7 +163,7 @@ const Table = ({
                         setIsFiatState("false");
                       }
                     }}
-                    className={"py-2 md:ml-3"}
+                    className={"py-2 text-xs  md:ml-3 md:text-base"}
                   />
                   <FiatCryptoButton
                     title={f("fiatCasinos")}
@@ -175,7 +175,7 @@ const Table = ({
                         setIsFiatState("true");
                       }
                     }}
-                    className={"py-2 ml-2 mr-3 md:mr-0"}
+                    className={"py-2 ml-2 text-xs mr-3 md:mr-0 md:text-base"}
                   />
                 </div>
               )}

@@ -24,7 +24,7 @@ export default function FiatCryptoButton(props: any) {
       <span
         className={`${
           props.active ? "text-blue1" : isHovered ? "text-white" : "text-grey1"
-        } leading-6 text-sm`}
+        } leading-6 `}
       >
         {props.title}
       </span>

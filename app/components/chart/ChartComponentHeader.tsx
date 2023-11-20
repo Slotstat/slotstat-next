@@ -52,7 +52,7 @@ export default function ChartComponentHeader({
             setScrollY(window.scrollY);
             setQueryParams({ isGame: "true" });
           }}
-          className={"py-3 md:ml-3"}
+          className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
           title={"Casino"}
@@ -61,15 +61,14 @@ export default function ChartComponentHeader({
             setScrollY(window.scrollY);
             setQueryParams({ isGame: "false" });
           }}
-          className={"py-3 ml-3"}
+          className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>
       <a
         href={redirectUrl}
         target="_blank"
-        className={
-          "text-white bg-blue1 hover:bg-blue4 ml-6  items-center justify-center flex px-6 py-3 rounded-lg"
-        }
+        className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
+         justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
         {isGame === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
       </a>
@@ -81,13 +80,13 @@ export default function ChartComponentHeader({
       <div
         className={`${
           showSmallHeader ? "flex" : "hidden"
-        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-[2]`}
+        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-[2] `}
       >
         <div
           className={`transition-all duration-300 ${headerSize} w-full  flex items-center justify-center bg-dark1/90 px-4 md:px-0`}
         >
-          <div className="w-[100%] max-w-screen-xl flex justify-between h-12 ">
-            <h1 className="text-white text-3xl font-bold mb-4 leading-[48px] hidden md:flex">
+          <div className="w-[100%] max-w-screen-xl flex font-bold justify-between h-12">
+            <h1 className="text-white text-3xl mb-4 bg-slate-700 hidden md:flex">
               {casinoName} - {name}
             </h1>
             {buttons()}
@@ -102,7 +101,7 @@ export default function ChartComponentHeader({
         <Image src={slot} alt="cover" className="h-[328px]" />
         <div className="absolute top-0 right-0 left-0 h-[328px] flex justify-center bg-dark1/90  ">
           <div className="w-[100%] max-w-screen-xl mt-[87px] px-4 pt-12 pb-6 lg:px-0">
-            <h1 className="text-white text-xl font-bold mb-4 leading-[48px] md:text-3xl">
+            <h1 className="text-white text-xl font-bold mb-4 md:text-3xl h-[48px] ">
               {casinoName} - {name}
             </h1>
             <p className="text-grey1 mb-8 leading-6 text-xs md:text-base">
