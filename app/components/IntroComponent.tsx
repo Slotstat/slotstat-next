@@ -40,10 +40,11 @@ export default function IntroComponent() {
       </div>
 
       <motion.div
-        animate={{ height: enabled ? 202 : 0 }}
+        animate={{ height: enabled ? "auto" : 0 }}
+        // animate={{ height: enabled ? 202 : 0 }}
         className="bg-dark2 rounded-2xl  my-6 overflow-hidden  "
       >
-        <div className=" flex justify-between  lg:m-12 lg:h-28">
+        <div className=" flex justify-between  md:m-12 md:h-28">
           <div className="hidden flex-col justify-center md:flex">
             <h1 className="text-white text-3xl mb-6">
               Todays slot games statistics by Slotstat
@@ -54,20 +55,20 @@ export default function IntroComponent() {
             </p>
           </div>
           <div
-            className="relative cursor-pointer lg:h-[106px] "
+            className="relative cursor-pointer md:h-[106px] "
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={() => setOpenVideo(true)}
           >
             <Image
-              className="hidden lg:flex"
+              className="hidden md:flex"
               src={laptop}
               alt="slotstat video cover"
               width={306}
               height={106}
             />
             <Image
-              className="lg:hidden flex"
+              className="md:hidden flex"
               src={laptop}
               alt="slotstat video cover"
               objectFit="cover"

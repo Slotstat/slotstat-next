@@ -86,7 +86,7 @@ export default function ChartComponentHeader({
           className={`transition-all duration-300 ${headerSize} w-full  flex items-center justify-center bg-dark1/90 px-4 md:px-0`}
         >
           <div className="w-[100%] max-w-screen-xl flex font-bold justify-between h-12">
-            <h1 className="text-white text-3xl mb-4 bg-slate-700 hidden md:flex">
+            <h1 className="text-white text-3xl mb-4 h-[48px]  hidden md:flex">
               {casinoName} - {name}
             </h1>
             {buttons()}
@@ -96,20 +96,20 @@ export default function ChartComponentHeader({
       <div
         className={`${
           showSmallHeader ? "flex md:hidden" : "flex"
-        } absolute top-0 right-0 left-0 h-[328px]`}
+        } absolute top-0 right-0 left-0 h-52 md:h-[328px]`}
       >
-        <Image src={slot} alt="cover" className="h-[328px]" />
-        <div className="absolute top-0 right-0 left-0 h-[328px] flex justify-center bg-dark1/90">
-          <div className="w-[100%] max-w-screen-xl mt-[87px] px-4 pt-12 pb-6 lg:px-0">
-            <h1 className="text-white text-xl font-bold mb-4 md:text-3xl h-[48px]">
+        <Image src={slot} alt="cover" className="h-52 md:h-[328px]" />
+        <div className="absolute top-0 right-0 left-0 h-52 md:h-[328px] flex justify-center bg-dark1/90">
+          <div className="w-[100%] max-w-screen-xl mt-[87px] px-4 pt-0 pb-2 md:pb-6 md:pt-12 md:px-0">
+            <h1 className="text-white md:h-[48px] text-xl font-bold mb-2 md:mb-4 md:text-3xl ">
               {casinoName} - {name}
             </h1>
-            <p className="text-grey1 mb-8 leading-6 text-xs md:text-base">
+            <p className="text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
               {/* We publish information about slot games, payout percentage, number */}
               of winning spins and jackpots...
             </p>
 
-            <div className=" flex items-center justify-between text-white  font-bold">
+            <div className="flex items-center justify-between text-white  font-bold">
               <div className="hidden md:flex items-center">
                 <a
                   href={redirectUrl}

@@ -203,11 +203,11 @@ export default function RenderRowCells({
 
   const showUpOrDownIcon = (indicator: number) => {
     if (indicator === 1) {
-      return <UpIconBlue className="mr-2" />;
+      return <UpIconBlue className="mr-1 md:mr-2" />;
     } else if (indicator === -1) {
-      return <DownIconBlue className="mr-2" />;
+      return <DownIconBlue className="mr-1 md:mr-2" />;
     } else {
-      return <MinusBlue className=" " />;
+      return <MinusBlue className="mr-1 md:mr-2" />;
     }
   };
 

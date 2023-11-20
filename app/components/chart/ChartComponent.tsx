@@ -404,7 +404,7 @@ const ChartComponent = ({
 
   return (
     <>
-      <div className="flex flex-row flex-wrap mt-64">
+      <div className="flex flex-row flex-wrap mt-28 md:mt-64">
         <div className="w-full py-6 lg:pr-3 lg:pt-12 lg:pb-6 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">
