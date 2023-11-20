@@ -31,7 +31,7 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
     (preferredValue - RTP) * (RTPindicatorWidth / (preferredValue - min));
 
   return (
-    <div className=" mr-6">
+    <div className=" mr-6 text-xs md:text-base ">
       <div className=" flex flex-row justify-between mb-3">
         <div className=" flex flex-row">
           <p className=" min-w-[54px]">{preferredValue}%</p>

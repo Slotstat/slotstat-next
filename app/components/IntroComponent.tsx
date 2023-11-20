@@ -86,7 +86,7 @@ export default function IntroComponent() {
                   alt="triangle"
                   width={16}
                   height={16}
-                  className="ml-2 w-4 h-4 bg-black"
+                  className="ml-2 w-4 h-4"
                 />
               </div>
             </div>

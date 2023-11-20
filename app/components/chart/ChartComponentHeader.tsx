@@ -79,7 +79,7 @@ export default function ChartComponentHeader({
     <>
       <div
         className={`${
-          showSmallHeader ? "flex" : "hidden"
+          showSmallHeader ? " hidden md:flex" : "hidden"
         } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-[2] `}
       >
         <div
@@ -95,18 +95,18 @@ export default function ChartComponentHeader({
       </div>
       <div
         className={`${
-          showSmallHeader ? "hidden" : "flex"
+          showSmallHeader ? "flex md:hidden" : "flex"
         } absolute top-0 right-0 left-0 h-[328px]`}
       >
         <Image src={slot} alt="cover" className="h-[328px]" />
-        <div className="absolute top-0 right-0 left-0 h-[328px] flex justify-center bg-dark1/90  ">
+        <div className="absolute top-0 right-0 left-0 h-[328px] flex justify-center bg-dark1/90">
           <div className="w-[100%] max-w-screen-xl mt-[87px] px-4 pt-12 pb-6 lg:px-0">
-            <h1 className="text-white text-xl font-bold mb-4 md:text-3xl h-[48px] ">
+            <h1 className="text-white text-xl font-bold mb-4 md:text-3xl h-[48px]">
               {casinoName} - {name}
             </h1>
             <p className="text-grey1 mb-8 leading-6 text-xs md:text-base">
               {/* We publish information about slot games, payout percentage, number */}
-              of winning spins and jackpots... Read more
+              of winning spins and jackpots...
             </p>
 
             <div className=" flex items-center justify-between text-white  font-bold">

@@ -210,7 +210,7 @@ const Table = ({
         <div className="w-full overflow-x-scroll no-scroll">
           <table
             {...getTableProps()}
-            className="relative w-[1013px] text-xs xl:w-full md:text-base"
+            className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base"
           >
             <thead>
               {headerGroups.map((headerGroup, index) => (

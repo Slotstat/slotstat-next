@@ -46,7 +46,7 @@ const CountUpForJackpots = ({
   }, [jackpot]);
 
   return (
-    <div className=" text-green1">
+    <div className=" text-green1 text-xs md:text-base ">
       {end === 0 ? (
         <div>
           {jackpotCurrency
@@ -152,11 +152,13 @@ export default function RenderRowCells({
         <div>
           <p
             title={name}
-            className=" text-white font-bold truncate max-w-[160px] text-xs md:text-base"
+            className=" text-white font-bold truncate max-w-[124px]  text-xs md:max-w-[160px] md:text-base"
           >
             {cell.render("Cell")} {provider}
           </p>
-          <p className="text-grey1 text-base">{provider}</p>
+          <p className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
+            {provider}
+          </p>
         </div>
       </div>
     );
@@ -164,9 +166,11 @@ export default function RenderRowCells({
 
   const CasinoBonus = () => {
     return (
-      <div className="text-base">
+      <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
         <p>{casinoName}</p>
-        <p className="text-grey1 text-base truncate max-w-[206px]">{bounties}</p>
+        <p className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base">
+          {bounties}
+        </p>
       </div>
     );
   };
@@ -187,7 +191,7 @@ export default function RenderRowCells({
         onMouseLeave={handleMouseLeave}
         className={`${
           isHovered ? "text-white bg-blue1" : "text-grey1 bg-grey3"
-        }  w-32 items-center justify-center flex py-2 rounded-lg `}
+        }  w-32 items-center justify-center flex py-2 rounded-lg  text-xs md:text-base `}
       >
         <p>{t("play")}</p>
       </div>
@@ -214,14 +218,14 @@ export default function RenderRowCells({
       return <CasinoBonus />;
     case 2:
       return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center text-xs md:text-base ">
           {showUpOrDownIcon(t1H)}
           {cell.render("Cell")}%
         </div>
       );
     case 3:
       return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center text-xs md:text-base ">
           {showUpOrDownIcon(t24h)}
           {cell.render("Cell")}%
         </div>

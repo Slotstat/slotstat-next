@@ -9,7 +9,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "name",
       maxWidth: 279,
       width: 279,
-      minWidth: 279,
+      minWidth: 188,
     },
     {
       Header: (
@@ -20,14 +20,14 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "casino",
       maxWidth: 246,
       width: 246,
-      minWidth: 246,
+      minWidth: 148,
     },
     {
       Header: t("h1"),
       accessor: "p1h",
       maxWidth: 116,
       width: 116,
-      minWidth: 116,
+      minWidth: 78,
       hint: t("h1GameHint"),
     },
     {
@@ -35,7 +35,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "p24h",
       maxWidth: 129,
       width: 129,
-      minWidth: 129,
+      minWidth: 79,
       hint: t("h24GameHint"),
     },
 
@@ -44,7 +44,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "jackpot",
       maxWidth: 218,
       width: 218,
-      minWidth: 218,
+      minWidth: 136,
       hint: t("jackpotHint"),
     },
     {
@@ -57,7 +57,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "RTP",
       maxWidth: 212,
       width: 212,
-      minWidth: 212,
+      minWidth: 168,
       hint: t("RTPhint"),
     },
     {
@@ -65,7 +65,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "play",
       maxWidth: 95,
       width: 95,
-      minWidth: 95,
+      minWidth: 60,
       hint: t("playHint"),
     },
   ];
