@@ -1,1 +1,1 @@
-export const openGraphImage = { images: ['https://slotstat.net/opengraph-image.png'] }
+export const openGraphImage = { images: ['https://https://slotstat-next.vercel.app/opengraph-image.png'] }
