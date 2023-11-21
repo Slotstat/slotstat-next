@@ -68,12 +68,10 @@ export default function IntroComponent() {
               height={106}
             />
             <Image
-              className="md:hidden flex"
+              className="flex md:hidden "
               src={laptop}
               alt="slotstat video cover"
               objectFit="cover"
-              // width={306}
-              // height={106}
             />
             <div
               className={`${
