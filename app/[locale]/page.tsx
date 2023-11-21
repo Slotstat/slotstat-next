@@ -2,7 +2,7 @@ import LiveCards from "../components/LiveCards";
 import Table from "../components/table/Table";
 import { getLandingCards } from "@/lib/getLanding";
 import { notFound } from "next/navigation";
-import { openGraphImage } from "@/app/shared-metadata";
+// import { openGraphImage } from "@/app/shared-metadata";
 import getGamesList from "@/lib/getGamesList";
 import IntroComponent from "../components/IntroComponent";
 
@@ -35,7 +35,8 @@ export async function generateMetadata({
       description:
         "Unique platform which gives you opportunity to choose where to play and win! ",
       openGraph: {
-        ...openGraphImage,
+        // ...openGraphImage,
+        images: "/opengraph-image.png",
         title: "Slotstat",
         description:
           "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
