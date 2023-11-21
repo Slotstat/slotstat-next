@@ -13,7 +13,7 @@ import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://slotstat.net"),
+  metadataBase: new URL("https://slotstat-next.vercel.app"),
   title: {
     default: "SlotStat",
     template: `%s | SlotStat`,

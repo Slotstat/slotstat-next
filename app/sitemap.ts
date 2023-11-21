@@ -48,7 +48,7 @@ const getGames = async (casinoIds: string[]) => {
 };
 
 export default async function sitemap() {
-  const baseUrlSitemap = "https://slotstat.net";
+  const baseUrlSitemap = "https://slotstat-next.vercel.app";
 
   var casinosIds: string[] = [];
   // const casinosData: CasinoData[] = await getCasinos();
