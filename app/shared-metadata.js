@@ -1,1 +1,0 @@
-// export const openGraphImage = { images: ['https://slotstat-next.vercel.app/opengraph-image.png'] }
