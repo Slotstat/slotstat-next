@@ -13,7 +13,7 @@ import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://slotstat-next.vercel.app"),
+  metadataBase: new URL("https://slotstat.net"),
   title: {
     default: "SlotStat",
     template: `%s | SlotStat`,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     google: "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
   },
   openGraph: {
-    images: "/opengraph-image.png",
+    images: "../opengraph-image.png",
   },
   viewport:"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 };

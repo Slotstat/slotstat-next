@@ -36,7 +36,7 @@ export async function generateMetadata({
         "Unique platform which gives you opportunity to choose where to play and win! ",
       openGraph: {
         // ...openGraphImage,
-        images: "/opengraph-image.png",
+        images: "../opengraph-image.png",
         title: "Slotstat",
         description:
           "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
