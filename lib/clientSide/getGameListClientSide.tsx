@@ -14,7 +14,7 @@ export default async function getGameListClientSide({
       params: {
         keyWord,
         direction: direction || "desc",
-        ord: orderBy,
+        ord: orderBy || null,
         isCrypto: isFiat === "true" ? false : true,
       },
     });

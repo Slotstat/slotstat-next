@@ -6,7 +6,7 @@ export default async function getCasinoCards(locale: string, casinoId: string) {
       url: `/api/casino/cards/${casinoId}`,
       method: "GET",
     });
-    // console.log("casinoId", casinoId);
+
     if (res.status != 200) throw new Error("Can't successfully fetch data");
     return res.data;
   } catch (error) {

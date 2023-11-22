@@ -11,7 +11,7 @@ export default async function getGamesList(
       method: "GET",
       params: {
         keyWord,
-        ord: orderBy,
+        ord: orderBy || null,
         direction: direction || "desc",
         isCrypto: isFiat === "true" ? false : true,
         pageSize: 100,

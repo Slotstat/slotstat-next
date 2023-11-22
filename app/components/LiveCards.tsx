@@ -127,9 +127,9 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  md:text-base ${renderNameColor()}`}
         >
-          <span className=" mr-1">{name}:</span>
+          <span className=" mr-3">{name}:</span>
           {isLive && additionalProps ? (
             <AnimatedCounterComponent
               additionalProps={additionalProps}
