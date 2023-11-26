@@ -219,6 +219,7 @@ export default function RTP({
       );
     }
   };
+
   useEffect(() => {
     if (gameObject?.rtp) {
       setAngle(

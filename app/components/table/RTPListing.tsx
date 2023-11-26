@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useStore from "@/app/(store)/store";
 
 type RTPListingProps = {
   provider: string;
@@ -7,21 +8,17 @@ type RTPListingProps = {
 };
 
 export default function RTPListing({ provider, rtp }: RTPListingProps) {
-  const { value, preferredValue, max, min } = rtp;
+  const { value, preferredValue, max, min, id } = rtp;
+  const { newRtp } = useStore();
 
   const [RTP, setRTP] = useState<number>(value);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      function biasedRandomNumber() {
-        const randomBetween = Math.random() * (max - min) + min;
-
-        return Number(randomBetween.toFixed(1));
-      }
-      setRTP(biasedRandomNumber());
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
+    if (newRtp && newRtp.rtpId === id) {
+      const { value } = newRtp;
+      setRTP(value);
+    }
+  }, [newRtp]);
 
   const RTPindicatorWidth = 80;
 
