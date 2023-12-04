@@ -130,6 +130,7 @@ type GameData = {
   isFiat: boolean;
   additionalInfo: string;
   casinoImageUrl: string;
+  jackpotInfo: "string";
 };
 
 type RTP = {

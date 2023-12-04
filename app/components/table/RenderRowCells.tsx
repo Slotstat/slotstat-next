@@ -112,6 +112,7 @@ export default function RenderRowCells({
     rtp,
     casinoName,
     bounties,
+    jackpotInfo,
     // currencyCode,
     // fixedRtp,
     // isCrypto,
@@ -231,16 +232,23 @@ export default function RenderRowCells({
         </div>
       );
     case 4:
-      return jackpot === 0 ? (
-        renderEmptyValue()
-      ) : (
-        <CountUpForJackpots
-          jackpot={jackpot}
-          jackpotCurrency={jackpotCurrency}
-          casinoCurrency={casinoCurrency}
-          casinoId={casinoId}
-        />
-      );
+      if (jackpotInfo) {
+        return (
+          <div className="text-green1 text-xs md:text-base">{jackpotInfo}</div>
+        );
+      } else {
+        return jackpot === 0 ? (
+          renderEmptyValue()
+        ) : (
+          <CountUpForJackpots
+            jackpot={jackpot}
+            jackpotCurrency={jackpotCurrency}
+            casinoCurrency={casinoCurrency}
+            casinoId={casinoId}
+          />
+        );
+      }
+
     case 5:
       return name !== "All Games" && rtp ? (
         <RTPListing rtp={rtp} provider={provider} />
