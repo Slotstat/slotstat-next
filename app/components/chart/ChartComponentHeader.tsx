@@ -19,7 +19,7 @@ export default function ChartComponentHeader({
   const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
   const [headerSize, setHeaderSize] = useState<string>("h-24");
 
-  const { casinoName, name, imageUrl, redirectUrl } = gameObj;
+  const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } = gameObj;
 
   const listenScrollEvent = () => {
     window.scrollY > 170 ? setShowSmallHeader(true) : setShowSmallHeader(false);
@@ -118,7 +118,7 @@ export default function ChartComponentHeader({
                 >
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
                     <Image
-                      src={imageUrl}
+                      src={casinoImageUrl}
                       alt={casinoName}
                       fill
                       className="h-12 w-12"

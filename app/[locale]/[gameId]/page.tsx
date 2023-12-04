@@ -1,9 +1,10 @@
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 import LiveCards from "@/app/components/LiveCards";
-import OtherGames from "@/app/components/OtherGames";
+// import OtherGames from "@/app/components/OtherGames";
 import ChartComponent from "@/app/components/chart/ChartComponent";
 import ChartComponentHeader from "@/app/components/chart/ChartComponentHeader";
-import Table from "@/app/components/table/Table";
+import getCasino from "@/lib/getCasino";
+// import Table from "@/app/components/table/Table";
 import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
@@ -56,7 +57,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function Casino({
+export default async function gamePage({
   params: { gameId, locale },
   searchParams: {
     orderBy,
@@ -70,22 +71,26 @@ export default async function Casino({
   params: { gameId: string; locale: string };
   searchParams: QueryParams;
 }) {
-  const gamesListData: Promise<gamesList> = getGamesList(locale, {
-    keyWord,
-    direction,
-    orderBy,
-    isFiat,
-  });
+  // const gamesListData: Promise<gamesList> = getGamesList(locale, {
+  //   keyWord,
+  //   direction,
+  //   orderBy,
+  //   isFiat,
+  // });
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
 
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
   let mainGameObj: GameData;
 
-  var [mainGame, gamesList, gameCards] = await Promise.all([
+  var [
+    mainGame,
+    gameCards,
+    // gamesList
+  ] = await Promise.all([
     mainGameData,
-    gamesListData,
     gamesCardsData,
+    // gamesListData,
   ]);
   mainGameObj = mainGame;
 
@@ -96,13 +101,15 @@ export default async function Casino({
     compareGame = await compareGameData;
   }
 
-  // if (mainGameObj?.casinoId && isGame === "true") {
-  //   casinoCards = await casinoCardsData;
-  // }
-
   if (!mainGameObj) {
     return notFound();
   }
+
+  // if (mainGameObj?.casinoId && isGame === "false") {
+  //   // casinoCards = await casinoData;
+  // }
+  // @ts-ignore
+  const casinoData: Promise<CasinoData> = getCasino(mainGameObj.casinoId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(
     locale,
     // @ts-ignore
@@ -110,6 +117,8 @@ export default async function Casino({
   );
 
   const casinoCards = await casinoCardsData;
+  const casino = await casinoData;
+  // console.log("casino", casino);
 
   // const breadcrumbs = [
   //   {
@@ -137,6 +146,13 @@ export default async function Casino({
             game={true}
             gamesCardsData={gamesCardsData}
           />
+
+          <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+            info
+          </div>
+          <div className="text-grey1 text-base mb-8 lg:mb-18">
+            {mainGameObj.additionalInfo}
+          </div>
         </>
       ) : (
         <div className="mt-72">
@@ -149,6 +165,12 @@ export default async function Casino({
               casinoCardsData={casinoCardsData}
             />
           )}
+          <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+            info
+          </div>
+          <div className="text-grey1 text-base mb-8 lg:mb-18">
+            {casino.additionalInfo}
+          </div>
         </div>
       )}
 

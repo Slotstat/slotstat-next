@@ -127,6 +127,9 @@ type GameData = {
   currencyCode: string;
   fixedRtp: string;
   isCrypto: boolean;
+  isFiat: boolean;
+  additionalInfo: string;
+  casinoImageUrl: string;
 };
 
 type RTP = {
@@ -191,3 +194,23 @@ type GetGamesFromChosenCasinoProps = {
   casinoId: string;
   name: string;
 };
+
+interface CasinoData extends GameData {
+  casinoId: string;
+  name: string;
+  imageUrl: string;
+  providers: number;
+  bounties: string;
+  dataSource: string;
+  jackpot: number;
+  jackpotCurrency: string;
+  s24h?: null[] | null;
+  p1h: number;
+  p24h: number;
+  users: number;
+  pallTime: number;
+  t1H: number;
+  t24h: number;
+  redirectUrl: string;
+  isForAllGames?: boolean;
+}
