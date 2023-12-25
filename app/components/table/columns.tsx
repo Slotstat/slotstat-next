@@ -14,13 +14,14 @@ export const casinoOrGameColumns = (t: any) => {
     {
       Header: (
         <div>
-          {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
+          {t("casino")} /<span className="text-grey1 ml-1">{t("casino")}</span>
         </div>
       ),
       accessor: "casino",
       maxWidth: 246,
       width: 246,
       minWidth: 148,
+      hint:t('casinoBonusHint')
     },
     {
       Header: t("h1"),

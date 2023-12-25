@@ -21,7 +21,7 @@ import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
 import { casinoOrGameColumns } from "./columns";
 
-import { usePathname, useRouter } from "next-intl/client";
+import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
 import Link from "next/link";
 
@@ -57,6 +57,7 @@ const Table = ({
   showCryptoFiatSwitcher,
   setIsFiatState,
 }: Props) => {
+  console.log("tableBodyData", tableBodyData);
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();

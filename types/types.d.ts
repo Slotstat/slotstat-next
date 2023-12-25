@@ -70,7 +70,7 @@ type Dictionary = {
     joinUs: string;
     stayInLoop: string;
     subscribe: string;
-    telegramChan: string;
+    XChan: string;
   };
   footer: {
     company: string;

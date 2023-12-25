@@ -63,6 +63,7 @@
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
     "jackpotHint": "Maximum jackpot of published games",
     "userHint": "Number of users who monitor statistics",
+    "casinoBonusHint": "casino hints goes here",
     "h1GameHint": "Percentage of winning spins during the last hour",
     "h24GameHint": "Percentage of winning spins during the last 24 hour",
     "GoToStatistic": "Go to statistic",

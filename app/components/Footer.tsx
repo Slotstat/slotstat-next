@@ -86,7 +86,7 @@ const Footer = () => {
         <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
           <SubscribeButton
             subscribe={tFaq("subscribe")}
-            telegramChan={tFaq("telegramChan")}
+            XChan={tFaq("XChan")}
           />
         </div>
       </div>
