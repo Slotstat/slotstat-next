@@ -20,7 +20,6 @@ import menu from "./svg/menu.svg";
 import remove from "./svg/remove.svg";
 import search from "./svg/search.svg";
 import skewed_arrow from "./svg/skewed_arrow.svg";
-import telegram from "./svg/telegram.svg";
 
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
@@ -29,11 +28,12 @@ import laptop from "./img/laptop.png";
 import triangle from "./img/triangle.png";
 import slot from "./img/slot.png";
 import logoSmall from "./img/logoSmall.png";
+import x from "./img/x.png";
 
 export {
   logo,
   link,
-  telegram,
+  x,
   globe,
   casino,
   joystick,
@@ -60,5 +60,5 @@ export {
   laptop,
   triangle,
   slot,
-  logoSmall
+  logoSmall,
 };

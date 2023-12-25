@@ -16,19 +16,22 @@ export default function FAQ() {
 
   return (
     <>
+      {/* bg-[url("./assets/img/chart-pattern.png")] */}
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       <div className="py-6 ">
-        <div className='relative flex w-full flex-col  justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/chart-pattern.png")] bg-right bg-no-repeat py-12 px-9 lg:py-24 lg:px-28'>
-          <h1 className="text-[18px] font-normal text-blue1">{t("theFAQs")}</h1>
-          <h1 className="my-2 text-[64px] font-bold text-white">
+        <div className='h-full relative  flex w-full flex-col items-center   justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/bg.png")] bg-cover lg:bg-auto   md:bg-[url("./assets/img/chart-pattern.png")]  lg:bg-right lg:bg-no-repeat py-12 px-9 lg:items-start lg:py-24 lg:px-28'>
+          <h1 className=" text-xs my-2 font-bold text-blue1 lg:text-lg">
+            {t("theFAQs")}
+          </h1>
+          <h1 className="my-2 text-lg font-bold text-white lg:text-6xl">
             {t("helpCentre")}
           </h1>
-          <h1 className="text-[18px] font-normal text-grey1">
+          <h1 className=" text-xs my-2  font-normal text-grey1 lg:text-lg">
             {t("aboutProduct")}
           </h1>
         </div>
-        <div className="my-16 flex flex-col lg:my-28 lg:flex-row">
-          <div className="lg:flex-1">
+        <div className=" flex flex-col  lg:my-28 lg:flex-row">
+          <div className="hidden lg:flex-1">
             <h1 className="text-[18px] font-normal text-blue1">
               {t("support")}
             </h1>
@@ -43,22 +46,20 @@ export default function FAQ() {
             <Accordion data={columns} />
           </div>
         </div>
-        <div className="relative mt-28 mb-12 flex w-full flex-col flex-wrap items-center rounded-3xl bg-dark2 py-16 px-9 lg:flex-row lg:space-x-40 lg:py-20 lg:px-28">
+        <div className="relative mt-28 mb-12 flex w-full flex-col flex-wrap items-center rounded-3xl bg-dark2 py-16 px-9 md:flex-row lg:space-x-40 lg:py-20 lg:px-28">
           <div className="flex-1">
-            <h1 className="my-2 text-[32px] font-bold text-white">
+            <h1 className="my-2 text-lg text-center md:text-start lg:text-3xl font-bold text-white">
               {t("joinUs")}
             </h1>
-            <h1 className="text-[18px] font-normal text-grey1">
+            <h1 className="my-2 text-lg text-center md:text-start lg:text-3xl font-bold text-white">
+              {t("joinUs1")}
+            </h1>
+            <h1 className="text-xs lg:text-lg font-normal text-grey1">
               {t("stayInLoop")}
             </h1>
           </div>
-          <div className="mt-10 flex flex-1 lg:mt-0 lg:justify-end">
-            <div>
-              <SubscribeButton
-                subscribe={t("subscribe")}
-                telegramChan={t("telegramChan")}
-              />
-            </div>
+          <div className="w-full mt-10 flex flex-1 lg:mt-0 lg:justify-end">
+            <SubscribeButton subscribe={t("subscribe")} XChan={t("XChan")} />
           </div>
         </div>
       </div>

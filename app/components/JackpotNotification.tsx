@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import signalR from "@/app/utils/singlar";
+import signalR from "@/app/utils/Signalr";
 import useStore from "../(store)/store";
 import Image from "next/image";
 import { close, moneyBag } from "../assets";
