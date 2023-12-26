@@ -155,7 +155,7 @@ export default function RenderRowCells({
             title={name}
             className=" text-white font-bold truncate max-w-[124px]  text-xs md:max-w-[160px] md:text-base"
           >
-            {cell.render("Cell")} {provider}
+            {cell.render("Cell")} 
           </p>
           <p className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
             {provider}
