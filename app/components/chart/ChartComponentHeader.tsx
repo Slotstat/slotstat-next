@@ -9,9 +9,11 @@ import { useTranslations } from "next-intl";
 export default function ChartComponentHeader({
   gameObj,
   isGame,
+  casinoURL,
 }: {
   gameObj: GameData;
   isGame?: string;
+  casinoURL: string;
 }) {
   const t = useTranslations("table");
   const { setQueryParams } = useQueryParams();
@@ -65,7 +67,7 @@ export default function ChartComponentHeader({
         />
       </div>
       <a
-        href={redirectUrl}
+        href={isGame === "true" ? redirectUrl : casinoURL}
         target="_blank"
         className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"

@@ -57,7 +57,7 @@ const Table = ({
   showCryptoFiatSwitcher,
   setIsFiatState,
 }: Props) => {
-  console.log("tableBodyData", tableBodyData);
+  // console.log("tableBodyData", tableBodyData);
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();

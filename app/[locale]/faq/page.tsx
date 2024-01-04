@@ -31,7 +31,7 @@ export default function FAQ() {
           </h1>
         </div>
         <div className=" flex flex-col  lg:my-28 lg:flex-row">
-          <div className="hidden lg:flex-1">
+          <div className="hidden lg:flex lg:flex-col lg:flex-1">
             <h1 className="text-[18px] font-normal text-blue1">
               {t("support")}
             </h1>

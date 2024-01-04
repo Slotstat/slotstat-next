@@ -189,7 +189,7 @@ export default async function gamePage({
           </div>
         </div>
       )} */}
-      <ChartComponentHeader gameObj={mainGame} isGame={isGame} />
+      <ChartComponentHeader gameObj={mainGame} isGame={isGame} casinoURL={casino.redirectUrl} />
     </>
   );
 }

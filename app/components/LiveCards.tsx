@@ -138,7 +138,9 @@ const StatCard = ({
               casinoId={casinoId}
             />
           ) : (
-            <span className={renderValueColor()}>{value}</span>
+            <span className={`${renderValueColor()} truncate max-w-[100px] lg:max-w-[140px] `}>
+              {value}
+            </span>
           )}
           {redirectUrl && (
             <LinkIcon
@@ -149,7 +151,7 @@ const StatCard = ({
         </span>
         {additionalInfo && (
           <>
-            <TooltipComponent text={additionalInfo} />
+            <TooltipComponent big text={additionalInfo} />
           </>
         )}
       </div>

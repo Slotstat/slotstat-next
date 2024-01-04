@@ -16,7 +16,7 @@ export default function TooltipComponent({
         <svg
           onMouseEnter={() => setColor("#5887F5")}
           onMouseLeave={() => setColor("#969CB0")}
-          className="ml-2 w-full h-full"
+          className=" w-full h-full"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 16 16"

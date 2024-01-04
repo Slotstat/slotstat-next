@@ -14,7 +14,7 @@ export const casinoOrGameColumns = (t: any) => {
     {
       Header: (
         <div>
-          {t("casino")} /<span className="text-grey1 ml-1">{t("casino")}</span>
+          {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
         </div>
       ),
       accessor: "casino",
