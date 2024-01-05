@@ -1,14 +1,22 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { laptop, triangle } from "../assets";
 import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
+import { setCookie, getCookie } from "cookies-next";
 
 export default function IntroComponent() {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(false);
   const [openVideo, setOpenVideo] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  useEffect(() => {
+    if (getCookie("videoOpen") == "true") {
+      setEnabled(true);
+    } else {
+      setEnabled(false);
+    }
+  }, []);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -25,7 +33,10 @@ export default function IntroComponent() {
           <p className="mr-2">video tutorial</p>
           <Switch
             checked={enabled}
-            onChange={setEnabled}
+            onChange={(sw) => {
+              setEnabled(sw);
+              setCookie("videoOpen", sw);
+            }}
             className={`${enabled ? "bg-blue1" : "bg-grey3"}
           relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
           >
