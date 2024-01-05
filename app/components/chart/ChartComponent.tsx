@@ -404,7 +404,7 @@ const ChartComponent = ({
 
   return (
     <>
-      <div className="flex flex-row flex-wrap mt-28 md:mt-64">
+      <div className="flex flex-row flex-wrap mt-36 md:mt-64">
         <div className="w-full py-6 lg:pr-3 lg:pt-12 lg:pb-6 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">
@@ -426,8 +426,8 @@ const ChartComponent = ({
                 >
                   <div className="flex items-center">
                     <BulletIcon color={SERIE_COLORS[0]} size={20} />
-                    <span className="ml-2 font-bold leading-4 text-white text-xs lg:text-sm">
-                      {mainGame?.casinoName} {mainGame?.name}
+                    <span className="ml-2 font-bold leading-4 text-white text-xs lg:text-sm truncate max-w-[170px]  ">
+                      {mainGame?.casinoName} {mainGame?.name}r erwer wewe
                     </span>
                   </div>
                   <div className="flex items-center">
