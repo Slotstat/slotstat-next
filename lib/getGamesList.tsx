@@ -13,7 +13,8 @@ export default async function getGamesList(
         keyWord,
         ord: orderBy || null,
         direction: direction || "desc",
-        isCrypto: isFiat === "true" ? false : true,
+        isCrypto: isFiat === "false" ? true : null,
+        isFiat: isFiat === "true" ? true : null,
         pageSize: 100,
       },
     });
