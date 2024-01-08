@@ -284,8 +284,7 @@ const ChartComponent = ({
       }
 
       // fixing date for chart & transforms UTC to Locale
-      statistics.date = new Date( moment.utc(statistics.date).local().format());
-
+      statistics.date = new Date(moment.utc(statistics.date).local().format());
 
       // compare timestamps of last item in data and newly fetched. if they are different it means we have to add new date on dateAxis
       if (
@@ -415,12 +414,12 @@ const ChartComponent = ({
         <div className="w-full py-6 lg:pr-3 lg:pt-12 lg:pb-6 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
             <div className="flex flex-row items-center ">
-              <div>
-                <h2 className="flex flex-1 items-center  lg:text-[24px] font-bold text-white ">
-                  {t("gamePage.Win-spinRate")}
-                </h2>
-              </div>
+              <h2 className="flex flex-1 items-center  lg:text-[24px] font-bold text-white ">
+                {t("gamePage.Win-spinRate")}
+              </h2>
+
               <TooltipComponent
+                classN="ml-2"
                 big={true}
                 text={t("gamePage.Win-spinRateHint")}
               />
