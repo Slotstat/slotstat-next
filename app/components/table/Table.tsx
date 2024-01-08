@@ -231,7 +231,10 @@ const Table = ({
                         <div className="flex items-center">
                           {col.render("Header")}
                           {/*  @ts-ignore: Unreachable code error*/}
-                          {col.hint && <TooltipComponent text={col.hint} />}
+                          {col.hint && (
+                            //  @ts-ignore: Unreachable code error
+                            <TooltipComponent text={col.hint} classN="ml-2" />
+                          )}
                         </div>
                       </th>
                     );

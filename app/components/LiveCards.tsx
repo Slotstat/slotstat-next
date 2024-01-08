@@ -127,9 +127,9 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  md:text-base ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs leading-5 flex flex-row  md:text-base ${renderNameColor()}`}
         >
-          <span className=" mr-3">{name}:</span>
+          <span className=" mr-3 cursor-default">{name}:</span>
           {isLive && additionalProps ? (
             <AnimatedCounterComponent
               additionalProps={additionalProps}
@@ -138,7 +138,10 @@ const StatCard = ({
               casinoId={casinoId}
             />
           ) : (
-            <span className={`${renderValueColor()} truncate max-w-[100px] lg:max-w-[140px] `}>
+            <span
+              className={`${renderValueColor()} cursor-default truncate max-w-[100px] lg:max-w-[140px] `}
+              title={value}
+            >
               {value}
             </span>
           )}

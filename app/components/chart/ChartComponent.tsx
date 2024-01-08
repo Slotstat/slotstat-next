@@ -26,6 +26,7 @@ import { useTranslations } from "next-intl";
 import RTP from "./RTP";
 import TooltipComponent from "../TooltipComponent";
 import useQueryParams from "@/app/utils/useQueryParams";
+import moment from "moment";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -81,9 +82,14 @@ const ChartComponent = ({
       setNoStatisticsYet(true);
       return [];
     }
+
     for (let index = 0; index < statistics.length; index++) {
-      statistics[index].date = new Date(statistics[index].date);
+      // transforms UTC to Locale
+      statistics[index].date = new Date(
+        moment.utc(statistics[index].date).local().format()
+      );
     }
+
     setLiveResultForMainGame(statistics[0].winRate);
     return statistics;
   };
@@ -277,8 +283,9 @@ const ChartComponent = ({
         statistics = mainStatistic[0];
       }
 
-      // fixing date for chart
-      statistics.date = new Date(statistics.date);
+      // fixing date for chart & transforms UTC to Locale
+      statistics.date = new Date( moment.utc(statistics.date).local().format());
+
 
       // compare timestamps of last item in data and newly fetched. if they are different it means we have to add new date on dateAxis
       if (
@@ -511,7 +518,11 @@ const ChartComponent = ({
               <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
                 RTP / Fluctuation
               </h3>
-              <TooltipComponent big={true} text={t("table.RTPhint")} />
+              <TooltipComponent
+                big={true}
+                classN="ml-2"
+                text={t("table.RTPhint")}
+              />
             </div>
             <Image src={live} alt="" className="ml-3 w-10 h-10" />
           </div>

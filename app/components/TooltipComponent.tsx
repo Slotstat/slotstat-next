@@ -4,8 +4,10 @@ import React, { useState } from "react";
 export default function TooltipComponent({
   text,
   big = false,
+  classN,
 }: {
   text: string;
+  classN?: string;
   big?: boolean;
 }) {
   const [color, setColor] = useState("#969CB0");
@@ -16,7 +18,7 @@ export default function TooltipComponent({
         <svg
           onMouseEnter={() => setColor("#5887F5")}
           onMouseLeave={() => setColor("#969CB0")}
-          className=" w-full h-full"
+          className={`w-full h-full ${classN}`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 16 16"
