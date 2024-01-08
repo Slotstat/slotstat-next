@@ -298,6 +298,29 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
           } while (i2 < values2.length);
         }
 
+        const generateFormattedDate = (date) => {
+          const months = [
+            "Jan.",
+            "Feb.",
+            "Mar.",
+            "Apr.",
+            "May",
+            "Jun.",
+            "Jul.",
+            "Aug.",
+            "Sep.",
+            "Oct.",
+            "Nov.",
+            "Dec.",
+          ];
+          const day = date.toLocaleDateString("en-US", { day: "2-digit" });
+          const monthIndex = date.getMonth();
+          const month = months[monthIndex];
+          const year = date.toLocaleDateString("en-US", { year: "numeric" });
+
+          return `${day} ${month} ${year}`;
+        };
+
         if (v && !v2) {
           const dateX = v?.dates?.dateX;
           const series1value = v?.values?.valueY?.value;
@@ -307,16 +330,8 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
           //   month: "2-digit",
           //   year: "numeric",
           // });
-          const months = [
-            "Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
-            "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."
-          ];
-          const day = date.toLocaleDateString("en-US", { day: "2-digit" });
-          const monthIndex = date.getMonth();
-          const month = months[monthIndex];
-          const year = date.toLocaleDateString("en-US", { year: "numeric" });
+          const formattedDate = generateFormattedDate(date);
 
-          const formattedDate = `${day} ${month} ${year}`;
           const formattedTime = date.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
@@ -337,15 +352,13 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
           const series2value = v2?.values?.valueY?.value;
 
           const date = new Date(dateX);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-          });
+
+          const formattedDate = generateFormattedDate(date);
+
           const formattedTime = date.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
-            second: "2-digit",
+            // second: "2-digit",
             hour12: true,
           });
 
