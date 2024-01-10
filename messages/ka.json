@@ -20,6 +20,7 @@
     "stayInLoop": "Stay in the loop with everything you need to know.",
     "subscribe": "გამოგვყევი ",
     "XChan": " ჩვენს X არხზე",
+    "account": "account",
     "WhatIsHappeningHere": "რა ხდება აქ?",
     "WhatIsHappeningHereParams": "აქ Slotstat-ზე შეგიძლიათ იპოვოთ აზარტული თამაშების პარამეტრების 3 ძირითადი მიმართულება:",
     "WhatIsHappeningHereA": "ა. Hitrate (გამოსახულია გრაფიკებზე);",
@@ -55,13 +56,11 @@
     "jackpot": "მაქს. ჯეკპოტი",
     "t24h": "24სთ",
     "RTP": "RTP",
-    "fluctuation": "Fluctuation",
+    "swing": "swing",
     "bonusesHint": "ინფორმაცია კაზინოების სასაჩუქრე შემოთავაზებების შესახებ",
-    "h1Hint": "გამოქვეყნებული თამაშების მომგებიანი სპინების საშუალო პროცენტი ბოლო საათის განმავლობაში ",
-    "h24Hint": "გამოქვეყნებული თამაშების მომგებიანი სპინების საშუალო პროცენტი ბოლო 24 საათის განმავლობაში ",
     "sourceHint": "სტატისტიკის მოპოვების წყარო. 1. კაზინო API -2. სლოტსტატ AI - 3. ვერიფიცირებული - ",
     "jackpotHint": "გამოქვეყნებული თამაშების მაქსიმალური ჯეკპოტი",
-    "game": "თამაში",
+    "slot": "სლოტი",
     "user": "იუზერი",
     "userHint": "იუზერების რაოდენობა, რომლებიც აკვირდებიან სტატისტიკას",
     "casinoBonusHint": "კაზინოს ჰინთები",
@@ -81,7 +80,7 @@
   "gamePage": {
     "findYourGame": "იპოვე შენი თამაში",
     "games": "თამაშები",
-    "Win-spinRate": "Win-spin rate",
+    "Win-spinRate": "Win Spin Regular",
     "Win-spinRateHint": "Win spin rate არის მომგებიანი სპინების სიხშირე, რომლისთვისაც მომგებიანი სპინი არის სპინი, რომლის მომგებიანობა, მეტია ვიდრე საწყისი ფსონი. "
   },
   "sortBy": {

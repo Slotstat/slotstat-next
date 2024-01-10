@@ -21,20 +21,22 @@ export const STEPS = [
 export const accordionData = (t: any) => {
   const ACCORDION_DATA = [
     {
-      header: t("WhatIsHappeningHere"),
-      content: (
-        <div>
-          <p>{t("WhatIsHappeningHereParams")}</p>
-          <p className="ml-3">{t("WhatIsHappeningHereA")}</p>
-          <p className="ml-3">{t("WhatIsHappeningHereB")}</p>
-          <p className="ml-3">{t("WhatIsHappeningHereC")}</p>
-          <p >{t("WhatIsHappeningHereEnd")}</p>
-        </div>
-      ),
-    },
-    {
       header: t("WhatIsSlotstat"),
       content: t("WhatIsSlotstatContent"),
+    },
+    {
+      header: t("WhatIsHappeningHere"),
+      content: t("WhatIsHappeningHereParams"),
+
+      // content: (
+      //   <div>
+      //     <p>{t("WhatIsHappeningHereParams")}</p>
+      //     <p className="ml-3">{t("WhatIsHappeningHereA")}</p>
+      //     <p className="ml-3">{t("WhatIsHappeningHereB")}</p>
+      //     <p className="ml-3">{t("WhatIsHappeningHereC")}</p>
+      //     <p >{t("WhatIsHappeningHereEnd")}</p>
+      //   </div>
+      // ),
     },
     {
       header: t("WhatsHitRate"),

@@ -87,6 +87,7 @@ const Footer = () => {
           <SubscribeButton
             subscribe={tFaq("subscribe")}
             XChan={tFaq("XChan")}
+            account={tFaq("account")}
           />
         </div>
       </div>

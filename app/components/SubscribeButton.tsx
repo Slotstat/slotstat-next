@@ -6,9 +6,11 @@ import { link, x } from "../assets";
 const SubscribeButton = ({
   subscribe,
   XChan,
+  account,
 }: {
   subscribe: string;
   XChan: string;
+  account: string;
 }) => {
   return (
     <>
@@ -28,9 +30,10 @@ const SubscribeButton = ({
           target="_blank"
           className="flex items-center justify-between "
         >
-          <span className="text-xs font-bold leading-5 text-white lg:text-lg">
+          <span className="text-xs font-normal leading-5 text-white lg:text-lg">
             {subscribe}
-            <span className="font-normal">{XChan}</span>
+            <span className="font-bold">{XChan}</span>
+            <span className="font-normal">{account}</span>
           </span>
           <Image
             src={x}

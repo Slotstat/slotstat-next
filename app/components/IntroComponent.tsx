@@ -28,9 +28,9 @@ export default function IntroComponent() {
   return (
     <div>
       <div className="flex justify-between text-grey1">
-        <p>video tutorial</p>
+        <p>Study SlotStat Mechanics via</p>
         <div className="flex items-center">
-          <p className="mr-2">video tutorial</p>
+          <p className="mr-2">Video tutorial</p>
           <Switch
             checked={enabled}
             onChange={(sw) => {
@@ -57,12 +57,10 @@ export default function IntroComponent() {
       >
         <div className=" flex justify-between  md:m-12 md:h-28">
           <div className="hidden flex-col justify-center md:flex">
-            <h1 className="text-white text-3xl mb-6">
-              Todays slot games statistics by Slotstat
-            </h1>
+            <h1 className="text-white text-3xl mb-6">SlotStat Statistics</h1>
             <p className="text-grey1">
-              We publish information about slot games, payout percentage, number
-              of winning spins and jackpots... Read more
+              SlotStat publishes up to date casino games statistics and slots
+              real-time data.
             </p>
           </div>
           <div
@@ -90,7 +88,7 @@ export default function IntroComponent() {
               }  absolute top-0 bottom-0 right-0 left-0 rounded-xl flex justify-center items-center`}
             >
               <div className="flex text-white items-center text-base">
-                <span>Watch now</span>
+                <span>Play</span>
                 <Image
                   src={triangle}
                   alt="triangle"

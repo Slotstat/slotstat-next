@@ -39,7 +39,7 @@ export default function FAQ() {
               {t("FAQs")}
             </h1>
             <h1 className="text-[18px] font-normal text-grey1">
-              {t("aboutProduct")}
+              {t("What-you-need-to-know")}
             </h1>
           </div>
           <div className="mt-16 lg:mt-0 lg:flex-1">
@@ -59,7 +59,11 @@ export default function FAQ() {
             </h1>
           </div>
           <div className="w-full mt-10 flex flex-1 lg:mt-0 lg:justify-end">
-            <SubscribeButton subscribe={t("subscribe")} XChan={t("XChan")} />
+            <SubscribeButton
+              subscribe={t("subscribe")}
+              XChan={t("XChan")}
+              account={t("account")}
+            />
           </div>
         </div>
       </div>

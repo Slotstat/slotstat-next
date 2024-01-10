@@ -515,12 +515,12 @@ const ChartComponent = ({
           <div className="flex flex-row items-center  justify-between">
             <div className="flex flex-row items-center ">
               <h3 className="flex items-center text-base lg:text-2xl font-bold text-white h-12">
-                RTP / Fluctuation
+                {t("chartComponent.RTP")} / {t("chartComponent.swing")}
               </h3>
               <TooltipComponent
                 big={true}
                 classN="ml-2"
-                text={t("table.RTPhint")}
+                text={t("chartComponent.RTPhint")}
               />
             </div>
             <Image src={live} alt="" className="ml-3 w-10 h-10" />
