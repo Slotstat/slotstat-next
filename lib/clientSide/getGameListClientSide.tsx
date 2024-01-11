@@ -17,6 +17,7 @@ export default async function getGameListClientSide({
         ord: orderBy || null,
         isCrypto: isFiat === "false" ? true : null,
         isFiat: isFiat === "true" ? true : null,
+        pageSize: 100,
       },
     });
     if (res.status != 200) throw new Error("Can't successfully fetch data");
