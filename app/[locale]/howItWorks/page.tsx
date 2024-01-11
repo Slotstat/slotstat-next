@@ -40,7 +40,7 @@ export default function HowItWorks() {
             Win Spin Regular - Win Spin Regular is a frequency of winning spins,
             where win is higher than initial bet.
           </li>
-          <li className="text-[#FA4611]">
+          <li className="">
             Jackpot - Figurine shows maximum Jackpot value of the chosen slot.
           </li>
 

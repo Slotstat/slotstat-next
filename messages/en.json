@@ -29,7 +29,7 @@
     "WhatIsHappeningHereC": "c. RTP fluctuation.",
     "WhatIsHappeningHereEnd": "cThose parameters may defer by casinos, providers and/or games.",
     "WhatIsSlotstat": "What is Slotstat?",
-    "WhatIsSlotstatContent": "SlotStat is a peaceful bystander of the gambling industry that monitors stats of slot games and brings better gambling experience to players by equipping them with key functions like RTP, RTP Swing, Win Spin Regular and JACKPOT SharpShooter.",
+    "WhatIsSlotstatContent": "SlotStat is a peaceful bystander of the gambling industry that monitors stats of slot games and brings better gambling experience to players by equipping them with key functions like RTP, RTP Swing, Win Spin Regular, bonuses and JACKPOT.",
     "WhatsHitRate": "What’s Win Spin Regular",
     "WhatsHitRateContent": "Win Spin Regular is a frequency of winning spins, where win is higher than initial bet and represents the calculable constant number.",
     "WhatIsRTP": "What's RTP?",
@@ -63,7 +63,7 @@
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
     "jackpotHint": "Figurine is an actively updating maximum Jackpot value of the chosen casino and may pop up as an accurate periscope for sharp shot takers. ",
     "userHint": "Number of users who monitor statistics",
-    "casinoBonusHint": "Casino SlotStat partner casinos sprawl on the list with authorization hallmarks. Verification badge holder casinos real-time stats are 100% legit and perfectly spot on. Bonus    Players from SlotStat interface to chosen casino will get exclusive offers and rare bonuses.",
+    "casinoBonusHint": "Casino: SlotStat partner casinos sprawl on the list with authorization hallmarks. Verification badge holder casinos real-time stats are 100% legit and perfectly spot on. ________________ Bonus: Players from SlotStat interface to chosen casino will get exclusive offers and rare bonuses.",
     "h1GameHint": "Figurine shows the percentage of winning spins frequency in the last hour time period.",
     "h24GameHint": "Figurine shows the percentage of winning spins frequency in the last 24 hour time period.",
     "GoToStatistic": "Go to statistic",
@@ -116,8 +116,8 @@
     "provideInfo": "We will provide RTP Information soon",
     "Compare": "Compare",
     "neutral": "Neutral",
-    "CasinoIsLosing": "Casino is in loos",
-    "CasinoIsInProfit": "Casino is in profit",
+    "CasinoIsLosing": "Slot is in loos",
+    "CasinoIsInProfit": "Slot is in profit",
     "close": "Close"
   },
   "chartComponent": {

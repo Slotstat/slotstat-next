@@ -8,6 +8,7 @@ import { logoSmall, menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 // import LanguageToggleButton from "./LanguageToggleButton";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next-intl/client";
 
 const NavList = () => {
   const t = useTranslations("navbar");
@@ -46,6 +47,7 @@ const Header = () => {
   const [navSize, setNavSize] = useState<string>(bigHeaderHeight);
   const [navColor, setNavColor] = useState<string>(bgTransparent0);
   const [hasBorder, setHasBorder] = useState<boolean>(true);
+  const router = useRouter();
 
   const listenScrollEvent = () => {
     window.scrollY > 15
@@ -73,6 +75,11 @@ const Header = () => {
   const toggleNav = () => {
     setNavbarOpen(!navbarOpen);
   };
+  const handleReload = () => {
+    router.push("/");
+    router.refresh();
+  };
+
   return (
     <header
       className={`${navColor} ${navSize} ${
@@ -81,7 +88,8 @@ const Header = () => {
     >
       <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
-          <Link href="/" className="flex items-center">
+          {/* <Link href="/" className="flex items-center"> */}
+          <div className="flex items-center" onClick={() => handleReload()}>
             <Image
               className="hidden md:flex"
               src={slotLogo}
@@ -96,7 +104,8 @@ const Header = () => {
               width={36}
               height={36}
             />
-          </Link>
+          </div>
+          {/* </Link> */}
           <div className="flex items-center">
             <NavList />
             {/* <LanguageToggleButton /> */}
