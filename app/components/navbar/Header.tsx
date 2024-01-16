@@ -89,7 +89,7 @@ const Header = () => {
       <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
           {/* <Link href="/" className="flex items-center"> */}
-          <div className="flex items-center" onClick={() => handleReload()}>
+          <div className=" cursor-pointer flex items-center" onClick={() => handleReload()}>
             <Image
               className="hidden md:flex"
               src={slotLogo}

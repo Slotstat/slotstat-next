@@ -7,13 +7,13 @@ import { motion } from "framer-motion";
 import { setCookie, getCookie } from "cookies-next";
 
 export default function IntroComponent() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(true);
   const [openVideo, setOpenVideo] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   useEffect(() => {
     if (getCookie("videoOpen") == "true") {
       setEnabled(true);
-    } else {
+    } else if (getCookie("videoOpen") == "false") {
       setEnabled(false);
     }
   }, []);
