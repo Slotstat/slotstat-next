@@ -433,7 +433,7 @@ const ChartComponent = ({
                   <div className="flex items-center">
                     <BulletIcon color={SERIE_COLORS[0]} size={20} />
                     <span className="ml-2 font-bold leading-4 text-white text-xs lg:text-sm truncate max-w-[170px]  ">
-                      {mainGame?.casinoName} {mainGame?.name}r erwer wewe
+                      {mainGame?.casinoName} {mainGame?.name}
                     </span>
                   </div>
                   <div className="flex items-center">
