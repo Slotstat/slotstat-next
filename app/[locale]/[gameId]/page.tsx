@@ -146,12 +146,18 @@ export default async function gamePage({
             game={true}
             gamesCardsData={gamesCardsData}
           />
-
-          <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
-            info
-          </div>
+          {mainGameObj.additionalInfo && (
+            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+              info
+            </div>
+          )}
           <div className="text-grey1 text-base mb-8 lg:mb-18">
             {mainGameObj.additionalInfo}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: mainGameObj.additionalInfo,
+              }}
+            />
           </div>
         </>
       ) : (
@@ -165,11 +171,13 @@ export default async function gamePage({
               casinoCardsData={casinoCardsData}
             />
           )}
-          <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
-            info
-          </div>
+          {casino.additionalInfo && (
+            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+              info
+            </div>
+          )}
           <div className="text-grey1 text-base mb-8 lg:mb-18">
-            {casino.additionalInfo}
+            <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
           </div>
         </div>
       )}
@@ -189,7 +197,11 @@ export default async function gamePage({
           </div>
         </div>
       )} */}
-      <ChartComponentHeader gameObj={mainGame} isGame={isGame} casinoURL={casino.redirectUrl} />
+      <ChartComponentHeader
+        gameObj={mainGame}
+        isGame={isGame}
+        casinoURL={casino.redirectUrl}
+      />
     </>
   );
 }

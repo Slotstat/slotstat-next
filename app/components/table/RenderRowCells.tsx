@@ -8,6 +8,8 @@ import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
 import RTPListing from "./RTPListing";
+import { Verified } from "@/app/assets/svg/Verified";
+
 
 const CountUpForJackpots = ({
   jackpot,
@@ -122,6 +124,7 @@ export default function RenderRowCells({
     // p24h,
     // s24h,
     // type,
+    verificationStatus,
   } = row.original;
 
   const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
@@ -155,7 +158,7 @@ export default function RenderRowCells({
             title={name}
             className=" text-white font-bold truncate max-w-[124px]  text-xs md:max-w-[160px] md:text-base"
           >
-            {cell.render("Cell")} 
+            {cell.render("Cell")}
           </p>
           <p className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
             {provider}
@@ -168,7 +171,10 @@ export default function RenderRowCells({
   const CasinoBonus = () => {
     return (
       <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
-        <p>{casinoName}</p>
+        <div className=" flex flex-row">
+          <p className="mr-1">{casinoName}</p>
+          {verificationStatus == 1 && <Verified />}
+        </div>
         <p className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base">
           {bounties}
         </p>

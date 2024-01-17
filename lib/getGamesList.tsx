@@ -15,7 +15,7 @@ export default async function getGamesList(
         direction: direction || "desc",
         isCrypto: isFiat === "false" ? true : null,
         isFiat: isFiat === "true" ? true : null,
-        pageSize: 100,
+        pageSize: 200,
       },
     });
 

@@ -131,6 +131,7 @@ type GameData = {
   additionalInfo: string;
   casinoImageUrl: string;
   jackpotInfo: "string";
+  verificationStatus: number;
 };
 
 type RTP = {
