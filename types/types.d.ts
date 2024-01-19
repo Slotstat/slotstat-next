@@ -182,6 +182,10 @@ type ActionPaneProps = CasinoNamesWithCompareButtonProps &
   DateFilterForChartProps;
 
 type Type = "AllGames" | "Game";
+interface QueryParamsGamePage extends QueryParams {
+  casId: string;
+}
+
 type QueryParams = {
   orderBy?: string;
   keyWord?: string;

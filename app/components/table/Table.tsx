@@ -283,7 +283,7 @@ const Table = ({
                             </div>
                           ) : (
                             <Link
-                              href={`${row.original.gameId}?isFiat=${isFiat}`}
+                              href={`${row.original.gameId}?casId=${row.original.casinoId}&isFiat=${isFiat}`}
                               className=" h-full flex items-center "
                             >
                               <RenderRowCells

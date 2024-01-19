@@ -1,10 +1,6 @@
-// import Breadcrumbs from "@/app/components/Breadcrumbs";
-import LiveCards from "@/app/components/LiveCards";
-// import OtherGames from "@/app/components/OtherGames";
-import ChartComponent from "@/app/components/chart/ChartComponent";
-import ChartComponentHeader from "@/app/components/chart/ChartComponentHeader";
+import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
+
 import getCasino from "@/lib/getCasino";
-// import Table from "@/app/components/table/Table";
 import getCasinoCards from "@/lib/getCasinoCards";
 import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
@@ -12,15 +8,15 @@ import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
-  params: { casinoId, gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat },
+  params: { gameId, locale },
+  searchParams: { orderBy, keyWord, direction, isFiat, casId },
 }: {
   params: { casinoId: string; gameId: string; locale: string };
-  searchParams: QueryParams;
+  searchParams: QueryParamsGamePage;
 }) {
   try {
     var mainGame: GameData | undefined;
-    if (casinoId !== gameId) {
+    if (casId !== gameId) {
       mainGame = await getSingleGame(gameId);
     } else {
       const gamesListData: gamesList = await getGamesList(locale, {
@@ -42,10 +38,10 @@ export async function generateMetadata({
       title: mainGame.casinoName + " | " + mainGame.name,
       description: mainGame.provider,
       alternates: {
-        canonical: `/${casinoId}/${gameId}`,
+        canonical: `/${casId}/${gameId}`,
         languages: {
-          "en-US": `en/${casinoId}/${gameId}`,
-          "ka-GE": `ka/${casinoId}/${gameId}`,
+          "en-US": `en/${casId}/${gameId}`,
+          "ka-GE": `ka/${casId}/${gameId}`,
         },
       },
     };
@@ -66,10 +62,11 @@ export default async function gamePage({
     isFiat,
     compareGameId,
     isGame = "true",
+    casId,
   },
 }: {
   params: { gameId: string; locale: string };
-  searchParams: QueryParams;
+  searchParams: QueryParamsGamePage;
 }) {
   // const gamesListData: Promise<gamesList> = getGamesList(locale, {
   //   keyWord,
@@ -77,11 +74,12 @@ export default async function gamePage({
   //   orderBy,
   //   isFiat,
   // });
+  let mainGameObj: GameData | null = null;
+  let compareGame;
+
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
 
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
-
-  let mainGameObj: GameData;
 
   var [
     mainGame,
@@ -93,8 +91,6 @@ export default async function gamePage({
     // gamesListData,
   ]);
   mainGameObj = mainGame;
-
-  let compareGame;
 
   if (compareGameId) {
     const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
@@ -108,13 +104,9 @@ export default async function gamePage({
   // if (mainGameObj?.casinoId && isGame === "false") {
   //   // casinoCards = await casinoData;
   // }
-  // @ts-ignore
-  const casinoData: Promise<CasinoData> = getCasino(mainGameObj.casinoId);
-  const casinoCardsData: Promise<Card[]> = getCasinoCards(
-    locale,
-    // @ts-ignore
-    mainGameObj.casinoId
-  );
+
+  const casinoData: Promise<CasinoData> = getCasino(casId);
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
 
   const casinoCards = await casinoCardsData;
   const casino = await casinoData;
@@ -127,81 +119,22 @@ export default async function gamePage({
   // ];
 
   return (
-    <>
-      {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
-      {isGame === "true" ? (
-        <>
-          {mainGameObj && (
-            <ChartComponent
-              gameId={gameId}
-              mainGame={mainGameObj}
-              compareGame={compareGame}
-              isFiat={isFiat || "false"}
-              compareGameId={compareGameId}
-            />
-          )}
-          <LiveCards
-            cardsData={gameCards}
-            rows={2}
-            game={true}
-            gamesCardsData={gamesCardsData}
-          />
-          {mainGameObj.additionalInfo && (
-            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
-              info
-            </div>
-          )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
-            {mainGameObj.additionalInfo}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: mainGameObj.additionalInfo,
-              }}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="mt-72">
-          {!!casinoCards && mainGameObj?.casinoId && (
-            <LiveCards
-              cardsData={casinoCards}
-              rows={2}
-              casino={true}
-              casinoId={mainGameObj.casinoId}
-              casinoCardsData={casinoCardsData}
-            />
-          )}
-          {casino.additionalInfo && (
-            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
-              info
-            </div>
-          )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
-            <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
-          </div>
-        </div>
-      )}
-
-      {/* {gamesList.results[0] && (
-        <div className="my-6 lg:my-12 ">
-          <OtherGames casinoName={gamesList.results[0].casinoName} />
-          <div className="my-0 lg:my-6">
-            <Table
-              keyWord={keyWord}
-              orderBy={orderBy}
-              direction={direction}
-              tableBodyData={gamesList.results}
-              showFilter={true}
-              isFiat={isFiat || "false"}
-            />
-          </div>
-        </div>
-      )} */}
-      <ChartComponentHeader
-        gameObj={mainGame}
-        isGame={isGame}
-        casinoURL={casino.redirectUrl}
-      />
-    </>
+    <ChartCasinoAndGameWrapper
+      orderBy={orderBy}
+      keyWord={keyWord}
+      direction={direction}
+      isFiat={isFiat}
+      isGame={isGame}
+      casinoCards={casinoCards}
+      casino={casino}
+      gameCards={gameCards}
+      gameId={gameId}
+      mainGameObj={mainGameObj}
+      compareGame={compareGame}
+      compareGameId={compareGameId}
+      gamesCardsData={gamesCardsData}
+      casId={casId}
+      casinoCardsData={casinoCardsData}
+    />
   );
 }

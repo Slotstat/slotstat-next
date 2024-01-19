@@ -21,7 +21,7 @@ export default function useQueryParams() {
     const filter = urlSearchParams.toString();
 
     const query = filter ? `?${filter}` : "";
-
+    console.log("222");
     router.push(
       `${pathNameForCasinoStat ? pathNameForCasinoStat : pathname}${query}`
     );

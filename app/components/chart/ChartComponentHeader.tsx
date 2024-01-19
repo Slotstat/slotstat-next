@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { slot } from "../../assets";
@@ -10,7 +9,11 @@ export default function ChartComponentHeader({
   gameObj,
   isGame,
   casinoURL,
+  changeScreen,
+  gameScreen,
 }: {
+  gameScreen: string;
+  changeScreen: (GameScreenState: string) => void;
   gameObj: GameData;
   isGame?: string;
   casinoURL: string;
@@ -42,6 +45,7 @@ export default function ChartComponentHeader({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
+    console.log("setGameScreen");
   }, [scrollY, isGame]);
 
   const buttons = () => (
@@ -49,30 +53,32 @@ export default function ChartComponentHeader({
       <div>
         <FiatCryptoButton
           title={"Slot"}
-          active={isGame === "true"}
+          active={gameScreen === "true"}
           click={() => {
             setScrollY(window.scrollY);
+            changeScreen("true");
             setQueryParams({ isGame: "true" });
           }}
           className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
           title={"Casino"}
-          active={isGame === "false"}
+          active={gameScreen === "false"}
           click={() => {
             setScrollY(window.scrollY);
+            changeScreen("false");
             setQueryParams({ isGame: "false" });
           }}
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>
       <a
-        href={isGame === "true" ? redirectUrl : casinoURL}
+        href={gameScreen === "true" ? redirectUrl : casinoURL}
         target="_blank"
         className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
-        {isGame === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
+        {gameScreen === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
       </a>
     </div>
   );
@@ -111,6 +117,7 @@ export default function ChartComponentHeader({
               such as: RTP, RTP Swing, Win Spin Regular, Compare button, Bonuses
               and Jackpots.
             </p>
+            {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 
             <div className="flex items-center justify-between text-white  font-bold">
               <div className="hidden md:flex items-center">
