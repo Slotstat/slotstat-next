@@ -4,7 +4,6 @@ import ChartComponentHeader from "./ChartComponentHeader";
 import LiveCards from "../LiveCards";
 import ChartComponent from "./ChartComponent";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
-// import OtherGames from "@/app/components/OtherGames";
 
 export default function ChartCasinoAndGameWrapper({
   orderBy,
@@ -25,9 +24,9 @@ export default function ChartCasinoAndGameWrapper({
 }: any) {
   const [gameScreen, setGameScreen] = useState("true");
 
-  const changeScreen=(GameScreenState:string)=>{
-    setGameScreen(GameScreenState)
-  }
+  const changeScreen = (GameScreenState: string) => {
+    setGameScreen(GameScreenState);
+  };
   useEffect(() => {
     setGameScreen(isGame);
   }, [isGame]);
@@ -88,22 +87,6 @@ export default function ChartCasinoAndGameWrapper({
           </div>
         </div>
       )}
-
-      {/* {gamesList.results[0] && (
-      <div className="my-6 lg:my-12 ">
-        <OtherGames casinoName={gamesList.results[0].casinoName} />
-        <div className="my-0 lg:my-6">
-          <Table
-            keyWord={keyWord}
-            orderBy={orderBy}
-            direction={direction}
-            tableBodyData={gamesList.results}
-            showFilter={true}
-            isFiat={isFiat || "false"}
-          />
-        </div>
-      </div>
-    )} */}
       <ChartComponentHeader
         changeScreen={changeScreen}
         gameScreen={gameScreen}

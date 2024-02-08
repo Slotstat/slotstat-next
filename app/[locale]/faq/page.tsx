@@ -1,7 +1,7 @@
 "use client";
 
 import Accordion from "@/app/components/Accordion";
-import Breadcrumbs from "@/app/components/Breadcrumbs";
+// import Breadcrumbs from "@/app/components/Breadcrumbs";
 import SubscribeButton from "@/app/components/SubscribeButton";
 
 import { accordionData } from "@/app/utils/mockData";

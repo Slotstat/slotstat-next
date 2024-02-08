@@ -88,10 +88,10 @@ export default async function Home({
           keyWord={keyWord}
           orderBy={orderBy}
           direction={direction}
-          tableBodyData={games.results}
           showFilter={true}
           isFiat={isFiat || "false"}
           showCryptoFiatSwitcher={true}
+          gamesList={games}
         />
       </div>
     </>

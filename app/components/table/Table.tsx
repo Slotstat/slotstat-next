@@ -27,7 +27,7 @@ import Link from "next/link";
 
 type Props = {
   showFilter: boolean;
-  tableBodyData: GameData[];
+  gamesList: gamesList;
   onAddToCompare?: (gameId: GameData) => void;
   orderBy?: string;
   keyWord?: string;
@@ -43,8 +43,10 @@ type Props = {
   setIsFiatState?: (text: string) => void;
 };
 
+const pageSizeConst = 50;
+
 const Table = ({
-  tableBodyData,
+  gamesList,
   showFilter = false,
   onAddToCompare,
   orderBy,
@@ -57,15 +59,14 @@ const Table = ({
   showCryptoFiatSwitcher,
   setIsFiatState,
 }: Props) => {
-  // console.log("tableBodyData", tableBodyData[0]);
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
   // const [ascDesc, setAscDesc] = useState<number>(0);
-
+  console.log("gamesList", gamesList);
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
-  const data = useMemo(() => [...tableBodyData], [tableBodyData]);
+  const data = useMemo(() => [...gamesList.results], [gamesList.results]);
 
   const pathName = usePathname();
 
@@ -101,6 +102,7 @@ const Table = ({
     headerGroups,
     getTableProps,
     getTableBodyProps,
+    setPageSize,
     state: { pageIndex, pageSize },
   } = useTable(
     // @ts-ignore
@@ -124,14 +126,14 @@ const Table = ({
   //   },
   //   [ascDesc, setQueryParams]
   // );
-
   // fix next js bug (after changing query it was scrolling to top but now it is fixed)
   useEffect(() => {
+    setPageSize(pageSizeConst);
     const persistentScroll = scrollY;
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY, keyWord, orderBy, direction, isFiat]);
+  }, [scrollY, keyWord, orderBy, direction, isFiat, setPageSize]);
 
   return (
     <>
@@ -309,7 +311,14 @@ const Table = ({
       )}
 
       {pageCount > 1 && (
-        <div className="my-8 flex justify-center">
+        <div className=" mt-4 flex items-center flex-col md:flex-row  md:justify-between md:my-8">
+          <div className="text-grey1 text-sm hidden md:flex">
+            Showing
+            <span className="text-white mx-1">
+              {pageIndex + 1} - {pageSizeConst}
+            </span>
+            out of {gamesList.rowCount}
+          </div>
           <ReactPaginate
             forcePage={pageIndex}
             pageCount={pageCount}
@@ -347,6 +356,13 @@ const Table = ({
             breakLinkClassName="page-link"
             activeClassName="active"
           />
+          <div className=" text-xs mt-2 text-grey1 md:text-transparent">
+            Showing{" "}
+            <span className="text-white md:text-transparent">
+              {pageIndex + 1} - {pageSizeConst}
+            </span>{" "}
+            out of {gamesList.rowCount}
+          </div>
         </div>
       )}
     </>

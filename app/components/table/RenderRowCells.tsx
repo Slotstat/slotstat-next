@@ -10,7 +10,6 @@ import useStore from "@/app/(store)/store";
 import RTPListing from "./RTPListing";
 import { Verified } from "@/app/assets/svg/Verified";
 
-
 const CountUpForJackpots = ({
   jackpot,
   jackpotCurrency,
@@ -127,8 +126,12 @@ export default function RenderRowCells({
     verificationStatus,
   } = row.original;
 
-  const onGoToWebSiteClick = (event: { stopPropagation: () => void }) => {
-    event.stopPropagation();
+  const onGoToWebSiteClick = (event: {
+    defaultPrevented: any;
+    preventDefault: () => void;
+  }) => {
+    if (event.defaultPrevented) return;
+    event.preventDefault();
     window.open(redirectUrl, "_blank", "noreferrer");
   };
 

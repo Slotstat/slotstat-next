@@ -137,7 +137,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mt-0 lg:flex-row lg:justify-start">
-            {window.innerWidth < 768 ? (
+            {typeof window !== "undefined" && window.innerWidth < 768 ? (
               <RAccordion
                 transition
                 transitionTimeout={200}
