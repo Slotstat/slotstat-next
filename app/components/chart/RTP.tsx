@@ -35,6 +35,9 @@ export default function RTP({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+  const slotIsLoosing = t("CasinoIsLosing");
+  const slotIsInProfit = t("CasinoIsInProfit");
+  const neutral = t("neutral");
 
   const whichToRender = () => {
     if (gameObject?.rtp && RTP) {
@@ -105,7 +108,8 @@ export default function RTP({
                 fontSize="14"
                 fontFamily="modernist"
               >
-                RTP {gameObject?.rtp?.preferredValue}%
+                RTP{" "}
+                <tspan fill="white">{gameObject?.rtp?.preferredValue}%</tspan>
               </text>
               <text
                 x="50%"
@@ -129,10 +133,16 @@ export default function RTP({
                 fontFamily="modernist"
               >
                 {RTP === gameObject.rtp.preferredValue
-                  ? t("neutral")
+                  ? neutral
                   : RTP > gameObject.rtp.preferredValue
-                  ? t("CasinoIsLosing")
-                  : t("CasinoIsInProfit")}
+                  ? slotIsLoosing +
+                    " " +
+                    (RTP - gameObject.rtp.preferredValue).toFixed(2) +
+                    "%"
+                  : slotIsInProfit +
+                    " " +
+                    (gameObject.rtp.preferredValue - RTP).toFixed(2) +
+                    "%"}
               </text>
               <defs>
                 <linearGradient
