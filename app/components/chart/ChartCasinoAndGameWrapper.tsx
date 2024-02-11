@@ -28,6 +28,7 @@ export default function ChartCasinoAndGameWrapper({
     setGameScreen(GameScreenState);
   };
   useEffect(() => {
+    console.log('3333');
     setGameScreen(isGame);
   }, [isGame]);
 

@@ -64,7 +64,6 @@ const Table = ({
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
   // const [ascDesc, setAscDesc] = useState<number>(0);
-  console.log("gamesList", gamesList);
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
   const data = useMemo(() => [...gamesList.results], [gamesList.results]);
 

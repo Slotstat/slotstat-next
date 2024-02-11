@@ -45,7 +45,6 @@ export default function ChartComponentHeader({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-    console.log("setGameScreen");
   }, [scrollY, isGame]);
 
   const buttons = () => (
@@ -57,7 +56,8 @@ export default function ChartComponentHeader({
           click={() => {
             setScrollY(window.scrollY);
             changeScreen("true");
-            setQueryParams({ isGame: "true" });
+            // console.log("11111");
+            // setQueryParams({ isGame: "true" });
           }}
           className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
         />
@@ -67,7 +67,8 @@ export default function ChartComponentHeader({
           click={() => {
             setScrollY(window.scrollY);
             changeScreen("false");
-            setQueryParams({ isGame: "false" });
+            // console.log(22222);
+            // setQueryParams({ isGame: "false" });
           }}
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />

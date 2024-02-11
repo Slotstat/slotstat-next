@@ -94,7 +94,10 @@
     "sortBy": "დალაგება",
     "t1hLong": "მოგების მაჩვენებელი ბოლო 1 საათში",
     "t24hLong": "მოგების მაჩვენებელი ბოლო 24 საათში",
-    "RTP": "RTP"
+    "RTP": "RTP",
+    "highestRTP": "Highest RTP",
+    "slotInWin": "Slots In Win",
+    "slotsInLoose": "Slots in loose"
   },
   "searchPlaceholder": "მოძებნე კაზინო, თამაში ან პროვაიდერი",
   "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",
