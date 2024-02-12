@@ -25,8 +25,9 @@ import _ from "lodash";
 import { useTranslations } from "next-intl";
 import RTP from "./RTP";
 import TooltipComponent from "../TooltipComponent";
-import useQueryParams from "@/app/utils/useQueryParams";
+// import useQueryParams from "@/app/utils/useQueryParams";
 import moment from "moment";
+import { useQueryState } from "nuqs";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -45,7 +46,8 @@ const ChartComponent = ({
   compareGameId?: string;
 }) => {
   const t = useTranslations();
-  const { setQueryParams } = useQueryParams();
+
+  const [compareGameIdQuery, setCompareGameIdQuery] = useQueryState("compareGameId");
 
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
@@ -230,7 +232,8 @@ const ChartComponent = ({
     }
     setLiveResultForCompareGame(data[data.length - 1].winRate);
     setScrollY(window.scrollY);
-    setQueryParams({ compareGameId: compareGameId });
+
+    setCompareGameIdQuery(compareGameId);
   };
 
   // remove game for compare
@@ -245,7 +248,7 @@ const ChartComponent = ({
       });
     }
     setScrollY(window.scrollY);
-    setQueryParams({ compareGameId: "" });
+    setCompareGameIdQuery(null);
   };
 
   // for statistics live update

@@ -1,8 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ChartComponentHeader from "./ChartComponentHeader";
 import LiveCards from "../LiveCards";
 import ChartComponent from "./ChartComponent";
+import { useQueryState } from "nuqs";
+import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 
 export default function ChartCasinoAndGameWrapper({
@@ -22,13 +24,31 @@ export default function ChartCasinoAndGameWrapper({
   casId,
   casinoCardsData,
 }: any) {
+  const [compareGameIdQuery, setCompareGameIdQuery] =
+    useQueryState("compareGameId");
+
   const [gameScreen, setGameScreen] = useState("true");
+  const [compareGameClient, setCompareGame] = useState<GameData | undefined>(
+    undefined
+  );
 
   const changeScreen = (GameScreenState: string) => {
     setGameScreen(GameScreenState);
   };
+  const getCompareCasino = useCallback(async () => {
+    if (compareGameIdQuery) {
+      const compareGameData: Promise<GameData> =
+        getSingleGameClientSide(compareGameIdQuery);
+      const compareGame = await compareGameData;
+      setCompareGame(compareGame);
+    }
+  }, [compareGameIdQuery]);
+
   useEffect(() => {
-    console.log('3333');
+    getCompareCasino();
+  }, [compareGameIdQuery, getCompareCasino]);
+
+  useEffect(() => {
     setGameScreen(isGame);
   }, [isGame]);
 
@@ -40,10 +60,10 @@ export default function ChartCasinoAndGameWrapper({
           {mainGameObj && (
             <ChartComponent
               gameId={gameId}
+              compareGameId={compareGameIdQuery || undefined}
               mainGame={mainGameObj}
-              compareGame={compareGame}
+              compareGame={compareGameClient || compareGame}
               isFiat={isFiat || "false"}
-              compareGameId={compareGameId}
             />
           )}
           {gamesCardsData && gameCards && (

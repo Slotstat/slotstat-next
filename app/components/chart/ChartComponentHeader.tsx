@@ -2,8 +2,9 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { slot } from "../../assets";
 import FiatCryptoButton from "../table/FiatCryptoButton";
-import useQueryParams from "@/app/utils/useQueryParams";
+// import useQueryParams from "@/app/utils/useQueryParams";
 import { useTranslations } from "next-intl";
+import { useQueryState } from "nuqs";
 
 export default function ChartComponentHeader({
   gameObj,
@@ -18,8 +19,9 @@ export default function ChartComponentHeader({
   isGame?: string;
   casinoURL: string;
 }) {
+  const [_, setIsGameQuery] = useQueryState("isGame");
   const t = useTranslations("table");
-  const { setQueryParams } = useQueryParams();
+  // const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
   const [headerSize, setHeaderSize] = useState<string>("h-24");
@@ -56,7 +58,7 @@ export default function ChartComponentHeader({
           click={() => {
             setScrollY(window.scrollY);
             changeScreen("true");
-            // console.log("11111");
+            setIsGameQuery("true");
             // setQueryParams({ isGame: "true" });
           }}
           className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
@@ -67,7 +69,7 @@ export default function ChartComponentHeader({
           click={() => {
             setScrollY(window.scrollY);
             changeScreen("false");
-            // console.log(22222);
+            setIsGameQuery("false");
             // setQueryParams({ isGame: "false" });
           }}
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
