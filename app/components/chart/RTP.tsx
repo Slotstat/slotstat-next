@@ -40,6 +40,7 @@ export default function RTP({
   const neutral = t("neutral");
 
   const whichToRender = () => {
+    // console.log("111", gameObject?.rtp, RTP);
     if (gameObject?.rtp && RTP) {
       return (
         <div
@@ -230,36 +231,58 @@ export default function RTP({
     }
   };
 
+  const RTPAngleCalculator = ({
+    value,
+    preferredValue,
+    max,
+    min,
+  }: {
+    value: number;
+    preferredValue: number;
+    max: number;
+    min: number;
+  }) => {
+    if (value > preferredValue) {
+      const casinoLoosingIndicatorSizeCounter =
+        RTPCenterAngle +
+        (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
+      setAngle(casinoLoosingIndicatorSizeCounter);
+    } else if (value < preferredValue) {
+      const casinoWiningIndicatorSizeCounter =
+        RTPCenterAngle -
+        (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
+      setAngle(casinoWiningIndicatorSizeCounter);
+    } else {
+      setAngle(RTPCenterAngle);
+    }
+  };
+
   useEffect(() => {
     if (gameObject?.rtp) {
-      setAngle(
-        gameObject.rtp.value - (gameObject.rtp.preferredValue - RTPCenterAngle)
-      );
+      const { preferredValue, max, min } = gameObject?.rtp;
+
+      RTPAngleCalculator({
+        value: gameObject.rtp.value,
+        preferredValue,
+        max,
+        min,
+      });
+
       setRTP(gameObject.rtp.value);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameObject]);
 
   useEffect(() => {
     if (newRtp && gameObject?.rtp && newRtp.rtpId === gameObject.rtp.id) {
       const { value } = newRtp;
       const { preferredValue, max, min } = gameObject.rtp;
 
-      if (value > preferredValue) {
-        const casinoLoosingIndicatorSizeCounter =
-          RTPCenterAngle +
-          (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
-        setAngle(casinoLoosingIndicatorSizeCounter);
-      } else if (value < preferredValue) {
-        const casinoWiningIndicatorSizeCounter =
-          RTPCenterAngle -
-          (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
-        setAngle(casinoWiningIndicatorSizeCounter);
-      } else {
-        setAngle(RTPCenterAngle);
-      }
+      RTPAngleCalculator({ value, preferredValue, max, min });
 
       setRTP(value);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRtp]);
 
   return (

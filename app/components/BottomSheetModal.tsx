@@ -92,7 +92,7 @@ const BottomSheetModal = ({
         <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">
           <div className="fixed z-10 bg-dark1 flex top-0 h-20 items-center justify-between w-[100%] max-w-screen-xl pr-4 lg:px-0 ">
             <span className=" text-2xl leading-4  text-white">
-              {t("select-game-to-compare")}
+              {t("select-slot-to-compare")}
             </span>
 
             <button

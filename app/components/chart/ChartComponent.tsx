@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "react-spring-bottom-sheet/dist/style.css";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
@@ -47,7 +47,8 @@ const ChartComponent = ({
 }) => {
   const t = useTranslations();
 
-  const [compareGameIdQuery, setCompareGameIdQuery] = useQueryState("compareGameId");
+  const [compareGameIdQuery, setCompareGameIdQuery] =
+    useQueryState("compareGameId");
 
   const chartRef = useRef<am4charts.XYChart>();
   const windowFocused = useRef<number>();
@@ -166,7 +167,6 @@ const ChartComponent = ({
     setOpen(false);
 
     setSelectedGames([gameId, compareGameId]);
-
     chartRef.current && showLoadingIndicator(chartRef.current);
 
     const data = await getAndCorrectStatisticsData(compareGameId);
@@ -219,12 +219,12 @@ const ChartComponent = ({
           return true; // Include objects that contain all required keys
         }
       });
+
       if (chartRef.current) chartRef.current.data = filteredArray;
     }
 
     if (chartRef.current?.data) {
       const series2 = chartRef.current.series.push(new am4charts.LineSeries());
-
       createSeries(series2, "date", "winRate2", SERIE_COLORS[1]);
       chartRef.current.validateData();
       hideLoadingIndicator();
@@ -374,7 +374,9 @@ const ChartComponent = ({
   // if user leaves page more than 2 minutes it will recall statistic update
   useEffect(() => {
     if (compareGame) {
-      onAddToCompare(compareGame);
+      setTimeout(() => {
+        onAddToCompare(compareGame);
+      }, 100);
     }
     const handleVisibilityChange = () => {
       if (document.hidden) {
