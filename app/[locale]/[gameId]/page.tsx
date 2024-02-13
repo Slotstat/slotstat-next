@@ -101,16 +101,12 @@ export default async function gamePage({
     return notFound();
   }
 
-  // if (mainGameObj?.casinoId && isGame === "false") {
-  //   // casinoCards = await casinoData;
-  // }
-
   const casinoData: Promise<CasinoData> = getCasino(casId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
 
   const casinoCards = await casinoCardsData;
   const casino = await casinoData;
-  // console.log("casino", casino);
+
 
   // const breadcrumbs = [
   //   {

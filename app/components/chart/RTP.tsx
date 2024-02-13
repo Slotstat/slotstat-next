@@ -40,7 +40,6 @@ export default function RTP({
   const neutral = t("neutral");
 
   const whichToRender = () => {
-    // console.log("111", gameObject?.rtp, RTP);
     if (gameObject?.rtp && RTP) {
       return (
         <div

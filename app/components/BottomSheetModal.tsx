@@ -56,6 +56,8 @@ const BottomSheetModal = ({
 
   const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
     onAddToCompare(GameData);
+    setSearchKeyInBottomSheet("");
+    setOrderBy("");
     // setGames(undefined);
     // setLoading(false);
   };
@@ -99,6 +101,8 @@ const BottomSheetModal = ({
               className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3 mx-4 lg:mx-0 "
               onClick={() => {
                 setOpen(false);
+                setSearchKeyInBottomSheet("");
+                setOrderBy("");
               }}
             >
               <Image
