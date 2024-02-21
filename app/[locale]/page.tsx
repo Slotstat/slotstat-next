@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 // import { openGraphImage } from "@/app/shared-metadata";
 import getGamesList from "@/lib/getGamesList";
 import IntroComponent from "../components/IntroComponent";
-
 type Params = {
   params: {
     locale: string;
@@ -81,6 +80,15 @@ export default async function Home({
 
   return (
     <>
+
+
+      {/* <script
+        type="text/javascript"
+        src="https://betfury.bet/sources/d4c09e4f7.js"
+        defer
+        ></script> */}
+
+
       <LiveCards cardsData={landingCards} />
       <IntroComponent />
       <div className="my-6 lg:my-12 my">

@@ -373,7 +373,7 @@ const ChartComponent = ({
 
   // if user leaves page more than 2 minutes it will recall statistic update
   useEffect(() => {
-    if (compareGame) {
+    if (compareGameId && compareGame) {
       setTimeout(() => {
         onAddToCompare(compareGame);
       }, 100);

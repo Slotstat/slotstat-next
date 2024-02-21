@@ -26,7 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     images: "../opengraph-image.png",
   },
-  viewport:"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  viewport:
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export default async function RootLayout({
@@ -61,6 +62,11 @@ export default async function RootLayout({
           <TooltipClientSide />
         </NextIntlClientProvider>
       </body>
+      {/* <script
+        type="text/javascript"
+        src="https://betfury.bet/sources/d4c09e4f7.js"
+        async
+      ></script> */}
     </html>
   );
 }
