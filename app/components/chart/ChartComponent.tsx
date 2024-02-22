@@ -264,7 +264,8 @@ const ChartComponent = ({
         activeFilterId,
         timeStamp
       );
-
+      let mainStatistic;
+      let compareGameStatistics;
       // if we are comparing one game to another this statement will happen
       if (compareGameId) {
         const compareStatisticsData: Promise<StatisticsData[]> = getStatistics(
@@ -279,26 +280,47 @@ const ChartComponent = ({
         statistics = mainStatistic[0];
 
         if (compareStatistics[0]?.winRate) {
+          compareGameStatistics = compareStatistics[1];
           statistics.winRate2 = compareStatistics[0]?.winRate;
         }
       } else {
-        const mainStatistic = await statisticsData;
+        mainStatistic = await statisticsData;
         statistics = mainStatistic[0];
       }
 
       // fixing date for chart & transforms UTC to Locale
       statistics.date = new Date(moment.utc(statistics.date).local().format());
-
       // compare timestamps of last item in data and newly fetched. if they are different it means we have to add new date on dateAxis
       if (
         statistics.timeStamp !=
         chartRef.current.data[chartRef.current.data.length - 1].timeStamp
       ) {
+        const series1 = chartRef.current.series.getIndex(0);
+        const series2 = chartRef.current.series.getIndex(1);
+
+        if (series1) {
+          const Series1Length = series1.dataItems.length;
+          const lastItemInSeries1 = series1.dataItems.getIndex(
+            Series1Length - 1
+          );
+          if (lastItemInSeries1 && mainStatistic && mainStatistic[1].winRate) {
+            lastItemInSeries1.valueY = mainStatistic[1].winRate;
+          }
+        }
+        if (series2 && statistics.winRate2) {
+          const Series2Length = series2.dataItems.length;
+          const lastItemInSeries2 = series2.dataItems.getIndex(
+            Series2Length - 1
+          );
+          if (lastItemInSeries2 && compareGameStatistics?.winRate) {
+            lastItemInSeries2.valueY = compareGameStatistics.winRate;
+          }
+        }
+
         chartRef.current.addData(statistics);
       } else {
         const series1 = chartRef.current.series.getIndex(0);
         const series2 = chartRef.current.series.getIndex(1);
-
         if (series1) {
           const Series1Length = series1.dataItems.length;
           const lastItemInSeries1 = series1.dataItems.getIndex(
@@ -315,9 +337,6 @@ const ChartComponent = ({
           );
           if (lastItemInSeries2) {
             lastItemInSeries2.valueY = statistics.winRate2;
-            // setTimeout(function () {
-            //   series2.invalidateData();
-            // }, 100);
             setLiveResultForCompareGame(statistics.winRate2);
           }
         }
@@ -340,7 +359,7 @@ const ChartComponent = ({
       newRate?.gameId === gameId ||
       newRate?.gameId === compareGameObject?.gameId
     ) {
-      const last = chartRef.current?.data[chartRef.current?.data.length - 1];
+      const last = chartRef.current?.data[chartRef.current?.data.length - 2];
 
       // turn on when old version is activated
       if (last) {
