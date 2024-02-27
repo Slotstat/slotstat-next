@@ -101,7 +101,14 @@ const StatCard = ({
   };
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ">
+    <div
+      className={`flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ${
+        redirectUrl && "hover:bg-dark3 cursor-pointer"
+      } `}
+      onClick={() =>
+        redirectUrl && window.open(redirectUrl, "_blank", "noreferrer")
+      }
+    >
       <div className="flex items-center justify-between">
         <div>
           {!!isImgUrl(imageUrl) && (

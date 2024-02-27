@@ -9,7 +9,7 @@ export default function MinusBlue(props: SVGProps<SVGSVGElement>) {
       fill="none"
       {...props}
     >
-      <rect width={14} height={6} y={10} fill="#5887F6" rx={1.5} />
+      <rect width={14} height={6} y={10} fill="#FFFFFF" rx={1.5} />
     </svg>
   );
 }

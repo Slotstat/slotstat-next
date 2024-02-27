@@ -125,7 +125,7 @@ export default function ChartComponentHeader({
             <div className="flex items-center justify-between text-white  font-bold">
               <div className="hidden md:flex items-center">
                 <a
-                  href={redirectUrl}
+                  href={casinoURL}
                   target="_blank"
                   className=" flex items-center"
                 >

@@ -29,6 +29,7 @@ module.exports = {
         blue4: "#324269",
         green1: "#00D685",
         opaque1: "#FFFFFF66",
+        red: "#FA4611",
 
         sky: {
           50: "#f0f9ff",

@@ -9,7 +9,7 @@ const DownIconBlue = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      fill="#5887F6"
+      fill="#FA4611"
       d="m.32 2.02 3.21 3.21L5.49 7.2c.83.83 2.18.83 3.01 0l5.18-5.18c.68-.68.19-1.84-.76-1.84H1.08C.12.18-.36 1.34.32 2.02Z"
     />
   </svg>

@@ -211,13 +211,39 @@ export default function RenderRowCells({
   const renderEmptyValue = () =>
     cell.value ? <>{cell.render("Cell")}</> : <>--</>;
 
-  const showUpOrDownIcon = (indicator: number) => {
+  const showUpOrDownIcon = (
+    indicator: number,
+    Cell:
+      | string
+      | number
+      | boolean
+      | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+      | Iterable<React.ReactNode>
+      | React.PromiseLikeOfReactNode
+      | null
+      | undefined
+  ) => {
     if (indicator === 1) {
-      return <UpIconBlue className="mr-1 md:mr-2" />;
+      return (
+        <div className="flex flex-row items-center text-xs md:text-base text-green1 ">
+          <UpIconBlue className="mr-1 md:mr-2" />
+          {Cell}%
+        </div>
+      );
     } else if (indicator === -1) {
-      return <DownIconBlue className="mr-1 md:mr-2" />;
+      return (
+        <div className="flex flex-row items-center text-xs md:text-base text-red">
+          <DownIconBlue className="mr-1 md:mr-2" />
+          {Cell}%
+        </div>
+      );
     } else {
-      return <MinusBlue className="mr-1 md:mr-2" />;
+      return (
+        <div className="flex flex-row items-center text-xs md:text-base ">
+          <MinusBlue className="mr-1 md:mr-2" />
+          {Cell}%
+        </div>
+      );
     }
   };
 
@@ -227,23 +253,20 @@ export default function RenderRowCells({
     case 1:
       return <CasinoBonus />;
     case 2:
-      return (
-        <div className="flex flex-row items-center text-xs md:text-base ">
-          {showUpOrDownIcon(t1H)}
-          {cell.render("Cell")}%
-        </div>
-      );
+      return <>{showUpOrDownIcon(t1H, cell.render("Cell"))}</>;
     case 3:
-      return (
-        <div className="flex flex-row items-center text-xs md:text-base ">
-          {showUpOrDownIcon(t24h)}
-          {cell.render("Cell")}%
-        </div>
-      );
+      return <>{showUpOrDownIcon(t24h, cell.render("Cell"))}</>;
     case 4:
       if (jackpotInfo) {
         return (
-          <div className="text-green1 text-xs md:text-base">{jackpotInfo}</div>
+          <div
+            className={`text-xs text-grey1  md:text-base ${
+              // @ts-ignore
+              jackpotInfo != "No jackpot" && "text-white"
+            }`}
+          >
+            {jackpotInfo}
+          </div>
         );
       } else {
         return jackpot === 0 ? (
