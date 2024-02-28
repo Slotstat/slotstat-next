@@ -41,9 +41,10 @@ type Props = {
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
   showCryptoFiatSwitcher?: boolean;
   setIsFiatState?: (text: string) => void;
+  listPage?: string;
 };
 
-const pageSizeConst = 50;
+const pageSizeConst = 20;
 
 const Table = ({
   gamesList,
@@ -58,8 +59,10 @@ const Table = ({
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
   setIsFiatState,
+  listPage,
 }: Props) => {
   const t = useTranslations("table");
+
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);
@@ -128,11 +131,25 @@ const Table = ({
   // fix next js bug (after changing query it was scrolling to top but now it is fixed)
   useEffect(() => {
     setPageSize(pageSizeConst);
+    if (listPage) {
+      setTimeout(() => {
+        gotoPage(Number(listPage));
+      }, 300);
+    }
     const persistentScroll = scrollY;
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY, keyWord, orderBy, direction, isFiat, setPageSize]);
+  }, [
+    gotoPage,
+    listPage,
+    scrollY,
+    keyWord,
+    orderBy,
+    direction,
+    isFiat,
+    setPageSize,
+  ]);
 
   return (
     <>
@@ -321,7 +338,10 @@ const Table = ({
           <ReactPaginate
             forcePage={pageIndex}
             pageCount={pageCount}
-            onPageChange={({ selected }) => gotoPage(selected)}
+            onPageChange={({ selected }) => {
+              setQueryParams({ page: selected.toString() });
+              // gotoPage(selected);
+            }}
             pageRangeDisplayed={1}
             marginPagesDisplayed={3}
             renderOnZeroPageCount={null}

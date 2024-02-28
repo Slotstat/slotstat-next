@@ -57,7 +57,7 @@ export async function generateMetadata({
 }
 
 export default async function Home({
-  searchParams: { orderBy, keyWord, direction, isFiat },
+  searchParams: { orderBy, keyWord, direction, isFiat, page },
   params: { locale },
 }: Params) {
   const gamesListData: Promise<gamesList> = getGamesList(locale, {
@@ -80,15 +80,6 @@ export default async function Home({
 
   return (
     <>
-
-
-      {/* <script
-        type="text/javascript"
-        src="https://betfury.bet/sources/d4c09e4f7.js"
-        defer
-        ></script> */}
-
-
       <LiveCards cardsData={landingCards} />
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
@@ -96,6 +87,7 @@ export default async function Home({
           keyWord={keyWord}
           orderBy={orderBy}
           direction={direction}
+          listPage={page}
           showFilter={true}
           isFiat={isFiat || "false"}
           showCryptoFiatSwitcher={true}
