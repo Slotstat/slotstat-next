@@ -132,17 +132,23 @@ export default function RTP({
                 fontSize="12"
                 fontFamily="modernist"
               >
-                {RTP === gameObject.rtp.preferredValue
-                  ? neutral
-                  : RTP > gameObject.rtp.preferredValue
-                  ? slotIsLoosing +
-                    " " +
-                    (RTP - gameObject.rtp.preferredValue).toFixed(2) +
-                    "%"
-                  : slotIsInProfit +
-                    " " +
-                    (gameObject.rtp.preferredValue - RTP).toFixed(2) +
-                    "%"}
+                {RTP === gameObject.rtp.preferredValue ? (
+                  neutral
+                ) : RTP > gameObject.rtp.preferredValue ? (
+                  <>
+                    {slotIsLoosing}{" "}
+                    <tspan fill="#fff">
+                      {(RTP - gameObject.rtp.preferredValue).toFixed(2)}%
+                    </tspan>
+                  </>
+                ) : (
+                  <>
+                    {slotIsInProfit}{" "}
+                    <tspan fill="#fff">
+                      {(gameObject.rtp.preferredValue - RTP).toFixed(2)}%
+                    </tspan>
+                  </>
+                )}
               </text>
               <defs>
                 <linearGradient
