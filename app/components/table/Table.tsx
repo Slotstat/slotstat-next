@@ -331,7 +331,8 @@ const Table = ({
           <div className="text-grey1 text-sm hidden md:flex">
             Showing
             <span className="text-white mx-1">
-              {pageIndex + 1} - {pageSizeConst}
+              {pageIndex * pageSizeConst > 0 ? pageIndex * pageSizeConst : 1} -
+              {pageIndex * pageSizeConst + page.length}
             </span>
             out of {gamesList.rowCount}
           </div>
@@ -378,7 +379,8 @@ const Table = ({
           <div className=" text-xs mt-2 text-grey1 md:text-transparent">
             Showing{" "}
             <span className="text-white md:text-transparent">
-              {pageIndex + 1} - {pageSizeConst}
+              {pageIndex * pageSizeConst > 0 ? pageIndex * pageSizeConst : 1} -
+              {pageIndex * pageSizeConst + page.length}
             </span>{" "}
             out of {gamesList.rowCount}
           </div>
