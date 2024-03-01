@@ -59,6 +59,8 @@
     "swing": "Swing",
     "slot": "Slot",
     "user": "User",
+    "SPS": "SPS",
+    "SPSHint": "Slot Profit Status",
     "bonusesHint": "Information about casino gift offers",
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
     "jackpotHint": "Figurine is an actively updating maximum Jackpot value of the chosen casino and may pop up as an accurate periscope for sharp shot takers. ",

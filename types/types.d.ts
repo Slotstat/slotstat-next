@@ -122,7 +122,7 @@ type GameData = {
   redirectUrl: string;
   type?: "AllGames";
   casinoCurrency?: string;
-  rtp?: RTP;
+  rtp: RTP;
   bounties: string;
   currencyCode: string;
   fixedRtp: string;
@@ -162,6 +162,10 @@ type StatisticsData = {
   winRate2?: number;
   date: Date;
   timeStamp: number;
+};
+
+type RTPListingProps = {
+  rtp: RTP;
 };
 
 type FiltersKey = "1D" | "1W" | "1M" | "1Y" | "All" | string;

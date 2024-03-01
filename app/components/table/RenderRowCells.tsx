@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
 import RTPListing from "./RTPListing";
 import { Verified } from "@/app/assets/svg/Verified";
+import SPS from "./SPS";
 
 const CountUpForJackpots = ({
   jackpot,
@@ -208,6 +209,8 @@ export default function RenderRowCells({
     );
   };
 
+
+
   const renderEmptyValue = () =>
     cell.value ? <>{cell.render("Cell")}</> : <>--</>;
 
@@ -282,13 +285,9 @@ export default function RenderRowCells({
       }
 
     case 5:
-      return name !== "All Games" && rtp ? (
-        <RTPListing rtp={rtp} provider={provider} />
-      ) : (
-        <>--</>
-      );
+      return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
     case 6:
-      return <Play />;
+      return <SPS rtp={rtp} />;
     default:
       return renderEmptyValue();
   }

@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useStore from "@/app/(store)/store";
 
-type RTPListingProps = {
-  provider: string;
-  rtp: RTP;
-};
-
-export default function RTPListing({ provider, rtp }: RTPListingProps) {
+export default function RTPListing({ rtp }: RTPListingProps) {
   const { value, preferredValue, max, min, id } = rtp;
   const { newRtp } = useStore();
 
@@ -35,7 +30,6 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
           <p className=" mr-2">/</p>
           <p className=" text-grey1">{RTP}%</p>
         </div>
-        {/* <p>{provider}</p> */}
       </div>
       <div className=" flex flex-row">
         <div

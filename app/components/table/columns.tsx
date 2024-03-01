@@ -21,7 +21,7 @@ export const casinoOrGameColumns = (t: any) => {
       maxWidth: 246,
       width: 246,
       minWidth: 148,
-      hint:t('casinoBonusHint')
+      hint: t("casinoBonusHint"),
     },
     {
       Header: t("h1"),
@@ -51,8 +51,7 @@ export const casinoOrGameColumns = (t: any) => {
     {
       Header: (
         <div>
-          {t("RTP")} /
-          <span className="text-grey1 ml-1">{t("swing")}</span>
+          {t("RTP")} /<span className="text-grey1 ml-1">{t("swing")}</span>
         </div>
       ),
       accessor: "RTP",
@@ -62,12 +61,12 @@ export const casinoOrGameColumns = (t: any) => {
       hint: t("RTPhint"),
     },
     {
-      Header: t("play"),
-      accessor: "play",
+      Header: t("SPS"),
+      accessor: "SPS",
       maxWidth: 95,
       width: 95,
       minWidth: 60,
-      hint: t("playHint"),
+      hint: t("SPSHint"),
     },
   ];
 
