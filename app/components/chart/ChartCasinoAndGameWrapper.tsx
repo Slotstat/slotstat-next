@@ -12,7 +12,7 @@ export default function ChartCasinoAndGameWrapper({
   keyWord,
   direction,
   isFiat,
-  isGame,
+  ActiveTab,
   casinoCards,
   casino,
   gameCards,
@@ -27,13 +27,13 @@ export default function ChartCasinoAndGameWrapper({
   const [compareGameIdQuery, setCompareGameIdQuery] =
     useQueryState("compareGameId");
 
-  const [gameScreen, setGameScreen] = useState("true");
+  const [screen, setScreen] = useState("slot");
   const [compareGameClient, setCompareGame] = useState<GameData | undefined>(
     undefined
   );
 
   const changeScreen = (GameScreenState: string) => {
-    setGameScreen(GameScreenState);
+    setScreen(GameScreenState);
   };
   const getCompareCasino = useCallback(async () => {
     if (compareGameIdQuery) {
@@ -49,13 +49,14 @@ export default function ChartCasinoAndGameWrapper({
   }, [compareGameIdQuery, getCompareCasino]);
 
   useEffect(() => {
-    setGameScreen(isGame);
-  }, [isGame]);
+    console.log("object", ActiveTab);
+    setScreen(ActiveTab);
+  }, [ActiveTab]);
 
   return (
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
-      {gameScreen === "true" ? (
+      {screen === "slot" ? (
         <>
           {mainGameObj && (
             <ChartComponent
@@ -87,7 +88,7 @@ export default function ChartCasinoAndGameWrapper({
             />
           </div>
         </>
-      ) : (
+      ) : screen === "casino" ? (
         <div className="mt-72">
           {!!casinoCards && casId && (
             <LiveCards
@@ -107,12 +108,32 @@ export default function ChartCasinoAndGameWrapper({
             <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
           </div>
         </div>
+      ) : (
+        <div className="mt-72">
+          {/* {!!casinoCards && casId && (
+            <LiveCards
+              cardsData={casinoCards}
+              rows={2}
+              casino={true}
+              casinoId={casId}
+              casinoCardsData={casinoCardsData}
+            />
+          )} */}
+          {casino.additionalInfo && (
+            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+              info
+            </div>
+          )}
+          <div className="text-grey1 text-base mb-8 lg:mb-18">
+            <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
+          </div>
+        </div>
       )}
       <ChartComponentHeader
         changeScreen={changeScreen}
-        gameScreen={gameScreen}
+        screen={screen}
         gameObj={mainGameObj}
-        isGame={isGame}
+        ActiveTab={ActiveTab}
         casinoURL={casino.redirectUrl}
       />
     </>

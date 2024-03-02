@@ -8,20 +8,20 @@ import { useQueryState } from "nuqs";
 
 export default function ChartComponentHeader({
   gameObj,
-  isGame,
+  ActiveTab,
   casinoURL,
   changeScreen,
-  gameScreen,
+  screen,
 }: {
-  gameScreen: string;
+  screen: string;
   changeScreen: (GameScreenState: string) => void;
   gameObj: GameData;
-  isGame?: string;
+  ActiveTab?: string;
   casinoURL: string;
 }) {
-  const [_, setIsGameQuery] = useQueryState("isGame");
+  const [_, setIsGameQuery] = useQueryState("ActiveTab");
   const t = useTranslations("table");
-  // const { setQueryParams } = useQueryParams();
+
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
   const [headerSize, setHeaderSize] = useState<string>("h-24");
@@ -47,41 +47,50 @@ export default function ChartComponentHeader({
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-  }, [scrollY, isGame]);
+  }, [scrollY, ActiveTab]);
 
   const buttons = () => (
     <div className="flex w-full justify-between md:w-auto">
       <div>
         <FiatCryptoButton
           title={"Slot"}
-          active={gameScreen === "true"}
+          active={screen === "slot"}
           click={() => {
             setScrollY(window.scrollY);
-            changeScreen("true");
-            setIsGameQuery("true");
+            changeScreen("slot");
+            setIsGameQuery("slot");
             // setQueryParams({ isGame: "true" });
           }}
           className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
           title={"Casino"}
-          active={gameScreen === "false"}
+          active={screen === "casino"}
           click={() => {
             setScrollY(window.scrollY);
-            changeScreen("false");
-            setIsGameQuery("false");
-            // setQueryParams({ isGame: "false" });
+            changeScreen("casino");
+            setIsGameQuery("casino");
+          }}
+          className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
+        />
+        <FiatCryptoButton
+          title={"Bonus"}
+          active={screen === "bonus"}
+          click={() => {
+            setScrollY(window.scrollY);
+            changeScreen("bonus");
+            setIsGameQuery("bonus");
           }}
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>
       <a
-        href={gameScreen === "true" ? redirectUrl : casinoURL}
+        href={redirectUrl}
         target="_blank"
         className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
-        {gameScreen === "true" ? <p>{t("play")}</p> : <p>{t("GoToCasino")}</p>}
+        <p>{t("play")}</p>
       </a>
     </div>
   );
@@ -117,8 +126,7 @@ export default function ChartComponentHeader({
             </h1>
             <p className="text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
               On game page player comes across key functionalities of SlotStat,
-              such as: RTP, RTP Swing, Win Spin Regular, Compare button, Bonuses
-              and Jackpots.
+              such as: RTP, WSR, Compare button, Bonuses and Jackpots.
             </p>
             {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 

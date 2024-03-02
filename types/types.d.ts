@@ -197,7 +197,7 @@ type QueryParams = {
   type?: Type;
   isFiat?: string;
   compareGameId?: string;
-  isGame?: string;
+  ActiveTab?: string;
   page?: string;
 };
 

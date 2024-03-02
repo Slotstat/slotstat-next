@@ -61,7 +61,7 @@ export default async function gamePage({
     direction,
     isFiat,
     compareGameId,
-    isGame = "true",
+    ActiveTab = "slot",
     casId,
   },
 }: {
@@ -107,7 +107,6 @@ export default async function gamePage({
   const casinoCards = await casinoCardsData;
   const casino = await casinoData;
 
-
   // const breadcrumbs = [
   //   {
   //     name: mainGameObj?.name,
@@ -120,7 +119,7 @@ export default async function gamePage({
       keyWord={keyWord}
       direction={direction}
       isFiat={isFiat}
-      isGame={isGame}
+      ActiveTab={ActiveTab}
       casinoCards={casinoCards}
       casino={casino}
       gameCards={gameCards}
