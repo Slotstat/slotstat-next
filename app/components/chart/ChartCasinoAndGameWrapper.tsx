@@ -5,6 +5,7 @@ import LiveCards from "../LiveCards";
 import ChartComponent from "./ChartComponent";
 import { useQueryState } from "nuqs";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
+import BonusCards from "./BonusCards";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 
 export default function ChartCasinoAndGameWrapper({
@@ -110,15 +111,9 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-72">
-          {/* {!!casinoCards && casId && (
-            <LiveCards
-              cardsData={casinoCards}
-              rows={2}
-              casino={true}
-              casinoId={casId}
-              casinoCardsData={casinoCardsData}
-            />
-          )} */}
+          <BonusCards
+            cardsData={casinoCards}
+          />
           {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
