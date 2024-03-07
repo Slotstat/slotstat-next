@@ -65,7 +65,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessor: "SPS",
       maxWidth: 82,
       width: 82,
-      minWidth: 60,
+      minWidth: 70,
       hint: t("SPSHint"),
     },
   ];
