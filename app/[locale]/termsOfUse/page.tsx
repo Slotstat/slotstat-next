@@ -496,8 +496,8 @@ Introduce or otherwise distribute through the Platform any computer program that
           {`2. These virtual event terms and conditions (collectively, the "VE
         Terms") govern your access to and participation in Virtual Events
         organized by the company. These VE Terms apply in addition to the
-        company’s Terms of Use (accessible here: https://slotstat.ge/terms/) and
-        company’s Privacy Policy (accessible here: https://slotstat.ge/privacy/
+        company’s Terms of Use (accessible here: https://slotstat.net/terms/) and
+        company’s Privacy Policy (accessible here: https://slotstat.net/privacy/
         ), the terms of which are also incorporated by reference herein. In the
         event of any inconsistency, these VE Terms shall take precedence, but
         only to the extent of such inconsistency.`}
@@ -785,7 +785,7 @@ Introduce or otherwise distribute through the Platform any computer program that
           communications, addressing issues relating to event access, invoicing,
           payment, solicitation of post-event feedback, participant verification
           and other administration relating thereto. For clarity, the company
-          Privacy Policy (accessible here: https://slotstat.ge/privacy/ ) shall
+          Privacy Policy (accessible here: https://slotstat.net/privacy/ ) shall
           also apply.
         </p>
         <p>
