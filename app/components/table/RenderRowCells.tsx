@@ -209,8 +209,6 @@ export default function RenderRowCells({
     );
   };
 
-
-
   const renderEmptyValue = () =>
     cell.value ? <>{cell.render("Cell")}</> : <>--</>;
 
@@ -287,7 +285,7 @@ export default function RenderRowCells({
     case 5:
       return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
     case 6:
-      return <SPS rtp={rtp} />;
+      return rtp ? <SPS rtp={rtp} /> : <>--</>;
     default:
       return renderEmptyValue();
   }
