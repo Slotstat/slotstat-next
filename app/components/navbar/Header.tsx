@@ -76,7 +76,7 @@ const Header = () => {
     setNavbarOpen(!navbarOpen);
   };
   const handleReload = () => {
-    router.push("/");
+    // router.push("/");
     router.refresh();
   };
 
@@ -88,24 +88,27 @@ const Header = () => {
     >
       <div className="flex w-[100%] justify-center">
         <div className="flex items-center justify-between w-[100%] max-w-screen-xl lg:px-0 px-4">
-          {/* <Link href="/" className="flex items-center"> */}
-          <div className=" cursor-pointer flex items-center" onClick={() => handleReload()}>
-            <Image
-              className="hidden md:flex"
-              src={slotLogo}
-              alt="logo of slotstat"
-              width={140}
-              height={40}
-            />
-            <Image
-              className="flex md:hidden"
-              src={logoSmall}
-              alt="logo of slotstat"
-              width={36}
-              height={36}
-            />
-          </div>
-          {/* </Link> */}
+          <Link href="/" className="flex items-center" onClick={handleReload}>
+            {/* <div
+              className=" cursor-pointer flex items-center"
+              onClick={() => handleReload()}
+            > */}
+              <Image
+                className="hidden md:flex"
+                src={slotLogo}
+                alt="logo of slotstat"
+                width={140}
+                height={40}
+              />
+              <Image
+                className="flex md:hidden"
+                src={logoSmall}
+                alt="logo of slotstat"
+                width={36}
+                height={36}
+              />
+            {/* </div> */}
+          </Link>
           <div className="flex items-center">
             <NavList />
             {/* <LanguageToggleButton /> */}
