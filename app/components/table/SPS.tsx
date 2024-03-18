@@ -16,9 +16,9 @@ const SPS = ({ rtp }: RTPListingProps) => {
   }, [newRtp]);
 
   if (RTP > preferredValue) {
-    return <div> + {(RTP - preferredValue).toFixed(2)}%</div>;
+    return <div> - {(RTP - preferredValue).toFixed(2)}%</div>;
   } else if (RTP < preferredValue) {
-    return <div> - {(preferredValue - RTP).toFixed(2)}%</div>;
+    return <div> + {(preferredValue - RTP).toFixed(2)}%</div>;
   } else {
     return <div>neutral</div>;
   }
