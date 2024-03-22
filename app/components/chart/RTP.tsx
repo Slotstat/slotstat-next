@@ -284,8 +284,9 @@ export default function RTP({
       const { preferredValue, max, min } = gameObject.rtp;
 
       RTPAngleCalculator({ value, preferredValue, max, min });
-
-      setRTP(value);
+      setTimeout(() => {
+        setRTP(value);
+      }, 10000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRtp]);

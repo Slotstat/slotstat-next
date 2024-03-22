@@ -11,7 +11,9 @@ export default function RTPListing({ rtp }: RTPListingProps) {
   useEffect(() => {
     if (newRtp && newRtp.rtpId === id) {
       const { value } = newRtp;
-      setRTP(value);
+      setTimeout(() => {
+        setRTP(value);
+      }, 10000);
     }
   }, [newRtp]);
 

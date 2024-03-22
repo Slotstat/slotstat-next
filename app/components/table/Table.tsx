@@ -62,7 +62,6 @@ const Table = ({
   listPage,
 }: Props) => {
   const t = useTranslations("table");
-
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
   const [scrollY, setScrollY] = useState<number | null>(null);

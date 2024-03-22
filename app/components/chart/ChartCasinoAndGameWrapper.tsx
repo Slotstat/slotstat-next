@@ -50,7 +50,6 @@ export default function ChartCasinoAndGameWrapper({
   }, [compareGameIdQuery, getCompareCasino]);
 
   useEffect(() => {
-    console.log("object", ActiveTab);
     setScreen(ActiveTab);
   }, [ActiveTab]);
 
@@ -111,9 +110,7 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-72">
-          <BonusCards
-            cardsData={casinoCards}
-          />
+          <BonusCards cardsData={casinoCards} />
           {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
