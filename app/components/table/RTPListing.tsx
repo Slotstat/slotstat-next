@@ -17,6 +17,10 @@ export default function RTPListing({ rtp }: RTPListingProps) {
     }
   }, [newRtp]);
 
+  useEffect(() => {
+    setRTP(value);
+  }, [value]);
+
   const RTPindicatorWidth = 80;
 
   const casinoLoosingIndicatorSizeCounter =

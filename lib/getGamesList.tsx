@@ -5,6 +5,16 @@ export default async function getGamesList(
 
   { keyWord, direction, orderBy, isFiat }: QueryParams
 ) {
+  if (orderBy === "slotInLoose" || orderBy === "fixedRtp") {
+    direction = "desc";
+  } else if (orderBy === "slotInWin") {
+    direction = "asc";
+  }
+
+  if (orderBy === "slotInWin" || orderBy === "slotInLoose") {
+    orderBy = "rtpState";
+  }
+
   try {
     const res = await slotStatClient(locale).request({
       url: `/api/Game/aggregated/`,
@@ -12,7 +22,7 @@ export default async function getGamesList(
       params: {
         keyWord,
         ord: orderBy || null,
-        direction: direction || "desc",
+        direction: direction,
         isCrypto: isFiat === "false" ? true : null,
         isFiat: isFiat === "true" ? true : null,
         pageSize: 200,

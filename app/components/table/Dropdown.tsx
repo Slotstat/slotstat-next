@@ -15,9 +15,9 @@ const Dropdown = ({
   const SORT_BY = [
     { label: t("none"), id: "0", value: "" },
 
-    { label: t("highestRTP"), id: "8", value: "p1h" },
-    { label: t("slotInWin"), id: "9", value: "p24h" },
-    { label: t("slotsInLoose"), id: "10", value: "fixedRtp" },
+    { label: t("highestRTP"), id: "1", value: "fixedRtp" },
+    { label: t("slotInWin"), id: "2", value: "slotInWin" },
+    { label: t("slotsInLoose"), id: "3", value: "slotInLoose" },
     // old
     // { label: t("t1hLong"), id: "8", value: "p1h" },
     // { label: t("t24hLong"), id: "9", value: "p24h" },

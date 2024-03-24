@@ -132,6 +132,10 @@ type GameData = {
   casinoImageUrl: string;
   jackpotInfo: "string";
   verificationStatus: number;
+  fixedRtp: number;
+  currencRtp: number;
+  rtpChange: number;
+  rtpState: number;
 };
 
 type RTP = {
@@ -144,6 +148,7 @@ type RTP = {
   name: string;
   preferredValue: number;
   provider: string;
+  previousValue: number;
   value: number;
 };
 

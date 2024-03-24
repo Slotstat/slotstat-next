@@ -68,6 +68,7 @@ const Table = ({
   // const [ascDesc, setAscDesc] = useState<number>(0);
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
   const data = useMemo(() => [...gamesList.results], [gamesList.results]);
+  // const data = useMemo(() => [gamesList.results[0]], [gamesList.results]);
 
   const pathName = usePathname();
 

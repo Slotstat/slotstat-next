@@ -115,6 +115,10 @@ export default function RenderRowCells({
     casinoName,
     bounties,
     jackpotInfo,
+    // fixedRtp,
+    currencRtp,
+    rtpChange,
+    rtpState,
     // currencyCode,
     // fixedRtp,
     // isCrypto,
@@ -285,7 +289,11 @@ export default function RenderRowCells({
     case 5:
       return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
     case 6:
-      return rtp ? <SPS rtp={rtp} /> : <>--</>;
+      return rtp ? (
+        <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} />
+      ) : (
+        <>--</>
+      );
     default:
       return renderEmptyValue();
   }
