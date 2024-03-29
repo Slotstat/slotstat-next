@@ -237,6 +237,9 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // cursor.behavior = 'panX';
   chart.cursor.keepSelection = true;
   chart.cursor.maxTooltipDistance = 2000;
+  // if (window.innerWidth < 768) {
+  //   chart.cursor.behavior = "none";
+  // }
 
   chart.plotContainer.tooltipPosition = "pointer";
   chart.plotContainer.tooltip.label.padding(0, 0, 0, 0);
@@ -385,7 +388,12 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.legend = new am4charts.Legend();
 
-  chart.cursor.behavior = "zoomX";
+  if (window.innerWidth < 768) {
+    chart.cursor.behavior = "none";
+  } else {
+    chart.cursor.behavior = "zoomX";
+  }
+
   chart.mouseWheelBehavior = "panXY";
   // chart.mouseWheelBehavior = "none";
 
