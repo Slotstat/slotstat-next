@@ -23,6 +23,24 @@ type Card = {
   valueType: string;
   isDefault: boolean;
 };
+type Bonus = {
+  cardId: string;
+  imageUrl: string;
+  value: string | null;
+  culture: string;
+  name: string;
+  isLive: boolean;
+  additionalInfo: string;
+  redirectUrl: string;
+  additionalProps: string | null;
+  contextId: string;
+  valueTypeId: string | null;
+  contextType: string;
+  valueType: "CasinoPromotion" | "WelcomeBonus";
+  isDefault: boolean;
+  order: number;
+  expireDate: string;
+};
 
 type Offer = {
   offerId: string;

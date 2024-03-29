@@ -24,7 +24,25 @@ export default function ChartCasinoAndGameWrapper({
   gamesCardsData,
   casId,
   casinoCardsData,
-}: any) {
+  casinoBonuses,
+}: {
+  orderBy?: string;
+  keyWord?: string;
+  direction?: string;
+  isFiat?: string;
+  ActiveTab: string;
+  casinoCards: Card[];
+  casino: CasinoData;
+  gameCards: Card[];
+  gameId: string;
+  mainGameObj: GameData;
+  compareGameId?: string;
+  compareGame?: GameData;
+  gamesCardsData?: Promise<Card[]>;
+  casId: string;
+  casinoCardsData: Promise<Card[]>;
+  casinoBonuses: any;
+}) {
   const [compareGameIdQuery, setCompareGameIdQuery] =
     useQueryState("compareGameId");
 
@@ -110,14 +128,20 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-72">
-          <BonusCards cardsData={casinoCards} />
+          <BonusCards cardsData={casinoBonuses} />
           {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
           )}
           <div className="text-grey1 text-base mb-8 lg:mb-18">
-            <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
+            We publish information about slot games, payout percentage, number
+            of winning spins and jackpotsWe publish information about slot
+            games, payout percentage, number of winning spins and jackpotsWe
+            publish information about slot games, payout percentage, number of
+            winning spins and jackpotsWe publish information about slot games,
+            payout percentage.
+            {/* <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} /> */}
           </div>
         </div>
       )}
