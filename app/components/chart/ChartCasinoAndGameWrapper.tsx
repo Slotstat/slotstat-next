@@ -128,13 +128,12 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-72">
-          <BonusCards cardsData={casinoBonuses} />
           {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
           )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
+          <div className="text-grey1 text-base mb-8 lg:mb-12 ">
             We publish information about slot games, payout percentage, number
             of winning spins and jackpotsWe publish information about slot
             games, payout percentage, number of winning spins and jackpotsWe
@@ -143,6 +142,7 @@ export default function ChartCasinoAndGameWrapper({
             payout percentage.
             {/* <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} /> */}
           </div>
+          <BonusCards cardsData={casinoBonuses} />
         </div>
       )}
       <ChartComponentHeader

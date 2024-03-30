@@ -8,12 +8,12 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
     return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
   };
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 mb-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {cardsData.map((card, index) => (
         <div
           key={card.cardId}
-          className={`bg-dark2 border- h-[272px] w-[306px] rounded-xl p-6 mb-6 flex flex-col justify-between ${
-            index % 4 === 3 ? "" : "mr-6 lg:mr-0"
+          className={`bg-dark2 border- h-[272px] w-full rounded-xl p-6 lg:mb-6 flex flex-col justify-between ${
+            index % 4 === 3 ? "" : "lg:mr-0"
           }`}
         >
           <div className="flex flex-row justify-between">
