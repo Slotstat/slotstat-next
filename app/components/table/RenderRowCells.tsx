@@ -2,7 +2,7 @@ import DownIconBlue from "@/app/assets/svg/DownIconBlue";
 import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Cell, Row } from "react-table";
+import { Cell, Row  } from '@tanstack/react-table'
 import MinusBlue from "@/app/assets/svg/MinusBlue";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";

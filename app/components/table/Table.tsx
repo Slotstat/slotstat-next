@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
+
 import {
   Row,
-  useFilters,
-  useGlobalFilter,
-  usePagination,
-  useSortBy,
-  useTable,
-} from "react-table";
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { back } from "../../assets";
 import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
@@ -24,6 +24,7 @@ import { casinoOrGameColumns } from "./columns";
 import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
 import Link from "next/link";
+import { useQueryState } from "nuqs";
 
 type Props = {
   showFilter: boolean;
@@ -61,14 +62,16 @@ const Table = ({
   setIsFiatState,
   listPage,
 }: Props) => {
+  console.log("gamesList", gamesList);
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
+  const [pageQuery, setPageQuery] = useQueryState("page");
   const [scrollY, setScrollY] = useState<number | null>(null);
   // const [ascDesc, setAscDesc] = useState<number>(0);
+
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
   const data = useMemo(() => [...gamesList.results], [gamesList.results]);
-  // const data = useMemo(() => [gamesList.results[0]], [gamesList.results]);
 
   const pathName = usePathname();
 
@@ -96,24 +99,27 @@ const Table = ({
     }
   };
 
-  const {
-    page,
-    gotoPage,
-    pageCount,
-    prepareRow,
-    headerGroups,
-    getTableProps,
-    getTableBodyProps,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    // @ts-ignore
-    { columns, data },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
+  // const {
+  //   page,
+  //   gotoPage,
+  //   pageCount,
+  //   prepareRow,
+  //   headerGroups,
+  //   getTableProps,
+  //   getTableBodyProps,
+  //   setPageSize,
+  //   // state: { pageIndex, pageSize },
+  // }
+  const tableInstance = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
+  const pageIndex = tableInstance.getState().pagination.pageIndex;
+  console.log(tableInstance.setPageSize);
+  console.log(tableInstance.getHeaderGroups());
 
   // const ascendDescend = useCallback(
   //   (direction: string, status: number) => {
@@ -130,10 +136,10 @@ const Table = ({
   // );
   // fix next js bug (after changing query it was scrolling to top but now it is fixed)
   useEffect(() => {
-    setPageSize(pageSizeConst);
+    // setPageSize(pageSizeConst);
     if (listPage) {
       setTimeout(() => {
-        gotoPage(Number(listPage));
+        // gotoPage(Number(listPage));
       }, 300);
     }
     const persistentScroll = scrollY;
@@ -141,15 +147,16 @@ const Table = ({
 
     window.scrollTo({ top: Number(scrollY) });
   }, [
-    gotoPage,
+    // gotoPage,
     listPage,
     scrollY,
     keyWord,
     orderBy,
     direction,
     isFiat,
-    setPageSize,
+    // setPageSize,
   ]);
+
 
   return (
     <>
@@ -232,7 +239,7 @@ const Table = ({
             className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base"
           >
             <thead>
-              {headerGroups.map((headerGroup, index) => (
+              {tableInstance.getHeaderGroups().map((headerGroup, index) => (
                 <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                   {headerGroup.headers.map((col, i) => {
                     return (
@@ -248,9 +255,7 @@ const Table = ({
                       >
                         <div className="flex items-center">
                           {col.render("Header")}
-                          {/*  @ts-ignore: Unreachable code error*/}
                           {col.hint && (
-                            //  @ts-ignore: Unreachable code error
                             <TooltipComponent text={col.hint} classN="ml-2" />
                           )}
                         </div>
@@ -340,8 +345,8 @@ const Table = ({
             forcePage={pageIndex}
             pageCount={pageCount}
             onPageChange={({ selected }) => {
-              setQueryParams({ page: selected.toString() });
-              // gotoPage(selected);
+              setPageQuery(selected.toString());
+              gotoPage(selected);
             }}
             pageRangeDisplayed={1}
             marginPagesDisplayed={3}

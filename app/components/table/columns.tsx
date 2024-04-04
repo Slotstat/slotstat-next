@@ -6,7 +6,7 @@ export const casinoOrGameColumns = (t: any) => {
           {t("slot")} /<span className="text-grey1 ml-1">{t("provider")}</span>
         </div>
       ),
-      accessor: "name",
+      accessorKey: "name",
       maxWidth: 279,
       width: 279,
       minWidth: 188,
@@ -17,7 +17,7 @@ export const casinoOrGameColumns = (t: any) => {
           {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
         </div>
       ),
-      accessor: "casino",
+      accessorKey: "casino",
       maxWidth: 246,
       width: 246,
       minWidth: 148,
@@ -25,7 +25,7 @@ export const casinoOrGameColumns = (t: any) => {
     },
     {
       Header: t("h1"),
-      accessor: "p1h",
+      accessorKey: "p1h",
       maxWidth: 127,
       width: 127,
       minWidth: 100,
@@ -33,7 +33,7 @@ export const casinoOrGameColumns = (t: any) => {
     },
     {
       Header: t("h24"),
-      accessor: "p24h",
+      accessorKey: "p24h",
       maxWidth: 140,
       width: 140,
       minWidth: 100,
@@ -42,7 +42,7 @@ export const casinoOrGameColumns = (t: any) => {
 
     {
       Header: t("jackpot"),
-      accessor: "jackpot",
+      accessorKey: "jackpot",
       maxWidth: 212,
       width: 212,
       minWidth: 136,
@@ -54,7 +54,7 @@ export const casinoOrGameColumns = (t: any) => {
           {t("RTP")} /<span className="text-grey1 ml-1">{t("swing")}</span>
         </div>
       ),
-      accessor: "RTP",
+      accessorKey: "RTP",
       maxWidth: 210,
       width: 210,
       minWidth: 168,
@@ -62,7 +62,7 @@ export const casinoOrGameColumns = (t: any) => {
     },
     {
       Header: t("SPS"),
-      accessor: "SPS",
+      accessorKey: "SPS",
       maxWidth: 82,
       width: 82,
       minWidth: 70,

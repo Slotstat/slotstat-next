@@ -69,28 +69,13 @@ export default async function gamePage({
   params: { gameId: string; locale: string };
   searchParams: QueryParamsGamePage;
 }) {
-  // const gamesListData: Promise<gamesList> = getGamesList(locale, {
-  //   keyWord,
-  //   direction,
-  //   orderBy,
-  //   isFiat,
-  // });
   let mainGameObj: GameData | null = null;
   let compareGame;
 
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
-
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
-  var [
-    mainGame,
-    gameCards,
-    // gamesList
-  ] = await Promise.all([
-    mainGameData,
-    gamesCardsData,
-    // gamesListData,
-  ]);
+  var [mainGame, gameCards] = await Promise.all([mainGameData, gamesCardsData]);
   mainGameObj = mainGame;
 
   if (compareGameId) {
@@ -106,9 +91,11 @@ export default async function gamePage({
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
 
-  const casino = await casinoData;
-  const casinoCards = await casinoCardsData;
-  const casinoBonuses = await casinoBonusData;
+  var [casino, casinoCards, casinoBonuses] = await Promise.all([
+    casinoData,
+    casinoCardsData,
+    casinoBonusData,
+  ]);
 
   // const breadcrumbs = [
   //   {
@@ -118,22 +105,22 @@ export default async function gamePage({
 
   return (
     <ChartCasinoAndGameWrapper
+      casId={casId}
+      casino={casino}
+      casinoCardsData={casinoCardsData}
+      casinoBonuses={casinoBonuses}
+      compareGame={compareGame}
+      compareGameId={compareGameId}
       orderBy={orderBy}
       keyWord={keyWord}
       direction={direction}
       isFiat={isFiat}
       ActiveTab={ActiveTab}
       casinoCards={casinoCards}
-      casino={casino}
       gameCards={gameCards}
       gameId={gameId}
       mainGameObj={mainGameObj}
-      compareGame={compareGame}
-      compareGameId={compareGameId}
       gamesCardsData={gamesCardsData}
-      casId={casId}
-      casinoCardsData={casinoCardsData}
-      casinoBonuses={casinoBonuses}
     />
   );
 }

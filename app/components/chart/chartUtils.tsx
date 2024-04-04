@@ -224,10 +224,6 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   dateAxis.renderer.minGridDistance = isSmallerThan768 ? 40 : 70;
   valueAxis.renderer.minGridDistance = isSmallerThan768 ? 20 : 40;
 
-  // zoom
-  // dateAxis.showOnInit = false;
-  // valueAxis.keepSelection = true;
-  // dateAxis.keepSelection = true;
 
   let watermark = new am4core.Image();
   const svgDataUri =
@@ -359,7 +355,7 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
             hour12: false,
           });
           // chart.plotContainer.mouseOptions.sensitivity = ;
-          chart.plotContainer.showOnInit = false;
+          // chart.plotContainer.showOnInit = false;
           chart.plotContainer.showTooltipOn = "hover";
           chart.plotContainer.tooltipHTML = getTooltip2(
             series1value,
