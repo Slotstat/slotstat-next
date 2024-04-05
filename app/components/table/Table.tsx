@@ -62,7 +62,7 @@ const Table = ({
   setIsFiatState,
   listPage,
 }: Props) => {
-  console.log("gamesList", gamesList);
+
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();

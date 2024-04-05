@@ -97,8 +97,10 @@
     "t24hLong": "მოგების მაჩვენებელი ბოლო 24 საათში",
     "RTP": "RTP",
     "highestRTP": "Highest RTP",
-    "slotInWin": "Slots In Win",
-    "slotsInLoose": "Slots in loose"
+    "slotInWinR": "Slots In Win (random)",
+    "slotsInLooseR": "Slots in loose (random)",
+    "slotInWin": "Slots In Win (sorted)",
+    "slotsInLoose": "Slots in loose (sorted)"
   },
   "searchPlaceholder": "მოძებნე კაზინო, თამაში ან პროვაიდერი",
   "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",

@@ -97,8 +97,10 @@
     "t24hLong": "Win rate of last 24 hours",
     "RTP": "RTP",
     "highestRTP": "Highest RTP",
-    "slotInWin": "Slots In Win",
-    "slotsInLoose": "Slots in loose"
+    "slotInWinR": "Slots In Win (random)",
+    "slotsInLooseR": "Slots in loose (random)",
+    "slotInWin": "Slots In Win (sorted)",
+    "slotsInLoose": "Slots in loose (sorted)"
   },
 
   "searchPlaceholder": "Search game, casino or provider",
