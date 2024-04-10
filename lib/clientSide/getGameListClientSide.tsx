@@ -41,7 +41,7 @@ export default async function getGameListClientSide({
         direction: direction,
         isCrypto: isFiat === "false" ? true : null,
         isFiat: isFiat === "true" ? true : null,
-        pageSize: 10,
+        pageSize: 50,
         page: page || 1,
       },
     });

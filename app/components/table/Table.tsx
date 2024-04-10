@@ -234,7 +234,7 @@ const Table = ({
         </div>
       )}
 
-      {pageCount > 0 && orderBy !== "sps" && (
+      {pageCount > 0 && (!orderBy || orderBy === "fixedRtp") && (
         <div className=" mt-4 flex items-center flex-col md:flex-row  md:justify-between md:my-8">
           <div className="text-grey1 text-sm hidden md:flex">
             Showing
