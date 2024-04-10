@@ -13,13 +13,14 @@ const Dropdown = ({
   const t = useTranslations("sortBy");
 
   const SORT_BY = [
-    { label: t("none"), id: "0", value: "" },
-
+    { label: t("AllSlots"), id: "0", value: "" },
+    { label: t("slotInWin"), id: "6", value: "spsH" },
+    { label: t("slotsInLoose"), id: "6", value: "spsL" },
     { label: t("highestRTP"), id: "1", value: "fixedRtp" },
-    { label: t("slotInWinR"), id: "2", value: "slotInWinR" },
-    { label: t("slotsInLooseR"), id: "3", value: "slotInLooseR" },
-    { label: t("slotInWin"), id: "4", value: "slotInWin" },
-    { label: t("slotsInLoose"), id: "5", value: "slotInLoose" },
+    // { label: t("slotInWin"), id: "4", value: "slotInWin" },
+    // { label: t("slotsInLoose"), id: "5", value: "slotInLoose" },
+    // { label: t("slotInWinR"), id: "2", value: "slotInWinR" },
+    // { label: t("slotsInLooseR"), id: "3", value: "slotInLooseR" },
     // old
     // { label: t("t1hLong"), id: "8", value: "p1h" },
     // { label: t("t24hLong"), id: "9", value: "p24h" },
@@ -50,7 +51,7 @@ const Dropdown = ({
   }, [orderBy]);
 
   return (
-    <div className="z-1 h-10 w-full md:w-72">
+    <div className="z-1 h-10 w-full md:w-64">
       <Listbox value={selected} onChange={search}>
         {({ open }) => (
           <div className="relative">
@@ -63,9 +64,9 @@ const Dropdown = ({
                 title={selected.label}
                 className="block truncate text-white"
               >
-                <span title={t("sortBy")} className="text-grey1">
+                {/* <span title={t("sortBy")} className="text-grey1">
                   {t("sortBy")}:{" "}
-                </span>{" "}
+                </span>{" "} */}
                 {selected.label}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

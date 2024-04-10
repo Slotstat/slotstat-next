@@ -1,15 +1,16 @@
-import DownIconBlue from "@/app/assets/svg/DownIconBlue";
-import UpIconBlue from "@/app/assets/svg/UpIconBlue";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Cell, Row  } from '@tanstack/react-table'
-import MinusBlue from "@/app/assets/svg/MinusBlue";
+import { Cell, Row } from "@tanstack/react-table";
 import CountUp from "react-countup";
 import { useTranslations } from "next-intl";
 import useStore from "@/app/(store)/store";
 import RTPListing from "./RTPListing";
 import { Verified } from "@/app/assets/svg/Verified";
 import SPS from "./SPS";
+import LinkIconSmall from "@/app/assets/svg/LinkiconSmall";
+import UpIconGreen from "@/app/assets/svg/UpIconBlue";
+import DownIconRed from "@/app/assets/svg/DownIconBlue";
+import MinusWhite from "@/app/assets/svg/MinusBlue";
 
 const CountUpForJackpots = ({
   jackpot,
@@ -115,10 +116,11 @@ export default function RenderRowCells({
     casinoName,
     bounties,
     jackpotInfo,
-    // fixedRtp,
     currencRtp,
     rtpChange,
     rtpState,
+    maxX,
+    // fixedRtp,
     // currencyCode,
     // fixedRtp,
     // isCrypto,
@@ -129,6 +131,7 @@ export default function RenderRowCells({
     // s24h,
     // type,
     verificationStatus,
+    sps,
   } = row.original;
 
   const onGoToWebSiteClick = (event: {
@@ -166,7 +169,8 @@ export default function RenderRowCells({
             title={name}
             className=" text-white font-bold truncate max-w-[124px]  text-xs md:max-w-[160px] md:text-base"
           >
-            {cell.render("Cell")}
+            {/* {cell.render("Cell")} */}
+            {cell.renderValue()}
           </p>
           <p className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
             {provider}
@@ -208,13 +212,14 @@ export default function RenderRowCells({
           isHovered ? "text-white bg-blue1" : "text-grey1 bg-grey3"
         }  w-32 items-center justify-center flex py-2 rounded-lg  text-xs md:text-base `}
       >
-        <p>{t("play")}</p>
+        <p className="mr-1">{t("play")}</p>
+        <LinkIconSmall fill={isHovered ? "#fff" : "#969CB0"} />
       </div>
     );
   };
 
   const renderEmptyValue = () =>
-    cell.value ? <>{cell.render("Cell")}</> : <>--</>;
+    cell.renderValue() ? <>{cell.renderValue()}</> : <>--</>;
 
   const showUpOrDownIcon = (
     indicator: number,
@@ -230,22 +235,22 @@ export default function RenderRowCells({
   ) => {
     if (indicator === 1) {
       return (
-        <div className="flex flex-row items-center text-xs md:text-base text-green1 ">
-          <UpIconBlue className="mr-1 md:mr-2" />
+        <div className="flex flex-row items-center text-xs md:text-base text-white ">
+          <UpIconGreen className="" />
           {Cell}%
         </div>
       );
     } else if (indicator === -1) {
       return (
-        <div className="flex flex-row items-center text-xs md:text-base text-red">
-          <DownIconBlue className="mr-1 md:mr-2" />
+        <div className="flex flex-row items-center text-xs md:text-base text-rwhiteed">
+          <DownIconRed className="" />
           {Cell}%
         </div>
       );
     } else {
       return (
         <div className="flex flex-row items-center text-xs md:text-base ">
-          <MinusBlue className="mr-1 md:mr-2" />
+          <MinusWhite className="" />
           {Cell}%
         </div>
       );
@@ -258,10 +263,8 @@ export default function RenderRowCells({
     case 1:
       return <CasinoBonus />;
     case 2:
-      return <>{showUpOrDownIcon(t1H, cell.render("Cell"))}</>;
+      return <>{showUpOrDownIcon(t1H, cell.renderValue())}</>;
     case 3:
-      return <>{showUpOrDownIcon(t24h, cell.render("Cell"))}</>;
-    case 4:
       if (jackpotInfo) {
         return (
           <div
@@ -286,14 +289,26 @@ export default function RenderRowCells({
         );
       }
 
+    // return <>{showUpOrDownIcon(t24h, cell.renderValue())}</>;
+    case 4:
+      return (
+        <div
+          className={`text-xs text-grey1  md:text-base ${maxX && "text-white"}`}
+        >
+          {maxX ? maxX : "No maxX"}
+        </div>
+      );
     case 5:
-      return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
+      return <div>{rtp.preferredValue.toFixed(2)} %</div>;
+    // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
     case 6:
       return rtp ? (
-        <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} />
+        <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} />
       ) : (
         <>--</>
       );
+    case 7:
+      return <Play />;
     default:
       return renderEmptyValue();
   }

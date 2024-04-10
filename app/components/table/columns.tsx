@@ -1,72 +1,89 @@
 export const casinoOrGameColumns = (t: any) => {
   const CASINO_GAME_COLS = [
     {
-      Header: (
+      header: (
         <div>
           {t("slot")} /<span className="text-grey1 ml-1">{t("provider")}</span>
         </div>
       ),
       accessorKey: "name",
-      maxWidth: 279,
-      width: 279,
-      minWidth: 188,
+      maxSize: 273,
+      size: 273,
+      minSize: 188,
     },
     {
-      Header: (
+      header: (
         <div>
           {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
         </div>
       ),
       accessorKey: "casino",
-      maxWidth: 246,
-      width: 246,
-      minWidth: 148,
+      maxSize: 242,
+      size: 242,
+      minSize: 148,
       hint: t("casinoBonusHint"),
     },
     {
-      Header: t("h1"),
+      header: t("h1"),
       accessorKey: "p1h",
-      maxWidth: 127,
-      width: 127,
-      minWidth: 100,
+      maxSize: 127,
+      size: 127,
+      minSize: 100,
       hint: t("h1GameHint"),
     },
-    {
-      Header: t("h24"),
-      accessorKey: "p24h",
-      maxWidth: 140,
-      width: 140,
-      minWidth: 100,
-      hint: t("h24GameHint"),
-    },
+    // {
+    //   header: t("h24"),
+    //   accessorKey: "p24h",
+    //   maxSize: 140,
+    //   size: 140,
+    //   minSize: 100,
+    //   hint: t("h24GameHint"),
+    // },
 
     {
-      Header: t("jackpot"),
+      header: t("jackpot"),
       accessorKey: "jackpot",
-      maxWidth: 212,
-      width: 212,
-      minWidth: 136,
+      maxSize: 203,
+      size: 203,
+      minSize: 136,
       hint: t("jackpotHint"),
     },
     {
-      Header: (
-        <div>
-          {t("RTP")} /<span className="text-grey1 ml-1">{t("swing")}</span>
-        </div>
-      ),
+      header: t("maxX"),
+      accessorKey: "maxX",
+      maxSize: 143,
+      size: 143,
+      minSize: 130,
+      hint: t("maxXHint"),
+    },
+    {
+      header: t("RTP"),
+      // (
+      //   <div>
+      //     {t("RTP")} /<span className="text-grey1 ml-1">{t("swing")}</span>
+      //   </div>
+      // )
       accessorKey: "RTP",
-      maxWidth: 210,
-      width: 210,
-      minWidth: 168,
+      maxSize: 109,
+      size: 109,
+      minSize: 168,
       hint: t("RTPhint"),
     },
     {
-      Header: t("SPS"),
+      header: t("SPS"),
       accessorKey: "SPS",
-      maxWidth: 82,
-      width: 82,
-      minWidth: 70,
+      maxSize: 108,
+      size: 108,
+      minSize: 70,
       hint: t("SPSHint"),
+    },
+    {
+      header: t("play"),
+      accessorKey: "play",
+      maxSize: 89,
+      size: 89,
+      minSize: 70,
+      hint: t("playHint"),
     },
   ];
 

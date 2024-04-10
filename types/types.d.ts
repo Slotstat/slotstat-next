@@ -154,6 +154,8 @@ type GameData = {
   currencRtp: number;
   rtpChange: number;
   rtpState: number;
+  sps: number;
+  maxX: string;
 };
 
 type RTP = {
@@ -221,7 +223,7 @@ type QueryParams = {
   isFiat?: string;
   compareGameId?: string;
   ActiveTab?: string;
-  page?: string;
+  page?: number;
 };
 
 type GetGamesFromChosenCasinoProps = {
@@ -247,4 +249,31 @@ interface CasinoData extends GameData {
   t24h: number;
   redirectUrl: string;
   isForAllGames?: boolean;
+}
+
+type TableWrapperProps = {
+  showFilter: boolean;
+  onAddToCompare?: (gameId: GameData) => void;
+  orderBy?: string;
+  keyWord?: string;
+  direction?: string;
+  isFiat?: string;
+  getGamesFromChosenCasino?: ({
+    casinoId,
+    name,
+  }: GetGamesFromChosenCasinoProps) => void;
+  setSearchKeyInBottomSheet?: (text: string) => void;
+  setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
+  showCryptoFiatSwitcher?: boolean;
+  setIsFiatState?: (text: string) => void;
+};
+
+interface TableProps extends TableWrapperProps {
+  gamesList: gamesList;
+  setScrollY: (text: number) => void;
+  // pageCount: number;
+  // currentPage: number;
+  // pageSize: number;
+  // rowCount: number;
+  getGames: (selectedPage?: number) => void;
 }
