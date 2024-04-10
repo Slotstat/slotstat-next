@@ -223,7 +223,7 @@ type QueryParams = {
   isFiat?: string;
   compareGameId?: string;
   ActiveTab?: string;
-  page?: number;
+  page?: string;
 };
 
 type GetGamesFromChosenCasinoProps = {
@@ -275,5 +275,5 @@ interface TableProps extends TableWrapperProps {
   // currentPage: number;
   // pageSize: number;
   // rowCount: number;
-  getGames: (selectedPage?: number) => void;
+  getGames: (selectedPage?: string) => void;
 }

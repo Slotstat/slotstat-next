@@ -19,7 +19,7 @@ import ActionPane, {
   DateFilterForChart,
 } from "./ActionPane";
 import useStore from "@/app/(store)/store";
-import BottomSheetModal from "../BottomSheetModal";
+// import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
@@ -564,13 +564,13 @@ const ChartComponent = ({
         </div>
       </div>
       <div className="z-50">
-        <BottomSheetModal
+        {/* <BottomSheetModal
           open={open}
           setOpen={setOpen}
           onAddToCompare={onAddToCompare}
           gameId={gameId}
           isFiat={isFiat || "false"}
-        />
+        /> */}
       </div>
     </>
   );

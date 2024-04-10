@@ -249,7 +249,7 @@ const Table = ({
             forcePage={currentPage - 1}
             pageCount={pageCount}
             onPageChange={({ selected }) => {
-              getGames(selected + 1);
+              getGames((selected + 1).toString());
               // setPageQuery(selected.toString());
             }}
             // pageRangeDisplayed={1}

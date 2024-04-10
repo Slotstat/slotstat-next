@@ -27,7 +27,7 @@ export default function TableClientSide({
   const [loading, setLoading] = useState(false);
 
   const getGames = useCallback(
-    async (page?: number) => {
+    async (page?: string) => {
       !keyWord && setLoading(true);
       const gamesListData: Promise<gamesList> = getGameListClientSide({
         orderBy,
