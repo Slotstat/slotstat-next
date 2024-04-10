@@ -6,11 +6,12 @@ const SPS = ({
   rtp,
   rtpChange,
   rtpState,
+  sps,
 }: {
   rtp: RTP;
-
   rtpChange: number;
   rtpState: number;
+  sps: number;
 }) => {
   const { value, preferredValue, previousValue, id } = rtp;
   const { newRtp } = useStore();
@@ -46,19 +47,23 @@ const SPS = ({
   const colorIndicator =
     prevRTP < RTP ? "text-green1" : prevRTP > RTP ? " text-red" : "text-white";
 
-  const renderDifferenceNow = () => {
-    if (RTP > preferredValue) {
-      return <div> - {(RTP - preferredValue).toFixed(2)}%</div>;
-    } else if (RTP < preferredValue) {
-      return <div> + {(preferredValue - RTP).toFixed(2)}%</div>;
-    } else {
-      return <div>neutral</div>;
-    }
-  };
+  // const renderDifferenceNow = () => {
+  //   if (RTP > preferredValue) {
+  //     return <div> - {(RTP - preferredValue).toFixed(2)}%</div>;
+  //   } else if (RTP < preferredValue) {
+  //     return <div> + {(preferredValue - RTP).toFixed(2)}%</div>;
+  //   } else {
+  //     return <div>neutral</div>;
+  //   }
+  // };
 
   return (
     <div>
-      {renderDifferenceNow()}
+      {/* {renderDifferenceNow()} */}
+      <div>
+        {sps > 0 && "+"}
+        {sps}
+      </div>
 
       <div className={`${colorIndicator} text-xs text-end`}>
         {prevRTP < RTP

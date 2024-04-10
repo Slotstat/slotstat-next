@@ -60,6 +60,9 @@
     "slot": "Slot",
     "user": "User",
     "SPS": "SPS",
+    "play": "Play",
+    "maxX": "maxX",
+    "maxXHint": "maxXHint",
     "SPSHint": "Slot Profit Status",
     "bonusesHint": "Information about casino gift offers",
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
@@ -73,7 +76,6 @@
     "GoToGame": "Go to Game",
     "RTPhint": "RTP Swing parameter shows the game’s variance from the ideal RTP in real-time period.",
     "casinoLink": "Casino link",
-    "play": "Play",
     "playHint": "Play button directly sends the player to the selected slot on the chosen casino interface. Via the Play button SlotStat keeps tabs on player preferences and improves its mechanism based on this information.",
     "casino": "Casino",
     "bonus": "Bonus"
@@ -86,6 +88,7 @@
   },
   "sortBy": {
     "none": "None",
+    "AllSlots": "All slots",
     "p24h": "Win rate last 1 day",
     "p1h": "Win rate last 1 week",
     "p1m": "Win rate last 1 month",
@@ -99,8 +102,8 @@
     "highestRTP": "Highest RTP",
     "slotInWinR": "Slots In Win (random)",
     "slotsInLooseR": "Slots in loose (random)",
-    "slotInWin": "Slots In Win (sorted)",
-    "slotsInLoose": "Slots in loose (sorted)"
+    "slotInWin": "Slots In Win",
+    "slotsInLoose": "Slots in loose"
   },
 
   "searchPlaceholder": "Search game, casino or provider",

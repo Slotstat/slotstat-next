@@ -1,14 +1,12 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import {
   Row,
-  useFilters,
-  useGlobalFilter,
-  usePagination,
-  useSortBy,
-  useTable,
-} from "react-table";
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { back } from "../../assets";
 import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
@@ -25,27 +23,6 @@ import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
 import Link from "next/link";
 
-type Props = {
-  showFilter: boolean;
-  gamesList: gamesList;
-  onAddToCompare?: (gameId: GameData) => void;
-  orderBy?: string;
-  keyWord?: string;
-  direction?: string;
-  isFiat?: string;
-  getGamesFromChosenCasino?: ({
-    casinoId,
-    name,
-  }: GetGamesFromChosenCasinoProps) => void;
-  setSearchKeyInBottomSheet?: (text: string) => void;
-  setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
-  showCryptoFiatSwitcher?: boolean;
-  setIsFiatState?: (text: string) => void;
-  listPage?: string;
-};
-
-const pageSizeConst = 20;
-
 const Table = ({
   gamesList,
   showFilter = false,
@@ -59,17 +36,16 @@ const Table = ({
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
   setIsFiatState,
-  listPage,
-}: Props) => {
-  console.log("2222", gamesList);
+  setScrollY,
+  getGames,
+}: TableProps) => {
   const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
-  const [scrollY, setScrollY] = useState<number | null>(null);
-  // const [ascDesc, setAscDesc] = useState<number>(0);
+
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
   const data = useMemo(() => [...gamesList.results], [gamesList.results]);
-  // const data = useMemo(() => [gamesList.results[0]], [gamesList.results]);
+  const { pageCount, rowCount, currentPage, pageSize } = gamesList;
 
   const pathName = usePathname();
 
@@ -97,60 +73,13 @@ const Table = ({
     }
   };
 
-  const {
-    page,
-    gotoPage,
-    pageCount,
-    prepareRow,
-    headerGroups,
-    getTableProps,
-    getTableBodyProps,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
+  const tableInstance = useReactTable({
     // @ts-ignore
-    { columns, data },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
-  // const ascendDescend = useCallback(
-  //   (direction: string, status: number) => {
-  //     if (ascDesc === status) {
-  //       setAscDesc(0);
-  //       setQueryParams({ direction: "" });
-  //     } else {
-  //       setAscDesc(status);
-  //       setQueryParams({ direction });
-  //     }
-  //     setScrollY(window.scrollY);
-  //   },
-  //   [ascDesc, setQueryParams]
-  // );
-  // fix next js bug (after changing query it was scrolling to top but now it is fixed)
-  useEffect(() => {
-    setPageSize(pageSizeConst);
-    if (listPage) {
-      setTimeout(() => {
-        gotoPage(Number(listPage));
-      }, 300);
-    }
-    const persistentScroll = scrollY;
-    if (persistentScroll === null) return;
-
-    window.scrollTo({ top: Number(scrollY) });
-  }, [
-    gotoPage,
-    listPage,
-    scrollY,
-    keyWord,
-    orderBy,
-    direction,
-    isFiat,
-    setPageSize,
-  ]);
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+  });
 
   return (
     <>
@@ -210,17 +139,6 @@ const Table = ({
                   }
                 }}
               />
-
-              {/* <div className="flex items-center h-10 ml-3 px-2 rounded-lg border border-grey1">
-                <Ascending
-                  onClick={() => ascendDescend("asc", 1)}
-                  active={ascDesc}
-                />
-                <Descending
-                  onClick={() => ascendDescend("desc", -1)}
-                  active={ascDesc}
-                />
-              </div> */}
             </div>
           </>
         )}
@@ -228,31 +146,33 @@ const Table = ({
 
       {data?.length > 0 ? (
         <div className="w-full overflow-x-scroll no-scroll">
-          <table
-            {...getTableProps()}
-            className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base"
-          >
+          <table className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base">
             <thead>
-              {headerGroups.map((headerGroup, index) => (
-                <tr {...headerGroup.getHeaderGroupProps()} key={index}>
-                  {headerGroup.headers.map((col, i) => {
+              {tableInstance.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
                     return (
                       <th
-                        {...col.getHeaderProps({
-                          style: {
-                            maxWidth: col.maxWidth,
-                            minWidth: col.minWidth,
-                            width: col.width,
-                          },
-                        })}
-                        key={i}
+                        style={{
+                          maxWidth: header.column.columnDef.maxSize,
+                          minWidth: header.column.columnDef.minSize,
+                          width: header.column.columnDef.size,
+                        }}
+                        key={header.id}
                       >
-                        <div className="flex items-center">
-                          {col.render("Header")}
-                          {/*  @ts-ignore: Unreachable code error*/}
-                          {col.hint && (
-                            //  @ts-ignore: Unreachable code error
-                            <TooltipComponent text={col.hint} classN="ml-2" />
+                        <div className="flex items-center text-base">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+
+                          {/* @ts-ignore  */}
+                          {header.column.columnDef.hint && (
+                            <TooltipComponent
+                              // @ts-ignore
+                              text={header.column.columnDef.hint}
+                              classN="ml-2"
+                            />
                           )}
                         </div>
                       </th>
@@ -262,54 +182,41 @@ const Table = ({
               ))}
             </thead>
 
-            <tbody {...getTableBodyProps()} className="xl:w-full">
-              {page.map((row, index) => {
-                prepareRow(row);
-
+            <tbody className="xl:w-full">
+              {tableInstance.getRowModel().rows.map((row) => {
                 return (
                   <tr
-                    {...row.getRowProps()}
                     onClick={() => {
                       if (onAddToCompare || getGamesFromChosenCasino) {
                         bottomSheetRowClick(row);
                       }
                     }}
-                    key={index}
+                    key={row.id}
                     className="hover:bg-dark2 cursor-pointer"
                   >
-                    {row.cells.map((cell, index) => {
+                    {row.getVisibleCells().map((cell, i) => {
                       return (
                         <td
-                          {...cell.getCellProps({
-                            style: {
-                              maxWidth: cell.column.maxWidth,
-                              minWidth: cell.column.minWidth,
-                              width: cell.column.width,
-                              height: 97,
-                              paddingTop: 0,
-                              paddingBottom: 0,
-                            },
-                          })}
-                          key={index}
+                          style={{
+                            maxWidth: cell.column.columnDef.maxSize,
+                            minWidth: cell.column.columnDef.minSize,
+                            width: cell.column.columnDef.size,
+                            height: 97,
+                            paddingTop: 0,
+                            paddingBottom: 0,
+                          }}
+                          key={cell.id}
                         >
                           {onAddToCompare || getGamesFromChosenCasino ? (
                             <div className=" h-full flex items-center ">
-                              <RenderRowCells
-                                cell={cell}
-                                row={row}
-                                index={index}
-                              />
+                              <RenderRowCells cell={cell} row={row} index={i} />
                             </div>
                           ) : (
                             <Link
                               href={`${row.original.gameId}?casId=${row.original.casinoId}&isFiat=${isFiat}`}
                               className=" h-full flex items-center "
                             >
-                              <RenderRowCells
-                                cell={cell}
-                                row={row}
-                                index={index}
-                              />
+                              <RenderRowCells cell={cell} row={row} index={i} />
                             </Link>
                           )}
                         </td>
@@ -327,25 +234,26 @@ const Table = ({
         </div>
       )}
 
-      {pageCount > 1 && (
+      {pageCount > 0 && orderBy !== "sps" && (
         <div className=" mt-4 flex items-center flex-col md:flex-row  md:justify-between md:my-8">
           <div className="text-grey1 text-sm hidden md:flex">
             Showing
             <span className="text-white mx-1">
-              {pageIndex * pageSizeConst > 0 ? pageIndex * pageSizeConst : 1} -
-              {pageIndex * pageSizeConst + page.length}
+              {/* {currentPage} - {currentPage * pageSize} */}
+              {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
+              {(currentPage - 1) * pageSize + data.length}
             </span>
-            out of {gamesList.rowCount}
+            out of {rowCount}
           </div>
           <ReactPaginate
-            forcePage={pageIndex}
+            forcePage={currentPage - 1}
             pageCount={pageCount}
             onPageChange={({ selected }) => {
-              setQueryParams({ page: selected.toString() });
-              // gotoPage(selected);
+              getGames((selected + 1).toString());
+              // setPageQuery(selected.toString());
             }}
-            pageRangeDisplayed={1}
-            marginPagesDisplayed={3}
+            // pageRangeDisplayed={1}
+            // marginPagesDisplayed={3}
             renderOnZeroPageCount={null}
             previousLabel={
               <Image
@@ -380,10 +288,9 @@ const Table = ({
           <div className=" text-xs mt-2 text-grey1 md:text-transparent">
             Showing{" "}
             <span className="text-white md:text-transparent">
-              {pageIndex * pageSizeConst > 0 ? pageIndex * pageSizeConst : 1} -
-              {pageIndex * pageSizeConst + page.length}
+              {currentPage} - {currentPage * pageSize}
             </span>{" "}
-            out of {gamesList.rowCount}
+            out of {rowCount}
           </div>
         </div>
       )}
