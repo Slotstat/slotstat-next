@@ -1,39 +1,21 @@
 "use client";
-import { useMemo } from "react";
-import ReactPaginate from "react-paginate";
-import {
-  Row,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { back } from "../../assets";
+import { Row } from "@tanstack/react-table";
 import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
-import Image from "next/image";
-import RenderRowCells from "./RenderRowCells";
-import useQueryParams from "@/app/utils/useQueryParams";
 import _ from "lodash";
-// import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
-import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
-import { casinoOrGameColumns } from "./columns";
-
 import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
-import Link from "next/link";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import TableIn from "./TableIn";
+import { useQueryState } from "nuqs";
 
 const Table = ({
   gamesList,
   showFilter = false,
   onAddToCompare,
-  orderBy,
-  keyWord,
-  direction,
-  isFiat,
-  getGamesFromChosenCasino,
+
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
@@ -43,31 +25,15 @@ const Table = ({
   loading,
 }: TableProps) => {
   const f = useTranslations();
-  const { setQueryParams } = useQueryParams();
 
-  const pathName = usePathname();
+  const [keyWord, setKeyWord] = useQueryState("keyWord");
+  const [orderBy, setOrderBy] = useQueryState("orderBy");
+  // const [direction, setDirection] = useQueryState("direction");
+  const [isFiat, setIsFiat] = useQueryState("isFiat");
 
   const bottomSheetRowClick = (row: Row<GameData>) => {
     if (onAddToCompare) {
       return onAddToCompare(row.original);
-    } else if (getGamesFromChosenCasino && row.original.casinoId) {
-      return getGamesFromChosenCasino({
-        casinoId: row.original.casinoId,
-        name: row.original.name,
-      });
-    } else if (row.original.type === "AllGames") {
-      const segments = pathName.split("/");
-      let PathNameForAllGames: string;
-      if (segments.length === 3) {
-        PathNameForAllGames = segments[1];
-        setQueryParams({ type: row.original.type }, `${PathNameForAllGames}`);
-      } else {
-        PathNameForAllGames = pathName;
-        setQueryParams(
-          { type: row.original.type },
-          `${PathNameForAllGames}/${row.original.casinoId}`
-        );
-      }
     }
   };
 
@@ -84,7 +50,7 @@ const Table = ({
                   if (setSearchKeyInBottomSheet) {
                     setSearchKeyInBottomSheet(keyWord);
                   } else {
-                    setQueryParams({ keyWord });
+                    setKeyWord(keyWord);
                   }
                 }}
               />
@@ -94,10 +60,10 @@ const Table = ({
                 <div className="flex flex-row">
                   <FiatCryptoButton
                     title={f("cryptoCasinos")}
-                    active={isFiat === "false"}
+                    active={isFiat === "false" || isFiat === null}
                     click={() => {
                       setScrollY(window.scrollY);
-                      setQueryParams({ isFiat: "false" });
+                      setIsFiat("false");
                       if (setIsFiatState) {
                         setIsFiatState("false");
                       }
@@ -109,7 +75,7 @@ const Table = ({
                     active={isFiat === "true"}
                     click={() => {
                       setScrollY(window.scrollY);
-                      setQueryParams({ isFiat: "true" });
+                      setIsFiat("true");
                       if (setIsFiatState) {
                         setIsFiatState("true");
                       }
@@ -125,7 +91,7 @@ const Table = ({
                   if (setOrderByKeyInBottomSheet) {
                     setOrderByKeyInBottomSheet(orderBy);
                   } else {
-                    setQueryParams({ orderBy });
+                    setOrderBy(orderBy || "");
                   }
                 }}
               />
@@ -140,7 +106,6 @@ const Table = ({
           onAddToCompare={onAddToCompare}
           orderBy={orderBy}
           isFiat={isFiat}
-          getGamesFromChosenCasino={getGamesFromChosenCasino}
           getGames={getGames}
           bottomSheetRowClick={bottomSheetRowClick}
         />

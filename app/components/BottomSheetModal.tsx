@@ -1,13 +1,7 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
-// import "react-spring-bottom-sheet/dist/style.css";
-
 import Image from "next/image";
-import Table from "./table/Table";
 import { close } from "../assets";
 import { memo, useCallback, useEffect, useState } from "react";
-import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslations } from "next-intl";
 import _ from "lodash";
 import TableClientSide from "./table/TableClientSide";
@@ -29,30 +23,9 @@ const BottomSheetModal = ({
 }: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
 
-  const [games, setGames] = useState<gamesList>();
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
   const [isFiatState, setIsFiatState] = useState<string>(isFiat || "false");
-
-  //   const getGames = async () => {
-  //     !keyWord && setLoading(true);
-
-  //     const gamesListData: Promise<gamesList> = getGameListClientSide({
-  //       orderBy,
-  //       keyWord,
-  //       isFiat: isFiatState,
-  //       // direction,
-  //     });
-
-  //     const games = await gamesListData;
-  //     const removeIndex = games.results
-  //       .map((item) => item.gameId)
-  //       .indexOf(gameId);
-  //     ~removeIndex && games.results.splice(removeIndex, 1);
-
-  //     setGames(games);
-  //     setLoading(false);
-  //   };
 
   const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
     onAddToCompare(GameData);
@@ -69,11 +42,6 @@ const BottomSheetModal = ({
     }, 500),
     []
   );
-
-  useEffect(() => {
-    // getGames();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, orderBy, isFiatState]);
 
   return (
     <BottomSheet
@@ -126,6 +94,7 @@ const BottomSheetModal = ({
               isFiat={isFiatState}
               setIsFiatState={(isFiatState) => setIsFiatState(isFiatState)}
               showCryptoFiatSwitcher={true}
+              gameId={gameId}
             />
           </div>
         </div>

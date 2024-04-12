@@ -48,7 +48,7 @@ export async function generateMetadata({ params: { locale } }: Params) {
 }
 
 export default async function Home({
-  searchParams: { orderBy, keyWord, direction, isFiat },
+  searchParams: { orderBy, direction, isFiat },
   params: { locale },
 }: Params) {
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
@@ -65,7 +65,6 @@ export default async function Home({
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
         <TableClientSide
-          keyWord={keyWord}
           orderBy={orderBy}
           direction={direction}
           showFilter={true}

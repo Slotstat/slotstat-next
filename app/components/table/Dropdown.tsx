@@ -8,7 +8,7 @@ const Dropdown = ({
   orderBy,
 }: {
   onChange: (v?: string) => void;
-  orderBy?: string;
+  orderBy?: string | null;
 }) => {
   const t = useTranslations("sortBy");
 

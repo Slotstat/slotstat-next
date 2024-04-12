@@ -216,19 +216,14 @@ interface QueryParamsGamePage extends QueryParams {
 }
 
 type QueryParams = {
-  orderBy?: string;
-  keyWord?: string;
-  direction?: string;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
   type?: Type;
-  isFiat?: string;
+  isFiat?: string | null;
   compareGameId?: string;
   ActiveTab?: string;
   page?: string;
-};
-
-type GetGamesFromChosenCasinoProps = {
-  casinoId: string;
-  name: string;
 };
 
 interface CasinoData extends GameData {
@@ -254,18 +249,15 @@ interface CasinoData extends GameData {
 type TableWrapperProps = {
   showFilter: boolean;
   onAddToCompare?: (gameId: GameData) => void;
-  orderBy?: string;
-  keyWord?: string;
-  direction?: string;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
   isFiat?: string;
-  getGamesFromChosenCasino?: ({
-    casinoId,
-    name,
-  }: GetGamesFromChosenCasinoProps) => void;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
   showCryptoFiatSwitcher?: boolean;
   setIsFiatState?: (text: string) => void;
+  gameId?: string;
 };
 
 interface TableProps extends TableWrapperProps {
@@ -278,12 +270,9 @@ interface TableProps extends TableWrapperProps {
 type TableIn = {
   gamesList: gamesList;
   onAddToCompare?: (gameId: GameData) => void;
-  orderBy?: string;
-  isFiat?: string;
-  getGamesFromChosenCasino?: ({
-    casinoId,
-    name,
-  }: GetGamesFromChosenCasinoProps) => void;
+  orderBy?: string | null;
+  isFiat?: string | null;
+
   getGames: (selectedPage?: string) => void;
   bottomSheetRowClick: (row: any) => void;
 };

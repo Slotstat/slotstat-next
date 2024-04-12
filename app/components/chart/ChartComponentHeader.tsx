@@ -59,7 +59,6 @@ export default function ChartComponentHeader({
             setScrollY(window.scrollY);
             changeScreen("slot");
             setIsGameQuery("slot");
-            // setQueryParams({ isGame: "true" });
           }}
           className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
         />

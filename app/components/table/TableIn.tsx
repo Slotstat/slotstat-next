@@ -17,13 +17,11 @@ import { casinoOrGameColumns } from "./columns";
 
 import Link from "next/link";
 
-
 export default function TableIn({
   gamesList,
   onAddToCompare,
   orderBy,
   isFiat,
-  getGamesFromChosenCasino,
   getGames,
   bottomSheetRowClick,
 }: TableIn) {
@@ -87,7 +85,7 @@ export default function TableIn({
                   return (
                     <tr
                       onClick={() => {
-                        if (onAddToCompare || getGamesFromChosenCasino) {
+                        if (onAddToCompare) {
                           bottomSheetRowClick(row);
                         }
                       }}
@@ -107,7 +105,7 @@ export default function TableIn({
                             }}
                             key={cell.id}
                           >
-                            {onAddToCompare || getGamesFromChosenCasino ? (
+                            {onAddToCompare ? (
                               <div className=" h-full flex items-center ">
                                 <RenderRowCells
                                   cell={cell}
@@ -117,7 +115,9 @@ export default function TableIn({
                               </div>
                             ) : (
                               <Link
-                                href={`${row.original.gameId}?casId=${row.original.casinoId}&isFiat=${isFiat}`}
+                                href={`${row.original.gameId}?casId=${
+                                  row.original.casinoId
+                                }&isFiat=${isFiat || "false"}`}
                                 className=" h-full flex items-center "
                               >
                                 <RenderRowCells

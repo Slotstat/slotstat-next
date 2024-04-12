@@ -2,36 +2,31 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Table from "./Table";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { useQueryState } from "nuqs";
 
 export default function TableClientSide({
   showFilter = false,
   onAddToCompare,
-  orderBy,
-  keyWord,
-  direction,
-  isFiat,
-  getGamesFromChosenCasino,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,
   setIsFiatState,
+  gameId,
 }: TableWrapperProps) {
-  const [lastPage, setLastPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
-  const [rowCount, setRowCount] = useState(1);
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [games, setGames] = useState<gamesList>();
   const [loading, setLoading] = useState(false);
+  const [keyWord] = useQueryState("keyWord");
+  const [orderBy] = useQueryState("orderBy");
+  const [direction] = useQueryState("direction");
+  const [isFiat] = useQueryState("isFiat");
 
   const getGames = useCallback(
     async (page?: string) => {
       !keyWord && setLoading(true);
       const gamesListData: Promise<gamesList> = getGameListClientSide({
         orderBy,
-        keyWord,
+        keyWord: !!keyWord ? keyWord : undefined,
         page,
         //   todo
         // isFiat: isFiatState,
@@ -39,10 +34,17 @@ export default function TableClientSide({
       });
 
       const games = await gamesListData;
+      if (gameId) {
+        const removeIndex = games.results
+          .map((item) => item.gameId)
+          .indexOf(gameId);
+        ~removeIndex && games.results.splice(removeIndex, 1);
+      }
+
       setGames(games);
       setLoading(false);
     },
-    [keyWord, orderBy]
+    [keyWord, orderBy, gameId]
   );
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export default function TableClientSide({
   return (
     <>
       <Table
-        keyWord={keyWord}
+        keyWord={!!keyWord ? keyWord : undefined}
         orderBy={orderBy}
         direction={direction}
         showFilter={showFilter}
@@ -67,7 +69,6 @@ export default function TableClientSide({
         setScrollY={setScrollY}
         getGames={getGames}
         onAddToCompare={onAddToCompare}
-        getGamesFromChosenCasino={getGamesFromChosenCasino}
         setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
         setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
         loading={loading}
