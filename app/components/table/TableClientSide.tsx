@@ -28,12 +28,28 @@ export default function TableClientSide({
         orderBy,
         keyWord: !!keyWord ? keyWord : undefined,
         page,
-        //   todo
-        // isFiat: isFiatState,
+        isFiat,
         // direction,
       });
 
-      const games = await gamesListData;
+      let games = await gamesListData;
+
+      const test = [
+        { sps: 2, te: "r" },
+        { sps: -2, te: "r" },
+        { sps: 4, te: "r" },
+        { sps: 0, te: "r" },
+      ];
+
+      if (orderBy === "spsH") {
+        const filteredGames = games.results.filter((item) => item.sps > 0);
+        games.results = filteredGames;
+      }
+      if (orderBy === "spsL") {
+        const filteredGames = games.results.filter((item) => item.sps < 0);
+        games.results = filteredGames;
+      }
+
       if (gameId) {
         const removeIndex = games.results
           .map((item) => item.gameId)
@@ -44,7 +60,7 @@ export default function TableClientSide({
       setGames(games);
       setLoading(false);
     },
-    [keyWord, orderBy, gameId]
+    [keyWord, orderBy, gameId, isFiat]
   );
 
   useEffect(() => {

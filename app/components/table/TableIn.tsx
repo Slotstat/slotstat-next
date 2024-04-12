@@ -142,7 +142,7 @@ export default function TableIn({
           </div>
         )}
 
-        {pageCount > 0 && (!orderBy || orderBy === "fixedRtp") && (
+        {pageCount > 0 && (
           <div className=" mt-4 flex items-center flex-col md:flex-row  md:justify-between md:my-8">
             <div className="text-grey1 text-sm hidden md:flex">
               Showing
@@ -153,46 +153,53 @@ export default function TableIn({
               </span>
               out of {rowCount}
             </div>
-            <ReactPaginate
-              forcePage={currentPage - 1}
-              pageCount={pageCount}
-              onPageChange={({ selected }) => {
-                getGames((selected + 1).toString());
-                // setPageQuery(selected.toString());
-              }}
-              // pageRangeDisplayed={1}
-              // marginPagesDisplayed={3}
-              renderOnZeroPageCount={null}
-              previousLabel={
-                <Image
-                  src={back}
-                  alt=""
-                  className="h-4 w-4"
-                  height={96}
-                  width={96}
-                />
-              }
-              nextLabel={
-                <Image
-                  src={back}
-                  alt=""
-                  className="h-4 w-4 rotate-180"
-                  height={96}
-                  width={96}
-                />
-              }
-              breakLabel="..."
-              containerClassName="pagination"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              activeClassName="active"
-            />
+            {!orderBy || orderBy === "fixedRtp" ? (
+              <ReactPaginate
+                forcePage={currentPage - 1}
+                pageCount={pageCount}
+                onPageChange={({ selected }) => {
+                  getGames((selected + 1).toString());
+                  // setPageQuery(selected.toString());
+                }}
+                // pageRangeDisplayed={1}
+                // marginPagesDisplayed={3}
+                renderOnZeroPageCount={null}
+                previousLabel={
+                  <Image
+                    src={back}
+                    alt=""
+                    className="h-4 w-4"
+                    height={96}
+                    width={96}
+                  />
+                }
+                nextLabel={
+                  <Image
+                    src={back}
+                    alt=""
+                    className="h-4 w-4 rotate-180"
+                    height={96}
+                    width={96}
+                  />
+                }
+                breakLabel="..."
+                containerClassName="pagination"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                activeClassName="active"
+              />
+            ) : (
+              <span className=" text-sm text-grey1 font-light">
+                SPS (Slot Profit Status) is updated every 5 minutes. Refresh the
+                website to see the new listing of Slots in lose.
+              </span>
+            )}
             <div className=" text-xs mt-2 text-grey1 md:text-transparent">
               Showing{" "}
               <span className="text-white md:text-transparent">

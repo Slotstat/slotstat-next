@@ -4,7 +4,6 @@ import Dropdown from "./Dropdown";
 import { SearchInput } from "./SearchInput";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
