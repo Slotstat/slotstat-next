@@ -22,6 +22,8 @@ import { casinoOrGameColumns } from "./columns";
 import { usePathname } from "next-intl/client";
 import FiatCryptoButton from "./FiatCryptoButton";
 import Link from "next/link";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import TableIn from "./TableIn";
 
 const Table = ({
   gamesList,
@@ -38,14 +40,10 @@ const Table = ({
   setIsFiatState,
   setScrollY,
   getGames,
+  loading,
 }: TableProps) => {
-  const t = useTranslations("table");
   const f = useTranslations();
   const { setQueryParams } = useQueryParams();
-
-  const columns = useMemo(() => casinoOrGameColumns(t), [t]);
-  const data = useMemo(() => [...gamesList.results], [gamesList.results]);
-  const { pageCount, rowCount, currentPage, pageSize } = gamesList;
 
   const pathName = usePathname();
 
@@ -72,14 +70,6 @@ const Table = ({
       }
     }
   };
-
-  const tableInstance = useReactTable({
-    // @ts-ignore
-    columns,
-    data,
-    getCoreRowModel: getCoreRowModel(),
-    manualPagination: true,
-  });
 
   return (
     <>
@@ -144,155 +134,26 @@ const Table = ({
         )}
       </div>
 
-      {data?.length > 0 ? (
-        <div className="w-full overflow-x-scroll no-scroll">
-          <table className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base">
-            <thead>
-              {tableInstance.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <th
-                        style={{
-                          maxWidth: header.column.columnDef.maxSize,
-                          minWidth: header.column.columnDef.minSize,
-                          width: header.column.columnDef.size,
-                        }}
-                        key={header.id}
-                      >
-                        <div className="flex items-center text-base">
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-
-                          {/* @ts-ignore  */}
-                          {header.column.columnDef.hint && (
-                            <TooltipComponent
-                              // @ts-ignore
-                              text={header.column.columnDef.hint}
-                              classN="ml-2"
-                            />
-                          )}
-                        </div>
-                      </th>
-                    );
-                  })}
-                </tr>
-              ))}
-            </thead>
-
-            <tbody className="xl:w-full">
-              {tableInstance.getRowModel().rows.map((row) => {
-                return (
-                  <tr
-                    onClick={() => {
-                      if (onAddToCompare || getGamesFromChosenCasino) {
-                        bottomSheetRowClick(row);
-                      }
-                    }}
-                    key={row.id}
-                    className="hover:bg-dark2 cursor-pointer"
-                  >
-                    {row.getVisibleCells().map((cell, i) => {
-                      return (
-                        <td
-                          style={{
-                            maxWidth: cell.column.columnDef.maxSize,
-                            minWidth: cell.column.columnDef.minSize,
-                            width: cell.column.columnDef.size,
-                            height: 97,
-                            paddingTop: 0,
-                            paddingBottom: 0,
-                          }}
-                          key={cell.id}
-                        >
-                          {onAddToCompare || getGamesFromChosenCasino ? (
-                            <div className=" h-full flex items-center ">
-                              <RenderRowCells cell={cell} row={row} index={i} />
-                            </div>
-                          ) : (
-                            <Link
-                              href={`${row.original.gameId}?casId=${row.original.casinoId}&isFiat=${isFiat}`}
-                              className=" h-full flex items-center "
-                            >
-                              <RenderRowCells cell={cell} row={row} index={i} />
-                            </Link>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      {!loading && gamesList ? (
+        <TableIn
+          gamesList={gamesList}
+          onAddToCompare={onAddToCompare}
+          orderBy={orderBy}
+          isFiat={isFiat}
+          getGamesFromChosenCasino={getGamesFromChosenCasino}
+          getGames={getGames}
+          bottomSheetRowClick={bottomSheetRowClick}
+        />
       ) : (
-        <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">
-          {f("itemNotFound")}
-        </div>
-      )}
-
-      {pageCount > 0 && (!orderBy || orderBy === "fixedRtp") && (
-        <div className=" mt-4 flex items-center flex-col md:flex-row  md:justify-between md:my-8">
-          <div className="text-grey1 text-sm hidden md:flex">
-            Showing
-            <span className="text-white mx-1">
-              {/* {currentPage} - {currentPage * pageSize} */}
-              {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
-              {(currentPage - 1) * pageSize + data.length}
-            </span>
-            out of {rowCount}
-          </div>
-          <ReactPaginate
-            forcePage={currentPage - 1}
-            pageCount={pageCount}
-            onPageChange={({ selected }) => {
-              getGames((selected + 1).toString());
-              // setPageQuery(selected.toString());
-            }}
-            // pageRangeDisplayed={1}
-            // marginPagesDisplayed={3}
-            renderOnZeroPageCount={null}
-            previousLabel={
-              <Image
-                src={back}
-                alt=""
-                className="h-4 w-4"
-                height={96}
-                width={96}
-              />
-            }
-            nextLabel={
-              <Image
-                src={back}
-                alt=""
-                className="h-4 w-4 rotate-180"
-                height={96}
-                width={96}
-              />
-            }
-            breakLabel="..."
-            containerClassName="pagination"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            activeClassName="active"
-          />
-          <div className=" text-xs mt-2 text-grey1 md:text-transparent">
-            Showing{" "}
-            <span className="text-white md:text-transparent">
-              {currentPage} - {currentPage * pageSize}
-            </span>{" "}
-            out of {rowCount}
-          </div>
-        </div>
+        <SkeletonTheme baseColor="#24262C" highlightColor="#444">
+          <section>
+            <Skeleton count={1} className="h-20 mb-5" />
+            <Skeleton count={1} className="h-20 mb-5" />
+            <Skeleton count={1} className="h-20 mb-5" />
+            <Skeleton count={1} className="h-20 mb-5" />
+            <Skeleton count={1} className="h-20 mb-5" />
+          </section>
+        </SkeletonTheme>
       )}
     </>
   );

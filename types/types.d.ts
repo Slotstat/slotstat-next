@@ -269,11 +269,21 @@ type TableWrapperProps = {
 };
 
 interface TableProps extends TableWrapperProps {
-  gamesList: gamesList;
+  gamesList?: gamesList;
   setScrollY: (text: number) => void;
-  // pageCount: number;
-  // currentPage: number;
-  // pageSize: number;
-  // rowCount: number;
   getGames: (selectedPage?: string) => void;
+  loading: boolean;
 }
+
+type TableIn = {
+  gamesList: gamesList;
+  onAddToCompare?: (gameId: GameData) => void;
+  orderBy?: string;
+  isFiat?: string;
+  getGamesFromChosenCasino?: ({
+    casinoId,
+    name,
+  }: GetGamesFromChosenCasinoProps) => void;
+  getGames: (selectedPage?: string) => void;
+  bottomSheetRowClick: (row: any) => void;
+};

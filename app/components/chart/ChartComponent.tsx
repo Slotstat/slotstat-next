@@ -19,7 +19,6 @@ import ActionPane, {
   DateFilterForChart,
 } from "./ActionPane";
 import useStore from "@/app/(store)/store";
-// import BottomSheetModal from "../BottomSheetModal";
 import getStatistics from "@/lib/clientSide/getStatistics";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
@@ -28,6 +27,7 @@ import TooltipComponent from "../TooltipComponent";
 // import useQueryParams from "@/app/utils/useQueryParams";
 import moment from "moment";
 import { useQueryState } from "nuqs";
+import BottomSheetModal from "../BottomSheetModal";
 
 am4core.useTheme(am4themes_animated);
 am4core.addLicense("ch-custom-attribution");
@@ -564,13 +564,13 @@ const ChartComponent = ({
         </div>
       </div>
       <div className="z-50">
-        {/* <BottomSheetModal
+        <BottomSheetModal
           open={open}
           setOpen={setOpen}
           onAddToCompare={onAddToCompare}
           gameId={gameId}
           isFiat={isFiat || "false"}
-        /> */}
+        />
       </div>
     </>
   );

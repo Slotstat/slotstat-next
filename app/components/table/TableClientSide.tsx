@@ -55,30 +55,23 @@ export default function TableClientSide({
 
   return (
     <>
-      {!loading && games ? (
-        <Table
-          keyWord={keyWord}
-          orderBy={orderBy}
-          direction={direction}
-          showFilter={true}
-          isFiat={isFiat || "false"}
-          showCryptoFiatSwitcher={true}
-          setIsFiatState={setIsFiatState}
-          gamesList={games}
-          setScrollY={setScrollY}
-          getGames={getGames}
-        />
-      ) : (
-        <SkeletonTheme baseColor="#24262C" highlightColor="#444">
-          <section>
-            <Skeleton count={1} className="h-20 mb-5" />
-            <Skeleton count={1} className="h-20 mb-5" />
-            <Skeleton count={1} className="h-20 mb-5" />
-            <Skeleton count={1} className="h-20 mb-5" />
-            <Skeleton count={1} className="h-20 mb-5" />
-          </section>
-        </SkeletonTheme>
-      )}
+      <Table
+        keyWord={keyWord}
+        orderBy={orderBy}
+        direction={direction}
+        showFilter={showFilter}
+        isFiat={isFiat || "false"}
+        showCryptoFiatSwitcher={showCryptoFiatSwitcher}
+        setIsFiatState={setIsFiatState}
+        gamesList={games}
+        setScrollY={setScrollY}
+        getGames={getGames}
+        onAddToCompare={onAddToCompare}
+        getGamesFromChosenCasino={getGamesFromChosenCasino}
+        setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+        setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
+        loading={loading}
+      />
     </>
   );
 }
