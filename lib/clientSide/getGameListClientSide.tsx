@@ -31,8 +31,8 @@ export default async function getGameListClientSide({
   } else if (orderBy === "spsL" || orderBy === "spsH") {
     orderBy = "sps";
   }
-  // console.log("444", `/api/Game/aggregated?` + ids);
-  // console.log("orderby", orderBy);
+
+
   try {
     const res = await slotStatClientInstance().request({
       url: `/api/Game/aggregated?` + ids,
@@ -47,7 +47,7 @@ export default async function getGameListClientSide({
         page: page || 1,
       },
     });
-    console.log("rowCount", res.data.rowCount);
+
     if (res.status != 200) throw new Error("Can't successfully fetch data");
 
     return res.data;

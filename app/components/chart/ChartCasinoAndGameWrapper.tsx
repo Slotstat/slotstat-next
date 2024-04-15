@@ -26,10 +26,10 @@ export default function ChartCasinoAndGameWrapper({
   casinoCardsData,
   casinoBonuses,
 }: {
-  orderBy?: string;
-  keyWord?: string;
-  direction?: string;
-  isFiat?: string;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
+  isFiat?: string | null;
   ActiveTab: string;
   casinoCards: Card[];
   casino: CasinoData;
