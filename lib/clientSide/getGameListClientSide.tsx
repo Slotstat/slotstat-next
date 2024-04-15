@@ -7,6 +7,7 @@ export default async function getGameListClientSide({
   orderBy,
   isFiat,
   page,
+  ids,
 }: QueryParams) {
   if (
     orderBy === "slotInLooseR" ||
@@ -30,21 +31,23 @@ export default async function getGameListClientSide({
   } else if (orderBy === "spsL" || orderBy === "spsH") {
     orderBy = "sps";
   }
-
+  // console.log("444", `/api/Game/aggregated?` + ids);
+  // console.log("orderby", orderBy);
   try {
     const res = await slotStatClientInstance().request({
-      url: `/api/Game/aggregated`,
+      url: `/api/Game/aggregated?` + ids,
       method: "GET",
       params: {
-        keyWord,
+        keyWord: keyWord || null,
         ord: orderBy || null,
-        direction: direction,
+        direction: direction || null,
         isCrypto: isFiat === "false" ? true : null,
         isFiat: isFiat === "true" ? true : null,
         pageSize: 50,
         page: page || 1,
       },
     });
+    console.log("rowCount", res.data.rowCount);
     if (res.status != 200) throw new Error("Can't successfully fetch data");
 
     return res.data;

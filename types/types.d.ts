@@ -224,6 +224,7 @@ type QueryParams = {
   compareGameId?: string;
   ActiveTab?: string;
   page?: string;
+  ids?: string;
 };
 
 interface CasinoData extends GameData {
