@@ -14,7 +14,7 @@ export default function privacyPolicy() {
         </p>
         <p className="mb-5">
           This Privacy Policy (“Privacy Policy”) covers your access and use of
-          this Website, SlotStat.com (the “Website”), as well as
+          this Website, SlotStat.net (the “Website”), as well as
           associated/affiliated sites/domains and/or services, software, and
           mobile applications (collectively, the “Service”).
         </p>
@@ -31,7 +31,9 @@ export default function privacyPolicy() {
           By using our Website or our Services, you are agreeing to be bound by
           this Privacy Policy.
         </p>
-        <p>What Information Do We Collect?</p>
+        <p className="text-xl font-bold mb-2">
+          What Information Do We Collect?
+        </p>
         <p className="mb-5">
           SlotStat (“SlotStat”, “we”, the company, Gembling Herald Limited LLC,
           or “us”) collects (a) the e-mail addresses of those who communicate
@@ -45,7 +47,7 @@ export default function privacyPolicy() {
           your email address and your Wallet ID if you decide to participate in
           any of our campaigns.
         </p>
-        <p>How Do We Use the Information?</p>
+        <p className="text-xl font-bold mb-2">How Do We Use the Information?</p>
         <p>SlotStat uses collected information for the following purposes:</p>
         <ol>
           <li className="mb-3">
@@ -87,7 +89,9 @@ export default function privacyPolicy() {
           </li>
         </ol>
 
-        <p>How Do We Share Your Information?</p>
+        <p className="text-xl font-bold mb-2">
+          How Do We Share Your Information?
+        </p>
         <p>
           We do not sell your personal data to other organizations for
           commercial purposes. We also only share your personal information to
@@ -129,7 +133,7 @@ export default function privacyPolicy() {
             traced back to any individual.
           </li>
         </ol>
-        <p>Security</p>
+        <p className="text-xl font-bold mb-2">Security</p>
         <p>
           We take precautions to ensure the security of your personal
           information. We ensure that our Website is protected by reasonable
@@ -142,7 +146,9 @@ export default function privacyPolicy() {
           users. You should never transmit personal or identifying information
           to other users.
         </p>
-        <p>Retention of Your Personal Information</p>
+        <p className="text-xl font-bold mb-2">
+          Retention of Your Personal Information
+        </p>
         <p>
           We retain information as long as it is necessary to provide the
           Services requested by you and others, subject to any legal obligations
@@ -156,7 +162,7 @@ export default function privacyPolicy() {
           permitted by law. The information we retain will be handled in
           accordance with this Privacy Policy.
         </p>
-        <p>children</p>
+        <p className="text-xl font-bold mb-2">children</p>
         <p>
           We do not knowingly collect information from children under the age of
           18. Children aged 17 or younger should not submit any personal
@@ -164,7 +170,7 @@ export default function privacyPolicy() {
           using the SlotStat service, you are representing that you are at least
           18 years old.
         </p>
-        <p>EU and EEA Users’ Rights</p>
+        <p className="text-xl font-bold mb-2">EU and EEA Users’ Rights</p>
         <p>
           If you are a resident of the European Economic Area, you generally
           have the right to access, rectify, download or erase your information,
@@ -184,7 +190,7 @@ export default function privacyPolicy() {
           e-mails. Transactional account messages will be unaffected even if you
           opt out from marketing communications.
         </p>
-        <p>Complaints</p>
+        <p className="text-xl font-bold mb-2">Complaints</p>
         <p>
           Should you wish to raise a concern about our use of your information
           (and without prejudice to any other rights you may have), you have the
@@ -192,7 +198,7 @@ export default function privacyPolicy() {
           that we can assist with any queries or concerns you may have about our
           use of your personal data.
         </p>
-        <p>Your California Privacy Rights</p>
+        <p className="text-xl font-bold mb-2">Your California Privacy Rights</p>
         <p>
           Slotstat may have collected, used, and shared, for business purposes,
           personal information about you as described in this Privacy Policy.
@@ -202,12 +208,12 @@ export default function privacyPolicy() {
           deletion of the information Gambling Herald Limited LLC holds about
           them. Such requests may be submitted by email.
         </p>
-        <p>Changes</p>
+        <p className="text-xl font-bold mb-2">Changes</p>
         <p className="mb-5">
           Slotstat may periodically update this policy as deemed necessary. You
           may access this Policy at any time through our website.
         </p>
-        <p>Effective Date: May 18, 2023.</p>
+        <p>Effective Date: May 18, 2024.</p>
       </div>
     </>
   );

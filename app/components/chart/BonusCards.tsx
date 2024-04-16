@@ -43,7 +43,7 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
               onClick={() =>
                 window.open(card.redirectUrl, "_blank", "noreferrer")
               }
-              className="w-full h-10 px-6 py-2  rounded-md text-base font-medium text-white bg-green1 hover:bg-green1 focus:outline-none focus:ring-2 focus:ring-green1 focus:ring-offset-2 appearance-none"
+              className="w-full h-10 px-6 py-2  rounded-md text-base font-medium text-white bg-green1 hover:bg-green2 focus:outline-none focus:ring-2 focus:ring-green1 focus:ring-offset-2 appearance-none"
             >
               Get Bonus
             </button>
@@ -61,7 +61,9 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
           <div className="flex flex-row justify-between ">
             <span className="text-xs text-grey1">Expire date:</span>
             <span className="text-xs text-white">
-              {moment(card.expireDate).format("DD MMM. YYYY")}
+              {card.expireDate
+                ? moment(card.expireDate).format("DD MMM. YYYY")
+                : "Not specified"}
             </span>
           </div>
         </div>

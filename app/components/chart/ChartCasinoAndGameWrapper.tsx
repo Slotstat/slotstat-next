@@ -107,7 +107,7 @@ export default function ChartCasinoAndGameWrapper({
           </div>
         </>
       ) : screen === "casino" ? (
-        <div className="mt-72">
+        <div className=" mt-48 md:mt-72">
           {!!casinoCards && casId && (
             <LiveCards
               cardsData={casinoCards}
@@ -122,18 +122,18 @@ export default function ChartCasinoAndGameWrapper({
               info
             </div>
           )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
+          <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-18">
             <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
           </div>
         </div>
       ) : (
-        <div className="mt-72">
+        <div className="mt-48 md:mt-72">
           {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
           )}
-          <div className="text-grey1 text-base mb-8 lg:mb-12 ">
+          <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-12 ">
             We publish information about slot games, payout percentage, number
             of winning spins and jackpotsWe publish information about slot
             games, payout percentage, number of winning spins and jackpotsWe

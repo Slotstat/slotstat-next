@@ -184,10 +184,15 @@ export default function RenderRowCells({
     return (
       <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
         <div className=" flex flex-row">
-          <p className="mr-1">{casinoName}</p>
+          <p className="mr-1" title={bounties}>
+            {casinoName}
+          </p>
           {verificationStatus == 1 && <Verified />}
         </div>
-        <p className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base">
+        <p
+          title={bounties}
+          className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base"
+        >
           {bounties}
         </p>
       </div>
