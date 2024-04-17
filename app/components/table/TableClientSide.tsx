@@ -1,8 +1,9 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import { useQueryState } from "nuqs";
+import { useGamesListStore } from "@/app/(store)/store";
 
 export default function TableClientSide({
   showFilter = false,
@@ -13,15 +14,16 @@ export default function TableClientSide({
   setIsFiatState,
   gameId,
 }: TableWrapperProps) {
+  const { gamesList, setGames, handleRecall, setHandleRecall } =
+    useGamesListStore();
   const [scrollY, setScrollY] = useState<number | null>(null);
-  const [games, setGames] = useState<gamesList>();
   const [loading, setLoading] = useState(false);
   const [firstPageIds, setFirstPageIds] = useState<string>("");
   const [keyWord] = useQueryState("keyWord");
   const [orderBy] = useQueryState("orderBy");
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
-
+  const [hasComponentMounted, setHasComponentMounted] = useState(false);
   const getGames = async (page?: string) => {
     !keyWord && setLoading(true);
 
@@ -61,20 +63,40 @@ export default function TableClientSide({
         .indexOf(gameId);
       ~removeIndex && games.results.splice(removeIndex, 1);
     }
-
     setGames(games);
     setLoading(false);
   };
 
   useEffect(() => {
-    getGames();
+    if (hasComponentMounted) {
+      const fetchData = () => {
+        getGames();
+      };
+
+      fetchData();
+    } else {
+      setHasComponentMounted(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyWord, orderBy, direction, isFiat]);
+
+  useEffect(() => {
+    if (!handleRecall) {
+      setHandleRecall(true);
+      getGames();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const persistentScroll = scrollY;
     if (persistentScroll === null) return;
 
     window.scrollTo({ top: Number(scrollY) });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, orderBy, direction, isFiat, scrollY]);
+  }, [scrollY]);
 
+  // console.log("3333", gamesList);
   return (
     <>
       <Table
@@ -85,7 +107,7 @@ export default function TableClientSide({
         isFiat={isFiat || "false"}
         showCryptoFiatSwitcher={showCryptoFiatSwitcher}
         setIsFiatState={setIsFiatState}
-        gamesList={games}
+        gamesList={gamesList}
         setScrollY={setScrollY}
         getGames={getGames}
         onAddToCompare={onAddToCompare}
