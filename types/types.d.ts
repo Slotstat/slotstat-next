@@ -250,10 +250,10 @@ interface CasinoData extends GameData {
 type TableWrapperProps = {
   showFilter: boolean;
   onAddToCompare?: (gameId: GameData) => void;
-  orderBy?: string | null;
-  keyWord?: string | null;
-  direction?: string | null;
-  isFiat?: string;
+  orderByBottomsheet?: string | null;
+  keyWordBottomsheet?: string | null;
+  directionBottomsheet?: string | null;
+  isFiatBottomsheet?: string;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
   showCryptoFiatSwitcher?: boolean;
@@ -266,6 +266,10 @@ interface TableProps extends TableWrapperProps {
   setScrollY: (text: number) => void;
   getGames: (selectedPage?: string) => void;
   loading: boolean;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
+  isFiat?: string;
 }
 
 type TableIn = {

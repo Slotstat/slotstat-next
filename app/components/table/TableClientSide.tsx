@@ -13,6 +13,10 @@ export default function TableClientSide({
   showCryptoFiatSwitcher,
   setIsFiatState,
   gameId,
+  orderByBottomsheet,
+  keyWordBottomsheet,
+  directionBottomsheet,
+  isFiatBottomsheet,
 }: TableWrapperProps) {
   const { gamesList, setGames, handleRecall, setHandleRecall } =
     useGamesListStore();
@@ -25,14 +29,16 @@ export default function TableClientSide({
   const [isFiat] = useQueryState("isFiat");
   const [hasComponentMounted, setHasComponentMounted] = useState(false);
   const getGames = async (page?: string) => {
-    !keyWord && setLoading(true);
+    setLoading(true);
+    const checkedKeyword = keyWord || keyWordBottomsheet;
+    const checkedOrderBy = orderBy || orderByBottomsheet;
 
     const gamesListData: Promise<gamesList> = getGameListClientSide({
-      orderBy,
-      keyWord: !!keyWord ? keyWord : undefined,
+      orderBy: checkedOrderBy,
+      keyWord: checkedKeyword,
       page,
       isFiat,
-      ids: orderBy || keyWord ? "" : firstPageIds,
+      ids: checkedKeyword || checkedOrderBy ? "" : firstPageIds,
       // direction,
     });
 
@@ -47,12 +53,12 @@ export default function TableClientSide({
       setFirstPageIds(firstPageGameIds);
     }
 
-    if (orderBy === "spsH") {
+    if (checkedOrderBy === "spsH") {
       const filteredGames = games.results.filter((item) => item.sps > 0);
 
       games.results = filteredGames;
     }
-    if (orderBy === "spsL") {
+    if (checkedOrderBy === "spsL") {
       const filteredGames = games.results.filter((item) => item.sps < 0);
       games.results = filteredGames;
     }
@@ -79,7 +85,16 @@ export default function TableClientSide({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, orderBy, direction, isFiat]);
+  }, [
+    keyWord,
+    orderBy,
+    direction,
+    isFiat,
+    orderByBottomsheet,
+    keyWordBottomsheet,
+    directionBottomsheet,
+    isFiatBottomsheet,
+  ]);
 
   useEffect(() => {
     if (!handleRecall) {
@@ -96,15 +111,10 @@ export default function TableClientSide({
     window.scrollTo({ top: Number(scrollY) });
   }, [scrollY]);
 
-  // console.log("3333", gamesList);
   return (
     <>
       <Table
-        keyWord={!!keyWord ? keyWord : undefined}
-        orderBy={orderBy}
-        direction={direction}
         showFilter={showFilter}
-        isFiat={isFiat || "false"}
         showCryptoFiatSwitcher={showCryptoFiatSwitcher}
         setIsFiatState={setIsFiatState}
         gamesList={gamesList}

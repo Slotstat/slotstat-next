@@ -64,13 +64,7 @@ export default async function Home({
       <LiveCards cardsData={landingCards} />
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
-        <TableClientSide
-          orderBy={orderBy}
-          direction={direction}
-          showFilter={true}
-          isFiat={isFiat || "false"}
-          showCryptoFiatSwitcher={true}
-        />
+        <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
       </div>
     </>
   );

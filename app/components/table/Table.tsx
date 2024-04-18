@@ -14,7 +14,6 @@ const Table = ({
   gamesList,
   showFilter = false,
   onAddToCompare,
-
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
   showCryptoFiatSwitcher,

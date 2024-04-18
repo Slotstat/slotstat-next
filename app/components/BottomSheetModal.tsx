@@ -84,14 +84,14 @@ const BottomSheetModal = ({
 
           <div className="py-4 lg:py-8">
             <TableClientSide
-              keyWord={keyWord}
-              orderBy={orderBy}
-              // direction={direction}
+              keyWordBottomsheet={keyWord}
+              orderByBottomsheet={orderBy}
+              // directionBottomsheet={direction}
+              isFiatBottomsheet={isFiatState}
               showFilter={true}
               onAddToCompare={onAddToCompareAndClearBottomSheet}
               setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
               setOrderByKeyInBottomSheet={(order) => order && setOrderBy(order)}
-              isFiat={isFiatState}
               setIsFiatState={(isFiatState) => setIsFiatState(isFiatState)}
               showCryptoFiatSwitcher={true}
               gameId={gameId}
