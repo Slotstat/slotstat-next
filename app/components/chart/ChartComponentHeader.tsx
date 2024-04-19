@@ -29,7 +29,7 @@ export default function ChartComponentHeader({
   const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } = gameObj;
 
   const listenScrollEvent = () => {
-    window.scrollY > 170 ? setShowSmallHeader(true) : setShowSmallHeader(false);
+    window.scrollY > 247 ? setShowSmallHeader(true) : setShowSmallHeader(false);
     window.scrollY > 220 ? setHeaderSize("h-16") : setHeaderSize("h-24");
   };
 
@@ -51,6 +51,7 @@ export default function ChartComponentHeader({
 
   const buttons = () => (
     <div className="flex w-full justify-between md:w-auto">
+      {/* {!showSmallHeader && ( */}
       <div>
         <FiatCryptoButton
           title={"Slot"}
@@ -83,6 +84,7 @@ export default function ChartComponentHeader({
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>
+      {/* )} */}
       <a
         href={redirectUrl}
         target="_blank"
@@ -99,7 +101,7 @@ export default function ChartComponentHeader({
       <div
         className={`${
           showSmallHeader ? " hidden md:flex" : "hidden"
-        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full mt-15 flex-col justify-end fixed z-[2] `}
+        } transition-all duration-300 top-0  right-0 left-0 ${headerSize} w-full  flex-col justify-end fixed z-[2] `}
       >
         <div
           className={`transition-all duration-300 ${headerSize} w-full  flex items-center justify-center bg-dark1/90 px-4 md:px-0`}
