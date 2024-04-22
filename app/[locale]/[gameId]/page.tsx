@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: { gameId, locale },
   searchParams: { orderBy, keyWord, direction, isFiat, casId },
 }: {
-  params: { casinoId: string; gameId: string; locale: string };
+  params: { casinoId: string; gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
   try {
@@ -66,7 +66,7 @@ export default async function gamePage({
     casId,
   },
 }: {
-  params: { gameId: string; locale: string };
+  params: { gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
   let mainGameObj: GameData | null = null;

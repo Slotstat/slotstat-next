@@ -1,7 +1,7 @@
 import slotStatClient from "./instance";
 
 export default async function getCasinos(
-  locale: string | undefined,
+  locale: "en" | "ka" | undefined,
   { orderBy, keyWord, direction, isFiat }: QueryParams
 ) {
   try {

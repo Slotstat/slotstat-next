@@ -44,8 +44,8 @@ const SPS = ({
     setPrevRTP(previousValue);
   }, [previousValue]);
 
-  const colorIndicator =
-    prevRTP < RTP ? "text-green1" : prevRTP > RTP ? " text-red" : "text-white";
+  // const colorIndicator =
+  //   prevRTP < RTP ? "text-green1" : prevRTP > RTP ? " text-red" : "text-white";
 
   // const renderDifferenceNow = () => {
   //   if (RTP > preferredValue) {
@@ -56,15 +56,51 @@ const SPS = ({
   //     return <div>neutral</div>;
   //   }
   // };
+  const renderPrevSPS = () => {
+    if (prevRTP > preferredValue) {
+      return <div>PS - {(prevRTP - preferredValue).toFixed(2)}%</div>;
+    } else if (prevRTP < preferredValue) {
+      return <div>PS + {(preferredValue - prevRTP).toFixed(2)}%</div>;
+    } else {
+      return <div>neutral</div>;
+    }
+  };
+
+  const renderSPSDiff = () => {
+    const prevSPS = () => {
+      if (prevRTP > preferredValue) {
+        return -(prevRTP - preferredValue);
+      } else if (prevRTP < preferredValue) {
+        return preferredValue - prevRTP;
+      } else {
+        return 0;
+      }
+    };
+    const spsDiff = sps - prevSPS();
+    const colorIndicator =
+      spsDiff > 0 ? "text-green1" : spsDiff < 0 ? " text-red" : "text-white";
+    return (
+      <div>
+        <div className={`${colorIndicator} text-xs text-end`}>
+          {spsDiff > 0 && "+"}
+          {spsDiff.toFixed(2)}%
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
       {/* {renderDifferenceNow()} */}
       <div>
         {sps > 0 && "+"}
-        {sps}
+        {sps}%
       </div>
-
+      {/* {renderPrevSPS()} */}
+      {renderSPSDiff()}
+      {/* <div>R{RTP}</div>
+      <div>PR{prevRTP}</div>
+      // difference between PrevRTP and NowRTP
       <div className={`${colorIndicator} text-xs text-end`}>
         {prevRTP < RTP
           ? "+" + (RTP - prevRTP).toFixed(2)
@@ -72,7 +108,7 @@ const SPS = ({
           ? "-" + (prevRTP - RTP).toFixed(2)
           : 0}
         %
-      </div>
+      </div> */}
     </div>
   );
 };

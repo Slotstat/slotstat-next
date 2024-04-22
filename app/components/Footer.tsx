@@ -1,7 +1,7 @@
 "use client";
 import { logo, slotLogo } from "../assets";
 import SubscribeButton from "./SubscribeButton";
-import Link from "next-intl/link";
+
 // import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -10,6 +10,7 @@ import {
   AccordionItem as RItem,
 } from "@szhsin/react-accordion";
 import { useEffect } from "react";
+import { Link } from "@/navigation";
 
 const Footer = () => {
   const t = useTranslations("navbar");

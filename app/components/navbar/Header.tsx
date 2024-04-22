@@ -1,14 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { usePathname } from "next-intl/client";
-import Link from "next-intl/link";
-// import { Collapse } from "@material-tailwind/react";
-
 import { logoSmall, menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
-// import LanguageToggleButton from "./LanguageToggleButton";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next-intl/client";
+import { usePathname, useRouter } from "next/navigation";
+import { Link } from "@/navigation";
+// import { Collapse } from "@material-tailwind/react";
+// import LanguageToggleButton from "./LanguageToggleButton";
+// import { useRouter } from "next-intl/client";
 
 const NavList = () => {
   const t = useTranslations("navbar");
@@ -93,20 +92,20 @@ const Header = () => {
               className=" cursor-pointer flex items-center"
               onClick={() => handleReload()}
             > */}
-              <Image
-                className="hidden md:flex"
-                src={slotLogo}
-                alt="logo of slotstat"
-                width={140}
-                height={40}
-              />
-              <Image
-                className="flex md:hidden"
-                src={logoSmall}
-                alt="logo of slotstat"
-                width={36}
-                height={36}
-              />
+            <Image
+              className="hidden md:flex"
+              src={slotLogo}
+              alt="logo of slotstat"
+              width={140}
+              height={40}
+            />
+            <Image
+              className="flex md:hidden"
+              src={logoSmall}
+              alt="logo of slotstat"
+              width={36}
+              height={36}
+            />
             {/* </div> */}
           </Link>
           <div className="flex items-center">

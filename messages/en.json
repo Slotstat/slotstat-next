@@ -101,9 +101,9 @@
     "RTP": "RTP",
     "highestRTP": "Highest RTP",
     "slotInWinR": "Slots In Win (random)",
-    "slotsInLooseR": "Slots in loose (random)",
+    "slotsInLooseR": "Slots in lose (random)",
     "slotInWin": "Slots In Win",
-    "slotsInLoose": "Slots in loose"
+    "slotsInLoose": "Slots in lose"
   },
 
   "searchPlaceholder": "Search game, casino or provider",

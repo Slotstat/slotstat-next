@@ -28,7 +28,7 @@ export default function IntroComponent() {
   return (
     <div>
       <div className="flex justify-between text-grey1">
-        <p>Study SlotStat Mechanics via</p>
+        <p className="">Study SlotStat Mechanics via</p>
         <div className="flex items-center">
           <p className="mr-2">Video tutorial</p>
           <Switch

@@ -6,7 +6,7 @@ import IntroComponent from "../components/IntroComponent";
 import TableClientSide from "../components/table/TableClientSide";
 type Params = {
   params: {
-    locale: string;
+    locale: "en" | "ka";
   };
   searchParams: QueryParams;
 };

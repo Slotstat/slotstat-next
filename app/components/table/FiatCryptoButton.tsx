@@ -19,7 +19,7 @@ export default function FiatCryptoButton(props: any) {
       className={`
       ${props.active || isHovered ? "bg-blue3" : "bg-grey3"} 
       ${props.className}
-      text-gray-800 font-bold px-4 rounded-lg inline-flex items-center`}
+      text-gray-800 px-4 rounded-lg inline-flex items-center`}
     >
       <span
         className={`${

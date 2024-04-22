@@ -1,7 +1,7 @@
 import "../globals.css";
 import { ReactNode } from "react";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Header from "../components/navbar/Header";
 import Footer from "../components/Footer";
 import JackpotNotification from "../components/JackpotNotification";
@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 import CookieNotification from "../components/CookieNotification";
 import { cookies } from "next/headers";
 import GoogleAnalytics from "../components/GoogleAnalytics";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
@@ -26,9 +27,28 @@ export const metadata: Metadata = {
   openGraph: {
     images: "../opengraph-image.png",
   },
-  viewport:
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  // viewport:
+  //   "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1.0,
+  userScalable: false,
+};
+
+const modernistRegular = localFont({
+  src: [{ path: "../../public/fonts/Sk-Modernist-Regular.otf" }],
+  variable: "--font-Modernist-Regular",
+  display: "swap",
+});
+
+// const modernistBold = localFont({
+//   src: [{ path: "../../public/fonts/Sk-Modernist-Bold.otf" }],
+//   variable: "--font-Modernist-Bold",
+//   display: "swap",
+// });
 
 export default async function RootLayout({
   children,
@@ -46,7 +66,7 @@ export default async function RootLayout({
   const uniqueId = cookies().get("uniqueId")?.value;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${modernistRegular.variable}`}>
       <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>

@@ -1,6 +1,6 @@
 import slotStatClient from "./instance";
 
-export default async function getCasinoBonuses(locale: string, casinoId: string) {
+export default async function getCasinoBonuses(locale: "en" | "ka", casinoId: string) {
   try {
     const res = await slotStatClient(locale).request({
       url: `/api/casino/bonus/${casinoId}`,

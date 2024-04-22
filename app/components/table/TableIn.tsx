@@ -8,14 +8,12 @@ import {
 import { back } from "../../assets";
 import Image from "next/image";
 import RenderRowCells from "./RenderRowCells";
-
 import _ from "lodash";
-// import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
 import { casinoOrGameColumns } from "./columns";
-
-import Link from "next/link";
+import { Link } from "@/navigation";
+// import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 
 export default function TableIn({
   gamesList,
@@ -115,7 +113,7 @@ export default function TableIn({
                               </div>
                             ) : (
                               <Link
-                                href={`${row.original.gameId}?casId=${
+                                href={`/${row.original.gameId}?casId=${
                                   row.original.casinoId
                                 }&isFiat=${isFiat || "false"}`}
                                 className=" h-full flex items-center "

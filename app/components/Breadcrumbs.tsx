@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/navigation";
 import ForwardIcon from "@/app/assets/svg/ForwardIcon";
 
 type breadcrumbsType = { name: string; url?: string }[];
