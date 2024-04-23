@@ -76,9 +76,20 @@ const SPS = ({
         return 0;
       }
     };
-    const spsDiff = sps - prevSPS();
-    const colorIndicator =
-      spsDiff > 0 ? "text-green1" : spsDiff < 0 ? " text-red" : "text-white";
+
+    let spsDiff: number;
+    let colorIndicator: string;
+    if (sps > prevSPS()) {
+      spsDiff = sps - prevSPS();
+      colorIndicator = "text-green1";
+    } else if (sps < prevSPS()) {
+      spsDiff = sps - prevSPS();
+      colorIndicator = "text-red";
+    } else {
+      spsDiff = 0;
+      colorIndicator = "text-white";
+    }
+
     return (
       <div>
         <div className={`${colorIndicator} text-xs text-end`}>
@@ -96,7 +107,7 @@ const SPS = ({
         {sps > 0 && "+"}
         {sps}%
       </div>
-      {/* {renderPrevSPS()} */}
+      {/* <div>{renderPrevSPS()}</div> */}
       {renderSPSDiff()}
       {/* <div>R{RTP}</div>
       <div>PR{prevRTP}</div>
