@@ -10,9 +10,9 @@ export default async function getGameListClientSide({
   ids,
 }: QueryParams) {
   if (
-    orderBy === "slotInLooseR" ||
+    orderBy === "slotInLoseR" ||
     orderBy === "fixedRtp" ||
-    orderBy === "slotInLoose" ||
+    orderBy === "slotInLose" ||
     orderBy === "spsH"
   ) {
     direction = "desc";
@@ -24,9 +24,9 @@ export default async function getGameListClientSide({
     direction = "asc";
   }
 
-  if (orderBy === "slotInWinR" || orderBy === "slotInLooseR") {
+  if (orderBy === "slotInWinR" || orderBy === "slotInLoseR") {
     orderBy = "rtpState";
-  } else if (orderBy === "slotInWin" || orderBy === "slotInLoose") {
+  } else if (orderBy === "slotInWin" || orderBy === "slotInLose") {
     orderBy = "currencRtp";
   } else if (orderBy === "spsL" || orderBy === "spsH") {
     orderBy = "sps";

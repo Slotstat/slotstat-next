@@ -6,18 +6,18 @@ export default async function getGamesList(
   { keyWord, direction, orderBy, isFiat }: QueryParams
 ) {
   if (
-    orderBy === "slotInLooseR" ||
+    orderBy === "slotInLoseR" ||
     orderBy === "fixedRtp" ||
-    orderBy === "slotInLoose"
+    orderBy === "slotInLose"
   ) {
     direction = "desc";
   } else if (orderBy === "slotInWinR" || orderBy === "slotInWin") {
     direction = "asc";
   }
 
-  if (orderBy === "slotInWinR" || orderBy === "slotInLooseR") {
+  if (orderBy === "slotInWinR" || orderBy === "slotInLoseR") {
     orderBy = "rtpState";
-  } else if (orderBy === "slotInWin" || orderBy === "slotInLoose") {
+  } else if (orderBy === "slotInWin" || orderBy === "slotInLose") {
     orderBy = "currencRtp";
   }
 

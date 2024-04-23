@@ -35,7 +35,7 @@ export default function RTP({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const slotIsLoosing = t("CasinoIsLosing");
+  const slotIsLosing = t("CasinoIsLosing");
   const slotIsInProfit = t("CasinoIsInProfit");
   const neutral = t("neutral");
 
@@ -136,7 +136,7 @@ export default function RTP({
                   neutral
                 ) : RTP > gameObject?.rtp?.preferredValue ? (
                   <>
-                    {slotIsLoosing}{" "}
+                    {slotIsLosing}{" "}
                     <tspan fill="#fff">
                       {(RTP - gameObject?.rtp?.preferredValue).toFixed(2)}%
                     </tspan>
@@ -248,10 +248,10 @@ export default function RTP({
     min: number;
   }) => {
     if (value > preferredValue) {
-      const casinoLoosingIndicatorSizeCounter =
+      const casinoLosingIndicatorSizeCounter =
         RTPCenterAngle +
         (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
-      setAngle(casinoLoosingIndicatorSizeCounter);
+      setAngle(casinoLosingIndicatorSizeCounter);
     } else if (value < preferredValue) {
       const casinoWiningIndicatorSizeCounter =
         RTPCenterAngle -

@@ -15,12 +15,12 @@ const Dropdown = ({
   const SORT_BY = [
     { label: t("AllSlots"), id: "0", value: "" },
     { label: t("slotInWin"), id: "6", value: "spsH" },
-    { label: t("slotsInLoose"), id: "6", value: "spsL" },
+    { label: t("slotsInLose"), id: "6", value: "spsL" },
     { label: t("highestRTP"), id: "1", value: "fixedRtp" },
     // { label: t("slotInWin"), id: "4", value: "slotInWin" },
-    // { label: t("slotsInLoose"), id: "5", value: "slotInLoose" },
+    // { label: t("slotsInLose"), id: "5", value: "slotInLose" },
     // { label: t("slotInWinR"), id: "2", value: "slotInWinR" },
-    // { label: t("slotsInLooseR"), id: "3", value: "slotInLooseR" },
+    // { label: t("slotsInLoseR"), id: "3", value: "slotInLoseR" },
     // old
     // { label: t("t1hLong"), id: "8", value: "p1h" },
     // { label: t("t24hLong"), id: "9", value: "p24h" },

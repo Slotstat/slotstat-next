@@ -101,9 +101,9 @@
     "RTP": "RTP",
     "highestRTP": "Highest RTP",
     "slotInWinR": "Slots In Win (random)",
-    "slotsInLooseR": "Slots in lose (random)",
+    "slotsInLoseR": "Slots in lose (random)",
     "slotInWin": "Slots In Win",
-    "slotsInLoose": "Slots in lose"
+    "slotsInLose": "Slots in lose"
   },
 
   "searchPlaceholder": "Search game, casino or provider",
@@ -126,7 +126,7 @@
     "provideInfo": "We will provide RTP Information soon",
     "Compare": "Compare",
     "neutral": "Neutral",
-    "CasinoIsLosing": "Slot is in loos",
+    "CasinoIsLosing": "Slot is in los",
     "CasinoIsInProfit": "Slot is in profit",
     "close": "Close"
   },

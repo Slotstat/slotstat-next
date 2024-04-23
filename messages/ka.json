@@ -101,9 +101,9 @@
     "RTP": "RTP",
     "highestRTP": "Highest RTP",
     "slotInWinR": "Slots In Win (random)",
-    "slotsInLooseR": "Slots in lose (random)",
+    "slotsInLoseR": "Slots in lose (random)",
     "slotInWin": "Slots In Win ",
-    "slotsInLoose": "Slots in lose"
+    "slotsInLose": "Slots in lose"
   },
   "searchPlaceholder": "მოძებნე კაზინო, თამაში ან პროვაიდერი",
   "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",

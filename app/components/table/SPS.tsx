@@ -79,6 +79,7 @@ const SPS = ({
 
     let spsDiff: number;
     let colorIndicator: string;
+
     if (sps > prevSPS()) {
       spsDiff = sps - prevSPS();
       colorIndicator = "text-green1";
@@ -107,7 +108,7 @@ const SPS = ({
         {sps > 0 && "+"}
         {sps}%
       </div>
-      {/* <div>{renderPrevSPS()}</div> */}
+      <div>{renderPrevSPS()}</div>
       {renderSPSDiff()}
       {/* <div>R{RTP}</div>
       <div>PR{prevRTP}</div>

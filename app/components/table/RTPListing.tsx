@@ -23,7 +23,7 @@ export default function RTPListing({ rtp }: RTPListingProps) {
 
   const RTPindicatorWidth = 80;
 
-  const casinoLoosingIndicatorSizeCounter =
+  const casinoLosingIndicatorSizeCounter =
     (RTP - preferredValue) * (RTPindicatorWidth / (max - preferredValue));
   const casinoWiningIndicatorSizeCounter =
     (preferredValue - RTP) * (RTPindicatorWidth / (preferredValue - min));
@@ -60,7 +60,7 @@ export default function RTPListing({ rtp }: RTPListingProps) {
             initial={false}
             animate={{
               width:
-                RTP > preferredValue ? casinoLoosingIndicatorSizeCounter : 0,
+                RTP > preferredValue ? casinoLosingIndicatorSizeCounter : 0,
             }}
           ></motion.div>
         </div>
