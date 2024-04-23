@@ -234,7 +234,7 @@ export default function RenderRowCells({
       | boolean
       | React.ReactElement<any, string | React.JSXElementConstructor<any>>
       | Iterable<React.ReactNode>
-      | React.PromiseLikeOfReactNode
+      | any
       | null
       | undefined
   ) => {

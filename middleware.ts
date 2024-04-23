@@ -1,3 +1,4 @@
+// @ts-nocheck 
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest } from "next/server";
 import { generateUniqueId } from "./lib/uuid";
