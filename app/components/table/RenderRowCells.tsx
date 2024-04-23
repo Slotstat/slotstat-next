@@ -90,7 +90,7 @@ const CountUpForJackpots = ({
   );
 };
 
-export default function RenderRowCells({
+const RenderRowCells = ({
   row,
   cell,
   index,
@@ -98,7 +98,7 @@ export default function RenderRowCells({
   cell: Cell<GameData, any>;
   row: Row<GameData>;
   index: number;
-}) {
+}) => {
   const t = useTranslations("table");
 
   const {
@@ -317,4 +317,6 @@ export default function RenderRowCells({
     default:
       return renderEmptyValue();
   }
-}
+};
+
+export default RenderRowCells;

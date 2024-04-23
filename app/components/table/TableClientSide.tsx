@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Table from "./Table";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import { useQueryState } from "nuqs";
@@ -19,7 +19,7 @@ export default function TableClientSide({
   isFiatBottomsheet,
 }: TableWrapperProps) {
   const { gamesList, setGames, handleRecall, setHandleRecall } =
-    useGamesListStore();
+  useGamesListStore();
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [firstPageIds, setFirstPageIds] = useState<string>("");
@@ -28,6 +28,8 @@ export default function TableClientSide({
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
   const [hasComponentMounted, setHasComponentMounted] = useState(false);
+  const isMountedRef = useRef(false);
+  
   const getGames = async (page?: string) => {
     setLoading(true);
     const checkedKeyword = keyWord || keyWordBottomsheet;
@@ -97,6 +99,8 @@ export default function TableClientSide({
   ]);
 
   useEffect(() => {
+    if (isMountedRef.current) return; // If it's not the first render, don't run the effect
+    isMountedRef.current = true;
     if (!handleRecall) {
       setHandleRecall(true);
       getGames();

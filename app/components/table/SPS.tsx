@@ -1,11 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import useStore from "@/app/(store)/store";
+
+const AvoidRenders = ({
+  RTP,
+  setPrevSPS,
+  setPrevRTP,
+  setRTP,
+  id,
+  setSPS,
+  calculateSPS,
+}: any) => {
+  const { newRtp } = useStore();
+
+  useEffect(() => {
+    if (newRtp && newRtp.rtpId === id) {
+      const { value } = newRtp;
+      setTimeout(() => {
+        console.log("11111");
+        setPrevSPS(calculateSPS(RTP));
+        setSPS(calculateSPS(value));
+        setPrevRTP(RTP);
+        setRTP(value);
+      }, 10000);
+    }
+  }, [newRtp]);
+
+  return <></>;
+};
 
 const SPS = ({
   rtp,
-  rtpChange,
-  rtpState,
+  // rtpChange,
+  // rtpState,
   sps,
 }: {
   rtp: RTP;
@@ -14,48 +40,41 @@ const SPS = ({
   sps: number;
 }) => {
   const { value, preferredValue, previousValue, id } = rtp;
-  const { newRtp } = useStore();
 
   const [RTP, setRTP] = useState<number>(value);
   const [prevRTP, setPrevRTP] = useState(previousValue);
+  const [prevSPS, setPrevSPS] = useState<number>();
+  const [SPS, setSPS] = useState<number>(sps);
 
-  useEffect(() => {
-    // let newRTPtimeout: NodeJS.Timeout;
-    if (newRtp && newRtp.rtpId === id) {
-      const { value } = newRtp;
-      // newRTPtimeout =
-      setTimeout(() => {
-        setPrevRTP(RTP);
-        setRTP(value);
-      }, 10000);
+  const calculateSPS = (rtp: number) => {
+    if (rtp > preferredValue) {
+      return -(rtp - preferredValue);
+    } else if (rtp < preferredValue) {
+      return preferredValue - rtp;
+    } else {
+      return 0;
     }
-    // return () => {
-    //   if (newRTPtimeout) {
-    //     clearTimeout(newRTPtimeout);
-    //   }
-    // };
-  }, [newRtp]);
+  };
 
   useEffect(() => {
+    setPrevSPS(calculateSPS(prevRTP));
     setRTP(value);
-  }, [value]);
-
-  useEffect(() => {
     setPrevRTP(previousValue);
-  }, [previousValue]);
+  }, []);
 
-  // const colorIndicator =
-  //   prevRTP < RTP ? "text-green1" : prevRTP > RTP ? " text-red" : "text-white";
+  // useEffect(() => {
+  // }, [previousValue]);
 
-  // const renderDifferenceNow = () => {
-  //   if (RTP > preferredValue) {
-  //     return <div> - {(RTP - preferredValue).toFixed(2)}%</div>;
-  //   } else if (RTP < preferredValue) {
-  //     return <div> + {(preferredValue - RTP).toFixed(2)}%</div>;
-  //   } else {
-  //     return <div>neutral</div>;
-  //   }
-  // };
+  const renderSPSNow = () => {
+    if (RTP > preferredValue) {
+      return <div> - {(RTP - preferredValue).toFixed(2)}%</div>;
+    } else if (RTP < preferredValue) {
+      return <div> + {(preferredValue - RTP).toFixed(2)}%</div>;
+    } else {
+      return <div>neutral</div>;
+    }
+  };
+
   const renderPrevSPS = () => {
     if (prevRTP > preferredValue) {
       return <div>PS - {(prevRTP - preferredValue).toFixed(2)}%</div>;
@@ -67,30 +86,22 @@ const SPS = ({
   };
 
   const renderSPSDiff = () => {
-    const prevSPS = () => {
-      if (prevRTP > preferredValue) {
-        return -(prevRTP - preferredValue);
-      } else if (prevRTP < preferredValue) {
-        return preferredValue - prevRTP;
-      } else {
-        return 0;
-      }
-    };
-
     let spsDiff: number;
     let colorIndicator: string;
 
-    if (sps > prevSPS()) {
-      spsDiff = sps - prevSPS();
+    if (prevSPS && SPS > prevSPS) {
+      spsDiff = SPS - prevSPS;
       colorIndicator = "text-green1";
-    } else if (sps < prevSPS()) {
-      spsDiff = sps - prevSPS();
+    } else if (prevSPS && SPS < prevSPS) {
+      spsDiff = SPS - prevSPS;
       colorIndicator = "text-red";
     } else {
       spsDiff = 0;
       colorIndicator = "text-white";
     }
 
+    // const colorIndicator =
+    //   prevRTP < RTP ? "text-green1" : prevRTP > RTP ? " text-red" : "text-white";
     return (
       <div>
         <div className={`${colorIndicator} text-xs text-end`}>
@@ -103,11 +114,11 @@ const SPS = ({
 
   return (
     <div>
-      {/* {renderDifferenceNow()} */}
-      <div>
+      {renderSPSNow()}
+      {/* <div>
         {sps > 0 && "+"}
         {sps}%
-      </div>
+      </div> */}
       <div>{renderPrevSPS()}</div>
       {renderSPSDiff()}
       {/* <div>R{RTP}</div>
@@ -121,6 +132,16 @@ const SPS = ({
           : 0}
         %
       </div> */}
+      <AvoidRenders
+        RTP={RTP}
+        preferredValue={preferredValue}
+        setPrevSPS={setPrevSPS}
+        setPrevRTP={setPrevRTP}
+        setRTP={setRTP}
+        id={id}
+        setSPS={setSPS}
+        calculateSPS={calculateSPS}
+      />
     </div>
   );
 };

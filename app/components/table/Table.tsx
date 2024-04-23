@@ -9,6 +9,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TableIn from "./TableIn";
 import { useQueryState } from "nuqs";
+import { useEffect } from "react";
 
 const Table = ({
   gamesList,

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import {
   flexRender,
@@ -37,6 +37,7 @@ export default function TableIn({
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
   });
+
   return (
     <>
       <>
