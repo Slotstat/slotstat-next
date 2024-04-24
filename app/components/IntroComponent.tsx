@@ -8,24 +8,24 @@ import { setCookie, getCookie } from "cookies-next";
 import VideoButton from "../assets/svg/VideoButton";
 
 export default function IntroComponent() {
-  const [enabled, setEnabled] = useState(true);
-  const [openVideo, setOpenVideo] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  useEffect(() => {
-    if (getCookie("videoOpen") == "true") {
-      setEnabled(true);
-    } else if (getCookie("videoOpen") == "false") {
-      setEnabled(false);
-    }
-  }, []);
+  // const [enabled, setEnabled] = useState(true);
+  // const [openVideo, setOpenVideo] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
+  // useEffect(() => {
+  //   if (getCookie("videoOpen") == "true") {
+  //     setEnabled(true);
+  //   } else if (getCookie("videoOpen") == "false") {
+  //     setEnabled(false);
+  //   }
+  // }, []);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setIsHovered(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  // const handleMouseLeave = () => {
+  //   setIsHovered(false);
+  // };
   return (
     <div>
       {/* <div className="flex justify-between text-grey1">
@@ -51,7 +51,7 @@ export default function IntroComponent() {
       </div> */}
 
       <motion.div
-        animate={{ height: enabled ? "auto" : 0 }}
+        // animate={{ height: enabled ? "auto" : 0 }}
         // animate={{ height: enabled ? 202 : 0 }}
         className="overflow-hidden "
       >
@@ -113,7 +113,7 @@ export default function IntroComponent() {
           </div> */}
         </div>
       </motion.div>
-      {openVideo && (
+      {/* {openVideo && (
         <div
           onClick={() => setOpenVideo(false)}
           className=" bg-dark1/80 top-0 bottom-0 right-0 left-0 fixed z-10 flex items-center justify-center"
@@ -127,7 +127,7 @@ export default function IntroComponent() {
             </video>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
