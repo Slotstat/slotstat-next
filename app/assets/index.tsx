@@ -21,7 +21,6 @@ import remove from "./svg/remove.svg";
 import search from "./svg/search.svg";
 import skewed_arrow from "./svg/skewed_arrow.svg";
 
-
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
 import cookie from "./img/cookie.png";
@@ -62,5 +61,4 @@ export {
   triangle,
   slot,
   logoSmall,
-
 };

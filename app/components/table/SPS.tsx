@@ -119,7 +119,7 @@ const SPS = ({
         {sps > 0 && "+"}
         {sps}%
       </div> */}
-      <div>{renderPrevSPS()}</div>
+      {/* <div>{renderPrevSPS()}</div> */}
       {renderSPSDiff()}
       {/* <div>R{RTP}</div>
       <div>PR{prevRTP}</div>

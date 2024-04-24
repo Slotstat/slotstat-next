@@ -146,7 +146,7 @@ const StatCard = ({
             />
           ) : (
             <span
-              className={`${renderValueColor()} cursor-default truncate max-w-[100px] lg:max-w-[140px] `}
+              className={`${renderValueColor()} cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold`}
               title={value}
             >
               {value}

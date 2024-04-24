@@ -38,17 +38,28 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-const modernistRegular = localFont({
-  src: [{ path: "../../public/fonts/Sk-Modernist-Regular.otf" }],
-  variable: "--font-Modernist-Regular",
-  display: "swap",
-});
-
-// const modernistBold = localFont({
-//   src: [{ path: "../../public/fonts/Sk-Modernist-Bold.otf" }],
-//   variable: "--font-Modernist-Bold",
+// const modernistRegular = localFont({
+//   src: [{ path: "../../public/fonts/Sk-Modernist-Regular.otf" }],
+//   variable: "--font-Modernist-Regular",
 //   display: "swap",
 // });
+
+const modernistBold = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Sk-Modernist-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Sk-Modernist-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-Modernist",
+  // display: "swap",
+});
 
 export default async function RootLayout({
   children,
@@ -66,7 +77,7 @@ export default async function RootLayout({
   const uniqueId = cookies().get("uniqueId")?.value;
 
   return (
-    <html lang={locale} className={`${modernistRegular.variable}`}>
+    <html lang={locale} className={`${modernistBold.variable}`}>
       <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>

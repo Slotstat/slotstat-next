@@ -13,7 +13,7 @@
   --rsbs-overlay-rounded: 16px;
 }
 
-@font-face {
+/* @font-face {
   font-family: "modernist";
   font-weight: 400;
   src: url("../public/fonts/Sk-Modernist-Regular.otf");
@@ -27,15 +27,15 @@
 @font-face {
   font-family: "cursor";
   src: url("../public/fonts/GA-Cursor-Regular.otf");
-}
+} */
 
-*:lang(en) {
+/* *:lang(en) {
   font-family: modernist;
 }
 
 *:lang(ka) {
   font-family: cursor;
-}
+} */
 
 @layer base {
   body {

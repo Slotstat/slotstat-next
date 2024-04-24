@@ -5,6 +5,7 @@ import { laptop, triangle } from "../assets";
 import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { setCookie, getCookie } from "cookies-next";
+import VideoButton from "../assets/svg/VideoButton";
 
 export default function IntroComponent() {
   const [enabled, setEnabled] = useState(true);
@@ -27,8 +28,7 @@ export default function IntroComponent() {
   };
   return (
     <div>
-      <div className="flex justify-between text-grey1">
-        <p className="">Study SlotStat Mechanics via</p>
+      {/* <div className="flex justify-between text-grey1">
         <div className="flex items-center">
           <p className="mr-2">Video tutorial</p>
           <Switch
@@ -48,22 +48,34 @@ export default function IntroComponent() {
             />
           </Switch>
         </div>
-      </div>
+      </div> */}
 
       <motion.div
         animate={{ height: enabled ? "auto" : 0 }}
         // animate={{ height: enabled ? 202 : 0 }}
-        className="bg-dark2 rounded-2xl  my-6 overflow-hidden  "
+        className="overflow-hidden "
       >
-        <div className=" flex justify-between  md:m-12 md:h-28">
+        <div className="flex justify-between my-3 ">
           <div className="hidden flex-col justify-center md:flex">
-            <h1 className="text-white text-3xl mb-6">SlotStat Statistics</h1>
-            <p className="text-grey1">
+            <div className="flex justify-between mb-4">
+              <h1 className="text-white text-3xl font-bold">
+                SlotStat Statistics
+              </h1>
+              <div className="flex ">
+                <p className="text-grey1 text-xs  mr-2 mt-1">Video Tutorial</p>
+                <a href={"https://youtu.be/4rQFUFN75uI?t=1"} target="_blank">
+                  <VideoButton />
+                </a>
+              </div>
+            </div>
+            <p className="text-grey1 w-3/4">
               SlotStat publishes up to date casino games statistics and slots
-              real-time data.
+              real-time data.SlotStat publishes up to date casino games
+              statistics and slots real-time data.SlotStat publishes up to date
+              casino games statistics and slots real-time data.
             </p>
           </div>
-          <div
+          {/* <div
             className="relative cursor-pointer md:h-[106px] "
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -98,7 +110,7 @@ export default function IntroComponent() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </motion.div>
       {openVideo && (

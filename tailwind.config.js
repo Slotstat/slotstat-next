@@ -12,8 +12,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        modernist: ["var(--font-Modernist-Regular)"],
-        // sans: ["modernist", ...defaultTheme.fontFamily.sans],
+        modernist: ["var(--font-Modernist)"],
+        sans: ["var(--font-Modernist)"],
         // serif: [...defaultTheme.fontFamily.serif],
         // mono: [...defaultTheme.fontFamily.mono],
       },
