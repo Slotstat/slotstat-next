@@ -5,6 +5,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import _ from "lodash";
 import TableClientSide from "./table/TableClientSide";
+// import 'react-spring-bottom-sheet/dist/style.css'
 
 type BottomSheetModalProps = {
   open: boolean;

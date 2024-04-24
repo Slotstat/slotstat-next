@@ -106,7 +106,7 @@ export default function RTP({
                 fill={"#969CB0"}
                 fontWeight={900}
                 fontSize="14"
-                fontFamily="modernist"
+                fontFamily="modernist-bold"
               >
                 RTP{" "}
                 <tspan fill="white">{gameObject?.rtp?.preferredValue}%</tspan>
@@ -118,7 +118,7 @@ export default function RTP({
                 textAnchor="middle"
                 fill={"white"}
                 fontSize="28"
-                fontFamily="modernist"
+                fontFamily="modernist-bold"
               >
                 {RTP}%
               </text>

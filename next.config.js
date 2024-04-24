@@ -9,7 +9,7 @@ const withNextIntl = createNextIntlPlugin();
 // );
 
 const nextConfig = {
-  experimental: {},
+  reactStrictMode: false,
   images: {
     domains: [
       "picsum.photos",

@@ -38,12 +38,6 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-// const modernistRegular = localFont({
-//   src: [{ path: "../../public/fonts/Sk-Modernist-Regular.otf" }],
-//   variable: "--font-Modernist-Regular",
-//   display: "swap",
-// });
-
 const modernistBold = localFont({
   src: [
     {
@@ -58,7 +52,7 @@ const modernistBold = localFont({
     },
   ],
   variable: "--font-Modernist",
-  // display: "swap",
+  display: "swap",
 });
 
 export default async function RootLayout({
