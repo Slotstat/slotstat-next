@@ -57,7 +57,7 @@ export default function TableIn({
                           }}
                           key={header.id}
                         >
-                          <div className="flex items-center text-base font-bold">
+                          <div className="flex items-center text-xs font-bold md:text-base">
                             {flexRender(
                               header.column.columnDef.header,
                               header.getContext()
@@ -152,7 +152,7 @@ export default function TableIn({
               </span>
               out of {rowCount}
             </div>
-            {!orderBy || orderBy === "fixedRtp" ? (
+            {!orderBy ? (
               <ReactPaginate
                 forcePage={currentPage - 1}
                 pageCount={pageCount}

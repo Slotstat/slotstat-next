@@ -9,7 +9,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "name",
       maxSize: 273,
       size: 273,
-      minSize: 273,
+      minSize: 188,
     },
     {
       header: (
@@ -20,7 +20,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "casino",
       maxSize: 242,
       size: 242,
-      minSize: 242,
+      minSize: 148,
       hint: t("casinoBonusHint"),
     },
     {
@@ -28,7 +28,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "p1h",
       maxSize: 127,
       size: 127,
-      minSize: 127,
+      minSize: 99,
       hint: t("h1GameHint"),
     },
     // {
@@ -45,7 +45,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "jackpot",
       maxSize: 203,
       size: 203,
-      minSize: 203,
+      minSize: 136,
       hint: t("jackpotHint"),
     },
     {
@@ -53,7 +53,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "maxX",
       maxSize: 143,
       size: 143,
-      minSize: 143,
+      minSize: 107,
       hint: t("maxXHint"),
     },
     {
@@ -66,7 +66,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "RTP",
       maxSize: 109,
       size: 109,
-      minSize: 109,
+      minSize: 74,
       hint: t("RTPhint"),
     },
     {
@@ -74,7 +74,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "SPS",
       maxSize: 108,
       size: 108,
-      minSize: 109,
+      minSize: 72,
       hint: t("SPSHint"),
     },
     {
@@ -82,7 +82,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "play",
       maxSize: 89,
       size: 89,
-      minSize: 89,
+      minSize: 59,
       hint: t("playHint"),
     },
   ];

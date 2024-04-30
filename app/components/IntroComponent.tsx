@@ -53,12 +53,12 @@ export default function IntroComponent() {
       <motion.div
         // animate={{ height: enabled ? "auto" : 0 }}
         // animate={{ height: enabled ? 202 : 0 }}
-        className="overflow-hidden "
+        className="overflow-hidden"
       >
         <div className="flex justify-between my-3 ">
-          <div className="hidden flex-col justify-center md:flex">
+          <div className=" flex-col justify-center md:flex">
             <div className="flex justify-between mb-4">
-              <h1 className="text-white text-3xl font-bold">
+              <h1 className="text-white text-base font-bold md:text-3xl ">
                 SlotStat Statistics
               </h1>
               <div className="flex ">
@@ -68,7 +68,7 @@ export default function IntroComponent() {
                 </a>
               </div>
             </div>
-            <p className="text-grey1 w-3/4">
+            <p className="text-grey1 w-3/4 text-xs md:text-base">
               SlotStat publishes up to date casino games statistics and slots
               real-time data.SlotStat publishes up to date casino games
               statistics and slots real-time data.SlotStat publishes up to date

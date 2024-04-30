@@ -24,7 +24,7 @@ const SubscribeButton = ({
           https://t.me/slotstatofficialchat
         </a>
       </div> */}
-      <button className="mt-2 w-full rounded-xl bg-blue1 p-3 lg:mt-7 lg:rounded-xl lg:px-6 lg:py-4.5">
+      <button className="mt-2 w-full rounded-xl bg-dark1 p-3 lg:mt-7 lg:rounded-xl lg:px-6 lg:py-4.5">
         <a
           href="https://t.me/slotstatofficialchat"
           target="_blank"
