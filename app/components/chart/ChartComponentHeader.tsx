@@ -126,8 +126,10 @@ export default function ChartComponentHeader({
               {casinoName} - {name}
             </h1>
             <p className="text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
-              On game page player comes across key functionalities of SlotStat,
-              such as: RTP, WSR, Compare button, Bonuses and Jackpots.
+              Explore comprehensive statistics for the slot game, along with
+              details about the hosting casino and its bonuses and promotions.
+              Everything you need to make informed gaming decisions is right
+              here on this page.
             </p>
             {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 

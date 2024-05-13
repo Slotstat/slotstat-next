@@ -29,7 +29,6 @@ export default function CookieNotification({
     });
 
     setLocalStorage("cookie_consent", cookieConsent);
-
   }, [cookieConsent]);
 
   // uncomment if we need to set user count cookie from here
@@ -46,7 +45,7 @@ export default function CookieNotification({
   return (
     <div
       className={`${cookieConsent != null ? "hidden" : ""}
-      z-10 w-[511px] fixed right-0 rounded-xl border border-grey1 p-6 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 shadow-2xl bg-dark2`}
+      z-10 w-auto md:w-[511px] fixed right-0 ml-6 rounded-xl border border-grey1 p-6 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 shadow-2xl bg-dark2`}
     >
       <div className="flex justify-between mb-3">
         <Image src={cookie} alt="" className="h-9 w-9" width={36} height={36} />
@@ -69,12 +68,12 @@ export default function CookieNotification({
       </div>
 
       <div className="flex flex-row justify-between text-sm mt-4">
-        <button
+        {/* <button
           onClick={() => setCookieConsent(false)}
           className="cursor-pointer  flex flex-1 rounded-xl px-8 py-4 bg-grey3 text-xs text-grey1 mr-3 items-center justify-center"
         >
           {t("RejectAll")}
-        </button>
+        </button> */}
         <button
           onClick={() => setCookieConsent(true)}
           className="cursor-pointer flex flex-1 rounded-xl px-8 py-4 bg-blue1 text-xs text-white items-center justify-center"

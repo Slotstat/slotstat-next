@@ -15,7 +15,7 @@ import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://slotstat.net"),
+  // metadataBase: new URL("https://slotstat.net"),
   title: {
     default: "SlotStat",
     template: `%s | SlotStat`,

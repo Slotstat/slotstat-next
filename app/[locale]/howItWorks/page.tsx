@@ -21,7 +21,7 @@ export default function HowItWorks() {
           Slotstat is an information worktop where users have the power to
           observe general details and real-time statistics of slots and casinos.
           On the landing page, players will find some handy figurines like: RTP,
-          RTP SWING, Win Spin Regular, bonuses and Jackpot. Analyzing SlotStat
+          RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing SlotStat
           data may turn up for players as a tool to plan beforehand playing and
           an advantageous gambling experience.
         </p>
@@ -37,7 +37,7 @@ export default function HowItWorks() {
             in real-time.
           </li>
           <li className="">
-            Win Spin Regular - Win Spin Regular is a frequency of winning spins,
+            Win Spin Rate - Win Spin Rate is a frequency of winning spins,
             where win is higher than initial bet.
           </li>
           <li className="">

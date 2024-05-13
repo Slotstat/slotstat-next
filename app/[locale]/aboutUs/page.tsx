@@ -10,13 +10,8 @@ export default function AboutUs() {
         <h1 className=" text-4xl font-black text-white my-6">About Us</h1>
         <p className="mb-12">
           SlotStat is a data-driven platform and affiliate service provider that
-          helps players to be more aware while gambling in regard solidified
+          helps players to be more aware while gambling in regard to solidified
           information of slot statistics.
-        </p>
-        <p className="mb-12">
-          Through years the SlotStat team were collecting experience and
-          expertise in gambling industry separately and finally teamed up to
-          give a form to the SlotStat concept.
         </p>
         <p className="mb-12">
           The SlotStat team during the years were observing, learning and
@@ -24,9 +19,9 @@ export default function AboutUs() {
           algorithms.
         </p>
         <p className="mb-12">
-          Based on our knowledge, connections and aim at this very moment we’re
-          launching SlotStat, the following pace of playing development and a
-          book of tools to take with, into the risky journey of gambling.
+          SlotStat is an innovative approach in the gambling industry, providing
+          players with comprehensive data insights and empowering them to make
+          informed decisions for a more rewarding gambling experience.
         </p>
       </div>
     </>

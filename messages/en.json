@@ -22,20 +22,21 @@
     "subscribe": "Keep in touch with ",
     "XChan": "SlotStat X ",
     "account": " account",
-    "WhatIsHappeningHere": "What's happening here?",
-    "WhatIsHappeningHereParams": "SlotStat is a data driven platform, where users can observe fact-based statistics of casinos and slots. Stats are attained through our algorithms or spared by the casino itself. ",
+    "WhatIsHappeningHere": "What’s Win Spin Rate?",
+    "WhatIsHappeningHereParams": "Win Spin Rate is a frequency of winning spins, where win is counted if higher than initial bet.",
     "WhatIsHappeningHereA": "a. Hitrate (Shown on graphs);",
     "WhatIsHappeningHereB": "b. Jackpots;",
     "WhatIsHappeningHereC": "c. RTP fluctuation.",
     "WhatIsHappeningHereEnd": "cThose parameters may defer by casinos, providers and/or games.",
     "WhatIsSlotstat": "What is Slotstat?",
-    "WhatIsSlotstatContent": "SlotStat is a peaceful bystander of the gambling industry that monitors stats of slot games and brings better gambling experience to players by equipping them with key functions like RTP, RTP Swing, Win Spin Regular, bonuses and JACKPOT.",
-    "WhatsHitRate": "What’s Win Spin Regular",
-    "WhatsHitRateContent": "Win Spin Regular is a frequency of winning spins, where win is higher than initial bet and represents the calculable constant number.",
-    "WhatIsRTP": "What's RTP?",
-    "WhatIsRTPContent": "RTP as a return to player constant number is a general, ideal point of slot game algorithm and may vary from provider to provider even within one casino.",
-    "fluctuation": "RTP SWING",
-    "fluctuationContent": "RTP SWING real-time tool shows slot game’s fluctuation towards its own ideal RTP at a very exact moment of present."
+    "WhatIsSlotstatContent": "SlotStat, a neutral observer in the gambling realm, meticulously displays slot game statistics to enhance players' gaming experiences. Providing essential features such as RTP, RTP Swing, Win Spin Regular, bonuses, JACKPOT, Max X, and SPS data, SlotStat empowers players with comprehensive insights for informed gaming decisions",
+    "WhatsHitRate": "What’s Max X?",
+    "WhatsHitRateContent": "Max X, also known as the maximum win multiplier, signifies the highest potential payout a slot game offers. This value represents how many times your initial bet you can win under ideal conditions. For instance, if a game has a Max X of 1200X, it means you could potentially win 1200 times your bet amount. This multiplier adds excitement and anticipation to gameplay, as players aim for the chance to achieve significant wins relative to their wagers.",
+    "WhatIsRTP": "What’s RTP swing?",
+    "WhatIsRTPContent": "RTP SWING real-time tool shows slot game’s fluctuation towards its own ideal RTP at a very exact moment of present (updates once in 5 min.).",
+    "fluctuation": "What’s SPS?",
+    "fluctuationContent": "SPS stands for Slot Profit Status, a real-time indicator displayed on our site to show whether a slot game's Live Return to Player (RTP) is greater than, less than, or equal to its Theoretical RTP.How is SPS calculated?SPS is represented as a percentage, reflecting the difference between the Live RTP and the Theoretical RTP. For example: If the Theoretical RTP is 97%, but the Live RTP is 120%, the SPS would be +23%, indicating that the slot game has paid out 23% more than expected. Conversely, if the Live RTP is 90%, the SPS would be -7%, indicating that the slot game has paid out 7% less than expected. How often is SPS updated? SPS is a live updating feature, with updates occurring every 5 minutes. This ensures that players have access to the most current information about a slot game's performance. Understanding the additional digits: In addition to the main SPS percentage, you may notice smaller digits beneath it. These smaller digits represent the change in SPS since the previous update. They can be either positive or negative, indicating whether the slot game has performed better or worse compared to the previous update. For example: If the previous SPS was 7%, and the new SPS is 5%, the smaller digits would display '-2%' in red, indicating a decrease in performance. If the next update shows an SPS of 6%, the smaller digits would display 1% in green, indicating an improvement compared to the previous update. We hope this helps you understand SPS better and enhances your experience on SlotStat.net!",
+    "activateBonus": "How do I activate a bonus or promotion on SlotStat? "
   },
   "footer": {
     "company": "Company",
@@ -62,19 +63,19 @@
     "SPS": "SPS",
     "play": "Play",
     "maxX": "Max X",
-    "maxXHint": "maxXHint",
-    "SPSHint": "Slot Profit Status",
+    "maxXHint": "Max X represents the maximum potential win multiplier, indicating the highest possible payout in multiples of your bet.",
+    "SPSHint": "Slot Profit Status (SPS) indicates whether a slot is winning or losing relative to theoretical RTP. Positive (+) denotes profit, while negative (-) reflects losses. Updated every 5 minutes, red signifies a decrease from the prior 5 minutes, and green indicates an increase. SPS and color changes provide real-time insights into game performance",
     "bonusesHint": "Information about casino gift offers",
     "sourceHint": "Information source of statistics. 1. Casino API - 2. Slotstat AI - 3. Verified - ",
     "jackpotHint": "Figurine is an actively updating maximum Jackpot value of the chosen casino and may pop up as an accurate periscope for sharp shot takers. ",
     "userHint": "Number of users who monitor statistics",
-    "casinoBonusHint": "Casino: SlotStat partner casinos sprawl on the list with authorization hallmarks. Verification badge holder casinos real-time stats are 100% legit and perfectly spot on. ________________ Bonus: Players from SlotStat interface to chosen casino will get exclusive offers and rare bonuses.",
-    "h1GameHint": "Figurine shows the percentage of winning spins frequency in the last hour time period.",
-    "h24GameHint": "Figurine shows the percentage of winning spins frequency in the last 24 hour time period.",
+    "casinoBonusHint": "Bonuses listed on SlotStat can be activated by visiting the bonus section on the game page and clicking on the corresponding bonus card. Sometimes special codes should be used for bonuses, which can be found in bonus cards.",
+    "h1GameHint": "Figurine shows the percentage of Win Spin Rate in the last hour time period.",
+    "h24GameHint": "Figurine shows the percentage of Win Spin Rate in the last 24 hour time period.",
     "GoToStatistic": "Go to statistic",
     "GoToCasino": "Go to casino",
     "GoToGame": "Go to Game",
-    "RTPhint": "RTP Swing parameter shows the game’s variance from the ideal RTP in real-time period.",
+    "RTPhint": "Return to Player (RTP) is a fundamental term in gambling and online games, denoting the percentage of funds returned to players based on their initial deposits. This measure ensures fairness and sets player expectations, highlighting the transparency and integrity of gaming experiences, minimum RTP is enforced in some countries.",
     "casinoLink": "Casino link",
     "playHint": "Play button directly sends the player to the selected slot on the chosen casino interface. Via the Play button SlotStat keeps tabs on player preferences and improves its mechanism based on this information.",
     "casino": "Casino",
@@ -83,8 +84,8 @@
   "gamePage": {
     "findYourGame": "Find your game",
     "games": "games",
-    "Win-spinRate": "Win Spin Regular",
-    "Win-spinRateHint": "Win Spin Regular is mathematically calculable quantity and expresses a frequency of winning spins, where win is higher than initial bet."
+    "Win-spinRate": "Win Spin Rate",
+    "Win-spinRateHint": "Win Spin Rate is mathematically calculable quantity and expresses a frequency of winning spins, where win is higher than initial bet."
   },
   "sortBy": {
     "none": "None",
@@ -99,11 +100,11 @@
     "t1hLong": "Win rate of last 1 hour",
     "t24hLong": "Win rate of last 24 hours",
     "RTP": "RTP",
-    "highestRTP": "Highest RTP",
     "slotInWinR": "Slots In Win (random)",
     "slotsInLoseR": "Slots in lose (random)",
-    "slotInWin": "Slots In Win",
-    "slotsInLose": "Slots in lose"
+    "slotInWin": "Winning Slots Now",
+    "slotsInLose": "Losing Slots Now",
+    "highestRTP": "Highest RTP Slots"
   },
 
   "searchPlaceholder": "Search game, casino or provider",
@@ -133,6 +134,6 @@
   "chartComponent": {
     "RTP": "RTP",
     "swing": "Swing",
-    "RTPhint": "RTP is a return to player constant number of slot game algorithm toward which the slot continuously aspires and may vary from provider to provider even within one casino. While RTP Swing figurine follows the trace of slot in real-time and shows variance from game's ideal RTP on live based on tracked information."
+    "RTPhint": "RTP Swing is an indicator reflecting fluctuations between theoretical and actual RTP (Return to Player) in slot games, updating every 5 minutes. The game's algorithm is trained towards achieving the theoretical RTP, but due to the dynamic nature of gameplay, the actual RTP may exceed, fall short of, or match the theoretical RTP. This live-updating metric provides insights into the game's performance at any given moment."
   }
 }

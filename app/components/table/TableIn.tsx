@@ -194,9 +194,10 @@ export default function TableIn({
                 activeClassName="active"
               />
             ) : (
-              <span className=" text-sm text-grey1 font-light">
-                SPS (Slot Profit Status) is updated every 5 minutes. Refresh the
-                website to see the new listing of Slots in lose.
+              <span className=" text-sm text-grey1 font-light max-w-2xl text-center">
+                Listing sorted by highest ratings at the moment (5-minute
+                intervals). Maximum 50 games shown. Games may vary every 5
+                minutes as SPS data updates live.
               </span>
             )}
             <div className=" text-xs mt-2 text-grey1 md:text-transparent">
