@@ -10,8 +10,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import CookieNotification from "../components/CookieNotification";
 import { cookies } from "next/headers";
-import GoogleAnalytics from "../components/GoogleAnalytics";
+// import GoogleAnalytics from "../components/GoogleAnalytics";
 import localFont from "next/font/local";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
@@ -72,7 +73,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${modernistBold.variable}`}>
-      <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" />
+      <GoogleAnalytics gaId="G-SY6HC72KX9" />
+      {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
+      <GoogleTagManager gtmId="GTM-TNKZW6GT" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
