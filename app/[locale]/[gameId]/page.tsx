@@ -1,3 +1,4 @@
+import LoadingSkeleton from "@/app/components/LoadingSkeleton";
 import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
 
 import getCasino from "@/lib/getCasino";
@@ -125,7 +126,9 @@ export default async function gamePage({
           gamesCardsData={gamesCardsData}
         />
       ) : (
-        <></>
+        <>
+          <LoadingSkeleton />
+        </>
       )}
     </>
   );

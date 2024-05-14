@@ -68,7 +68,7 @@ export default function IntroComponent() {
                 </a>
               </div>
             </div>
-            <p className="text-grey1 w-3/4 text-xs md:text-base">
+            <p className="text-grey1 md:w-3/4 text-xs md:text-base">
               SlotStat provides dynamic insights into slot games, including slot
               profit status and rate winning spins. Empower your gaming choices
               with data analysis, make informed decisions, and maximize your

@@ -16,7 +16,6 @@ const AvoidRenders = ({
     if (newRtp && newRtp.rtpId === id) {
       const { value } = newRtp;
       setTimeout(() => {
-        console.log("11111");
         setPrevSPS(calculateSPS(RTP));
         setSPS(calculateSPS(value));
         setPrevRTP(RTP);
