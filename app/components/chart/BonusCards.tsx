@@ -41,7 +41,7 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
           {card.valueType === "WelcomeBonus" ? (
             <button
               onClick={() =>
-                window.open(card.redirectUrl, "_blank", "noreferrer")
+                window.open(card.redirectUrl, "_blank", "noreferrer nofollow")
               }
               className="w-full h-10 px-6 py-2  rounded-md text-base font-medium text-white bg-green1 hover:bg-green2 focus:outline-none focus:ring-2 focus:ring-green1 focus:ring-offset-2 appearance-none"
             >
@@ -52,7 +52,7 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
               <span className="flex items-center">Read more</span>
               <LinkIcon
                 onClick={() =>
-                  window.open(card.redirectUrl, "_blank", "noreferrer")
+                  window.open(card.redirectUrl, "_blank", "noreferrer nofollow")
                 }
                 className="ml-2 cursor-pointer"
               />

@@ -6,8 +6,10 @@ import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { setCookie, getCookie } from "cookies-next";
 import VideoButton from "../assets/svg/VideoButton";
-
+const data = ["erti", "ori", "sami", "otxi", "xuti", "eqvsi"];
 export default function IntroComponent() {
+  const [selectedValue, setSelectedValue] = useState("erti");
+  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   // const [enabled, setEnabled] = useState(true);
   // const [openVideo, setOpenVideo] = useState(false);
   // const [isHovered, setIsHovered] = useState(false);
@@ -63,7 +65,7 @@ export default function IntroComponent() {
               </h1>
               <div className="flex ">
                 <p className="text-grey1 text-xs  mr-2 mt-1">Video Tutorial</p>
-                <a href={"https://youtu.be/4rQFUFN75uI?t=1"} target="_blank">
+                <a href={""} target="_blank" rel="nofollow">
                   <VideoButton />
                 </a>
               </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { logoSmall, menu, slotLogo } from "@/app/assets";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -86,8 +86,13 @@ const MainPageHeader = () => {
     // router.push("/");
     router.refresh();
   };
-  const isSmallerThan768 = window.innerWidth > 768;
-  console.log("isSmallerThan768", isSmallerThan768);
+
+  // const isSmallerThan768 = () => {
+  //   if (window?.innerWidth) {
+  //     return window?.innerWidth > 768;
+  //   }
+  // };
+  // const isSmallerThan768 = window?.innerWidth > 768;
   return (
     <header className={` 	`}>
       <div className="h-14"></div>
@@ -103,7 +108,7 @@ const MainPageHeader = () => {
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
               Write to us
             </a>
-            <ArrowLink isBig={isSmallerThan768} />
+            <ArrowLink />
           </div>
         </div>
       </div>
@@ -250,7 +255,6 @@ const CollapsibleHEader = () => {
 const Header = () => {
   const pathName = usePathname();
   const isMainPage = pathName === "/en";
-  console.log("isMainPage", isMainPage);
   return isMainPage ? <MainPageHeader /> : <CollapsibleHEader />;
 };
 

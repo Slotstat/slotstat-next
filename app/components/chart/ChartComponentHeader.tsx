@@ -88,6 +88,7 @@ export default function ChartComponentHeader({
       <a
         href={redirectUrl}
         target="_blank"
+        rel="nofollow"
         className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
@@ -138,6 +139,7 @@ export default function ChartComponentHeader({
                 <a
                   href={casinoURL}
                   target="_blank"
+                  rel="nofollow"
                   className=" flex items-center"
                 >
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
@@ -156,6 +158,7 @@ export default function ChartComponentHeader({
                 <a
                   href={redirectUrl}
                   target="_blank"
+                  rel="nofollow"
                   className=" flex items-center"
                 >
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">

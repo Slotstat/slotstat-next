@@ -140,7 +140,7 @@ const RenderRowCells = ({
   }) => {
     if (event.defaultPrevented) return;
     event.preventDefault();
-    window.open(redirectUrl, "_blank", "noreferrer");
+    window.open(redirectUrl, "_blank", "noreferrer nofollow");
   };
 
   const isImgUrl = (url: string) => {

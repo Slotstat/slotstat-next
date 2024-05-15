@@ -28,6 +28,7 @@ const SubscribeButton = ({
         <a
           href="https://t.me/slotstatofficialchat"
           target="_blank"
+          rel="nofollow"
           className="flex items-center justify-between "
         >
           <span className="text-xs font-normal leading-5 text-white lg:text-lg">
