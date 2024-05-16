@@ -100,10 +100,11 @@ const MainPageHeader = () => {
       <div
         className={`${blueNav}  overflow-hidden transition-all duration-300  flex justify-center items-center text-white bg-blue-500 fixed  top-0 left-0 right-0 z-10`}
       >
-        <div className=" w-[60%] md:w-[100%] md:max-w-screen-xl text-xs mx-2 md:mx-0 md:text-base flex justify-between">
-          <div className="">
-            The website is in test mode. If you find a problem, write to us
+        <div className="w-[100%] md:max-w-screen-xl text-xs mx-2 md:mx-0 md:text-base flex justify-between">
+          <div className="hidden md:flex">
+            The site is in test mode - Report any issues
           </div>
+          <div className="flex md:hidden">Test mode - Report issues</div>
           <div className="flex">
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
               Write to us
