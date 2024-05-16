@@ -57,7 +57,7 @@ const Dropdown = ({
 
   return (
     <div className="z-1">
-      <div className="hidden md:flex  z-1 h-10 w-full md:w-64 ">
+      <div className="hidden md:block  z-1 h-10 w-full md:w-64">
         <Listbox value={selected} onChange={select}>
           {({ open }) => (
             <div className="relative">
@@ -70,9 +70,6 @@ const Dropdown = ({
                   title={selected.label}
                   className="block truncate text-white"
                 >
-                  {/* <span title={t("sortBy")} className="text-grey1">
-                  {t("sortBy")}:{" "}
-                </span>{" "} */}
                   {selected.label}
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

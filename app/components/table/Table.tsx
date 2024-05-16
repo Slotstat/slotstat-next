@@ -1,7 +1,7 @@
 "use client";
 import { Row } from "@tanstack/react-table";
 import Dropdown from "./Dropdown";
-import { SearchInput } from "./SearchInput";
+import { SearchAndCryptoSwitch } from "./SearchAndCryptoSwitch";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
 import FiatCryptoButton from "./FiatCryptoButton";
@@ -9,7 +9,6 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TableIn from "./TableIn";
 import { useQueryState } from "nuqs";
-
 
 const Table = ({
   gamesList,
@@ -30,10 +29,16 @@ const Table = ({
   // const [direction, setDirection] = useQueryState("direction");
   const [isFiat, setIsFiat] = useQueryState("isFiat");
 
-
   const bottomSheetRowClick = (row: Row<GameData>) => {
     if (onAddToCompare) {
       return onAddToCompare(row.original);
+    }
+  };
+  const cryptoFiatSwitcher = (state: string) => {
+    setScrollY(window.scrollY);
+    setIsFiat(state);
+    if (setIsFiatState) {
+      setIsFiatState(state);
     }
   };
 
@@ -42,9 +47,12 @@ const Table = ({
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
         {showFilter && (
           <>
+           <div className="flex w-full  justify-between">
             <div className="flex w-full md:w-auto">
-              <SearchInput
+              <SearchAndCryptoSwitch
                 keyWord={keyWord || ""}
+                isFiat={isFiat || ""}
+                cryptoFiatSwitcher={cryptoFiatSwitcher}
                 setCasinoFilter={(keyWord) => {
                   setScrollY(window.scrollY);
                   if (setSearchKeyInBottomSheet) {
@@ -55,8 +63,8 @@ const Table = ({
                 }}
               />
             </div>
-            <div className="flex w-full  justify-between">
-              {showCryptoFiatSwitcher && (
+           
+              {/* {showCryptoFiatSwitcher && (
                 <div className="flex flex-row">
                   <FiatCryptoButton
                     title={f("cryptoCasinos")}
@@ -83,7 +91,7 @@ const Table = ({
                     className={"py-2 ml-2 text-xs mr-3 md:mr-0 md:text-base"}
                   />
                 </div>
-              )}
+              )} */}
               <Dropdown
                 orderBy={orderBy}
                 onChange={(orderBy) => {
@@ -120,7 +128,6 @@ const Table = ({
           </section>
         </SkeletonTheme>
       )}
-      
     </>
   );
 };
