@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { Link } from "@/navigation";
-import ArrowLink from "@/app/assets/svg/ArrowLink";
+import { ArrowLinkBig, ArrowLinkSmall } from "@/app/assets/svg/ArrowLink";
 // import { Collapse } from "@material-tailwind/react";
 // import LanguageToggleButton from "./LanguageToggleButton";
 
@@ -101,15 +101,19 @@ const MainPageHeader = () => {
         className={`${blueNav}  overflow-hidden transition-all duration-300  flex justify-center items-center text-white bg-blue-500 fixed  top-0 left-0 right-0 z-10`}
       >
         <div className="w-[100%] md:max-w-screen-xl text-xs mx-2 md:mx-0 md:text-base flex justify-between">
+          <div className="hidden md:flex">The site is in test mode</div>
+          <div className="flex md:hidden">Test mode</div>
           <div className="hidden md:flex">
-            The site is in test mode - Report any issues
-          </div>
-          <div className="flex md:hidden">Test mode - Report issues</div>
-          <div className="flex">
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
-              Write to us
+              Report any issues
             </a>
-            <ArrowLink />
+            <ArrowLinkBig />
+          </div>
+          <div className="flex md:hidden">
+            <a className="font-bold" href={`mailto:info@slotstat.net`}>
+              Report issues
+            </a>
+            <ArrowLinkSmall />
           </div>
         </div>
       </div>
