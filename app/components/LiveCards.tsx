@@ -106,7 +106,7 @@ const StatCard = ({
         redirectUrl && "hover:bg-dark3 cursor-pointer"
       } `}
       onClick={() =>
-        redirectUrl && window.open(redirectUrl, "_blank", "noreferrer nofollow")
+        redirectUrl && window.open(redirectUrl, "_blank", "noreferrer")
       }
     >
       <div className="flex items-center justify-between">
@@ -154,7 +154,7 @@ const StatCard = ({
           )}
           {redirectUrl && (
             <LinkIcon
-              onClick={() => window.open(redirectUrl, "_blank", "noreferrer nofollow")}
+              onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
               className=" ml-2 cursor-pointer"
             />
           )}

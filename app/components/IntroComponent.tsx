@@ -65,7 +65,7 @@ export default function IntroComponent() {
               </h1>
               <div className="flex ">
                 <p className="text-grey1 text-xs  mr-2 mt-1">Video Tutorial</p>
-                <a href={""} target="_blank" rel="nofollow">
+                <a href={""} target="_blank">
                   <VideoButton />
                 </a>
               </div>
