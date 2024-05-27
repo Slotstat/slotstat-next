@@ -52,7 +52,7 @@ export default function IntroComponent() {
         </div>
       </div> */}
 
-      <motion.div
+      {/* <motion.div
         // animate={{ height: enabled ? "auto" : 0 }}
         // animate={{ height: enabled ? 202 : 0 }}
         className="overflow-hidden"
@@ -77,7 +77,29 @@ export default function IntroComponent() {
               slot gaming adventure.
             </p>
           </div>
-          {/* <div
+        </div>
+      </motion.div> */}
+      {/* {openVideo && (
+        <div
+          onClick={() => setOpenVideo(false)}
+          className=" bg-dark1/80 top-0 bottom-0 right-0 left-0 fixed z-10 flex items-center justify-center"
+        >
+          <div onClick={(e) => e.stopPropagation()} className="">
+            <video controls className=" rounded-2xl">
+              <source
+                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+      )} */}
+    </div>
+  );
+}
+
+{
+  /* <div
             className="relative cursor-pointer md:h-[106px] "
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -112,24 +134,5 @@ export default function IntroComponent() {
                 />
               </div>
             </div>
-          </div> */}
-        </div>
-      </motion.div>
-      {/* {openVideo && (
-        <div
-          onClick={() => setOpenVideo(false)}
-          className=" bg-dark1/80 top-0 bottom-0 right-0 left-0 fixed z-10 flex items-center justify-center"
-        >
-          <div onClick={(e) => e.stopPropagation()} className="">
-            <video controls className=" rounded-2xl">
-              <source
-                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
-        </div>
-      )} */}
-    </div>
-  );
+          </div> */
 }

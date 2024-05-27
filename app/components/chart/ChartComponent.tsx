@@ -519,7 +519,7 @@ const ChartComponent = ({
                   </div>
                   <div
                     id="chartdiv"
-                    className="lg:h-[470px] h-56 w-full rounded-3xl bg-dark1"
+                    className="lg:h-[470px] h-64 w-full rounded-3xl bg-dark1"
                   ></div>
                 </>
               )}

@@ -178,7 +178,8 @@ export const createSeries = (
 export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.hiddenState.properties.opacity = 0;
   const isSmallerThan768 = window.innerWidth < 768;
-  chart.paddingLeft = isSmallerThan768 ? 0 : 16;
+  chart.paddingLeft = isSmallerThan768 ? 0 : 10;
+  chart.paddingBottom = isSmallerThan768 ? 0 : 16;
   // if (window.innerWidth < 768) {
   //   chart.paddingLeft = 0;
   // }
@@ -393,17 +394,65 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.mouseWheelBehavior = "panXY";
 
   // bottom scrollbar
-  // const scrollbarX = new am4charts.XYChartScrollbar();
-  // scrollbarX.series.push(serie1);
-  // scrollbarX.background.fill = am4core.color("#24262C");
-  // chart.scrollbarX = scrollbarX;
-  // chart.scrollbarX.parent = chart.bottomAxesContainer;
 
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.legend = new am4charts.Legend();
 
   if (window.innerWidth < 768) {
     chart.cursor.behavior = "none";
+    function customizeGrip(grip) {
+      // Remove default grip image
+      grip.icon.disabled = true;
+
+      // Disable background
+      grip.background.disabled = true;
+
+      grip.background.fill = am4core.color("#c00");
+      grip.background.fillOpacity = 0.5;
+
+      // Add rotated rectangle as bi-di arrow
+      var img = grip.createChild(am4core.Rectangle);
+      img.width = 15;
+      img.height = 15;
+      img.fill = am4core.color("#999");
+      img.rotation = 45;
+      img.align = "center";
+      img.valign = "middle";
+
+      // Add vertical bar
+      var line = grip.createChild(am4core.Rectangle);
+      line.height = 30;
+      line.width = 2;
+      line.fill = am4core.color("#999");
+      line.align = "center";
+      line.valign = "middle";
+    }
+
+    const scrollbarX = new am4charts.XYChartScrollbar();
+    scrollbarX.series.push(series1);
+    scrollbarX.background.fill = am4core.color("#24262C");
+    scrollbarX.thumb.background.fill = am4core.color("#24262C");
+    scrollbarX.thumb.background.fillOpacity = 0.2;
+    scrollbarX.unselectedOverlay.fill = am4core.color("#000");
+    scrollbarX.unselectedOverlay.fillOpacity = 0.4;
+
+    scrollbarX.minHeight = 30;
+
+    customizeGrip(scrollbarX.startGrip);
+    customizeGrip(scrollbarX.endGrip);
+
+    // Configure scrollbar series
+    var scrollSeries1 = scrollbarX.scrollbarChart.series.getIndex(0);
+    scrollSeries1.fillOpacity = 0.3;
+    // scrollSeries1.strokeDasharray = "2,2";
+
+    // Bring back colors
+    scrollbarX.scrollbarChart.plotContainer.filters.clear();
+
+    chart.scrollbarX = scrollbarX;
+
+    // move scrollbar bottom
+    chart.scrollbarX.parent = chart.bottomAxesContainer;
   } else {
     chart.cursor.behavior = "zoomX";
   }
