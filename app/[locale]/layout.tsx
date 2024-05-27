@@ -96,7 +96,7 @@ export default async function RootLayout({
         src="https://betfury.bet/sources/d4c09e4f7.js"
         async
       ></script> */}
-      {/* <Script
+      <Script
         id="fb-pixel"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -113,7 +113,7 @@ export default async function RootLayout({
                fbq('track', 'PageView');
           `,
         }}
-      /> */}
+      />
       {/* <noscript>
         <img
           height="1"

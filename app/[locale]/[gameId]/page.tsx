@@ -106,7 +106,7 @@ export default async function gamePage({
 
   return (
     <>
-      {casino && casinoCards && casinoBonuses ? (
+      {casino && casinoCards && casinoBonuses && (
         <ChartCasinoAndGameWrapper
           casId={casId}
           casino={casino}
@@ -125,11 +125,10 @@ export default async function gamePage({
           mainGameObj={mainGameObj}
           gamesCardsData={gamesCardsData}
         />
-      ) : (
-        <>
-          <LoadingSkeleton />
-        </>
       )}
+      {/* <>
+          {!casino && !casinoCards && !casinoBonuses &&<LoadingSkeleton />}
+        </> */}
     </>
   );
 }
