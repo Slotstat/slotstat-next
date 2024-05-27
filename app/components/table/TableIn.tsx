@@ -13,6 +13,7 @@ import TooltipComponent from "../TooltipComponent";
 import { useTranslations } from "next-intl";
 import { casinoOrGameColumns } from "./columns";
 import { Link } from "@/navigation";
+import NotFoundIcon from "@/app/assets/svg/NotFoundIcon";
 // import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 
 export default function TableIn({
@@ -137,7 +138,10 @@ export default function TableIn({
           </div>
         ) : (
           <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">
-            {f("itemNotFound")}
+            <div className="flex flex-col items-center">
+              <NotFoundIcon />
+              <p className="mt-6">{f("No results! Try a different search.")}</p>
+            </div>
           </div>
         )}
 
