@@ -53,13 +53,13 @@ export default async function Home({ params: { locale } }: Params) {
   const [landingCards] = await Promise.all([landingCardsData]);
 
   // if (!landingCards) {
-  //   console.log('111');
+  //   console.log("111");
   //   notFound();
   // }
 
   return (
     <>
-      <LiveCards cardsData={landingCards} />
+      {landingCards && <LiveCards cardsData={landingCards} />}
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
         <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
