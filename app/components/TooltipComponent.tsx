@@ -4,19 +4,21 @@ import React, { useState } from "react";
 export default function TooltipComponent({
   text,
   big = false,
+  classN,
 }: {
   text: string;
+  classN?: string;
   big?: boolean;
 }) {
   const [color, setColor] = useState("#969CB0");
 
   return (
-    <div className={big ? "w-6 h-6" : "w-4 h-4"}>
-      <span data-tooltip-id="my-tooltip" data-tooltip-content={text}>
+    <div className={big ? "w-6 h-6" : "w-4 h-4" }>
+      <span className="cursor-pointer" data-tooltip-id="my-tooltip" data-tooltip-content={text}>
         <svg
           onMouseEnter={() => setColor("#5887F5")}
           onMouseLeave={() => setColor("#969CB0")}
-          className="ml-2 w-full h-full"
+          className={`w-full h-full ${classN}`}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 16 16"

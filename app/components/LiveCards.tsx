@@ -101,7 +101,14 @@ const StatCard = ({
   };
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ">
+    <div
+      className={`flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ${
+        redirectUrl && "hover:bg-dark3 cursor-pointer"
+      } `}
+      onClick={() =>
+        redirectUrl && window.open(redirectUrl, "_blank", "noreferrer")
+      }
+    >
       <div className="flex items-center justify-between">
         <div>
           {!!isImgUrl(imageUrl) && (
@@ -127,9 +134,9 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-xs  leading-5 flex flex-row  lg:text-base ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs leading-5 flex flex-row  md:text-base ${renderNameColor()}`}
         >
-          <span className=" mr-1">{name}:</span>
+          <span className=" mr-3 cursor-default">{name}:</span>
           {isLive && additionalProps ? (
             <AnimatedCounterComponent
               additionalProps={additionalProps}
@@ -138,7 +145,12 @@ const StatCard = ({
               casinoId={casinoId}
             />
           ) : (
-            <span className={renderValueColor()}>{value}</span>
+            <span
+              className={`${renderValueColor()} cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold`}
+              title={value}
+            >
+              {value}
+            </span>
           )}
           {redirectUrl && (
             <LinkIcon
@@ -149,7 +161,7 @@ const StatCard = ({
         </span>
         {additionalInfo && (
           <>
-            <TooltipComponent text={additionalInfo} />
+            <TooltipComponent big text={additionalInfo} />
           </>
         )}
       </div>

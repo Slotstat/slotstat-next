@@ -69,9 +69,9 @@ const AccordionItem = ({
     }}
     contentProps={{
       className:
-        "transition-height duration-200 ease-in-out text-sm text-[18px] font-normal leading-normal text-grey1",
+        "transition-height duration-200 ease-in-out text-sm lg:text-lg font-normal leading-normal text-grey1",
     }}
-    panelProps={{ className: "text-[18px] text-grey1 leading-6" }}
+    panelProps={{ className: " text-xs lg:text-[18px] text-grey1 leading-6" }}
   />
 );
 

@@ -1,44 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useStore from "@/app/(store)/store";
 
-type RTPListingProps = {
-  provider: string;
-  rtp: RTP;
-};
+export default function RTPListing({ rtp }: RTPListingProps) {
+  const { value, preferredValue, max, min, id } = rtp;
+  const { newRtp } = useStore();
 
-export default function RTPListing({ provider, rtp }: RTPListingProps) {
-  const { value, preferredValue, max, min } = rtp;
-
-  const [RTP, setRTP] = useState(value);
+  const [RTP, setRTP] = useState<number>(value);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      function biasedRandomNumber() {
-        const randomBetween = Math.random() * (max - min) + min;
+    if (newRtp && newRtp.rtpId === id) {
+      const { value } = newRtp;
+      setTimeout(() => {
+        setRTP(value);
+      }, 10000);
+    }
+  }, [newRtp]);
 
-        return Number(randomBetween.toFixed(2));
-      }
-      setRTP(biasedRandomNumber());
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+  useEffect(() => {
+    setRTP(value);
+  }, [value]);
 
-  const RTPindicatorWidth = 100;
+  const RTPindicatorWidth = 80;
 
-  const casinoLoosingIndicatorSizeCounter =
+  const casinoLosingIndicatorSizeCounter =
     (RTP - preferredValue) * (RTPindicatorWidth / (max - preferredValue));
   const casinoWiningIndicatorSizeCounter =
     (preferredValue - RTP) * (RTPindicatorWidth / (preferredValue - min));
 
   return (
-    <div className=" mr-6">
+    <div className="mr-6 text-xs md:text-base ">
       <div className=" flex flex-row justify-between mb-3">
         <div className=" flex flex-row">
-          <p className=" min-w-[64px]">{RTP}%</p>
-          <p className=" mr-1">/</p>
-          <p className=" text-grey1">{preferredValue}%</p>
+          <p className=" min-w-[54px]">{preferredValue}%</p>
+          <p className=" mr-2">/</p>
+          <p className=" text-grey1">{RTP}%</p>
         </div>
-        {/* <p>{provider}</p> */}
       </div>
       <div className=" flex flex-row">
         <div
@@ -63,7 +60,7 @@ export default function RTPListing({ provider, rtp }: RTPListingProps) {
             initial={false}
             animate={{
               width:
-                RTP > preferredValue ? casinoLoosingIndicatorSizeCounter : 0,
+                RTP > preferredValue ? casinoLosingIndicatorSizeCounter : 0,
             }}
           ></motion.div>
         </div>

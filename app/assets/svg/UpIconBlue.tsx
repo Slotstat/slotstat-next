@@ -1,17 +1,20 @@
 import * as React from "react";
 import { SVGProps } from "react";
-const UpIconBlue = (props: SVGProps<SVGSVGElement>) => (
+const UpIconGreen = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={14}
-    height={8}
+    width={24}
+    height={24}
     fill="none"
     {...props}
   >
     <path
-      fill="#5887F6"
-      d="m13.68 5.98-3.21-3.21L8.51.8A2.13 2.13 0 0 0 5.5.8L.32 5.98c-.68.68-.19 1.84.76 1.84h11.84c.96 0 1.44-1.16.76-1.84Z"
+      stroke="#41D86A"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={3}
+      d="M11.5 9.005v8.996M7.374 13.142 11.499 9l4.126 4.143"
     />
   </svg>
 );
-export default UpIconBlue;
+export default UpIconGreen;

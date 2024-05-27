@@ -1,3 +1,6 @@
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 
 // const withNextIntl = require("next-intl/plugin")(
@@ -6,9 +9,7 @@
 // );
 
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  reactStrictMode: false,
   images: {
     domains: [
       "picsum.photos",
@@ -21,7 +22,7 @@ const nextConfig = {
 // module.exports = withNextIntl({
 //   nextConfig,
 // });
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);
 
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({
 //   enabled: process.env.ANALYZE === 'true',

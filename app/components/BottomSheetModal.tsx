@@ -1,23 +1,17 @@
 import { BottomSheet } from "react-spring-bottom-sheet";
-import "react-spring-bottom-sheet/dist/style.css";
-
 import Image from "next/image";
-import Table from "./table/Table";
-import { back, close } from "../assets";
+import { close } from "../assets";
 import { memo, useCallback, useEffect, useState } from "react";
-import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
-import getCasinosClientSide from "@/lib/clientSide/getCasinosClientSide";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslations } from "next-intl";
 import _ from "lodash";
+import TableClientSide from "./table/TableClientSide";
+// import 'react-spring-bottom-sheet/dist/style.css'
 
 type BottomSheetModalProps = {
   open: boolean;
   setOpen: (trueFalse: boolean) => void;
   onAddToCompare: (gameData: GameData) => void;
   gameId: string;
-  isAllGames: boolean;
   isFiat?: string;
 };
 
@@ -26,71 +20,20 @@ const BottomSheetModal = ({
   setOpen,
   onAddToCompare,
   gameId,
-  isAllGames,
   isFiat,
 }: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
-  const [casinos, setCasinos] = useState<CasinoData[]>();
-  const [casino, setCasino] = useState<GetGamesFromChosenCasinoProps>();
-  const [games, setGames] = useState<gamesList>();
-  const [loading, setLoading] = useState(false);
+
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
-  const [isFiatState, setIsFiatState] = useState<string>(
-    isFiat || "false"
-  );
-
-  const getGamesFromChosenCasino = async (
-    casino: GetGamesFromChosenCasinoProps
-  ) => {
-    !keyWord && setLoading(true);
-
-    const gamesListData: Promise<gamesList> = getGameListClientSide(
-      casino.casinoId,
-      {
-        orderBy,
-        keyWord,
-        // direction,
-      }
-    );
-
-    const games = await gamesListData;
-    const removeIndex = games.results
-      .map((item) => item.gameId)
-      .indexOf(gameId);
-    ~removeIndex && games.results.splice(removeIndex, 1);
-
-    if (isAllGames) {
-      games.results.splice(1);
-    } else {
-      games.results.shift();
-    }
-
-    setGames(games);
-    setCasino(casino);
-    setLoading(false);
-  };
-
-  const getAllCasinos = async () => {
-    !keyWord && setLoading(true);
-    const casinosData: Promise<CasinoData[]> = getCasinosClientSide({
-      orderBy,
-      keyWord,
-      isFiat: isFiatState,
-      // direction,
-    });
-    const casinos = await casinosData;
-    var removeIndex = casinos.map((item) => item.casinoId).indexOf(gameId);
-    ~removeIndex && casinos.splice(removeIndex, 1);
-
-    setCasinos(casinos);
-    setLoading(false);
-  };
+  const [isFiatState, setIsFiatState] = useState<string>(isFiat || "false");
 
   const onAddToCompareAndClearBottomSheet = (GameData: GameData) => {
     onAddToCompare(GameData);
-    setGames(undefined);
-    setCasino(undefined);
+    setSearchKeyInBottomSheet("");
+    setOrderBy("");
+    // setGames(undefined);
+    // setLoading(false);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,64 +44,33 @@ const BottomSheetModal = ({
     []
   );
 
-  useEffect(() => {
-    if (games && casino) {
-      getGamesFromChosenCasino(casino);
-    } else {
-      getAllCasinos();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyWord, orderBy, isFiatState]);
-
   return (
     <BottomSheet
       blocking={false}
-      snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight / 0.6]}
+      snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight - 87]}
       open={open}
       onDismiss={() => {
         setOpen(false);
-        setCasino(undefined);
-        setGames(undefined);
+        // setGames(undefined);
+      }}
+      onSpringStart={(event) => {
+        if (event.type === "SNAP" && event.source === "dragging") {
+        }
       }}
     >
       <div className="bg-dark1 py-8 flex justify-center  ">
         <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">
-          <div className="flex items-center justify-between">
-            {games ? (
-              <button
-                className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
-                onClick={() => {
-                  setGames(undefined);
-                  setCasino(undefined);
-                }}
-              >
-                <Image
-                  src={back}
-                  alt=""
-                  className="h-6 w-6"
-                  width={24}
-                  height={24}
-                />
-              </button>
-            ) : (
-              <div></div>
-            )}
-            {casino ? (
-              <span className=" text-2xl leading-4  text-white">
-                {t("choose-game-from")} {casino.name}
-              </span>
-            ) : (
-              <span className=" text-2xl leading-4  text-white">
-                {t("choose-casino")}
-              </span>
-            )}
+          <div className="fixed z-10 bg-dark1 flex top-0 h-20 items-center justify-between w-[100%] max-w-screen-xl pr-4 lg:px-0 ">
+            <span className=" text-2xl leading-4  text-white">
+              {t("select-slot-to-compare")}
+            </span>
 
             <button
-              className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3"
+              className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3 mx-4 lg:mx-0 "
               onClick={() => {
                 setOpen(false);
-                setCasino(undefined);
-                setGames(undefined);
+                setSearchKeyInBottomSheet("");
+                setOrderBy("");
               }}
             >
               <Image
@@ -171,49 +83,20 @@ const BottomSheetModal = ({
             </button>
           </div>
 
-          <div className="py-8">
-            {casinos && !games && !loading ? (
-              <Table
-                keyWord={keyWord}
-                orderBy={orderBy}
-                // direction={direction}
-                tableBodyData={casinos}
-                showFilter={true}
-                getGamesFromChosenCasino={getGamesFromChosenCasino}
-                isGame={false}
-                setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
-                setOrderByKeyInBottomSheet={(order) =>
-                  order && setOrderBy(order)
-                }
-                showCryptoFiatSwitcher={true}
-                isFiat={isFiatState}
-                setIsFiatState={(isFiatState) =>
-                  setIsFiatState(isFiatState)
-                }
-              />
-            ) : games && !loading ? (
-              <Table
-                keyWord={keyWord}
-                orderBy={orderBy}
-                // direction={direction}
-                isGame={true}
-                tableBodyData={games.results}
-                showFilter={true}
-                onAddToCompare={onAddToCompareAndClearBottomSheet}
-                setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
-                setOrderByKeyInBottomSheet={(order) =>
-                  order && setOrderBy(order)
-                }
-              />
-            ) : (
-              <SkeletonTheme baseColor="#24262C" highlightColor="#444">
-                <section>
-                  <Skeleton count={1} className="h-20 mb-5" />
-                  <Skeleton count={1} className="h-20 mb-5" />
-                  <Skeleton count={1} className="h-20 mb-5" />
-                </section>
-              </SkeletonTheme>
-            )}
+          <div className="py-4 lg:py-8">
+            <TableClientSide
+              keyWordBottomsheet={keyWord}
+              orderByBottomsheet={orderBy}
+              // directionBottomsheet={direction}
+              isFiatBottomsheet={isFiatState}
+              showFilter={true}
+              onAddToCompare={onAddToCompareAndClearBottomSheet}
+              setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+              setOrderByKeyInBottomSheet={(order) => order && setOrderBy(order)}
+              setIsFiatState={(isFiatState) => setIsFiatState(isFiatState)}
+              showCryptoFiatSwitcher={true}
+              gameId={gameId}
+            />
           </div>
         </div>
       </div>

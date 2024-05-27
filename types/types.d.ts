@@ -23,6 +23,24 @@ type Card = {
   valueType: string;
   isDefault: boolean;
 };
+type Bonus = {
+  cardId: string;
+  imageUrl: string;
+  value: string | null;
+  culture: string;
+  name: string;
+  isLive: boolean;
+  additionalInfo: string;
+  redirectUrl: string;
+  additionalProps: string | null;
+  contextId: string;
+  valueTypeId: string | null;
+  contextType: string;
+  valueType: "CasinoPromotion" | "WelcomeBonus";
+  isDefault: boolean;
+  order: number;
+  expireDate: string;
+};
 
 type Offer = {
   offerId: string;
@@ -70,7 +88,7 @@ type Dictionary = {
     joinUs: string;
     stayInLoop: string;
     subscribe: string;
-    telegramChan: string;
+    XChan: string;
   };
   footer: {
     company: string;
@@ -104,26 +122,6 @@ type Dictionary = {
   };
 };
 
-interface CasinoData extends GameData {
-  casinoId: string;
-  name: string;
-  imageUrl: string;
-  providers: number;
-  bounties: string;
-  dataSource: string;
-  jackpot: number;
-  jackpotCurrency: string;
-  s24h?: null[] | null;
-  p1h: number;
-  p24h: number;
-  users: number;
-  pallTime: number;
-  t1H: number;
-  t24h: number;
-  redirectUrl: string;
-  isForAllGames?: boolean;
-}
-
 type GameData = {
   gameId: string;
   name: string;
@@ -142,7 +140,22 @@ type GameData = {
   redirectUrl: string;
   type?: "AllGames";
   casinoCurrency?: string;
-  rtp?: RTP;
+  rtp: RTP;
+  bounties: string;
+  currencyCode: string;
+  fixedRtp: string;
+  isCrypto: boolean;
+  isFiat: boolean;
+  additionalInfo: string;
+  casinoImageUrl: string;
+  jackpotInfo: "string";
+  verificationStatus: number;
+  fixedRtp: number;
+  currencRtp: number;
+  rtpChange: number;
+  rtpState: number;
+  sps: number;
+  maxX: string;
 };
 
 type RTP = {
@@ -155,6 +168,7 @@ type RTP = {
   name: string;
   preferredValue: number;
   provider: string;
+  previousValue: number;
   value: number;
 };
 
@@ -175,6 +189,10 @@ type StatisticsData = {
   timeStamp: number;
 };
 
+type RTPListingProps = {
+  rtp: RTP;
+};
+
 type FiltersKey = "1D" | "1W" | "1M" | "1Y" | "All" | string;
 
 type DateFilterForChartProps = {
@@ -191,18 +209,75 @@ type CasinoNamesWithCompareButtonProps = {
 };
 type ActionPaneProps = CasinoNamesWithCompareButtonProps &
   DateFilterForChartProps;
-  
+
 type Type = "AllGames" | "Game";
+interface QueryParamsGamePage extends QueryParams {
+  casId: string;
+}
+
 type QueryParams = {
-  orderBy?: string;
-  keyWord?: string;
-  direction?: string;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
   type?: Type;
-  isFiat?: string;
+  isFiat?: string | null;
   compareGameId?: string;
+  ActiveTab?: string;
+  page?: string;
+  ids?: string;
 };
 
-type GetGamesFromChosenCasinoProps = {
+interface CasinoData extends GameData {
   casinoId: string;
   name: string;
+  imageUrl: string;
+  providers: number;
+  bounties: string;
+  dataSource: string;
+  jackpot: number;
+  jackpotCurrency: string;
+  s24h?: null[] | null;
+  p1h: number;
+  p24h: number;
+  users: number;
+  pallTime: number;
+  t1H: number;
+  t24h: number;
+  redirectUrl: string;
+  isForAllGames?: boolean;
+}
+
+type TableWrapperProps = {
+  showFilter: boolean;
+  onAddToCompare?: (gameId: GameData) => void;
+  orderByBottomsheet?: string | null;
+  keyWordBottomsheet?: string | null;
+  directionBottomsheet?: string | null;
+  isFiatBottomsheet?: string;
+  setSearchKeyInBottomSheet?: (text: string) => void;
+  setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
+  showCryptoFiatSwitcher?: boolean;
+  setIsFiatState?: (text: string) => void;
+  gameId?: string;
+};
+
+interface TableProps extends TableWrapperProps {
+  gamesList?: gamesList;
+  setScrollY: (text: number) => void;
+  getGames: (selectedPage?: string) => void;
+  loading: boolean;
+  orderBy?: string | null;
+  keyWord?: string | null;
+  direction?: string | null;
+  isFiat?: string;
+}
+
+type TableIn = {
+  gamesList: gamesList;
+  onAddToCompare?: (gameId: GameData) => void;
+  orderBy?: string | null;
+  isFiat?: string | null;
+
+  getGames: (selectedPage?: string) => void;
+  bottomSheetRowClick: (row: any) => void;
 };

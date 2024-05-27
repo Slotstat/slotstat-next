@@ -65,6 +65,7 @@ export const getTooltip2 = (
             </div>
         </div>`;
 };
+
 export const getTooltip3 = (
   series1Value: string,
   formattedDate: string,
@@ -136,6 +137,8 @@ export const createSeries = (
   s.dataFields.dateX = xv;
   s.dataFields.valueY = yv;
   s.interpolationDuration = 500;
+  s.showOnInit = false;
+  // s.cursorTooltipEnabled = false;
   s.defaultState.transitionDuration = 0;
 
   s.fillOpacity = 1;
@@ -175,7 +178,8 @@ export const createSeries = (
 export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.hiddenState.properties.opacity = 0;
   const isSmallerThan768 = window.innerWidth < 768;
-  chart.paddingLeft = isSmallerThan768 ? 0 : 16;
+  chart.paddingLeft = isSmallerThan768 ? 0 : 10;
+  chart.paddingBottom = isSmallerThan768 ? 0 : 16;
   // if (window.innerWidth < 768) {
   //   chart.paddingLeft = 0;
   // }
@@ -221,10 +225,19 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   dateAxis.renderer.minGridDistance = isSmallerThan768 ? 40 : 70;
   valueAxis.renderer.minGridDistance = isSmallerThan768 ? 20 : 40;
 
-  // zoom
-  // dateAxis.showOnInit = false;
-  // valueAxis.keepSelection = true;
-  // dateAxis.keepSelection = true;
+  let watermark = new am4core.Image();
+  const svgDataUri =
+    "data:image/svg+xml;base64," +
+    btoa(
+      '<svg width="145" height="39" viewBox="0 0 145 39" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.6357 0.456591C20.1767 -0.152197 18.5374 -0.152197 17.0784 0.45659L7.60126 4.41116C6.14229 5.01995 4.98315 6.18765 4.37882 7.65739L0.453244 17.2046C-0.151081 18.6743 -0.151081 20.3257 0.453243 21.7954L4.37882 31.3426C4.98315 32.8124 6.14229 33.9801 7.60126 34.5888L17.0784 38.5434C18.5374 39.1522 20.1767 39.1522 21.6357 38.5434L31.1128 34.5888C32.5718 33.9801 33.731 32.8124 34.3353 31.3426L38.2609 21.7954C38.8652 20.3257 38.8652 18.6743 38.2609 17.2046L34.3353 7.6574C33.731 6.18765 32.5718 5.01995 31.1129 4.41116L21.6357 0.456591ZM16.5873 15.0408C16.3044 14.7038 15.8886 14.5094 15.4505 14.5094C15.0125 14.5094 14.5966 14.7038 14.3138 15.0408L8.454 22.0229C7.92322 22.6553 8.00187 23.6015 8.62968 24.1362C9.25749 24.6709 10.1967 24.5917 10.7275 23.9592L15.4505 18.3316L17.0483 20.2354C17.4938 20.7661 18.2428 20.919 18.8581 20.6048L20.5428 19.7445L24.0801 23.9592C24.3629 24.2962 24.7788 24.4906 25.2168 24.4906C25.6549 24.4906 26.0707 24.2962 26.3536 23.9592L30.2601 19.3045C30.7909 18.672 30.7122 17.7259 30.0844 17.1912C29.4566 16.6565 28.5174 16.7357 27.9866 17.3681L25.2168 20.6684L22.0564 16.9027C21.611 16.3719 20.862 16.2191 20.2466 16.5333L18.5619 17.3936L16.5873 15.0408Z" fill="#292B30"/><path d="M55.8906 28.8613C60.6124 28.8613 63.7602 26.6259 63.7602 23.2989C63.7602 16.7748 52.2267 18.3083 52.2267 15.5531C52.2267 14.2795 53.6974 13.4218 55.8906 13.4218C57.9548 13.4218 59.6061 14.5394 60.0189 16.2289L63.1926 15.4232C62.3669 12.3561 59.4513 10.3027 55.8906 10.3027C51.6333 10.3027 48.7951 12.4081 48.7951 15.5531C48.7951 21.8693 60.3285 19.66 60.3285 23.2989C60.3285 24.7545 58.5482 25.7422 55.8906 25.7422C53.0782 25.7422 51.1688 24.3906 51.0914 22.3632H47.8146C47.892 26.262 51.1172 28.8613 55.8906 28.8613Z" fill="#292B30"/><path d="M65.6159 28.4974H68.7122V10.6666H65.6159V28.4974Z" fill="#292B30"/><path d="M77.56 28.8613C81.7657 28.8613 84.5523 26.1061 84.5523 21.9993C84.5523 17.8925 81.7657 15.1373 77.56 15.1373C73.3543 15.1373 70.5677 17.8925 70.5677 21.9993C70.5677 26.1061 73.3543 28.8613 77.56 28.8613ZM77.56 26.1061C75.212 26.1061 73.6639 24.4686 73.6639 21.9993C73.6639 19.53 75.212 17.8925 77.56 17.8925C79.908 17.8925 81.4561 19.53 81.4561 21.9993C81.4561 24.4686 79.908 26.1061 77.56 26.1061Z" fill="#292B30"/><path d="M91.5053 28.8613C92.3568 28.8613 93.2341 28.7053 93.6985 28.4974V26.262H91.4537C90.7829 26.262 90.3185 25.8202 90.3185 25.1704V18.1004H93.5695V15.5012H90.3185V10.6666H87.2222V15.5012H85.1581V18.1004H87.2222V25.1704C87.2222 27.3797 88.9251 28.8613 91.5053 28.8613Z" fill="#292B30"/><path d="M103.161 28.8613C107.882 28.8613 111.03 26.6259 111.03 23.2989C111.03 16.7748 99.4967 18.3083 99.4967 15.5531C99.4967 14.2795 100.967 13.4218 103.161 13.4218C105.225 13.4218 106.876 14.5394 107.289 16.2289L110.463 15.4232C109.637 12.3561 106.721 10.3027 103.161 10.3027C98.9032 10.3027 96.065 12.4081 96.065 15.5531C96.065 21.8693 107.598 19.66 107.598 23.2989C107.598 24.7545 105.818 25.7422 103.161 25.7422C100.348 25.7422 98.4388 24.3906 98.3614 22.3632H95.0845C95.162 26.262 98.3872 28.8613 103.161 28.8613Z" fill="#292B30"/><path d="M117.988 28.8613C118.839 28.8613 119.716 28.7053 120.181 28.4974V26.262H117.936C117.265 26.262 116.801 25.8202 116.801 25.1704V18.1004H120.052V15.5012H116.801V10.6666H113.704V15.5012H111.64V18.1004H113.704V25.1704C113.704 27.3797 115.407 28.8613 117.988 28.8613Z" fill="#292B30"/><path d="M127.771 28.8613C129.294 28.8613 130.971 28.1595 131.951 27.0938V28.4974H135.048V15.5012H131.951V16.9048C130.971 15.8391 129.294 15.1373 127.771 15.1373C123.746 15.1373 121.063 17.8925 121.063 21.9993C121.063 26.1061 123.746 28.8613 127.771 28.8613ZM128.081 26.1061C125.733 26.1061 124.159 24.4686 124.159 21.9993C124.159 19.53 125.733 17.8925 128.081 17.8925C130.403 17.8925 131.951 19.53 131.951 21.9993C131.951 24.4686 130.403 26.1061 128.081 26.1061Z" fill="#292B30"/><path d="M142.807 28.8613C143.658 28.8613 144.536 28.7053 145 28.4974V26.262H142.755C142.084 26.262 141.62 25.8202 141.62 25.1704V18.1004H144.871V15.5012H141.62V10.6666H138.524V15.5012H136.46V18.1004H138.524V25.1704C138.524 27.3797 140.227 28.8613 142.807 28.8613Z" fill="#292B30"/></svg>'
+    );
+
+  watermark.href = svgDataUri;
+  chart.plotContainer.children.push(watermark);
+  watermark.align = "center";
+  watermark.valign = "middle";
+  watermark.opacity = 1;
+  watermark.width = 145;
 
   // create series
   const series1 = chart.series.push(new am4charts.LineSeries());
@@ -237,6 +250,9 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   // cursor.behavior = 'panX';
   chart.cursor.keepSelection = true;
   chart.cursor.maxTooltipDistance = 2000;
+  // if (window.innerWidth < 768) {
+  //   chart.cursor.behavior = "none";
+  // }
 
   chart.plotContainer.tooltipPosition = "pointer";
   chart.plotContainer.tooltip.label.padding(0, 0, 0, 0);
@@ -256,7 +272,8 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
       const cursorPosition = x.toAxisPosition(e.target.xPosition);
       const cursorPositionY = y.toAxisPosition(e.target.yPosition);
 
-      if (cursorPosition > 0.99 && cursorPositionY > 0.9) {
+      // if (cursorPosition > 0.90 && cursorPositionY > 0.75) {
+      if (cursorPositionY > 0.9) {
         chart.plotContainer.tooltipHTML = "";
       } else {
         const { values } = s.dataItems;
@@ -297,22 +314,49 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
           } while (i2 < values2.length);
         }
 
+        const generateFormattedDate = (date) => {
+          const months = [
+            "Jan.",
+            "Feb.",
+            "Mar.",
+            "Apr.",
+            "May",
+            "Jun.",
+            "Jul.",
+            "Aug.",
+            "Sep.",
+            "Oct.",
+            "Nov.",
+            "Dec.",
+          ];
+          const day = date.toLocaleDateString("en-US", { day: "2-digit" });
+          const monthIndex = date.getMonth();
+          const month = months[monthIndex];
+          const year = date.toLocaleDateString("en-US", { year: "numeric" });
+
+          return `${day} ${month} ${year}`;
+        };
+
         if (v && !v2) {
           const dateX = v?.dates?.dateX;
           const series1value = v?.values?.valueY?.value;
           const date = new Date(dateX);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-          });
+          // const formattedDate = date.toLocaleDateString("en-US", {
+          //   day: "2-digit",
+          //   month: "2-digit",
+          //   year: "numeric",
+          // });
+          const formattedDate = generateFormattedDate(date);
+
           const formattedTime = date.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
+            // second: "2-digit",
+            hour12: false,
           });
-
+          // chart.plotContainer.mouseOptions.sensitivity = ;
+          // chart.plotContainer.showOnInit = false;
+          chart.plotContainer.showTooltipOn = "hover";
           chart.plotContainer.tooltipHTML = getTooltip2(
             series1value,
             formattedDate,
@@ -326,16 +370,14 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
           const series2value = v2?.values?.valueY?.value;
 
           const date = new Date(dateX);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-          });
+
+          const formattedDate = generateFormattedDate(date);
+
           const formattedTime = date.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
+            // second: "2-digit",
+            hour12: false,
           });
 
           chart.plotContainer.tooltipHTML = getTooltip3(
@@ -352,17 +394,72 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
   chart.mouseWheelBehavior = "panXY";
 
   // bottom scrollbar
-  // const scrollbarX = new am4charts.XYChartScrollbar();
-  // scrollbarX.series.push(serie1);
-  // scrollbarX.background.fill = am4core.color("#24262C");
-  // chart.scrollbarX = scrollbarX;
-  // chart.scrollbarX.parent = chart.bottomAxesContainer;
 
   // chart.scrollbarY = new am4core.Scrollbar();
   // chart.legend = new am4charts.Legend();
 
-  chart.cursor.behavior = "zoomX";
+  if (window.innerWidth < 768) {
+    chart.cursor.behavior = "none";
+    function customizeGrip(grip) {
+      // Remove default grip image
+      grip.icon.disabled = true;
+
+      // Disable background
+      grip.background.disabled = true;
+
+      grip.background.fill = am4core.color("#c00");
+      grip.background.fillOpacity = 0.5;
+
+      // Add rotated rectangle as bi-di arrow
+      var img = grip.createChild(am4core.Rectangle);
+      img.width = 15;
+      img.height = 15;
+      img.fill = am4core.color("#999");
+      img.rotation = 45;
+      img.align = "center";
+      img.valign = "middle";
+
+      // Add vertical bar
+      var line = grip.createChild(am4core.Rectangle);
+      line.height = 30;
+      line.width = 2;
+      line.fill = am4core.color("#999");
+      line.align = "center";
+      line.valign = "middle";
+    }
+
+    const scrollbarX = new am4charts.XYChartScrollbar();
+    scrollbarX.series.push(series1);
+    scrollbarX.background.fill = am4core.color("#24262C");
+    scrollbarX.thumb.background.fill = am4core.color("#24262C");
+    scrollbarX.thumb.background.fillOpacity = 0.2;
+    scrollbarX.unselectedOverlay.fill = am4core.color("#000");
+    scrollbarX.unselectedOverlay.fillOpacity = 0.4;
+
+    scrollbarX.minHeight = 30;
+
+    customizeGrip(scrollbarX.startGrip);
+    customizeGrip(scrollbarX.endGrip);
+
+    // Configure scrollbar series
+    var scrollSeries1 = scrollbarX.scrollbarChart.series.getIndex(0);
+    scrollSeries1.fillOpacity = 0.3;
+    // scrollSeries1.strokeDasharray = "2,2";
+
+    // Bring back colors
+    scrollbarX.scrollbarChart.plotContainer.filters.clear();
+
+    chart.scrollbarX = scrollbarX;
+
+    // move scrollbar bottom
+    chart.scrollbarX.parent = chart.bottomAxesContainer;
+  } else {
+    chart.cursor.behavior = "zoomX";
+  }
+
   chart.mouseWheelBehavior = "panXY";
+  // chart.mouseWheelBehavior = "none";
+
   chart.zoomOutButton.disabled = false;
 };
 
@@ -408,6 +505,6 @@ export const FILTERS = {
   "1D": { label: "1D" },
   "1W": { label: "1W" },
   "1M": { label: "1M" },
-  "1Y": { label: "1Y" },
-  All: { label: "All" },
+  // "1Y": { label: "1Y" },
+  // All: { label: "All" },
 };

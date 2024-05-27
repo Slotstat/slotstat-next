@@ -1,1 +1,0 @@
-export const openGraphImage = { images: ['https://slotstat.net/opengraph-image.png'] }

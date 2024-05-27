@@ -14,20 +14,37 @@ export default function HowItWorks() {
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className="text-grey1 mb-10">
-        <h1 className=" text-4xl font-black text-white my-4">How it works</h1>
+        <h1 className=" text-4xl font-black text-white my-6">
+          SlotStat Mechanics and How it Works
+        </h1>
         <p className="mb-8">
-          {`Welcome to the "How it works" section of Slotstat.ge, where we offer an in-depth overview of our platform's functionalities and features. Let's delve into the three main pages and their capabilities:`}
+          Slotstat is an information worktop where users have the power to
+          observe general details and real-time statistics of slots and casinos.
+          On the landing page, players will find some handy figurines like: RTP,
+          RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing SlotStat
+          data may turn up for players as a tool to plan beforehand playing and
+          an advantageous gambling experience.
         </p>
-        <ol className="list-decimal list-inside ">
-          <li className="mb-8">
-            {`Landing Page: Upon visiting Slotstat.ge, users will be directed to our
-          dynamic landing page. This page displays a tailored list of casinos
-          based on the user's country. Each casino listing provides essential
-          information to assist users in making informed decisions. These
-          details include:`}
+        <p className="">Figurines:</p>
+        <ol className="list-decimal list-inside mb-10 ">
+          <li className="">
+            RTP - Return to Player Percentage. RTP is predicted, the ideal point
+            to which slots constantly aspire and represents the casino tendency
+            to realize payouts.
+          </li>
+          <li className="">
+            RTP SWING - Parameter shows the game’s variance from the ideal RTP
+            in real-time.
+          </li>
+          <li className="">
+            Win Spin Rate - Win Spin Rate is a frequency of winning spins,
+            where win is higher than initial bet.
+          </li>
+          <li className="">
+            Jackpot - Figurine shows maximum Jackpot value of the chosen slot.
           </li>
 
-          <ul className="list-disc  list-inside ml-5">
+          {/* <ul className="list-disc  list-inside ml-5">
             <li className="mb-8">
               {`RTP (Return to Player) Percentage: This is a predicted, ideal number
             that represents the casino's tendency to realize payouts. It serves
@@ -63,39 +80,29 @@ export default function HowItWorks() {
               percentages over time. This teaser graph provides a quick overview
               of casino trends.
             </li>
-          </ul>
-          <li className="mb-8">
-            Games Listing Page: When users select a specific casino from the
-            landing page, they will be directed to the Games Listing page. Here,
-            users can explore an extensive collection of games available at the
-            chosen casino.
-          </li>
-          <li className="mb-8">
-            Game Page: On the Full-Scale Graph page, users can dive deeper into
-            statistical data. This page features a detailed graph representing
-            the average hit rate frequency over a selected time period. Users
-            have the flexibility to customize the timeframe according to their
-            preferences.
-          </li>
+          </ul> */}
         </ol>
-        <p className="mb-8">
-          {` Additionally, we offer a "Compare" button, enabling users to compare
-        graphs and RTP counters of a specific casino or game with another. This
-        feature streamlines observation and facilitates the comparison of hit
-        rates and RTP percentages, assisting users in making data-driven
-        decisions.`}
+        <p className="">Games Listing Page:</p>
+        <p className="mb-6">
+          On the landing page after selecting the slot and clicking on its bar,
+          the player gets directed to the game page of the SlotStat interface,
+          where the player is able to analyze general information and real-time
+          statistics of desired slot game. Based on this information the player
+          can determine whether it’s play time or not.
         </p>
-        <p className="mb-8">
-          At Slotstat.ge, our goal is to provide users with a user-friendly
-          interface, valuable information, and insights. We are dedicated to
-          ensuring transparency, accuracy, and accessibility in the data we
-          present, empowering users to make well-informed choices in their
-          online gambling endeavors.
+        <p className="">Game Page:</p>
+        <p className="mb-6">
+          Game Page is a full-scaled graph of the average win spin frequency
+          where the player has flexibility to customize time frames and get a
+          detailed visualization of chosen game according to its preferences.
         </p>
-        <p>
-          Feel free to explore our website and harness the potential of
-          statistical data with Slotstat.ge
+        <p className="mb-6">
+          As an additional function SlotStat also offers a ‘Compare’ button,
+          which appears to be an unmatched possibility for users to contrast
+          graphs and RTP counters of the specific casino or game to another.
         </p>
+
+        <p>All set, SlotStat data is all yours now. Use it as you please.</p>
       </div>
     </>
   );

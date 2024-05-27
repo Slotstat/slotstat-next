@@ -35,8 +35,9 @@ export default function RTP({
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-
-  // const RenderRTPUI=()=>
+  const slotIsLosing = t("CasinoIsLosing");
+  const slotIsInProfit = t("CasinoIsInProfit");
+  const neutral = t("neutral");
 
   const whichToRender = () => {
     if (gameObject?.rtp && RTP) {
@@ -44,11 +45,11 @@ export default function RTP({
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center lg:p-6 relative"
+          className="rounded-3xl bg-dark1 h-[233px] flex flex-col items-center pt-4 lg:p-6 relative"
         >
           {setOpen && isHovered && (
             <div
-              className="absolute top-0 bottom-0  z-10"
+              className="absolute top-0 bottom-0  z-1"
               onClick={onPressRemove}
             >
               <svg
@@ -66,7 +67,7 @@ export default function RTP({
                   stroke="#FA4611"
                   strokeDasharray="5 5"
                   rx={23.5}
-                  className=" z-50"
+                  className=" z-6"
                 />
               </svg>
               <div className=" absolute cursor-pointer w-full h-full top-0 flex flex-col items-center justify-center">
@@ -75,7 +76,7 @@ export default function RTP({
               </div>
             </div>
           )}
-          <p className=" text-lg text-white text-center mb-8 h-12">
+          <p className="text-lg text-white text-center mb-8 h-12">
             {gameObject?.casinoName} {gameObject?.name}
           </p>
           <div className="relative">
@@ -105,9 +106,10 @@ export default function RTP({
                 fill={"#969CB0"}
                 fontWeight={900}
                 fontSize="14"
-                fontFamily="modernist"
+                fontFamily="modernist-bold"
               >
-                RTP {gameObject?.rtp?.preferredValue}%
+                RTP{" "}
+                <tspan fill="white">{gameObject?.rtp?.preferredValue}%</tspan>
               </text>
               <text
                 x="50%"
@@ -116,7 +118,7 @@ export default function RTP({
                 textAnchor="middle"
                 fill={"white"}
                 fontSize="28"
-                fontFamily="modernist"
+                fontFamily="modernist-bold"
               >
                 {RTP}%
               </text>
@@ -130,11 +132,23 @@ export default function RTP({
                 fontSize="12"
                 fontFamily="modernist"
               >
-                {RTP === gameObject.rtp.preferredValue
-                  ? t("neutral")
-                  : RTP > gameObject.rtp.preferredValue
-                  ? t("CasinoIsLosing")
-                  : t("CasinoIsInProfit")}
+                {RTP === gameObject?.rtp?.preferredValue ? (
+                  neutral
+                ) : RTP > gameObject?.rtp?.preferredValue ? (
+                  <>
+                    {slotIsLosing}{" "}
+                    <tspan fill="#fff">
+                      {(RTP - gameObject?.rtp?.preferredValue).toFixed(2)}%
+                    </tspan>
+                  </>
+                ) : (
+                  <>
+                    {slotIsInProfit}{" "}
+                    <tspan fill="#fff">
+                      {(gameObject?.rtp?.preferredValue - RTP).toFixed(2)}%
+                    </tspan>
+                  </>
+                )}
               </text>
               <defs>
                 <linearGradient
@@ -187,7 +201,11 @@ export default function RTP({
       );
     } else {
       return (
-        <div className="relative rounded-3xl bg-dark1 h-[233px] flex flex-col items-center ">
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative rounded-3xl bg-dark1 h-[233px] flex flex-col items-center "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
@@ -208,43 +226,69 @@ export default function RTP({
             onClick={onPressCompare}
             className="absolute cursor-pointer w-full h-full flex flex-col items-center justify-center"
           >
-            <Plus />
-            <p className=" text-white mt-2"> {t("Compare")}</p>
+            <Plus fill={`${isHovered ? "#969CB0" : "#fff"} `} />
+            <p className={`${isHovered ? "text-grey1" : "text-white"}  mt-2`}>
+              {t("Compare")}
+            </p>
           </div>
         </div>
       );
     }
   };
+
+  const RTPAngleCalculator = ({
+    value,
+    preferredValue,
+    max,
+    min,
+  }: {
+    value: number;
+    preferredValue: number;
+    max: number;
+    min: number;
+  }) => {
+    if (value > preferredValue) {
+      const casinoLosingIndicatorSizeCounter =
+        RTPCenterAngle +
+        (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
+      setAngle(casinoLosingIndicatorSizeCounter);
+    } else if (value < preferredValue) {
+      const casinoWiningIndicatorSizeCounter =
+        RTPCenterAngle -
+        (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
+      setAngle(casinoWiningIndicatorSizeCounter);
+    } else {
+      setAngle(RTPCenterAngle);
+    }
+  };
+
   useEffect(() => {
     if (gameObject?.rtp) {
-      setAngle(
-        gameObject.rtp.value - (gameObject.rtp.preferredValue - RTPCenterAngle)
-      );
+      const { preferredValue, max, min } = gameObject?.rtp;
+
+      RTPAngleCalculator({
+        value: gameObject.rtp.value,
+        preferredValue,
+        max,
+        min,
+      });
+
       setRTP(gameObject.rtp.value);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameObject]);
 
   useEffect(() => {
     if (newRtp && gameObject?.rtp && newRtp.rtpId === gameObject.rtp.id) {
       const { value } = newRtp;
       const { preferredValue, max, min } = gameObject.rtp;
 
-      if (value > preferredValue) {
-        const casinoLoosingIndicatorSizeCounter =
-          RTPCenterAngle +
-          (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
-        setAngle(casinoLoosingIndicatorSizeCounter);
-      } else if (value < preferredValue) {
-        const casinoWiningIndicatorSizeCounter =
-          RTPCenterAngle -
-          (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
-        setAngle(casinoWiningIndicatorSizeCounter);
-      } else {
-        setAngle(RTPCenterAngle);
-      }
-
-      setRTP(value);
+      RTPAngleCalculator({ value, preferredValue, max, min });
+      setTimeout(() => {
+        setRTP(value);
+      }, 10000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRtp]);
 
   return (

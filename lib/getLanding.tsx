@@ -1,6 +1,6 @@
 import slotStatClient from "./instance";
 
-export async function getLandingCards(locale:string) {
+export async function getLandingCards(locale: "en" | "ka") {
   try {
     const res = await slotStatClient(locale).request({
       url: `/api/landing/card`,
@@ -12,7 +12,7 @@ export async function getLandingCards(locale:string) {
     return false;
   }
 }
-export async function getLandingOffers(locale:string) {
+export async function getLandingOffers(locale: "en" | "ka") {
   try {
     const res = await slotStatClient(locale).request({
       url: `/api/landing/offer`,

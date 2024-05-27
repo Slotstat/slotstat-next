@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require("tailwindcss/defaultTheme");
+// const defaultTheme = require("tailwindcss/defaultTheme");
 // const withMT = require("@material-tailwind/react/utils/withMT");
 
 module.exports = {
@@ -12,9 +12,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["modernist", ...defaultTheme.fontFamily.sans],
-        serif: [...defaultTheme.fontFamily.serif],
-        mono: [...defaultTheme.fontFamily.mono],
+        modernist: ["var(--font-Modernist)"],
+        sans: ["var(--font-Modernist)"],
+        // serif: [...defaultTheme.fontFamily.serif],
+        // mono: [...defaultTheme.fontFamily.mono],
       },
       colors: {
         dark1: "#202227",
@@ -28,7 +29,9 @@ module.exports = {
         blue3: "#2D3A59",
         blue4: "#324269",
         green1: "#00D685",
+        green2: "#01c278",
         opaque1: "#FFFFFF66",
+        red: "#FA4611",
 
         sky: {
           50: "#f0f9ff",

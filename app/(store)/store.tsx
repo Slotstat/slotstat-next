@@ -30,6 +30,8 @@ type State = {
   isOn: boolean;
   newRtp?: RTPEvent;
   newUser?: { context?: string };
+  gamesList?: gamesList;
+  setGames: (games: gamesList) => void;
 };
 
 const useStore = create<State>((set, get) => ({
@@ -39,6 +41,22 @@ const useStore = create<State>((set, get) => ({
   jackpotHasBeenDrawn: undefined,
   newRtp: undefined,
   newUser: undefined,
+  gamesList: undefined,
+  setGames: (games: gamesList) => ({ gamesList: games }),
+}));
+
+type GamesListState = {
+  gamesList?: gamesList;
+  handleRecall: boolean;
+  setGames: (games: gamesList) => void;
+  setHandleRecall: (help: boolean) => void;
+};
+
+export const useGamesListStore = create<GamesListState>((set, get) => ({
+  gamesList: undefined,
+  handleRecall: false,
+  setGames: (games: gamesList) => set(() => ({ gamesList: games })),
+  setHandleRecall: (help: boolean) => set(() => ({ handleRecall: help })),
 }));
 
 export default useStore;
