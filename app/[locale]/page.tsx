@@ -48,7 +48,6 @@ export async function generateMetadata({ params: { locale } }: Params) {
 }
 
 export default async function Home({
-  searchParams: { orderBy, direction, isFiat },
   params: { locale },
 }: Params) {
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
@@ -56,6 +55,7 @@ export default async function Home({
   const [landingCards] = await Promise.all([landingCardsData]);
 
   if (!landingCards) {
+    console.log('111');
     notFound();
   }
 
@@ -63,9 +63,9 @@ export default async function Home({
     <>
       <LiveCards cardsData={landingCards} />
       <IntroComponent />
-      <div className="my-6 lg:my-12 my">
+      {/* <div className="my-6 lg:my-12 my">
         <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
-      </div>
+      </div> */}
     </>
   );
 }
