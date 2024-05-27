@@ -52,10 +52,9 @@ export default async function Home({ params: { locale } }: Params) {
 
   const [landingCards] = await Promise.all([landingCardsData]);
 
-  // if (!landingCards) {
-  //   console.log("111");
-  //   notFound();
-  // }
+  if (!landingCards) {
+    notFound();
+  }
 
   return (
     <>
