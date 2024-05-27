@@ -47,23 +47,22 @@ export async function generateMetadata({ params: { locale } }: Params) {
   }
 }
 
-export default async function Home({
-  params: { locale },
-}: Params) {
-  const landingCardsData: Promise<Card[]> = getLandingCards(locale);
+export default async function Home({ params: { locale } }: Params) {
+  // const landingCardsData: Promise<Card[]> = getLandingCards(locale);
 
-  const [landingCards] = await Promise.all([landingCardsData]);
+  // const [landingCards] = await Promise.all([landingCardsData]);
 
-  if (!landingCards) {
-    console.log('111');
-    notFound();
-  }
+  // if (!landingCards) {
+  //   console.log('111');
+  //   notFound();
+  // }
 
   return (
     <>
-      <LiveCards cardsData={landingCards} />
+      <div>test </div>
+      {/* <LiveCards cardsData={landingCards} />
       <IntroComponent />
-      {/* <div className="my-6 lg:my-12 my">
+      <div className="my-6 lg:my-12 my">
         <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
       </div> */}
     </>
