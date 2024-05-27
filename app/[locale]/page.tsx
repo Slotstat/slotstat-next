@@ -59,8 +59,7 @@ export default async function Home({ params: { locale } }: Params) {
 
   return (
     <>
-      <div>test </div>
-      {/* <LiveCards cardsData={landingCards} /> */}
+      <LiveCards cardsData={landingCards} />
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
         <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
