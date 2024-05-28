@@ -111,7 +111,7 @@
   "noStatistic": "Oops, we will update statistics soon!!",
   "fiatCasinos": "Fiat",
   "cryptoCasinos": "Crypto ",
-  "itemNotFound": "Oops, item not found",
+  "itemNotFound": "No results! Try a different search.",
 
   "notification": {
     "notification": "The jackpot has been drawn",

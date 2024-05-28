@@ -126,9 +126,7 @@ export default async function gamePage({
           gamesCardsData={gamesCardsData}
         />
       )}
-      {/* <>
-          {!casino && !casinoCards && !casinoBonuses &&<LoadingSkeleton />}
-        </> */}
+      <>{!casino && !casinoCards && !casinoBonuses && <LoadingSkeleton />}</>
     </>
   );
 }

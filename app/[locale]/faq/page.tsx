@@ -46,7 +46,7 @@ export default function FAQ() {
             <Accordion data={columns} />
           </div>
         </div>
-        <div className="relative mt-28 mb-12 flex w-full flex-col flex-wrap items-center rounded-3xl bg-dark2 py-16 px-9 md:flex-row lg:space-x-40 lg:py-20 lg:px-28">
+        {/* <div className="relative mt-28 mb-12 flex w-full flex-col flex-wrap items-center rounded-3xl bg-dark2 py-16 px-9 md:flex-row lg:space-x-40 lg:py-20 lg:px-28">
           <div className="flex-1">
             <h1 className="my-2 text-lg text-center md:text-start lg:text-3xl font-bold text-white">
               {t("joinUs")}
@@ -65,7 +65,7 @@ export default function FAQ() {
               account={t("account")}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
