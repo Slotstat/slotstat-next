@@ -5,6 +5,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import _ from "lodash";
 import TableClientSide from "./table/TableClientSide";
+import { useGamesListStore } from "../(store)/store";
 // import 'react-spring-bottom-sheet/dist/style.css'
 
 type BottomSheetModalProps = {
@@ -23,7 +24,7 @@ const BottomSheetModal = ({
   isFiat,
 }: BottomSheetModalProps) => {
   const t = useTranslations("bottomSheetModal");
-
+  const { setHandleRecall } = useGamesListStore();
   const [keyWord, setKeyWord] = useState<string>("");
   const [orderBy, setOrderBy] = useState<string>("");
   const [isFiatState, setIsFiatState] = useState<string>(isFiat || "false");
@@ -43,6 +44,9 @@ const BottomSheetModal = ({
     }, 500),
     []
   );
+  useEffect(() => {
+    setHandleRecall(false);
+  }, []);
 
   return (
     <BottomSheet

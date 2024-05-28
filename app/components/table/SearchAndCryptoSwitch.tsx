@@ -37,7 +37,7 @@ export const SearchAndCryptoSwitch = ({
     }, debounce),
     []
   );
-  
+
   useEffect(() => {
     setValue(keyWord);
   }, [keyWord]);
@@ -127,7 +127,7 @@ export const SearchAndCryptoSwitch = ({
         }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="placeholder:text-grey1  w-full rounded-r-lg text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none "
+        className="placeholder:text-grey1 w-full  text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none  rounded-none rounded-r-lg"
       />
       <span className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center">
         <Image src={search} alt="" height={12} width={12} />

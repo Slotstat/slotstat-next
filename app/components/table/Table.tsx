@@ -4,7 +4,6 @@ import Dropdown from "./Dropdown";
 import { SearchAndCryptoSwitch } from "./SearchAndCryptoSwitch";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import FiatCryptoButton from "./FiatCryptoButton";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TableIn from "./TableIn";
@@ -47,51 +46,23 @@ const Table = ({
       <div className="my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
         {showFilter && (
           <>
-           <div className="flex w-full  justify-between">
-            <div className="flex w-full md:w-auto">
-              <SearchAndCryptoSwitch
-                keyWord={keyWord || ""}
-                isFiat={isFiat || ""}
-                cryptoFiatSwitcher={cryptoFiatSwitcher}
-                setCasinoFilter={(keyWord) => {
-                  setScrollY(window.scrollY);
-                  if (setSearchKeyInBottomSheet) {
-                    setSearchKeyInBottomSheet(keyWord);
-                  } else {
-                    setKeyWord(keyWord);
-                  }
-                }}
-              />
-            </div>
-           
-              {/* {showCryptoFiatSwitcher && (
-                <div className="flex flex-row">
-                  <FiatCryptoButton
-                    title={f("cryptoCasinos")}
-                    active={isFiat === "false" || isFiat === null}
-                    click={() => {
-                      setScrollY(window.scrollY);
-                      setIsFiat("false");
-                      if (setIsFiatState) {
-                        setIsFiatState("false");
-                      }
-                    }}
-                    className={"py-2 text-xs  md:ml-3 md:text-base"}
-                  />
-                  <FiatCryptoButton
-                    title={f("fiatCasinos")}
-                    active={isFiat === "true"}
-                    click={() => {
-                      setScrollY(window.scrollY);
-                      setIsFiat("true");
-                      if (setIsFiatState) {
-                        setIsFiatState("true");
-                      }
-                    }}
-                    className={"py-2 ml-2 text-xs mr-3 md:mr-0 md:text-base"}
-                  />
-                </div>
-              )} */}
+            <div className="flex w-full  justify-between">
+              <div className="flex w-full md:w-auto">
+                <SearchAndCryptoSwitch
+                  keyWord={keyWord || ""}
+                  isFiat={isFiat || ""}
+                  cryptoFiatSwitcher={cryptoFiatSwitcher}
+                  setCasinoFilter={(keyWord) => {
+                    setScrollY(window.scrollY);
+                    if (setSearchKeyInBottomSheet) {
+                      setSearchKeyInBottomSheet(keyWord);
+                    } else {
+                      setKeyWord(keyWord);
+                    }
+                  }}
+                />
+              </div>
+
               <Dropdown
                 orderBy={orderBy}
                 onChange={(orderBy) => {

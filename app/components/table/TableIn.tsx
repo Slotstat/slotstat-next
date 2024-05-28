@@ -140,7 +140,7 @@ export default function TableIn({
           <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">
             <div className="flex flex-col items-center">
               <NotFoundIcon />
-              <p className="mt-6">{f("No results! Try a different search.")}</p>
+              <p className="mt-6">{f("itemNotFound")}</p>
             </div>
           </div>
         )}
