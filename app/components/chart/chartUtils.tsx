@@ -400,53 +400,62 @@ export const setChartParameters = (chart: am4charts.XYChart) => {
 
   if (window.innerWidth < 768) {
     chart.cursor.behavior = "none";
+
     function customizeGrip(grip) {
       // Remove default grip image
       grip.icon.disabled = true;
-
       // Disable background
       grip.background.disabled = true;
 
-      grip.background.fill = am4core.color("#c00");
-      grip.background.fillOpacity = 0.5;
+      // Add circular grip with white border
+      var ovalGrip = grip.createChild(am4core.RoundedRectangle);
+      ovalGrip.cornerRadius(10, 10, 10, 10);
+      ovalGrip.width = 10;
+      ovalGrip.height = 15;
+      ovalGrip.borderRadius = 8;
+      ovalGrip.fill = am4core.color("#3C3F49");
+      ovalGrip.strokeWidth = 1;
+      ovalGrip.align = "center";
+      ovalGrip.valign = "middle";
 
-      // Add rotated rectangle as bi-di arrow
-      var img = grip.createChild(am4core.Rectangle);
-      img.width = 15;
-      img.height = 15;
-      img.fill = am4core.color("#999");
-      img.rotation = 45;
-      img.align = "center";
-      img.valign = "middle";
-
-      // Add vertical bar
+      // Add horizontal line
       var line = grip.createChild(am4core.Rectangle);
-      line.height = 30;
-      line.width = 2;
-      line.fill = am4core.color("#999");
+      line.height = 8;
+      line.width = 0.5;
+      line.strokeLinecap = "round";
+      line.strokeLinejoin = "round";
+      line.fill = am4core.color("#fff");
       line.align = "center";
       line.valign = "middle";
     }
 
     const scrollbarX = new am4charts.XYChartScrollbar();
     scrollbarX.series.push(series1);
-    scrollbarX.background.fill = am4core.color("#24262C");
-    scrollbarX.thumb.background.fill = am4core.color("#24262C");
-    scrollbarX.thumb.background.fillOpacity = 0.2;
-    scrollbarX.unselectedOverlay.fill = am4core.color("#000");
-    scrollbarX.unselectedOverlay.fillOpacity = 0.4;
-
-    scrollbarX.minHeight = 30;
-
-    customizeGrip(scrollbarX.startGrip);
-    customizeGrip(scrollbarX.endGrip);
 
     // Configure scrollbar series
     var scrollSeries1 = scrollbarX.scrollbarChart.series.getIndex(0);
     scrollSeries1.fillOpacity = 0.3;
     // scrollSeries1.strokeDasharray = "2,2";
 
-    // Bring back colors
+    scrollbarX.minHeight = 24;
+    scrollbarX.cornerRadius = 10;
+
+    // Customize the scrollbar thumb
+    scrollbarX.thumb.background.fill = am4core.color("#5887F5"); // Set thumb fill color
+    scrollbarX.thumb.background.fillOpacity = 0.24;
+    scrollbarX.thumb.background.stroke = am4core.color("#1B2A41"); // Set thumb stroke color
+    scrollbarX.thumb.background.strokeOpacity = 0; // Set thumb stroke color
+    scrollbarX.thumb.background.strokeWidth = 1; // Set thumb stroke width
+    // scrollbarX.thumb.background.cornerRadius(8, 8, 8, 8); // Set thumb border radius
+
+    customizeGrip(scrollbarX.startGrip);
+    customizeGrip(scrollbarX.endGrip);
+
+    // Customize the scrollbar chart background
+    scrollbarX.background.fill = am4core.color("#24262C"); // Set background fill color
+    scrollbarX.background.fillOpacity = 0.8; // Set background fill opacity
+    scrollbarX.unselectedOverlay.fillOpacity = 0;
+
     scrollbarX.scrollbarChart.plotContainer.filters.clear();
 
     chart.scrollbarX = scrollbarX;

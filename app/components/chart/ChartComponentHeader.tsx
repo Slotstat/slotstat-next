@@ -125,11 +125,15 @@ export default function ChartComponentHeader({
             <h1 className="text-white md:h-[48px] text-xl font-bold mb-2 md:mb-4 md:text-3xl ">
               {casinoName} - {name}
             </h1>
-            <p className="text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
+            <p className="hidden md:flex text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
               Explore comprehensive statistics for the slot game, along with
               details about the hosting casino and its bonuses and promotions.
               Everything you need to make informed gaming decisions is right
               here on this page.
+            </p>
+            <p className="flex md:hidden text-grey1 mb-8 leading-6 text-xs ">
+              Find comprehensive slot game stats, casino details, and bonus info
+              all on one page. Make informed gaming decisions easily
             </p>
             {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 
