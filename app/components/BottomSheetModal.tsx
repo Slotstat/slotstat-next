@@ -102,6 +102,7 @@ const BottomSheetModal = ({
               gameId={gameId}
             />
           </div>
+          <div className=" h-36 w-4"></div>
         </div>
       </div>
     </BottomSheet>
