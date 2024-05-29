@@ -76,7 +76,6 @@ export default function TableClientSide({
   };
 
   useEffect(() => {
-    console.log("rrrr", keyWord);
     if (hasComponentMounted) {
       const fetchData = () => {
         getGames();
@@ -100,7 +99,6 @@ export default function TableClientSide({
   ]);
 
   useEffect(() => {
-    console.log("tttt", keyWord);
     if (isMountedRef.current) return; // If it's not the first render, don't run the effect
     isMountedRef.current = true;
     if (!handleRecall) {
