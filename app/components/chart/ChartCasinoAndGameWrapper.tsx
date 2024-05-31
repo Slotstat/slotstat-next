@@ -152,6 +152,6 @@ export default function ChartCasinoAndGameWrapper({
       />
     </>
   ) : (
-    <LoadingSkeleton />
+    <div className=" h-80" />
   );
 }
