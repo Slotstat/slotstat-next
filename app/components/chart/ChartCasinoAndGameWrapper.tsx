@@ -6,6 +6,7 @@ import ChartComponent from "./ChartComponent";
 import { useQueryState } from "nuqs";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 import BonusCards from "./BonusCards";
+import LoadingSkeleton from "../LoadingSkeleton";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 
 export default function ChartCasinoAndGameWrapper({
@@ -71,7 +72,7 @@ export default function ChartCasinoAndGameWrapper({
     setScreen(ActiveTab);
   }, [ActiveTab]);
 
-  return (
+  return casino && casinoCards && casinoBonuses ? (
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       {screen === "slot" ? (
@@ -150,5 +151,7 @@ export default function ChartCasinoAndGameWrapper({
         casinoURL={casino.redirectUrl}
       />
     </>
+  ) : (
+    <LoadingSkeleton />
   );
 }

@@ -105,28 +105,23 @@ export default async function gamePage({
   // ];
 
   return (
-    <>
-      {casino && casinoCards && casinoBonuses && (
-        <ChartCasinoAndGameWrapper
-          casId={casId}
-          casino={casino}
-          casinoCardsData={casinoCardsData}
-          casinoBonuses={casinoBonuses}
-          compareGame={compareGame}
-          compareGameId={compareGameId}
-          orderBy={orderBy}
-          keyWord={keyWord}
-          direction={direction}
-          isFiat={isFiat}
-          ActiveTab={ActiveTab}
-          casinoCards={casinoCards}
-          gameCards={gameCards}
-          gameId={gameId}
-          mainGameObj={mainGameObj}
-          gamesCardsData={gamesCardsData}
-        />
-      )}
-      <>{!casino && !casinoCards && !casinoBonuses && <LoadingSkeleton />}</>
-    </>
+    <ChartCasinoAndGameWrapper
+      casId={casId}
+      casino={casino}
+      casinoCardsData={casinoCardsData}
+      casinoBonuses={casinoBonuses}
+      compareGame={compareGame}
+      compareGameId={compareGameId}
+      orderBy={orderBy}
+      keyWord={keyWord}
+      direction={direction}
+      isFiat={isFiat}
+      ActiveTab={ActiveTab}
+      casinoCards={casinoCards}
+      gameCards={gameCards}
+      gameId={gameId}
+      mainGameObj={mainGameObj}
+      gamesCardsData={gamesCardsData}
+    />
   );
 }

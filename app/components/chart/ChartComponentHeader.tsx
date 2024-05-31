@@ -131,7 +131,7 @@ export default function ChartComponentHeader({
               Everything you need to make informed gaming decisions is right
               here on this page.
             </p>
-            <p className="flex md:hidden text-grey1 mb-8 leading-6 text-xs ">
+            <p className="flex md:hidden text-grey1 my-6  leading-6 text-xs ">
               Find comprehensive slot game stats, casino details, and bonus info
               all on one page. Make informed gaming decisions easily
             </p>
