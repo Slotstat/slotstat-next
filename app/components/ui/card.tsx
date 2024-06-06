@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 
 function Card({ post }: { post: simpleBlogCard }) {
-    const pathname = usePathname()
-    console.log('pathname',pathname);
+  const pathname = usePathname();
+
   const { title, smallDescription, currentSlug, titleImage } = post;
   return (
     <Link href={`${pathname}/${currentSlug}`}>
