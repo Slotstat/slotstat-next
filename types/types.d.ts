@@ -281,3 +281,17 @@ type TableIn = {
   getGames: (selectedPage?: string) => void;
   bottomSheetRowClick: (row: any) => void;
 };
+
+interface simpleBlogCard {
+  title: string;
+  smallDescription: string;
+  currentSlug: string;
+  titleImage: any;
+}
+
+interface fullBlog {
+  currentSlug: string;
+  title: string;
+  content: any;
+  titleImage: any;
+}
