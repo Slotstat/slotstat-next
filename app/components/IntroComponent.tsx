@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { laptop, triangle } from "../assets";
+import { triangle } from "../assets";
 import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { setCookie, getCookie } from "cookies-next";

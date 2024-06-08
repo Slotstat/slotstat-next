@@ -15,6 +15,7 @@ const nextConfig = {
       "picsum.photos",
       "s3.eu-central-1.amazonaws.com",
       "stage.gamesstatic.com",
+      "cdn.sanity.io",
     ],
   },
 };

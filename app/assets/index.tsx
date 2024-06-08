@@ -24,7 +24,7 @@ import skewed_arrow from "./svg/skewed_arrow.svg";
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
 import cookie from "./img/cookie.png";
-import laptop from "./img/laptop.png";
+
 import triangle from "./img/triangle.png";
 import slot from "./img/slot.png";
 import logoSmall from "./img/logoSmall.png";
@@ -57,7 +57,6 @@ export {
   slotLogo,
   moneyBag,
   cookie,
-  laptop,
   triangle,
   slot,
   logoSmall,
