@@ -76,7 +76,7 @@ export default async function RootLayout({
     <html lang={locale} className={`${modernistBold.variable}`}>
       {/* <GoogleAnalytics gaId="G-SY6HC72KX9" /> */}
       {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
-      {/* <GoogleTagManager gtmId="GTM-TNKZW6GT" /> */}
+      <GoogleTagManager gtmId="GTM-TNKZW6GT" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
