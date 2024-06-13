@@ -14,6 +14,7 @@ async function getData(slug: string) {
       }[0]`;
 
   const data = await client.fetch(query);
+  console.log("data", data);
   return data;
 }
 
@@ -25,27 +26,23 @@ export default async function BlogArticle({
   const data: fullBlog = await getData(params.slug);
 
   return (
-    <div className="mt-8 max-w-2xl mx-auto px-4">
+    <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
+      <div className="fw-full h-[400px] relative">
+        <Image
+          src={urlFor(data.titleImage).url()}
+          alt="Title Image"
+          fill
+          style={{
+            objectFit: "cover",
+          }}
+        />
+      </div>
+      <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
+        {data.title}
+      </h1>
 
-        <div className="fw-full h-[200px] relative">
-          <Image
-            src={urlFor(data.titleImage).url()}
-            alt="Title Image"
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-          />
-        </div>
-        <h1>
-          <span className="mt-2 block text-white text-3xl text-center leading-8 font-bold tracking-tight sm:text-4xl">
-            {data.title}
-          </span>
-        </h1>
-
-        <div className="mt-16 prose  prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-          <PortableText value={data.content} />
-
+      <div className="prose  prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
+        <PortableText value={data.content} />
       </div>
     </div>
   );

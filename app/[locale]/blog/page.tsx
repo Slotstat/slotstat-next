@@ -12,11 +12,12 @@ async function getData() {
     title,
       smallDescription,
       "currentSlug": slug.current,
-      titleImage
+      titleImage,
+      _createdAt
   }`;
 
   const data = await client.fetch(query);
-
+  console.log("data1", data);
   return data;
 }
 
@@ -26,10 +27,17 @@ export default async function Home() {
   console.log(data);
 
   return (
-    <div className=" min-h-screen grid grid-cols-1  md:grid-cols-3 mt-5 gap-5">
-      {data.map((post, idx) => (
-        <Card key={idx} post={post} />
-      ))}
+    <div className=" text-white mt-6 ">
+      <h1 className="font-bold text-3xl mb-3">Blog</h1>
+      <p className="text-grey1 mb-6">
+        SlotStat provides real-time data on slot games.
+      </p>
+
+      <div className=" min-h-screen grid grid-cols-1  md:grid-cols-4 mt-5 gap-6">
+        {data.map((post, idx) => (
+          <Card key={idx} post={post} />
+        ))}
+      </div>
     </div>
   );
 }

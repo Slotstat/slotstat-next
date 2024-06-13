@@ -287,6 +287,7 @@ interface simpleBlogCard {
   smallDescription: string;
   currentSlug: string;
   titleImage: any;
+  _createdAt: string;
 }
 
 interface fullBlog {
