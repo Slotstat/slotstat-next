@@ -21,10 +21,11 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
+  
   description:
     "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
-    google: "GzHzmiPUgAzESFjJ90fbQbl5w_5kQEktBEB_7sPeZhM",
+    google: "bPl9dfYMLYDqQzT7LjnCi9JNyWR_MBqfqE9JFFMaC_U",
   },
   openGraph: {
     images: "../opengraph-image.png",

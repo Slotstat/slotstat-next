@@ -70,6 +70,7 @@ const Footer = () => {
       panelProps={{ className: " text-xs lg:text-[18px] text-grey1 leading-6" }}
     />
   );
+  
   const accordionItems = [
     {
       header: tFooter("company"),
@@ -201,8 +202,8 @@ const Footer = () => {
               </>
             )}
           </div>
-          <div className="order-last mt-8 flex items-end justify-center py-0 lg:order-none lg:mt-0 lg:justify-start lg:py-4.5 ">
-            <div className="flex flex-col">
+          <div className="order-last mt-8 flex items-end justify-between  md:justify-center py-0 lg:order-none lg:mt-0 lg:justify-start lg:py-4.5 ">
+            <div className="flex flex-row w-full justify-between  md:flex-col">
               <a
                 className="text-sm font-normal text-white mb-3"
                 href={`mailto:info@slotstat.net`}
@@ -218,8 +219,7 @@ const Footer = () => {
           <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
             <SubscribeButton
               subscribe={tFaq("subscribe")}
-              XChan={tFaq("XChan")}
-              account={tFaq("account")}
+              toOurXChannel={tFaq("toOurXChannel")}
             />
           </div>
         </div>
