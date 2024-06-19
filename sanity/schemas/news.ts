@@ -1,17 +1,17 @@
 export default {
-    name: 'blog',
+    name: 'news',
     type: 'document',
-    title: 'Blog',
+    title: 'News',
     fields: [
       {
         name: 'title',
         type: 'string',
-        title: 'Title of blog article',
+        title: 'Title of news article',
       },
       {
         name: 'slug',
         type: 'slug',
-        title: 'Slug of your blog article',
+        title: 'Slug of your news article',
         options: {
           source: 'title',
         },

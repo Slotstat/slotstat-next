@@ -1,17 +1,17 @@
 export default {
-    name: 'blog',
+    name: 'education',
     type: 'document',
-    title: 'Blog',
+    title: 'Education',
     fields: [
       {
         name: 'title',
         type: 'string',
-        title: 'Title of blog article',
+        title: 'Title of education article',
       },
       {
         name: 'slug',
         type: 'slug',
-        title: 'Slug of your blog article',
+        title: 'Slug of your education article',
         options: {
           source: 'title',
         },

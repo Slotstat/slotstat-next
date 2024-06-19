@@ -17,7 +17,7 @@ function Card({ post }: { post: simpleBlogCard }) {
           src={urlFor(titleImage).url()}
           alt="image"
           width={300}
-          height={160}
+          height={152}
           className="rounded-t-3xl h-[152px] object-cover"
         />
         <div className="py-6 ">
