@@ -77,15 +77,19 @@ export default async function sitemap() {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrlSitemap}/aboutUs`,
+      url: `${baseUrlSitemap}/aboutus`,
       lastModified: new Date(),
     },
     {
-      url: `${baseUrlSitemap}/termsOfUse`,
+      url: `${baseUrlSitemap}/termsofuse`,
       lastModified: new Date(),
     },
     {
-      url: `${baseUrlSitemap}/howItWorks`,
+      url: `${baseUrlSitemap}/howitworks`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrlSitemap}/privacypolicy`,
       lastModified: new Date(),
     },
     // ...casinosUrls,

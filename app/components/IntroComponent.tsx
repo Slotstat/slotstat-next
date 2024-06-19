@@ -8,8 +8,8 @@ import { setCookie, getCookie } from "cookies-next";
 import VideoButton from "../assets/svg/VideoButton";
 const data = ["erti", "ori", "sami", "otxi", "xuti", "eqvsi"];
 export default function IntroComponent() {
-  const [selectedValue, setSelectedValue] = useState("erti");
-  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+  // const [selectedValue, setSelectedValue] = useState("erti");
+  // const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   // const [enabled, setEnabled] = useState(true);
   // const [openVideo, setOpenVideo] = useState(false);
   // const [isHovered, setIsHovered] = useState(false);
@@ -70,11 +70,11 @@ export default function IntroComponent() {
                 </a> */}
               </div>
             </div>
-            <p className="text-grey1 md:w-3/4 text-xs md:text-base">
+            <h2 className="text-grey1 md:w-3/4 text-xs md:text-base">
               SlotStat provides real-time data about slot games through dynamic
               statistics, including Win Spin Rate, RTP, and Slot Profit Status.
               Observe, analyze, strategize, and play it full via SlotStat.
-            </p>
+            </h2>
           </div>
           {/* <div
             className="relative cursor-pointer md:h-[106px] "

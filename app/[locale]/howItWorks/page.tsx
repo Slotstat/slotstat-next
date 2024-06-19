@@ -1,11 +1,33 @@
 import Breadcrumbs from "@/app/components/Breadcrumbs";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "How Slotstat works?",
-  description:
-    "Unique platform which gives you opportunity to choose where to play and win! ",
-};
+export async function generateMetadata() {
+  try {
+    return {
+      title: "Slotstat how it works",
+      description:
+        "Unique platform which gives you opportunity to choose where to play and win! ",
+      openGraph: {
+        // ...openGraphImage,
+        images: "../opengraph-image.png",
+        title: "How Slotstat works?",
+        description:
+          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+      },
+      alternates: {
+        canonical: `/howitworks`,
+        languages: {
+          "en-US": `en/howitworks`,
+          "ka-GE": `ka/howitworks`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
 
 const breadcrumbs = [{ name: "How it works" }];
 
@@ -17,14 +39,14 @@ export default function HowItWorks() {
         <h1 className=" text-4xl font-black text-white my-6">
           SlotStat Mechanics and How it Works
         </h1>
-        <p className="mb-8">
+        <h2 className="mb-8">
           Slotstat is an information worktop where users have the power to
           observe general details and real-time statistics of slots and casinos.
           On the landing page, players will find some handy figurines like: RTP,
-          RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing SlotStat
-          data may turn up for players as a tool to plan beforehand playing and
-          an advantageous gambling experience.
-        </p>
+          RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing SlotStat data
+          may turn up for players as a tool to plan beforehand playing and an
+          advantageous gambling experience.
+        </h2>
         <p className="">Figurines:</p>
         <ol className="list-decimal list-inside mb-10 ">
           <li className="">
@@ -37,8 +59,8 @@ export default function HowItWorks() {
             in real-time.
           </li>
           <li className="">
-            Win Spin Rate - Win Spin Rate is a frequency of winning spins,
-            where win is higher than initial bet.
+            Win Spin Rate - Win Spin Rate is a frequency of winning spins, where
+            win is higher than initial bet.
           </li>
           <li className="">
             Jackpot - Figurine shows maximum Jackpot value of the chosen slot.

@@ -23,7 +23,7 @@ const NavList = () => {
   return (
     <nav className="my-2 flex flex-row lg:my-0 ml-auto lg:items-center">
       <span className="mt-4 text-xs font-normal ml-3  md:ml-8 hover:text-white lg:mt-0 md:text-sm">
-        <Link href={`/howItWorks`} className={checkIsActive("howItWorks")}>
+        <Link href={`/howitworks`} className={checkIsActive("howItWorks")}>
           {t("howItWorks")}
         </Link>
       </span>

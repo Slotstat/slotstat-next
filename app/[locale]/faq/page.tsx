@@ -1,5 +1,3 @@
-"use client";
-
 import Accordion from "@/app/components/Accordion";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 import SubscribeButton from "@/app/components/SubscribeButton";
@@ -23,24 +21,20 @@ export default function FAQ() {
           <h1 className=" text-xs my-2 font-bold text-blue1 lg:text-lg">
             {t("theFAQs")}
           </h1>
-          <h1 className="my-2 text-lg font-bold text-white lg:text-6xl">
+          <p className="my-2 text-lg font-bold text-white lg:text-6xl">
             {t("helpCentre")}
-          </h1>
-          <h1 className=" text-xs my-2  font-normal text-grey1 lg:text-lg">
+          </p>
+          <p className=" text-xs my-2  font-normal text-grey1 lg:text-lg">
             {t("aboutProduct")}
-          </h1>
+          </p>
         </div>
         <div className=" flex flex-col  lg:my-28 lg:flex-row">
           <div className="hidden lg:flex lg:flex-col lg:flex-1">
-            <h1 className="text-[18px] font-normal text-blue1">
-              {t("support")}
-            </h1>
-            <h1 className="my-2 text-[32px] font-bold text-white">
-              {t("FAQs")}
-            </h1>
-            <h1 className="text-[18px] font-normal text-grey1">
+            <p className="text-[18px] font-normal text-blue1">{t("support")}</p>
+            <p className="my-2 text-[32px] font-bold text-white">{t("FAQs")}</p>
+            <p className="text-[18px] font-normal text-grey1">
               {t("What-you-need-to-know")}
-            </h1>
+            </p>
           </div>
           <div className="mt-16 lg:mt-0 lg:flex-1">
             <Accordion data={columns} />

@@ -2,6 +2,35 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import React from "react";
 const breadcrumbs = [{ name: "About us" }];
 
+export async function generateMetadata() {
+  try {
+    return {
+      title: "Slotstat about us",
+      description:
+        "Unique platform which gives you opportunity to choose where to play and win! ",
+      openGraph: {
+        // ...openGraphImage,
+        images: "../opengraph-image.png",
+        title: "about us",
+        description:
+          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+      },
+      alternates: {
+        canonical: `/aboutus`,
+        languages: {
+          "en-US": `en/aboutus`,
+          "ka-GE": `ka/aboutus`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
+
 export default function AboutUs() {
   return (
     <>

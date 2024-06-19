@@ -16,12 +16,12 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  // metadataBase: new URL("https://slotstat.net"),
+  metadataBase: new URL("https://slotstat.net"),
   title: {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-  
+
   description:
     "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
