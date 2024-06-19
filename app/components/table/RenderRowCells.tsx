@@ -165,16 +165,16 @@ const RenderRowCells = ({
           </div>
         </div>
         <div>
-          <p
+          <h3
             title={name}
             className=" text-white font-bold truncate max-w-[124px]  text-xs md:max-w-[160px] md:text-base"
           >
             {/* {cell.render("Cell")} */}
             {cell.renderValue()}
-          </p>
-          <p className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
+          </h3>
+          <h3 className="text-grey1   truncate max-w-[124px] text-xs md:text-base md:max-w-[160px]">
             {provider}
-          </p>
+          </h3>
         </div>
       </div>
     );
@@ -184,9 +184,9 @@ const RenderRowCells = ({
     return (
       <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
         <div className=" flex flex-row">
-          <p className="mr-1" title={bounties}>
+          <h3 className="mr-1" title={bounties}>
             {casinoName}
-          </p>
+          </h3>
           {verificationStatus == 1 && <Verified />}
         </div>
         <p

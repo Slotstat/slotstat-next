@@ -54,7 +54,7 @@ const AccordionItem = ({
     {...rest}
     header={({ state: { isEnter } }) => (
       <div className="mb-4 flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
-        {header}
+        <h2>{header}</h2>
         <div
           className={`ml-auto transition-transform duration-200 ease-in-out ${
             isEnter && "rotate-180"

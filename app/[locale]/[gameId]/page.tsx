@@ -1,6 +1,4 @@
-import LoadingSkeleton from "@/app/components/LoadingSkeleton";
 import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
-
 import getCasino from "@/lib/getCasino";
 import getCasinoBonuses from "@/lib/getCasinoBonuses";
 import getCasinoCards from "@/lib/getCasinoCards";
@@ -18,16 +16,8 @@ export async function generateMetadata({
 }) {
   try {
     var mainGame: GameData | undefined;
-    if (casId !== gameId) {
+    if (gameId) {
       mainGame = await getSingleGame(gameId);
-    } else {
-      const gamesListData: gamesList = await getGamesList(locale, {
-        keyWord,
-        direction,
-        orderBy,
-        isFiat,
-      });
-      mainGame = gamesListData.results[0];
     }
 
     if (!mainGame)
@@ -40,10 +30,10 @@ export async function generateMetadata({
       title: mainGame.casinoName + " | " + mainGame.name,
       description: mainGame.provider,
       alternates: {
-        canonical: `/${casId}/${gameId}`,
+        canonical: `/${locale}/${gameId}?casId=${casId}`,
         languages: {
-          "en-US": `en/${casId}/${gameId}`,
-          "ka-GE": `ka/${casId}/${gameId}`,
+          "en-US": `en/${gameId}?casId=${casId}`,
+          "ka-GE": `ka/${gameId}?casId=${casId}`,
         },
       },
     };

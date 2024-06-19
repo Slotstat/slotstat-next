@@ -17,14 +17,36 @@ async function getData() {
   }`;
 
   const data = await client.fetch(query);
-  console.log("data1", data);
   return data;
+}
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: "en" | "ka" };
+}) {
+  try {
+    return {
+      title: "Slotstat blob",
+      description: "find slots and information about each of them!",
+      alternates: {
+        canonical: `/${locale}/blog`,
+        languages: {
+          "en-US": `en/blog`,
+          "ka-GE": `ka/blog`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
 }
 
 export default async function Home() {
   const data: simpleBlogCard[] = await getData();
-
-  console.log(data);
 
   return (
     <div className=" text-white mt-6 ">

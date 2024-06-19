@@ -2,6 +2,35 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 import React from "react";
 const breadcrumbs = [{ name: "privacy policy" }];
 
+export async function generateMetadata() {
+  try {
+    return {
+      title: "Slotstat privacy policy",
+      description:
+        "Unique platform which gives you opportunity to choose where to play and win! ",
+      openGraph: {
+        // ...openGraphImage,
+        images: "../opengraph-image.png",
+        title: "Slotstat privacy policy",
+        description:
+          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+      },
+      alternates: {
+        canonical: `/privacypolicy`,
+        languages: {
+          "en-US": `en/privacypolicy`,
+          "ka-GE": `ka/privacypolicy`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
+
 export default function privacyPolicy() {
   return (
     <>
@@ -31,9 +60,9 @@ export default function privacyPolicy() {
           By using our Website or our Services, you are agreeing to be bound by
           this Privacy Policy.
         </p>
-        <p className="text-xl font-bold mb-2">
+        <h2 className="text-xl font-bold mb-2">
           What Information Do We Collect?
-        </p>
+        </h2>
         <p className="mb-5">
           SlotStat (“SlotStat”, “we”, the company, Gembling Herald Limited LLC,
           or “us”) collects (a) the e-mail addresses of those who communicate
@@ -47,7 +76,9 @@ export default function privacyPolicy() {
           your email address and your Wallet ID if you decide to participate in
           any of our campaigns.
         </p>
-        <p className="text-xl font-bold mb-2">How Do We Use the Information?</p>
+        <h2 className="text-xl font-bold mb-2">
+          How Do We Use the Information?
+        </h2>
         <p>SlotStat uses collected information for the following purposes:</p>
         <ol>
           <li className="mb-3">
@@ -89,9 +120,9 @@ export default function privacyPolicy() {
           </li>
         </ol>
 
-        <p className="text-xl font-bold mb-2">
+        <h2 className="text-xl font-bold mb-2">
           How Do We Share Your Information?
-        </p>
+        </h2>
         <p>
           We do not sell your personal data to other organizations for
           commercial purposes. We also only share your personal information to
@@ -133,7 +164,7 @@ export default function privacyPolicy() {
             traced back to any individual.
           </li>
         </ol>
-        <p className="text-xl font-bold mb-2">Security</p>
+        <h2 className="text-xl font-bold mb-2">Security</h2>
         <p>
           We take precautions to ensure the security of your personal
           information. We ensure that our Website is protected by reasonable
