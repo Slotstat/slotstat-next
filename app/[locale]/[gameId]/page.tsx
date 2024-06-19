@@ -82,6 +82,8 @@ export default async function gamePage({
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
 
+
+
   var [casino, casinoCards, casinoBonuses] = await Promise.all([
     casinoData,
     casinoCardsData,

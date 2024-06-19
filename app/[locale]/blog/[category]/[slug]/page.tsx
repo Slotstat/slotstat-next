@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export const revalidate = 30; // revalidate at most 30 seconds
 
-async function getData(slug: string) {
+async function getData(category: string, slug: string) {
   const query = `
-    *[_type == "blog" && slug.current == '${slug}'] {
+    *[_type == "${category}" && slug.current == '${slug}'] {
         "currentSlug": slug.current,
           title,
           content,
@@ -20,15 +20,15 @@ async function getData(slug: string) {
 }
 
 export async function generateMetadata({
-  params: { slug, locale },
+  params: { locale, category, slug },
 }: {
-  params: { slug: string; locale: "en" | "ka" };
+  params: { locale: "en" | "ka"; category: string; slug: string };
   searchParams: QueryParamsGamePage;
 }) {
   try {
     var data: fullBlog | undefined;
     if (slug) {
-      data = await getData(slug);
+      data = await getData(category, slug);
     }
 
     if (!data)
@@ -65,24 +65,27 @@ export async function generateMetadata({
 }
 
 export default async function BlogArticle({
-  params,
+  params: { category, slug },
 }: {
-  params: { slug: string };
+  params: { category: string; slug: string };
 }) {
-  const data: fullBlog = await getData(params.slug);
+  console.log("category", category);
+  const data: fullBlog = await getData(category, slug);
   const { titleImage, content, title } = data;
 
   return (
     <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
       <div className="fw-full h-[400px] relative">
-        <Image
-          src={urlFor(titleImage).url()}
-          alt={title}
-          fill
-          style={{
-            objectFit: "cover",
-          }}
-        />
+        {titleImage && (
+          <Image
+            src={urlFor(titleImage).url()}
+            alt={title}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+          />
+        )}
       </div>
       <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
         {title}

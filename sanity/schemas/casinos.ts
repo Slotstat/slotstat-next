@@ -1,17 +1,17 @@
 export default {
-    name: 'blog',
+    name: 'casinos',
     type: 'document',
-    title: 'Blog',
+    title: 'Casinos',
     fields: [
       {
         name: 'title',
         type: 'string',
-        title: 'Title of blog article',
+        title: 'Title of casino article',
       },
       {
         name: 'slug',
         type: 'slug',
-        title: 'Slug of your blog article',
+        title: 'Slug of your casino article',
         options: {
           source: 'title',
         },
