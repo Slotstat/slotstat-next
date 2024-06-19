@@ -21,8 +21,8 @@ function Card({ post }: { post: simpleBlogCard }) {
           className="rounded-t-3xl h-[152px] object-cover"
         />
         <div className="py-6 ">
-          <div className="font-bold text-white text-2xl mb-3">{title}</div>
-          <p className="text-grey1 text-base h-12 line-clamp-2">{smallDescription}</p>
+          <h2 className="font-bold text-white text-2xl mb-3">{title}</h2>
+          <h3 className="text-grey1 text-base h-12 line-clamp-2">{smallDescription}</h3>
         </div>
           <p className="text-white text-base">
             {moment(_createdAt).format("DD MMM. YYYY")}

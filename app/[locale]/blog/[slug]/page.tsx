@@ -37,7 +37,7 @@ export async function generateMetadata({
         description: "The page you are looking for doesn't exists",
       };
 
-      const { titleImage, smallDescription, title } = data;
+    const { titleImage, smallDescription, title } = data;
 
     return {
       title: title,
@@ -46,8 +46,7 @@ export async function generateMetadata({
         // ...openGraphImage,
         images: titleImage,
         title: title,
-        description:
-          smallDescription,
+        description: smallDescription,
       },
       alternates: {
         canonical: `/${locale}/blog/${slug}`,
@@ -78,7 +77,7 @@ export default async function BlogArticle({
       <div className="fw-full h-[400px] relative">
         <Image
           src={urlFor(titleImage).url()}
-          alt="Title Image"
+          alt={title}
           fill
           style={{
             objectFit: "cover",
