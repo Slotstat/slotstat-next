@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import ArrowUp from "@/app/assets/svg/ArrowUp";
 import { useTranslations } from "next-intl";
+import FloatingButtons from "../FloatingButtons";
 
 const Dropdown = ({
   onChange,
@@ -12,7 +13,7 @@ const Dropdown = ({
 }) => {
   const t = useTranslations("sortBy");
 
-  const SORT_BY = [
+  const SORT_BY: FloatingButtonsItems = [
     { label: t("AllSlots"), id: "0", value: "", width: "w-24" },
     { label: t("slotInWin"), id: "1", value: "spsH", width: "w-36" },
     { label: t("slotsInLose"), id: "2", value: "spsL", width: "w-36" },
@@ -34,12 +35,9 @@ const Dropdown = ({
     // { label: t("jackpot"), id: "7", value: "jackpot" },
   ];
 
-  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [selected, setSelected] = useState(SORT_BY[0]);
-  const [isVisible, setIsVisible] = useState(false);
 
   const select = (v: any) => {
-    setIsVisible(false);
     setSelected(v);
     onChange(v.value);
   };
@@ -119,46 +117,7 @@ const Dropdown = ({
           )}
         </Listbox>
       </div>
-      <div
-        className={`flex md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
-        font-bold text-xs transition-all duration-500 ease-in-out overflow-hidden 
-         flex-col items-center justify-around px-3 rounded-lg ${
-           isDropdownOpened && "h-32 w-40"
-         } ${selected.width}`}
-      >
-        {isDropdownOpened ? (
-          <div
-            className={` ${
-              isVisible ? "flex" : "hidden  opacity-0"
-            }   h-full  flex-col justify-between`}
-          >
-            {SORT_BY.map((item) => {
-              return (
-                <div
-                  className="text-center h-8 flex items-center justify-center "
-                  key={item.id}
-                  onClick={() => {
-                    select(item);
-                    setIsDropdownOpened(false);
-                  }}
-                >
-                  {item.label}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div
-            className="text-center h-8 flex items-center justify-center "
-            onClick={() => {
-              setTimeout(() => setIsVisible(true), 300);
-              setIsDropdownOpened(true);
-            }}
-          >
-            {selected.label}
-          </div>
-        )}
-      </div>
+      <FloatingButtons select={select} selected={selected} items={SORT_BY} />
     </div>
   );
 };

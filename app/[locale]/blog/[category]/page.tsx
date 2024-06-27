@@ -1,12 +1,10 @@
 import Card from "@/app/components/ui/card";
-import { client, urlFor } from "@/lib/sanity";
+import { client } from "@/lib/sanity";
 import BlogTabs from "@/app/components/blog/BlogTabs";
 
 export const revalidate = 30; // revalidate at most 30 seconds
 
 async function getData(category: string) {
-  console.log("category", category);
-  const bl= "blog"
   const query = `
   *[_type == '${category}'] | order(_createdAt desc) {
     title,
@@ -62,7 +60,8 @@ export default async function Home({
             SlotStat provides real-time data on slot games.
           </p>
         </div>
-        <BlogTabs />
+        <BlogTabs ActiveCategory={category} />
+        
       </div>
       <div className=" min-h-screen grid grid-cols-1  md:grid-cols-4 mt-5 gap-6">
         {data.map((post, idx) => (
