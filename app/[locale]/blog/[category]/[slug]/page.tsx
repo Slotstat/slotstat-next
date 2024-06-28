@@ -74,26 +74,29 @@ export default async function BlogArticle({
   const { titleImage, content, title } = data;
 
   return (
-    <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
-      <div className="fw-full h-[400px] relative">
-        {titleImage && (
-          <Image
-            src={urlFor(titleImage).url()}
-            alt={title}
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-          />
-        )}
-      </div>
-      <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
-        {title}
-      </h1>
+    <>
+      <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
+        <div className="fw-full h-[400px] relative">
+          {titleImage && (
+            <Image
+              src={urlFor(titleImage).url()}
+              alt={title}
+              fill
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          )}
+        </div>
+        <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
+          {title}
+        </h1>
 
-      <div className="prose  prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-        <PortableText value={content} />
+        <div className="prose  prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
+          <PortableText value={content} />
+        </div>
       </div>
-    </div>
+      
+    </>
   );
 }
