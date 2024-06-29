@@ -44,7 +44,7 @@ export async function generateMetadata({
     };
   }
 }
-
+const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 export default async function gamePage({
   params: { gameId, locale },
   searchParams: {
@@ -77,7 +77,7 @@ export default async function gamePage({
       casinoCardsData,
       casinoBonusData,
     ]);
-
+  await wait();
   if (!mainGame) {
     return notFound();
   }
