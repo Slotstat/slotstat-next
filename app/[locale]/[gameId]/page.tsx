@@ -68,29 +68,29 @@ export default async function gamePage({
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-  // const [
-  //   // mainGame,
-  //   // gameCards,
-  //   // compareGame,
-  //   // casino,
-  //   // casinoCards,
-  //   // casinoBonuses,
-  // ] = await Promise.all([
-  //   mainGameData,
-  //   gamesCardsData,
-  //   compareGameData,
-  //   casinoData,
-  //   casinoCardsData,
-  //   casinoBonusData,
-  // ]);
+  const [
+    mainGame,
+    gameCards,
+    compareGame,
+    casino,
+    casinoCards,
+    casinoBonuses,
+  ] = await Promise.all([
+    mainGameData,
+    gamesCardsData,
+    compareGameData,
+    casinoData,
+    casinoCardsData,
+    casinoBonusData,
+  ]);
 
 
-  const mainGame = await mainGameData
-  const gameCards = await gamesCardsData
-  const compareGame = await compareGameData
-  const casino = await casinoData
-  const casinoCards = await casinoCardsData
-  const casinoBonuses = await casinoBonusData
+  // const mainGame = await mainGameData
+  // const gameCards = await gamesCardsData
+  // const compareGame = await compareGameData
+  // const casino = await casinoData
+  // const casinoCards = await casinoCardsData
+  // const casinoBonuses = await casinoBonusData
 
   // await wait();
 
