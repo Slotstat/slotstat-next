@@ -69,12 +69,12 @@ export default async function gamePage({
   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
   const [
-    mainGame,
-    gameCards,
+    // mainGame,
+    // gameCards,
     // compareGame,
-    casino,
-    casinoCards,
-    casinoBonuses,
+    // casino,
+    // casinoCards,
+    // casinoBonuses,
   ] = await Promise.all([
     mainGameData,
     gamesCardsData,
@@ -83,6 +83,14 @@ export default async function gamePage({
     casinoCardsData,
     casinoBonusData,
   ]);
+
+
+  const mainGame = await mainGameData
+  const gameCards = await gamesCardsData
+  // const compareGame = await compareGameData
+  const casino = await casinoData
+  const casinoCards = await casinoCardsData
+  const casinoBonuses = await casinoBonusData
 
   // await wait();
 
