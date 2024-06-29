@@ -68,7 +68,7 @@ export default async function gamePage({
 
   let compareGame;
 
-  const mainGameData: Promise<GameData> = getSingleGame(gameId);
+  // const mainGameData: Promise<GameData> = getSingleGame(gameId);
   // const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
   // const casinoData: Promise<CasinoData> = getCasino(casId);
@@ -79,7 +79,7 @@ export default async function gamePage({
   //   mainGameData,
   //   gamesCardsData,
   // ]);
-  const mainGame = await mainGameData;
+  // const mainGame = await mainGameData;
   // const gameCards = await gamesCardsData;
 
   // const casino = await casinoData;
@@ -93,9 +93,9 @@ export default async function gamePage({
   //   compareGame = await compareGameData;
   // }
 
-  if (!mainGame) {
-    return notFound();
-  }
+  // if (!mainGame) {
+  //   return notFound();
+  // }
 
 
 
