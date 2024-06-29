@@ -46,7 +46,7 @@ export async function generateMetadata({
 }
 
 const wait = () => {
-  return new Promise((resolve, reject) => setTimeout(resolve, 200));
+  return new Promise((resolve, reject) => setTimeout(resolve, 1000));
 };
 
 export default async function gamePage({
