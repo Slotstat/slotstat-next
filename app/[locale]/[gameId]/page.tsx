@@ -72,7 +72,7 @@ export default async function gamePage({
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
   const casinoData: Promise<CasinoData> = getCasino(casId);
-  // const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   // const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
 
   // const [mainGame, gameCards] = await Promise.all([
@@ -83,7 +83,7 @@ export default async function gamePage({
   const gameCards = await gamesCardsData;
 
   const casino = await casinoData;
-  // const casinoCards = await casinoCardsData;
+  const casinoCards = await casinoCardsData;
   // const casinoBonuses = await casinoBonusData;
   
   await wait();
@@ -115,7 +115,7 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      25
+      26
       {/* <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
