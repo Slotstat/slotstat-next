@@ -68,19 +68,27 @@ export default async function gamePage({
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-  const [mainGame, gameCards, compareGame, casino, casinoCards, casinoBonuses] =
-    await Promise.all([
-      mainGameData,
-      gamesCardsData,
-      compareGameData,
-      casinoData,
-      casinoCardsData,
-      casinoBonusData,
-    ]);
-  await wait();
-  if (!mainGame) {
-    return notFound();
-  }
+  const [
+    mainGame,
+    gameCards,
+    // compareGame,
+    casino,
+    casinoCards,
+    casinoBonuses,
+  ] = await Promise.all([
+    mainGameData,
+    gamesCardsData,
+    // compareGameData,
+    casinoData,
+    casinoCardsData,
+    casinoBonusData,
+  ]);
+
+  // await wait();
+
+  // if (!mainGame) {
+  //   return notFound();
+  // }
   // const breadcrumbs = [
   //   {
   //     name: mainGameObj?.name,
@@ -94,7 +102,7 @@ export default async function gamePage({
         casino={casino}
         casinoCardsData={casinoCardsData}
         casinoBonuses={casinoBonuses}
-        compareGame={compareGame}
+        // compareGame={compareGame}
         compareGameId={compareGameId}
         orderBy={orderBy}
         keyWord={keyWord}
