@@ -115,7 +115,7 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      <ChartCasinoAndGameWrapper
+      {/* <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
         casinoCardsData={casinoCardsData}
@@ -132,7 +132,7 @@ export default async function gamePage({
         gameId={gameId}
         mainGameObj={mainGame}
         gamesCardsData={gamesCardsData}
-      />
+      /> */}
     </div>
   );
 }
