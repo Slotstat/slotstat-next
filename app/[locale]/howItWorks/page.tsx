@@ -31,7 +31,12 @@ export async function generateMetadata() {
 
 const breadcrumbs = [{ name: "How it works" }];
 
-export default function HowItWorks() {
+const wait = () => {
+  return new Promise((resolve, reject) => setTimeout(resolve, 3000));
+};
+
+export default async function HowItWorks() {
+  await wait();
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
