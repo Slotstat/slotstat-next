@@ -123,9 +123,9 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="flex justify-center bg-dark2  pt-8 pb-12  ">
+      <footer className="flex justify-center bg-dark2  pt-4 pb-10 md:pt-8 md:pb-12  ">
         <div className="grid grid-cols-1 lg:grid-cols-flexauto w-[100%] max-w-screen-xl lg:px-0 px-4">
-          <div className="flex items-start justify-center lg:justify-start">
+          <div className=" hidden md:flex items-start justify-center lg:justify-start">
             <div className="flex flex-1 items-center justify-between lg:justify-start">
               <Link href="/" className="flex items-center">
                 <Image
@@ -138,7 +138,7 @@ const Footer = () => {
               {/* <LanguageToggleButton css="flex lg:hidden h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border border-grey1 text-[10px] font-normal text-grey1" /> */}
             </div>
           </div>
-          <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mt-0 lg:flex-row lg:justify-start">
+          <div className="order-3 flex flex-col justify-center lg:order-none  md:mt-8 lg:mt-0 lg:flex-row lg:justify-start">
             {typeof window !== "undefined" && window.innerWidth < 768 ? (
               <RAccordion
                 transition
@@ -216,7 +216,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className="order-3 mt-8 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
+          <div className="order-3 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
             <SubscribeButton
               subscribe={tFaq("subscribe")}
               toOurXChannel={tFaq("toOurXChannel")}

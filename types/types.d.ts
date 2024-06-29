@@ -296,5 +296,12 @@ interface fullBlog {
   content: any;
   titleImage: any;
   smallDescription: string;
-
 }
+
+type FloatingButtonsItem = {
+  label: string;
+  id: string;
+  value: string;
+  width: string;
+};
+type FloatingButtonsItems = FloatingButtonsItem[];
