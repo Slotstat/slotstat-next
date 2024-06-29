@@ -31,7 +31,10 @@ export async function generateMetadata() {
 
 const breadcrumbs = [{ name: "How it works" }];
 
-export default function HowItWorks() {
+
+
+export default async function HowItWorks() {
+
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

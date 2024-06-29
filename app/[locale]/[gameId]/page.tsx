@@ -45,10 +45,6 @@ export async function generateMetadata({
   }
 }
 
-const wait = () => {
-  return new Promise((resolve, reject) => setTimeout(resolve, 200));
-};
-
 export default async function gamePage({
   params: { gameId, locale },
   searchParams: {
@@ -64,38 +60,27 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
-  await wait();
-  let mainGameObj: GameData | null = null;
-  let compareGame;
-
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
-
-  const [mainGame, gameCards] = await Promise.all([
-    mainGameData,
-    gamesCardsData,
-  ]);
-  mainGameObj = mainGame;
-
-  if (compareGameId) {
-    const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
-    compareGame = await compareGameData;
-  }
-
-  if (!mainGameObj) {
-    return notFound();
-  }
 
   const casinoData: Promise<CasinoData> = getCasino(casId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
+  const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-  const [casino, casinoCards, casinoBonuses] = await Promise.all([
-    casinoData,
-    casinoCardsData,
-    casinoBonusData,
-  ]);
+  const [mainGame, gameCards, compareGame, casino, casinoCards, casinoBonuses] =
+    await Promise.all([
+      mainGameData,
+      gamesCardsData,
+      compareGameData,
+      casinoData,
+      casinoCardsData,
+      casinoBonusData,
+    ]);
 
+  if (!mainGame) {
+    return notFound();
+  }
   // const breadcrumbs = [
   //   {
   //     name: mainGameObj?.name,
@@ -103,7 +88,7 @@ export default async function gamePage({
   // ];
 
   return (
-    <div className="min-h-screen  ">
+    <div className="min-h-screen">
       <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
@@ -119,7 +104,7 @@ export default async function gamePage({
         casinoCards={casinoCards}
         gameCards={gameCards}
         gameId={gameId}
-        mainGameObj={mainGameObj}
+        mainGameObj={mainGame}
         gamesCardsData={gamesCardsData}
       />
     </div>
