@@ -7,43 +7,43 @@ import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params: { gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat, casId },
-}: {
-  params: { casinoId: string; gameId: string; locale: "en" | "ka" };
-  searchParams: QueryParamsGamePage;
-}) {
-  try {
-    var mainGame: GameData | undefined;
-    if (gameId) {
-      mainGame = await getSingleGame(gameId);
-    }
+// export async function generateMetadata({
+//   params: { gameId, locale },
+//   searchParams: { orderBy, keyWord, direction, isFiat, casId },
+// }: {
+//   params: { casinoId: string; gameId: string; locale: "en" | "ka" };
+//   searchParams: QueryParamsGamePage;
+// }) {
+//   try {
+//     var mainGame: GameData | undefined;
+//     if (gameId) {
+//       mainGame = await getSingleGame(gameId);
+//     }
 
-    if (!mainGame)
-      return {
-        title: "Not found",
-        description: "The page you are looking for doesn't exists",
-      };
+//     if (!mainGame)
+//       return {
+//         title: "Not found",
+//         description: "The page you are looking for doesn't exists",
+//       };
 
-    return {
-      title: mainGame.casinoName + " | " + mainGame.name,
-      description: mainGame.provider,
-      alternates: {
-        canonical: `/${locale}/${gameId}?casId=${casId}`,
-        languages: {
-          "en-US": `en/${gameId}?casId=${casId}`,
-          "ka-GE": `ka/${gameId}?casId=${casId}`,
-        },
-      },
-    };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
-  }
-}
+//     return {
+//       title: mainGame.casinoName + " | " + mainGame.name,
+//       description: mainGame.provider,
+//       alternates: {
+//         canonical: `/${locale}/${gameId}?casId=${casId}`,
+//         languages: {
+//           "en-US": `en/${gameId}?casId=${casId}`,
+//           "ka-GE": `ka/${gameId}?casId=${casId}`,
+//         },
+//       },
+//     };
+//   } catch (error) {
+//     return {
+//       title: "Not found",
+//       description: "The page you are looking for doesn't exists",
+//     };
+//   }
+// }
 
 const wait = () => {
   return new Promise((resolve, reject) => setTimeout(resolve, 3000));
@@ -115,7 +115,7 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      21
+      22
       {/* <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
