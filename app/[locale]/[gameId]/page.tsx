@@ -45,6 +45,10 @@ export async function generateMetadata({
   }
 }
 
+const wait = () => {
+  return new Promise((resolve, reject) => setTimeout(resolve, 200));
+};
+
 export default async function gamePage({
   params: { gameId, locale },
   searchParams: {
@@ -60,13 +64,17 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
+  await wait();
   let mainGameObj: GameData | null = null;
   let compareGame;
 
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
-  const [mainGame, gameCards] = await Promise.all([mainGameData, gamesCardsData]);
+  const [mainGame, gameCards] = await Promise.all([
+    mainGameData,
+    gamesCardsData,
+  ]);
   mainGameObj = mainGame;
 
   if (compareGameId) {
@@ -82,8 +90,6 @@ export default async function gamePage({
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
 
-
-
   const [casino, casinoCards, casinoBonuses] = await Promise.all([
     casinoData,
     casinoCardsData,
@@ -98,7 +104,6 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      {/* <div className=" h-28 w-28 bg-white"></div> */}
       <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
