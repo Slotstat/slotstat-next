@@ -64,13 +64,17 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
-  // await wait();
+  await wait();
 
   let compareGame;
 
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
+  const casinoData: Promise<CasinoData> = getCasino(casId);
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
+  const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
+  
   // const [mainGame, gameCards] = await Promise.all([
   //   mainGameData,
   //   gamesCardsData,
@@ -87,9 +91,7 @@ export default async function gamePage({
     return notFound();
   }
 
-  const casinoData: Promise<CasinoData> = getCasino(casId);
-  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
-  const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
+
 
   // const [casino, casinoCards, casinoBonuses] = await Promise.all([
   //   casinoData,
