@@ -80,18 +80,18 @@ export default async function gamePage({
   //   gamesCardsData,
   // ]);
   const mainGame = await mainGameData;
-  const gameCards = await gamesCardsData;
+  // const gameCards = await gamesCardsData;
 
-  const casino = await casinoData;
-  const casinoCards = await casinoCardsData;
-  const casinoBonuses = await casinoBonusData;
+  // const casino = await casinoData;
+  // const casinoCards = await casinoCardsData;
+  // const casinoBonuses = await casinoBonusData;
   
   await wait();
 
-  if (compareGameId) {
-    const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
-    compareGame = await compareGameData;
-  }
+  // if (compareGameId) {
+  //   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
+  //   compareGame = await compareGameData;
+  // }
 
   if (!mainGame) {
     return notFound();
