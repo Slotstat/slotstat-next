@@ -86,7 +86,7 @@ export default async function gamePage({
   const casinoCards = await casinoCardsData;
   const casinoBonuses = await casinoBonusData;
   
-  await wait();
+  // await wait();
 
   // if (compareGameId) {
   //   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
@@ -115,7 +115,7 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      28
+      29
       <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
