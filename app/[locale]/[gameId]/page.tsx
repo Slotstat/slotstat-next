@@ -44,7 +44,7 @@ export async function generateMetadata({
     };
   }
 }
-const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+
 export default async function gamePage({
   params: { gameId, locale },
   searchParams: {
@@ -85,18 +85,12 @@ export default async function gamePage({
   ]);
 
 
-  // const mainGame = await mainGameData
-  // const gameCards = await gamesCardsData
-  // const compareGame = await compareGameData
-  // const casino = await casinoData
-  // const casinoCards = await casinoCardsData
-  // const casinoBonuses = await casinoBonusData
+ 
 
-  // await wait();
+  if (!mainGame) {
+    return notFound();
+  }
 
-  // if (!mainGame) {
-  //   return notFound();
-  // }
   // const breadcrumbs = [
   //   {
   //     name: mainGameObj?.name,
