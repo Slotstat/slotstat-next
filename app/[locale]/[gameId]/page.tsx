@@ -64,37 +64,42 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "ka" };
   searchParams: QueryParamsGamePage;
 }) {
-  await wait();
-  // let mainGameObj: GameData | null = null;
-  // let compareGame;
+  // await wait();
 
-  // const mainGameData: Promise<GameData> = getSingleGame(gameId);
-  // const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
+  let compareGame;
+
+  const mainGameData: Promise<GameData> = getSingleGame(gameId);
+  const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
   // const [mainGame, gameCards] = await Promise.all([
   //   mainGameData,
   //   gamesCardsData,
   // ]);
-  // mainGameObj = mainGame;
+  const mainGame = await mainGameData;
+  const gameCards = await gamesCardsData;
 
-  // if (compareGameId) {
-  //   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
-  //   compareGame = await compareGameData;
-  // }
+  if (compareGameId) {
+    const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
+    compareGame = await compareGameData;
+  }
 
-  // if (!mainGameObj) {
-  //   return notFound();
-  // }
+  if (!mainGame) {
+    return notFound();
+  }
 
-  // const casinoData: Promise<CasinoData> = getCasino(casId);
-  // const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
-  // const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
+  const casinoData: Promise<CasinoData> = getCasino(casId);
+  const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
+  const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
 
   // const [casino, casinoCards, casinoBonuses] = await Promise.all([
   //   casinoData,
   //   casinoCardsData,
   //   casinoBonusData,
   // ]);
+
+  const casino = await casinoData;
+  const casinoCards = await casinoCardsData;
+  const casinoBonuses = await casinoBonusData;
 
   // const breadcrumbs = [
   //   {
@@ -104,7 +109,7 @@ export default async function gamePage({
 
   return (
     <div className="min-h-screen  ">
-      {/* <ChartCasinoAndGameWrapper
+      <ChartCasinoAndGameWrapper
         casId={casId}
         casino={casino}
         casinoCardsData={casinoCardsData}
@@ -119,9 +124,9 @@ export default async function gamePage({
         casinoCards={casinoCards}
         gameCards={gameCards}
         gameId={gameId}
-        mainGameObj={mainGameObj}
+        mainGameObj={mainGame}
         gamesCardsData={gamesCardsData}
-      /> */}
+      />
     </div>
   );
 }
