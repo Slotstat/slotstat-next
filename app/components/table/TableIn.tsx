@@ -41,8 +41,6 @@ export default function TableIn({
     manualPagination: true,
   });
 
-
-
   return (
     <>
       <>
@@ -88,60 +86,56 @@ export default function TableIn({
 
               <tbody className="xl:w-full">
                 {tableInstance.getRowModel().rows.map((row) => {
-                  if (checkRenderOrNot(row)) {
-                    return (
-                      <tr
-                        onClick={() => {
-                          if (onAddToCompare) {
-                            bottomSheetRowClick(row);
-                          }
-                        }}
-                        key={row.id}
-                        className="hover:bg-dark2 cursor-pointer"
-                      >
-                        {row.getVisibleCells().map((cell, i) => {
-                          return (
-                            <td
-                              style={{
-                                maxWidth: cell.column.columnDef.maxSize,
-                                minWidth: cell.column.columnDef.minSize,
-                                width: cell.column.columnDef.size,
-                                height: 97,
-                                paddingTop: 0,
-                                paddingBottom: 0,
-                              }}
-                              key={cell.id}
-                            >
-                              {onAddToCompare ? (
-                                <div className=" h-full flex items-center ">
-                                  <RenderRowCells
-                                    cell={cell}
-                                    row={row}
-                                    index={i}
-                                  />
-                                </div>
-                              ) : (
-                                <Link
-                                  href={`/${row.original.gameId}?casId=${
-                                    row.original.casinoId
-                                  }&isFiat=${isFiat || "false"}`}
-                                  className=" h-full flex items-center "
-                                >
-                                  <RenderRowCells
-                                    cell={cell}
-                                    row={row}
-                                    index={i}
-                                  />
-                                </Link>
-                              )}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  } else {
-                    return null;
-                  }
+                  return (
+                    <tr
+                      onClick={() => {
+                        if (onAddToCompare) {
+                          bottomSheetRowClick(row);
+                        }
+                      }}
+                      key={row.id}
+                      className="hover:bg-dark2 cursor-pointer"
+                    >
+                      {row.getVisibleCells().map((cell, i) => {
+                        return (
+                          <td
+                            style={{
+                              maxWidth: cell.column.columnDef.maxSize,
+                              minWidth: cell.column.columnDef.minSize,
+                              width: cell.column.columnDef.size,
+                              height: 97,
+                              paddingTop: 0,
+                              paddingBottom: 0,
+                            }}
+                            key={cell.id}
+                          >
+                            {onAddToCompare ? (
+                              <div className=" h-full flex items-center ">
+                                <RenderRowCells
+                                  cell={cell}
+                                  row={row}
+                                  index={i}
+                                />
+                              </div>
+                            ) : (
+                              <Link
+                                href={`/${row.original.gameId}?casId=${
+                                  row.original.casinoId
+                                }&isFiat=${isFiat || "false"}`}
+                                className=" h-full flex items-center "
+                              >
+                                <RenderRowCells
+                                  cell={cell}
+                                  row={row}
+                                  index={i}
+                                />
+                              </Link>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
                 })}
               </tbody>
             </table>
