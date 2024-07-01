@@ -24,26 +24,26 @@ const checkRenderOrNot = (row: GameData) => {
   } = row;
 
   if (
-    redirectUrl &&
-    imageUrl &&
-    name &&
-    t1H &&
-    t24h &&
-    casinoId &&
-    provider &&
+    // redirectUrl &&
+    // imageUrl &&
+    // name &&
+    // t1H &&
+    // t24h &&
+    // casinoId &&
+    // provider &&
     rtp &&
-    casinoName &&
-    bounties &&
-    currencRtp &&
-    rtpChange &&
-    rtpState &&
-    sps &&
+    // casinoName &&
+    // bounties &&
+    // currencRtp &&
+    // rtpChange &&
+    // rtpState &&
+    // sps &&
     rtp.preferredValue &&
     rtp.value
   ) {
-    return false;
-  } else {
     return true;
+  } else {
+    return false;
   }
 };
 
@@ -119,6 +119,8 @@ export default function TableClientSide({
     const filteredGames = games.results.filter((item) =>
       checkRenderOrNot(item)
     );
+
+    console.log("filteredGames", filteredGames);
 
     games.results = filteredGames;
 
