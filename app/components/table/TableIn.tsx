@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import { casinoOrGameColumns } from "./columns";
 import { Link } from "@/navigation";
 import NotFoundIcon from "@/app/assets/svg/NotFoundIcon";
+import { Row } from "@tanstack/react-table";
+
 // import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 
 export default function TableIn({
@@ -59,12 +61,12 @@ export default function TableIn({
                           key={header.id}
                         >
                           <div className="flex items-center text-xs font-bold md:text-base">
-                            <p>
+                            <div>
                               {flexRender(
                                 header.column.columnDef.header,
                                 header.getContext()
                               )}
-                            </p>
+                            </div>
 
                             {/* @ts-ignore  */}
                             {header.column.columnDef.hint && (

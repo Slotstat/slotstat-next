@@ -1,3 +1,4 @@
+import TableClientSide from "@/app/components/table/TableClientSide";
 import { client, urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
@@ -96,7 +97,7 @@ export default async function BlogArticle({
           <PortableText value={content} />
         </div>
       </div>
-      
+      <TableClientSide blogSearchFromTitle={title} showFilter={false} showCryptoFiatSwitcher={false} />
     </>
   );
 }

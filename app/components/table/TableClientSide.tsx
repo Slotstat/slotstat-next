@@ -5,6 +5,48 @@ import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import { useQueryState } from "nuqs";
 import { useGamesListStore } from "@/app/(store)/store";
 
+const checkRenderOrNot = (row: GameData) => {
+  const {
+    redirectUrl,
+    imageUrl,
+    name,
+    t1H,
+    t24h,
+    casinoId,
+    provider,
+    rtp,
+    casinoName,
+    bounties,
+    currencRtp,
+    rtpChange,
+    rtpState,
+    sps,
+  } = row;
+
+  if (
+    // redirectUrl &&
+    // imageUrl &&
+    // name &&
+    // t1H &&
+    // t24h &&
+    // casinoId &&
+    // provider &&
+    rtp &&
+    // casinoName &&
+    // bounties &&
+    // currencRtp &&
+    // rtpChange &&
+    // rtpState &&
+    // sps &&
+    rtp.preferredValue &&
+    rtp.value
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export default function TableClientSide({
   showFilter = false,
   onAddToCompare,
@@ -17,6 +59,7 @@ export default function TableClientSide({
   keyWordBottomsheet,
   directionBottomsheet,
   isFiatBottomsheet,
+  blogSearchFromTitle,
 }: TableWrapperProps) {
   const { gamesList, setGames, handleRecall, setHandleRecall } =
     useGamesListStore();
@@ -32,7 +75,7 @@ export default function TableClientSide({
 
   const getGames = async (page?: string) => {
     setLoading(true);
-    const checkedKeyword = keyWord || keyWordBottomsheet;
+    const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
 
     const gamesListData: Promise<gamesList> = getGameListClientSide({
@@ -71,6 +114,16 @@ export default function TableClientSide({
         .indexOf(gameId);
       ~removeIndex && games.results.splice(removeIndex, 1);
     }
+
+    // check if game has everything to be visible
+    const filteredGames = games.results.filter((item) =>
+      checkRenderOrNot(item)
+    );
+
+    console.log("filteredGames", filteredGames);
+
+    games.results = filteredGames;
+
     setGames(games);
     setLoading(false);
   };
@@ -101,8 +154,11 @@ export default function TableClientSide({
   useEffect(() => {
     if (isMountedRef.current) return; // If it's not the first render, don't run the effect
     isMountedRef.current = true;
+
     if (!handleRecall) {
-      setHandleRecall(true);
+      if (!blogSearchFromTitle) {
+        setHandleRecall(true);
+      }
       getGames();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,21 +170,27 @@ export default function TableClientSide({
 
     window.scrollTo({ top: Number(scrollY) });
   }, [scrollY]);
+  const ifWeHaveBlogTitleButNotHaveGamesListFromIt =
+    blogSearchFromTitle && gamesList?.results?.length === 0;
 
   return (
     <>
-      <Table
-        showFilter={showFilter}
-        showCryptoFiatSwitcher={showCryptoFiatSwitcher}
-        setIsFiatState={setIsFiatState}
-        gamesList={gamesList}
-        setScrollY={setScrollY}
-        getGames={getGames}
-        onAddToCompare={onAddToCompare}
-        setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
-        setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
-        loading={loading}
-      />
+      {ifWeHaveBlogTitleButNotHaveGamesListFromIt ? (
+        <></>
+      ) : (
+        <Table
+          showFilter={showFilter}
+          showCryptoFiatSwitcher={showCryptoFiatSwitcher}
+          setIsFiatState={setIsFiatState}
+          gamesList={gamesList}
+          setScrollY={setScrollY}
+          getGames={getGames}
+          onAddToCompare={onAddToCompare}
+          setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+          setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
+          loading={loading}
+        />
+      )}
     </>
   );
 }

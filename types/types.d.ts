@@ -259,6 +259,7 @@ type TableWrapperProps = {
   showCryptoFiatSwitcher?: boolean;
   setIsFiatState?: (text: string) => void;
   gameId?: string;
+  blogSearchFromTitle?: string;
 };
 
 interface TableProps extends TableWrapperProps {
