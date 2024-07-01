@@ -37,7 +37,9 @@ const checkRenderOrNot = (row: GameData) => {
     currencRtp &&
     rtpChange &&
     rtpState &&
-    sps
+    sps &&
+    rtp.preferredValue &&
+    rtp.value
   ) {
     return false;
   } else {
@@ -113,7 +115,7 @@ export default function TableClientSide({
       ~removeIndex && games.results.splice(removeIndex, 1);
     }
 
-    // check if game has everything to be visible 
+    // check if game has everything to be visible
     const filteredGames = games.results.filter((item) =>
       checkRenderOrNot(item)
     );

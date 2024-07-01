@@ -61,12 +61,12 @@ export default function TableIn({
                           key={header.id}
                         >
                           <div className="flex items-center text-xs font-bold md:text-base">
-                            <p>
+                            <div>
                               {flexRender(
                                 header.column.columnDef.header,
                                 header.getContext()
                               )}
-                            </p>
+                            </div>
 
                             {/* @ts-ignore  */}
                             {header.column.columnDef.hint && (
