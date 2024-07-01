@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import { casinoOrGameColumns } from "./columns";
 import { Link } from "@/navigation";
 import NotFoundIcon from "@/app/assets/svg/NotFoundIcon";
+import { Row } from "@tanstack/react-table";
+
 // import { Ascending, Descending } from "@/app/assets/svg/AscDesc";
 
 export default function TableIn({
@@ -38,6 +40,8 @@ export default function TableIn({
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
   });
+
+
 
   return (
     <>
@@ -84,56 +88,60 @@ export default function TableIn({
 
               <tbody className="xl:w-full">
                 {tableInstance.getRowModel().rows.map((row) => {
-                  return (
-                    <tr
-                      onClick={() => {
-                        if (onAddToCompare) {
-                          bottomSheetRowClick(row);
-                        }
-                      }}
-                      key={row.id}
-                      className="hover:bg-dark2 cursor-pointer"
-                    >
-                      {row.getVisibleCells().map((cell, i) => {
-                        return (
-                          <td
-                            style={{
-                              maxWidth: cell.column.columnDef.maxSize,
-                              minWidth: cell.column.columnDef.minSize,
-                              width: cell.column.columnDef.size,
-                              height: 97,
-                              paddingTop: 0,
-                              paddingBottom: 0,
-                            }}
-                            key={cell.id}
-                          >
-                            {onAddToCompare ? (
-                              <div className=" h-full flex items-center ">
-                                <RenderRowCells
-                                  cell={cell}
-                                  row={row}
-                                  index={i}
-                                />
-                              </div>
-                            ) : (
-                              <Link
-                                href={`/${row.original.gameId}?casId=${
-                                  row.original.casinoId
-                                }&isFiat=${isFiat || "false"}`}
-                                className=" h-full flex items-center "
-                              >
-                                <RenderRowCells
-                                  cell={cell}
-                                  row={row}
-                                  index={i}
-                                />
-                              </Link>
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
+                  if (checkRenderOrNot(row)) {
+                    return (
+                      <tr
+                        onClick={() => {
+                          if (onAddToCompare) {
+                            bottomSheetRowClick(row);
+                          }
+                        }}
+                        key={row.id}
+                        className="hover:bg-dark2 cursor-pointer"
+                      >
+                        {row.getVisibleCells().map((cell, i) => {
+                          return (
+                            <td
+                              style={{
+                                maxWidth: cell.column.columnDef.maxSize,
+                                minWidth: cell.column.columnDef.minSize,
+                                width: cell.column.columnDef.size,
+                                height: 97,
+                                paddingTop: 0,
+                                paddingBottom: 0,
+                              }}
+                              key={cell.id}
+                            >
+                              {onAddToCompare ? (
+                                <div className=" h-full flex items-center ">
+                                  <RenderRowCells
+                                    cell={cell}
+                                    row={row}
+                                    index={i}
+                                  />
+                                </div>
+                              ) : (
+                                <Link
+                                  href={`/${row.original.gameId}?casId=${
+                                    row.original.casinoId
+                                  }&isFiat=${isFiat || "false"}`}
+                                  className=" h-full flex items-center "
+                                >
+                                  <RenderRowCells
+                                    cell={cell}
+                                    row={row}
+                                    index={i}
+                                  />
+                                </Link>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  } else {
+                    return null;
+                  }
                 })}
               </tbody>
             </table>

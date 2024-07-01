@@ -5,6 +5,46 @@ import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import { useQueryState } from "nuqs";
 import { useGamesListStore } from "@/app/(store)/store";
 
+const checkRenderOrNot = (row: GameData) => {
+  const {
+    redirectUrl,
+    imageUrl,
+    name,
+    t1H,
+    t24h,
+    casinoId,
+    provider,
+    rtp,
+    casinoName,
+    bounties,
+    currencRtp,
+    rtpChange,
+    rtpState,
+    sps,
+  } = row;
+
+  if (
+    redirectUrl &&
+    imageUrl &&
+    name &&
+    t1H &&
+    t24h &&
+    casinoId &&
+    provider &&
+    rtp &&
+    casinoName &&
+    bounties &&
+    currencRtp &&
+    rtpChange &&
+    rtpState &&
+    sps
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 export default function TableClientSide({
   showFilter = false,
   onAddToCompare,
@@ -72,6 +112,14 @@ export default function TableClientSide({
         .indexOf(gameId);
       ~removeIndex && games.results.splice(removeIndex, 1);
     }
+
+    // check if game has everything to be visible 
+    const filteredGames = games.results.filter((item) =>
+      checkRenderOrNot(item)
+    );
+
+    games.results = filteredGames;
+
     setGames(games);
     setLoading(false);
   };

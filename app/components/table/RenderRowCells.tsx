@@ -150,15 +150,15 @@ const RenderRowCells = ({
   const GameNameProvider = () => {
     return (
       <div className="flex flex-row items-center">
-        <div className="h-6 w-6 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
-          <div className="relative h-6 w-6 md:w-12 md:h-12 ">
+        <div className="h-8 w-8 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
+          <div className="relative h-8 w-8 md:w-12 md:h-12 ">
             {!!isImgUrl(imageUrl) && (
               <Image
                 src={imageUrl}
                 alt={name}
                 fill
-                sizes="(max-width: 24px) 100vw,
-                (max-width: 24px) 50vw,
+                sizes="(max-width: 32px) 100vw,
+                (max-width: 32px) 50vw,
               33vw"
               />
             )}
