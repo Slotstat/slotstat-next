@@ -14,10 +14,10 @@ export async function generateMetadata() {
           "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
       },
       alternates: {
-        canonical: `/howitworks`,
+        canonical: `/how-it-works`,
         languages: {
-          "en-US": `en/howitworks`,
-          "ka-GE": `ka/howitworks`,
+          "en-US": `en/how-it-works`,
+          "ka-GE": `ka/how-it-works`,
         },
       },
     };

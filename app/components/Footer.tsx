@@ -80,19 +80,19 @@ const Footer = () => {
       content: (
         <>
           <Link
-            href="/aboutus"
+            href="/about-us"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
           >
             {tFooter("aboutUs")}
           </Link>
           <Link
-            href="/termsofuse"
+            href="/terms-of-use"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
           >
             {tFooter("termsOfUse")}
           </Link>
           <Link
-            href="/privacypolicy"
+            href="/privacy-policy"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
           >
             {tFooter("privacyPolicy")}
@@ -111,7 +111,7 @@ const Footer = () => {
             {t("faq")}
           </Link>
           <Link
-            href="/howitworks"
+            href="/how-it-works"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
           >
             {t("howItWorks")}
@@ -164,19 +164,19 @@ const Footer = () => {
                     {tFooter("company")}
                   </h5>
                   <Link
-                    href="/aboutus"
+                    href="/about-us"
                     className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
                   >
                     {tFooter("aboutUs")}
                   </Link>
                   <Link
-                    href="/termsofuse"
+                    href="/terms-of-use"
                     className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
                   >
                     {tFooter("termsOfUse")}
                   </Link>
                   <Link
-                    href="/privacypolicy"
+                    href="/privacy-policy"
                     className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
                   >
                     {tFooter("privacyPolicy")}
@@ -193,7 +193,7 @@ const Footer = () => {
                     {t("faq")}
                   </Link>
                   <Link
-                    href="/howitworks"
+                    href="/how-it-works"
                     className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
                   >
                     {t("howItWorks")}

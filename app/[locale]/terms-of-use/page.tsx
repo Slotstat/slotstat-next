@@ -17,10 +17,10 @@ export async function generateMetadata() {
           "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
       },
       alternates: {
-        canonical: `/termsofuse`,
+        canonical: `/terms-of-use`,
         languages: {
-          "en-US": `en/termsofuse`,
-          "ka-GE": `ka/termsofuse`,
+          "en-US": `en/terms-of-use`,
+          "ka-GE": `ka/terms-of-use`,
         },
       },
     };

@@ -23,7 +23,7 @@ const NavList = () => {
   return (
     <nav className="my-2 flex flex-row lg:my-0 ml-auto lg:items-center">
       <span className="mt-4 text-xs font-normal ml-3  md:ml-8 hover:text-white lg:mt-0 md:text-sm">
-        <Link href={`/howitworks`} className={checkIsActive("howItWorks")}>
+        <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
           {t("howItWorks")}
         </Link>
       </span>
@@ -101,8 +101,8 @@ const MainPageHeader = () => {
         className={`${blueNav}  overflow-hidden transition-all duration-300  flex justify-center items-center text-white bg-blue-500 fixed  top-0 left-0 right-0 z-10`}
       >
         <div className="w-[100%] md:max-w-screen-xl text-xs mx-2 md:mx-0 md:text-base flex justify-between">
-          <div className="flex">The site is in test mode</div>
-          {/* <div className="flex md:hidden">Test mode</div> */}
+          <div className="flex">The site is in beta mode</div>
+          {/* <div className="flex md:hidden">Beta mode</div> */}
           <div className="hidden md:flex">
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
               Report any issues
