@@ -1,5 +1,7 @@
 import { Link } from "@/navigation";
 import React, { useState } from "react";
+import ArrowUp from "../assets/svg/ArrowUp";
+import ArrowDown from "../assets/svg/ArrowDown";
 
 const FloatingButtons = ({
   select,
@@ -15,7 +17,7 @@ const FloatingButtons = ({
 
   return (
     <div
-      className={`flex md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
+      className={`flex cursor-pointer md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
     font-bold text-xs transition-all duration-500 ease-in-out overflow-hidden 
      flex-col items-center justify-around px-3 rounded-lg ${
        isDropdownOpened && "h-32 w-40"
@@ -61,13 +63,13 @@ const FloatingButtons = ({
         </div>
       ) : (
         <div
-          className="text-center h-8 flex items-center justify-center "
+          className="text-center h-8 flex items-center justify-center  "
           onClick={() => {
             setTimeout(() => setIsVisible(true), 300);
             setIsDropdownOpened(true);
           }}
         >
-          {selected.label}
+          {selected.label} <ArrowDown />
         </div>
       )}
     </div>
