@@ -3,21 +3,21 @@ import Breadcrumbs from "@/app/components/Breadcrumbs";
 export async function generateMetadata() {
   try {
     return {
-      title: "Slotstat how it works",
+      title: "How It Works ",
       description:
-        "Unique platform which gives you opportunity to choose where to play and win! ",
+        " Explore SlotStat's mechanics: real-time slot and casino stats like RTP, RTP Swing, and Win Spin Rate to enhance your gambling strategy.",
       openGraph: {
         // ...openGraphImage,
         images: "../opengraph-image.png",
         title: "How Slotstat works?",
         description:
-          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+          " Explore SlotStat's mechanics: real-time slot and casino stats like RTP, RTP Swing, and Win Spin Rate to enhance your gambling strategy.",
       },
       alternates: {
-        canonical: `/howitworks`,
+        canonical: `/how-it-works`,
         languages: {
-          "en-US": `en/howitworks`,
-          "ka-GE": `ka/howitworks`,
+          "en-US": `en/how-it-works`,
+          "ka-GE": `ka/how-it-works`,
         },
       },
     };
@@ -31,10 +31,7 @@ export async function generateMetadata() {
 
 const breadcrumbs = [{ name: "How it works" }];
 
-
-
 export default async function HowItWorks() {
-
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

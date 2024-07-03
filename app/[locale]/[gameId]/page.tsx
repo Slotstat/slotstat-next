@@ -27,8 +27,14 @@ export async function generateMetadata({
       };
 
     return {
-      title: mainGame.casinoName + " | " + mainGame.name,
-      description: mainGame.provider,
+      title: mainGame.name + " - " + mainGame.casinoName,
+      description: `Get insights on ${mainGame.name} at ${mainGame.casinoName}. Check current RTP, max win: ${mainGame.maxX}. Track your gameplay with detailed stats on Slotstat.`,
+      openGraph: {
+        // ...openGraphImage,
+        images: "../opengraph-image.png",
+        title: mainGame.name + " - " + mainGame.casinoName,
+        description: `Get insights on ${mainGame.name} at ${mainGame.casinoName}. Check current RTP, max win: ${mainGame.maxX}. Track your gameplay with detailed stats on Slotstat.`,
+      },
       alternates: {
         canonical: `/${locale}/${gameId}?casId=${casId}`,
         languages: {
@@ -68,24 +74,15 @@ export default async function gamePage({
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
   const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-  const [
-    mainGame,
-    gameCards,
-    compareGame,
-    casino,
-    casinoCards,
-    casinoBonuses,
-  ] = await Promise.all([
-    mainGameData,
-    gamesCardsData,
-    compareGameData,
-    casinoData,
-    casinoCardsData,
-    casinoBonusData,
-  ]);
-
-
- 
+  const [mainGame, gameCards, compareGame, casino, casinoCards, casinoBonuses] =
+    await Promise.all([
+      mainGameData,
+      gamesCardsData,
+      compareGameData,
+      casinoData,
+      casinoCardsData,
+      casinoBonusData,
+    ]);
 
   if (!mainGame) {
     return notFound();

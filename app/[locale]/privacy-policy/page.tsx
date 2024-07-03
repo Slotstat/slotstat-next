@@ -5,21 +5,21 @@ const breadcrumbs = [{ name: "privacy policy" }];
 export async function generateMetadata() {
   try {
     return {
-      title: "Slotstat privacy policy",
+      title: "Privacy Policy ",
       description:
-        "Unique platform which gives you opportunity to choose where to play and win! ",
+        "Explore SlotStat's Privacy Policy to understand how we protect your data, our data collection practices, and your rights as a user.",
       openGraph: {
         // ...openGraphImage,
         images: "../opengraph-image.png",
-        title: "Slotstat privacy policy",
+        title: "Privacy Policy ",
         description:
-          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+        "Explore SlotStat's Privacy Policy to understand how we protect your data, our data collection practices, and your rights as a user.",
       },
       alternates: {
-        canonical: `/privacypolicy`,
+        canonical: `/privacy-policy`,
         languages: {
-          "en-US": `en/privacypolicy`,
-          "ka-GE": `ka/privacypolicy`,
+          "en-US": `en/privacy-policy`,
+          "ka-GE": `ka/privacy-policy`,
         },
       },
     };

@@ -6,21 +6,21 @@ const breadcrumbs = [{ name: "Terms of use" }];
 export async function generateMetadata() {
   try {
     return {
-      title: "Slotstat terms of use",
+      title: "Terms of Use",
       description:
-        "Unique platform which gives you opportunity to choose where to play and win! ",
+        "Review the terms of use for SlotStat, detailing user guidelines, responsibilities, and conditions for accessing our data-driven gambling platform. ",
       openGraph: {
         // ...openGraphImage,
         images: "../opengraph-image.png",
-        title: "Slotstat terms of use",
+        title: "Terms of Use",
         description:
-          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+          "Review the terms of use for SlotStat, detailing user guidelines, responsibilities, and conditions for accessing our data-driven gambling platform.",
       },
       alternates: {
-        canonical: `/termsofuse`,
+        canonical: `/terms-of-use`,
         languages: {
-          "en-US": `en/termsofuse`,
-          "ka-GE": `ka/termsofuse`,
+          "en-US": `en/terms-of-use`,
+          "ka-GE": `ka/terms-of-use`,
         },
       },
     };
@@ -31,7 +31,6 @@ export async function generateMetadata() {
     };
   }
 }
-
 
 export default async function TermsOfUse() {
   return (
