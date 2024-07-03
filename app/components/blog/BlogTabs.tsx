@@ -6,11 +6,11 @@ import { Link } from "@/navigation";
 import FloatingButtons from "../FloatingButtons";
 
 const categories: FloatingButtonsItems = [
-  { label: "Slots", value: "slots", id: "0", width: "w-24" },
-  { label: "Casinos", value: "casinos", id: "0", width: "w-24" },
-  { label: "Providers", value: "providers", id: "0", width: "w-24" },
-  { label: "News", value: "news", id: "0", width: "w-24" },
-  { label: "Education", value: "education", id: "0", width: "w-24" },
+  { label: "Slots", value: "slots", id: "0", width: "w-28" },
+  { label: "Casinos", value: "casinos", id: "0", width: "w-28" },
+  { label: "Providers", value: "providers", id: "0", width: "w-28" },
+  { label: "News", value: "news", id: "0", width: "w-28" },
+  { label: "Education", value: "education", id: "0", width: "w-28" },
 ];
 
 export default function BlogTabs({
@@ -39,7 +39,7 @@ export default function BlogTabs({
 
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden md:block ">
         {categories.map((category) => (
           <Link key={category.value} href={`/blog/${category.value}`}>
             <FiatCryptoButton

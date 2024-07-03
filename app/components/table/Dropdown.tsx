@@ -14,10 +14,10 @@ const Dropdown = ({
   const t = useTranslations("sortBy");
 
   const SORT_BY: FloatingButtonsItems = [
-    { label: t("AllSlots"), id: "0", value: "", width: "w-24" },
-    { label: t("slotInWin"), id: "1", value: "spsH", width: "w-36" },
-    { label: t("slotsInLose"), id: "2", value: "spsL", width: "w-36" },
-    { label: t("highestRTP"), id: "3", value: "fixedRtp", width: "w-36" },
+    { label: t("AllSlots"), id: "0", value: "", width: "w-28" },
+    { label: t("slotInWin"), id: "1", value: "spsH", width: "w-40" },
+    { label: t("slotsInLose"), id: "2", value: "spsL", width: "w-40" },
+    { label: t("highestRTP"), id: "3", value: "fixedRtp", width: "w-40" },
     // { label: t("slotInWin"), id: "4", value: "slotInWin" },
     // { label: t("slotsInLose"), id: "5", value: "slotInLose" },
     // { label: t("slotInWinR"), id: "2", value: "slotInWinR" },
