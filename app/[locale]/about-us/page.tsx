@@ -5,15 +5,15 @@ const breadcrumbs = [{ name: "About us" }];
 export async function generateMetadata() {
   try {
     return {
-      title: "Slotstat about us",
+      title: "About US",
       description:
-        "Unique platform which gives you opportunity to choose where to play and win! ",
+        "Learn how SlotStat uses data-driven insights and innovative algorithms to provide players with valuable slot statistics for smarter gambling decisions.",
       openGraph: {
         // ...openGraphImage,
         images: "../opengraph-image.png",
         title: "about us",
         description:
-          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+          "Learn how SlotStat uses data-driven insights and innovative algorithms to provide players with valuable slot statistics for smarter gambling decisions.",
       },
       alternates: {
         canonical: `/about-us`,
