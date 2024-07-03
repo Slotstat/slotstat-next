@@ -14,6 +14,7 @@ import { cookies } from "next/headers";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
+import ico from "../favicon.ico";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
@@ -21,7 +22,6 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-
   description:
     "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
