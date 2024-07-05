@@ -14,6 +14,7 @@ import { cookies } from "next/headers";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
+import ChatBot from "../components/ChatBot";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
@@ -88,6 +89,7 @@ export default async function RootLayout({
           </div>
           <Footer />
           <JackpotNotification />
+          <ChatBot />
           <CookieNotification uniqueId={uniqueId} />
           <TooltipClientSide />
         </NextIntlClientProvider>
