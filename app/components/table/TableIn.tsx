@@ -211,7 +211,8 @@ export default function TableIn({
             <div className=" text-xs mt-2 text-grey1 md:text-transparent">
               Showing{" "}
               <span className="text-white md:text-transparent">
-                {currentPage} - {currentPage * pageSize}
+                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
+                {(currentPage - 1) * pageSize + data.length}
               </span>{" "}
               out of {rowCount}
             </div>
