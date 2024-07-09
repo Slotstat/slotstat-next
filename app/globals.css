@@ -108,3 +108,17 @@
 /* .custom-ease {
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 } */
+
+.cs-message--incoming .cs-message__content {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.cs-message--outgoing .cs-message__content {
+  background-color: #3c3f49 !important;
+  color: white !important;
+}
+.cs-message__content {
+  border-radius: 30px !important;
+}
+
