@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Avatar,
   ChatContainer,
@@ -77,6 +77,9 @@ export default function ChatFloatingContainer({}: Props) {
 
   const [threadId, setThreadId] = useState(getCookie("threadId") || undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
+  const [userMessage, setUserMessage] = useState<string>("");
+
+  const messageInputRef = useRef(null);
 
   useEffect(() => {
     if (threadId) {
@@ -97,7 +100,6 @@ export default function ChatFloatingContainer({}: Props) {
       initialMessage: ChatMessage
     ) => void
   ) {
-    setIsTyping(true);
     const intervalId = setInterval(async () => {
       const data = await retrieveRun(threadId, run_id);
       if (data?.status === "completed") {
@@ -109,9 +111,12 @@ export default function ChatFloatingContainer({}: Props) {
   }
 
   const handleNewUserMessage = async (newMessage: string) => {
+    if (isTyping) return;
+
     const createUserMessageData = await createUserMessage(threadId, newMessage);
     setMessages([...messages, ...[createUserMessageData]]);
-
+    setIsTyping(true);
+    setUserMessage("");
     if (createUserMessageData) {
       const createdRunData = await createRun(
         threadId,
@@ -125,7 +130,14 @@ export default function ChatFloatingContainer({}: Props) {
 
   return (
     <div className="bottom-20 absolute right-[20px] overflow-hidden rounded-[14px] !font-modernist">
-      <div className="absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center bg-grey1 cursor-pointer">
+      <div
+        onClick={() => {
+          if (userMessage) {
+            handleNewUserMessage(userMessage);
+          }
+        }}
+        className="absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center bg-grey1 cursor-pointer"
+      >
         <ArrowUpWithStickIcon />
       </div>
       <ChatContainer
@@ -162,7 +174,7 @@ export default function ChatFloatingContainer({}: Props) {
             isTyping && (
               <TypingIndicator
                 className="!bg-dark2"
-                content="SlotStat is typing"
+                content="SlotGPT is typing"
               />
             )
           }
@@ -193,6 +205,9 @@ export default function ChatFloatingContainer({}: Props) {
           ))}
         </MessageList>
         <MessageInput
+          value={userMessage}
+          ref={messageInputRef}
+          onChange={(e) => setUserMessage(e)}
           className="!bg-dark2 !border-0 text-base font-modernist"
           placeholder="Message SlotGBT"
           onSend={handleNewUserMessage}

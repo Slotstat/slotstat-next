@@ -21,7 +21,7 @@ export async function createThread(
     );
     setThreadId(response.data.id);
     setCookie("threadId", response.data.id);
-    console.log("create thread data", response.data);
+    // console.log("create thread data", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -63,7 +63,7 @@ export async function getThread(
       }
     );
     setThreadId(response.data.id);
-    console.log("get thread data", response.data);
+    // console.log("get thread data", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -88,7 +88,7 @@ export async function createUserMessage(
       }
     );
 
-    console.log("create new message data", response.data);
+    // console.log("create new message data", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -114,7 +114,7 @@ export async function createRun(
       }
     );
     setRunId(response.data.id);
-    console.log("get create run message data", response.data);
+    // console.log("get create run message data", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -138,7 +138,7 @@ export async function retrieveRun(
       }
     );
 
-    console.log("get retrieve run message data", response.data);
+    // console.log("get retrieve run message data", response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -164,7 +164,7 @@ export async function getMessages(
       }
     );
 
-    console.log("get messages list data", response.data);
+    // console.log("get messages list data", response.data);
     setMessages([...[initialMessage], ...response.data.data]);
     return response.data;
   } catch (error) {
