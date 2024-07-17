@@ -149,13 +149,13 @@ export default function ChatFloatingContainer({}: Props) {
         <ConversationHeader className="!bg-blue1 !border-0">
           <Avatar
             className="h-full flex items-center justify-center"
-            name="SlotGBT"
+            name="SlotGPT"
           >
             <ChatIcon />
           </Avatar>
           <ConversationHeader.Content>
             <div className="flex items-center justify-between">
-              <div className="text-white font-bold font-modernist">SlotGBT</div>
+              <div className="text-white font-bold font-modernist">SlotGPT</div>
               <div
                 className="text-white cursor-pointer"
                 onClick={() => {
@@ -209,7 +209,7 @@ export default function ChatFloatingContainer({}: Props) {
           ref={messageInputRef}
           onChange={(e) => setUserMessage(e)}
           className="!bg-dark2 !border-0 text-base font-modernist"
-          placeholder="Message SlotGBT"
+          placeholder="Message SlotGPT"
           onSend={handleNewUserMessage}
           attachButton={false}
           sendButton={false}
