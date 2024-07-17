@@ -3,7 +3,7 @@ import chartPattern from "./img/chart-pattern.png";
 import close from "./img/close.png";
 import forward from "./img/forward.png";
 import adj from "./svg/adj.svg";
-import arrow from "./svg/arrow.svg";
+
 import bullet from "./svg/bullet.svg";
 import casino from "./svg/casino.svg";
 import cb from "./svg/cb.svg";
@@ -19,7 +19,6 @@ import logo from "./svg/logo.svg";
 import menu from "./svg/menu.svg";
 import remove from "./svg/remove.svg";
 import search from "./svg/search.svg";
-import skewed_arrow from "./svg/skewed_arrow.svg";
 
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
@@ -38,12 +37,10 @@ export {
   casino,
   joystick,
   eyes,
-  arrow,
   cb,
   eb,
   adj,
   menu,
-  skewed_arrow,
   gear,
   chartPattern,
   forward,

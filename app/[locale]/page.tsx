@@ -21,15 +21,15 @@ export async function generateMetadata({ params: { locale } }: Params) {
       };
 
     return {
-      title: "Slotstat",
+      title: "SlotStat: Real-Time Slot Statistics & Data-Driven Gambling Insights",
       description:
-        "Unique platform which gives you opportunity to choose where to play and win! ",
+        "Explore SlotStat for real-time slot statistics and insights. Discover RTP, Win Spin Rate, and more to make smarter decisions while playing.",
       openGraph: {
         // ...openGraphImage,
         images: "../opengraph-image.png",
         title: "Slotstat",
         description:
-          "Slotstat, Unique platform which gives you opportunity to choose where to play and win by using statistics!",
+          "Explore SlotStat for real-time slot statistics and insights. Discover RTP, Win Spin Rate, and more to make smarter decisions while playing.",
       },
       alternates: {
         canonical: `/`,

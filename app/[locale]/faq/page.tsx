@@ -7,6 +7,35 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 const breadcrumbs = [{ name: "FAQ" }];
 
+export async function generateMetadata() {
+  try {
+    return {
+      title: "Frequently Asked Questions",
+      description:
+        "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+      openGraph: {
+        // ...openGraphImage,
+        images: "../opengraph-image.png",
+        title: "Frequently Asked Questions",
+        description:
+          "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+      },
+      alternates: {
+        canonical: `/faq`,
+        languages: {
+          "en-US": `en/faq`,
+          "ka-GE": `ka/faq`,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Not found",
+      description: "The page you are looking for doesn't exists",
+    };
+  }
+}
+
 export default function FAQ() {
   const t = useTranslations("faq");
 

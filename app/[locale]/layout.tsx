@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-
   description:
     "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {

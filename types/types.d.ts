@@ -143,12 +143,11 @@ type GameData = {
   rtp: RTP;
   bounties: string;
   currencyCode: string;
-  fixedRtp: string;
   isCrypto: boolean;
   isFiat: boolean;
   additionalInfo: string;
   casinoImageUrl: string;
-  jackpotInfo: "string";
+  jackpotInfo: string;
   verificationStatus: number;
   fixedRtp: number;
   currencRtp: number;

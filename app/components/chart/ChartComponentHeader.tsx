@@ -121,8 +121,8 @@ export default function ChartComponentHeader({
       >
         <Image src={slot} alt="cover" className="h-60 md:h-[328px]" />
         <div className="absolute top-0 right-0 left-0 h-60 md:h-[328px] flex justify-center bg-dark1/90">
-          <div className="w-[100%] max-w-screen-xl mt-[63px] px-4 pt-0 pb-2 md:pb-6 md:pt-12 md:px-0">
-            <h1 className="text-white md:h-[48px] text-xl font-bold mb-2 md:mb-4 md:text-3xl ">
+          <div className="w-[100%] max-w-screen-xl mt-[63px] px-4 pt-4 pb-2 md:pb-6 md:pt-12 md:px-0">
+            <h1 className="text-white md:h-[48px] text-xl font-bold md:mb-4 md:text-3xl ">
               {casinoName} - {name}
             </h1>
             <p className="hidden md:flex text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
@@ -131,7 +131,7 @@ export default function ChartComponentHeader({
               Everything you need to make informed gaming decisions is right
               here on this page.
             </p>
-            <p className="flex md:hidden text-grey1 my-6  leading-6 text-xs ">
+            <p className="flex md:hidden text-grey1 my-4  leading-6 text-xs ">
               Find comprehensive slot game stats, casino details, and bonus info
               all on one page. Make informed gaming decisions easily
             </p>
