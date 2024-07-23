@@ -43,7 +43,13 @@
     "aboutUs": "About us",
     "termsOfUse": "Terms of use",
     "privacyPolicy": "Privacy Policy",
-    "allRightsReserved": "2024 Slotstat. All rights reserved"
+    "allRightsReserved": "2024 Slotstat. All rights reserved",
+    "blog": "Blog",
+    "slots": "Slots",
+    "casinos": "Casinos",
+    "providers": "Providers",
+    "news": "News",
+    "education": "Education"
   },
   "actionPane": { "compare": "Compare", "vs": "VS" },
   "table": {

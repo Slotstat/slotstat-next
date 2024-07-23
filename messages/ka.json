@@ -40,8 +40,13 @@
     "aboutUs": "ჩვენ შესახებ",
     "termsOfUse": "გამოყენების წესები",
     "privacyPolicy": "უსაფრთხოების პოლიტიკა",
-
-    "allRightsReserved": "2024 Slotstat. ყველა უფლება დაცულია"
+    "allRightsReserved": "2024 Slotstat. ყველა უფლება დაცულია",
+    "blog": "Blog",
+    "slots": "Slots",
+    "casinos": "Casinos",
+    "provider": "Provider",
+    "news": "News",
+    "education": "Education"
   },
   "actionPane": { "compare": "შედარება", "vs": "VS" },
   "table": {
