@@ -5,12 +5,19 @@ import SubscribeButton from "./SubscribeButton";
 // import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import {
-  Accordion as RAccordion,
-  AccordionItem as RItem,
-} from "@szhsin/react-accordion";
+import { Accordion, AccordionItem as RItem } from "@szhsin/react-accordion";
 import { useEffect } from "react";
 import { Link } from "@/navigation";
+import {
+  Instagram,
+  InstagramSmall,
+  Reddit,
+  RedditSmall,
+  X,
+  XSmall,
+  Youtube,
+  YoutubeSmall,
+} from "../assets/svg/FooterIcons";
 
 const Footer = () => {
   const t = useTranslations("navbar");
@@ -47,10 +54,8 @@ const Footer = () => {
     <RItem
       {...rest}
       header={({ state: { isEnter } }) => (
-        <div className="mb-4 flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
-          <h5 className="mb-4 text-xs font-bold text-white lg:text-sm">
-            {header}
-          </h5>
+        <div className="mb-2 flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
+          <h5 className=" text-xs font-bold text-white lg:text-sm">{header}</h5>
           <div
             className={`ml-auto transition-transform duration-200 ease-in-out ${
               isEnter && "rotate-180"
@@ -70,7 +75,7 @@ const Footer = () => {
       panelProps={{ className: " text-xs lg:text-[18px] text-grey1 leading-6" }}
     />
   );
-  
+
   const accordionItems = [
     {
       header: tFooter("company"),
@@ -78,7 +83,7 @@ const Footer = () => {
       //   {tFooter("company")}
       // </h5>
       content: (
-        <>
+        <div>
           <Link
             href="/about-us"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
@@ -97,13 +102,13 @@ const Footer = () => {
           >
             {tFooter("privacyPolicy")}
           </Link>
-        </>
+        </div>
       ),
     },
     {
       header: tFaq("support"),
       content: (
-        <>
+        <div>
           <Link
             href="/faq"
             className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
@@ -116,7 +121,44 @@ const Footer = () => {
           >
             {t("howItWorks")}
           </Link>
-        </>
+        </div>
+      ),
+    },
+    {
+      header: tFooter("blog"),
+      content: (
+        <div>
+          <Link
+            href="/blog/slots"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("slots")}
+          </Link>
+          <Link
+            href="/blog/casinos"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("casinos")}
+          </Link>
+          <Link
+            href="/blog/providers"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("providers")}
+          </Link>
+          <Link
+            href="/blog/news"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("news")}
+          </Link>
+          <Link
+            href="/blog/education"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("education")}
+          </Link>
+        </div>
       ),
     },
   ];
@@ -140,7 +182,7 @@ const Footer = () => {
           </div>
           <div className="order-3 flex flex-col justify-center lg:order-none  md:mt-8 lg:mt-0 lg:flex-row lg:justify-start">
             {typeof window !== "undefined" && window.innerWidth < 768 ? (
-              <RAccordion
+              <Accordion
                 transition
                 transitionTimeout={200}
                 className="space-y-1"
@@ -150,13 +192,13 @@ const Footer = () => {
                     <AccordionItem
                       key={index}
                       header={item.header}
-                      initialEntered={index === 0}
+                      initialEntered={false}
                     >
                       {item.content}
                     </AccordionItem>
                   );
                 })}
-              </RAccordion>
+              </Accordion>
             ) : (
               <>
                 <div>
@@ -199,6 +241,41 @@ const Footer = () => {
                     {t("howItWorks")}
                   </Link>
                 </div>
+                <div className="mt-8 lg:mt-0 lg:ml-18">
+                  <h5 className="mb-4 block text-xs font-black text-white lg:text-sm">
+                    {tFooter("blog")}
+                  </h5>
+                  <Link
+                    href="/blog/slots"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("slots")}
+                  </Link>
+                  <Link
+                    href="/blog/casinos"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("casinos")}
+                  </Link>
+                  <Link
+                    href="/blog/providers"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("providers")}
+                  </Link>
+                  <Link
+                    href="/blog/news"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("news")}
+                  </Link>
+                  <Link
+                    href="/blog/education"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("education")}
+                  </Link>
+                </div>
               </>
             )}
           </div>
@@ -216,12 +293,56 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className="order-3 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
+          <div className="hidden order-3 lg:order-none lg:mx-0 lg:mt-18  lg:justify-end md:flex md:flex-row lg:py-4.5">
+            <a href="https://x.com/slotstat_net" target="_blank">
+              <X className=" ml-3" />
+            </a>
+            <a
+              href="https://www.instagram.com/slotstat_net"
+              target="_blank"
+              className=""
+            >
+              <Instagram className=" ml-3" />
+            </a>
+            <a
+              href="https://www.reddit.com/r/SlotStrategy/"
+              target="_blank"
+              className=""
+            >
+              <Reddit className=" ml-3" />
+            </a>
+            <a href="https://x.com/slotstat_net" target="_blank" className="">
+              <Youtube className=" ml-3" />
+            </a>
+          </div>
+          <div className="order-3 flex flex-row justify-between  md:hidden  ">
+            <a href="https://x.com/slotstat_net" target="_blank" className="">
+              <XSmall />
+            </a>
+            <a
+              href="https://www.instagram.com/slotstat_net"
+              target="_blank"
+              className=""
+            >
+              <InstagramSmall />
+            </a>
+            <a
+              href="https://www.reddit.com/r/SlotStrategy/"
+              target="_blank"
+              className=""
+            >
+              <RedditSmall />
+            </a>
+            <a href="https://x.com/slotstat_net" target="_blank" className="">
+              <YoutubeSmall />
+            </a>
+          </div>
+          {/* <div className="order-3 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">
             <SubscribeButton
               subscribe={tFaq("subscribe")}
               toOurXChannel={tFaq("toOurXChannel")}
             />
-          </div>
+          </div> */}
         </div>
       </footer>
     </>

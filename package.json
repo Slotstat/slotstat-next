@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.38",
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.1.3",
