@@ -77,9 +77,10 @@ export default async function BlogArticle({
   return (
     <>
       <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
-        <div className="fw-full h-[400px] relative">
+        <div className="fw-full h-[400px] relative ">
           {titleImage && (
             <Image
+              className="rounded-3xl"
               src={urlFor(titleImage).url()}
               alt={title}
               fill
@@ -97,7 +98,11 @@ export default async function BlogArticle({
           <PortableText value={content} />
         </div>
       </div>
-      <TableClientSide blogSearchFromTitle={title} showFilter={false} showCryptoFiatSwitcher={false} />
+      <TableClientSide
+        blogSearchFromTitle={title}
+        showFilter={false}
+        showCryptoFiatSwitcher={false}
+      />
     </>
   );
 }

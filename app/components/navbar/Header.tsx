@@ -103,12 +103,16 @@ const MainPageHeader = () => {
         <div className="w-[100%] md:max-w-screen-xl text-xs mx-2 md:mx-0 md:text-base flex justify-between">
           <div className="flex">The site is in beta mode</div>
           {/* <div className="flex md:hidden">Beta mode</div> */}
-          <div className="hidden md:flex">
+
+          <div className="hidden relative group md:flex pr-7 pt-1 ">
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
               Report any issues
             </a>
-            <ArrowLinkBig />
+            <div className="absolute right-1 top-1 transition-all duration-100 ease-in-out group-hover:top-0 group-hover:right-0">
+              <ArrowLinkBig />
+            </div>
           </div>
+
           <div className="flex md:hidden">
             <a className="font-bold" href={`mailto:info@slotstat.net`}>
               Report issues
@@ -120,7 +124,7 @@ const MainPageHeader = () => {
 
       <div
         className={`${navColor} ${navSize} ${navbarTopDistance} ${
-          hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
+          hasBorder ? " lg:border-b-dark3" : "lg:border-b-dark1/90"
         }  overflow-hidden transition-all duration-300  flex justify-center items-center fixed left-0 right-0 z-10 lg:border-b`}
       >
         <div className="flex w-[100%] justify-center">
