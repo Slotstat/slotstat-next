@@ -315,7 +315,7 @@ const Footer = () => {
               <Youtube className=" ml-3" />
             </a>
           </div>
-          <div className="order-3 flex flex-row justify-between  md:hidden  ">
+          <div className="order-3 flex flex-row justify-between mt-2 md:hidden  ">
             <a href="https://x.com/slotstat_net" target="_blank" className="">
               <XSmall />
             </a>
