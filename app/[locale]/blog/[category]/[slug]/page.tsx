@@ -98,11 +98,11 @@ export default async function BlogArticle({
           <PortableText value={content} />
         </div>
       </div>
-      <TableClientSide
-        blogSearchFromTitle={title}
-        showFilter={false}
-        showCryptoFiatSwitcher={false}
-      />
+    //  <TableClientSide
+        //blogSearchFromTitle={title}
+        //showFilter={false}
+        //showCryptoFiatSwitcher={false}
+      ///>
     </>
   );
 }
