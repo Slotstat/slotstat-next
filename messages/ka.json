@@ -5,10 +5,6 @@
     "slotstat": "Slotstat"
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
-  "howItWorksPage": {
-    "howItWorks": "როგორ მუშაობს",
-    "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
-  },
   "faq": {
     "theFAQs": "The FAQs",
     "helpCentre": "დახმარების ცენტრი",
@@ -46,7 +42,8 @@
     "casinos": "Casinos",
     "provider": "Provider",
     "news": "News",
-    "education": "Education"
+    "education": "Education",
+    "responsibleGaming": "Responsible Gaming"
   },
   "actionPane": { "compare": "შედარება", "vs": "VS" },
   "table": {
