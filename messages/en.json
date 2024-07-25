@@ -5,10 +5,7 @@
     "slotstat": "Slotstat"
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
-  "howItWorksPage": {
-    "howItWorks": "How it works",
-    "howItWorksDescription": "How it works da ise rogorc unda mushaobdes, plius magas aq daiwereba sam xaziani teqsti da galamazdeba"
-  },
+
   "faq": {
     "theFAQs": "Frequently Asked Questions",
     "helpCentre": "Help Desk",
@@ -20,7 +17,6 @@
     "joinUs1": "SlotStat X account",
     "stayInLoop": "Stay noted for upcoming updates and chase some bounty rewards.",
     "subscribe": "Subscribe",
-
     "toOurXChannel": " to our X channel",
     "WhatIsHappeningHere": "What’s Win Spin Rate?",
     "WhatIsHappeningHereParams": "Win Spin Rate is a frequency of winning spins, where win is counted if higher than initial bet.",
@@ -49,7 +45,8 @@
     "casinos": "Casinos",
     "providers": "Providers",
     "news": "News",
-    "education": "Education"
+    "education": "Education",
+    "responsibleGaming": "Responsible Gaming"
   },
   "actionPane": { "compare": "Compare", "vs": "VS" },
   "table": {

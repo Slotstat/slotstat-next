@@ -121,6 +121,12 @@ const Footer = () => {
           >
             {t("howItWorks")}
           </Link>
+          <Link
+            href="/responsible-gaming"
+            className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+          >
+            {tFooter("responsibleGaming")}
+          </Link>
         </div>
       ),
     },
@@ -239,6 +245,12 @@ const Footer = () => {
                     className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
                   >
                     {t("howItWorks")}
+                  </Link>
+                  <Link
+                    href="/responsible-gaming"
+                    className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+                  >
+                    {tFooter("responsibleGaming")}
                   </Link>
                 </div>
                 <div className="mt-8 lg:mt-0 lg:ml-18">
