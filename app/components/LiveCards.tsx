@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { live } from "../assets";
+import { currency, eyes, joystick, live, satellite, slotIcon } from "../assets";
 import Image from "next/image";
 import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
@@ -100,6 +100,23 @@ const StatCard = ({
     return "text-blue1";
   };
 
+  const getImageToRender = (name: string) => {
+    switch (name) {
+      case "Casino":
+        return slotIcon;
+      case "Provider":
+        return satellite;
+      case "Game" || "Slots":
+        return joystick;
+      case "User":
+        return eyes;
+      case "Currency":
+        return currency;
+      default:
+        return imageUrl;
+    }
+  };
+
   return (
     <div
       className={`flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ${
@@ -111,9 +128,9 @@ const StatCard = ({
     >
       <div className="flex items-center justify-between">
         <div>
-          {!!isImgUrl(imageUrl) && (
+          {!!getImageToRender(name) && (
             <Image
-              src={imageUrl}
+              src={getImageToRender(name)}
               alt=""
               className="h-4 w-4 lg:h-6 lg:w-6 "
               width={24}
@@ -134,7 +151,7 @@ const StatCard = ({
       </div>
       <div className="mt-4 flex items-center justify-between">
         <span
-          className={`whitespace-nowrap text-xs leading-5 flex flex-row  md:text-base ${renderNameColor()}`}
+          className={`whitespace-nowrap text-xs leading-5 flex flex-row  md:text-base text-grey1`}
         >
           <span className=" mr-3 cursor-default">{name}:</span>
           {isLive && additionalProps ? (
@@ -146,7 +163,7 @@ const StatCard = ({
             />
           ) : (
             <span
-              className={`${renderValueColor()} cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold`}
+              className={`text-white cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold`}
               title={value}
             >
               {value}

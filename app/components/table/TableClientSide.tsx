@@ -71,9 +71,9 @@ export default function TableClientSide({
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
   const [hasComponentMounted, setHasComponentMounted] = useState(false);
-  const isMountedRef = useRef(false);
 
   const getGames = async (page?: string) => {
+    console.log("2222");
     setLoading(true);
     const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
@@ -120,10 +120,8 @@ export default function TableClientSide({
       checkRenderOrNot(item)
     );
 
-    console.log("filteredGames", filteredGames);
-
     games.results = filteredGames;
-
+    console.log("11111", games);
     setGames(games);
     setLoading(false);
   };
@@ -152,13 +150,12 @@ export default function TableClientSide({
   ]);
 
   useEffect(() => {
-    if (isMountedRef.current) return; // If it's not the first render, don't run the effect
-    isMountedRef.current = true;
-
-    if (!handleRecall) {
-      if (!blogSearchFromTitle) {
-        setHandleRecall(true);
-      }
+    if (blogSearchFromTitle) {
+      getGames();
+      setHandleRecall(false);
+    } else if (!handleRecall && !blogSearchFromTitle) {
+      console.log("handleRecall22222", handleRecall);
+      setHandleRecall(true);
       getGames();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,6 +167,7 @@ export default function TableClientSide({
 
     window.scrollTo({ top: Number(scrollY) });
   }, [scrollY]);
+
   const ifWeHaveBlogTitleButNotHaveGamesListFromIt =
     blogSearchFromTitle && gamesList?.results?.length === 0;
 

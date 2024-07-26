@@ -56,7 +56,10 @@ export const useGamesListStore = create<GamesListState>((set, get) => ({
   gamesList: undefined,
   handleRecall: false,
   setGames: (games: gamesList) => set(() => ({ gamesList: games })),
-  setHandleRecall: (help: boolean) => set(() => ({ handleRecall: help })),
+  setHandleRecall: (help: boolean) => {
+    console.log("help", help);
+    return set(() => ({ handleRecall: help }));
+  },
 }));
 
 export default useStore;

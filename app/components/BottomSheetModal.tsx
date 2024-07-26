@@ -44,9 +44,12 @@ const BottomSheetModal = ({
     }, 500),
     []
   );
+
   useEffect(() => {
-    setHandleRecall(false);
-  }, []);
+    if (open) {
+      setHandleRecall(false);
+    }
+  }, [open]);
 
   return (
     <BottomSheet
