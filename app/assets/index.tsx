@@ -8,11 +8,9 @@ import bullet from "./svg/bullet.svg";
 import casino from "./svg/casino.svg";
 import cb from "./svg/cb.svg";
 import eb from "./svg/eb.svg";
-import eyes from "./svg/eyes.svg";
 import fullscreen from "./svg/fullscreen.svg";
 import gear from "./svg/gear.svg";
 import globe from "./svg/globe.svg";
-import joystick from "./svg/joystick.svg";
 import link from "./svg/link.svg";
 import live from "./svg/live.svg";
 import logo from "./svg/logo.svg";
@@ -27,15 +25,22 @@ import cookie from "./img/cookie.png";
 import triangle from "./img/triangle.png";
 import slot from "./img/slot.png";
 import logoSmall from "./img/logoSmall.png";
-import x from "./img/x.png";
+
+import slotIcon from "./img/sloticon.png";
+import satellite from "./img/satellite.png";
+import joystick from "./img/joystick.png";
+import eyes from "./img/eye.png";
+import currency from "./img/currency.png";
 
 export {
   logo,
   link,
-  x,
   globe,
   casino,
   joystick,
+  slotIcon,
+  satellite,
+  currency,
   eyes,
   cb,
   eb,

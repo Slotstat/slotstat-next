@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { link, x } from "../assets";
+import { link } from "../assets";
 
 const SubscribeButton = ({
   subscribe,
@@ -32,13 +32,13 @@ const SubscribeButton = ({
             <span className="font-bold">{subscribe}</span>
             <span className="font-normal mr-10">{toOurXChannel}</span>
           </span>
-          <Image
+          {/* <Image
             src={x}
             alt=""
             className="ml-4 h-5 w-5 lg:h-6 lg:w-6 "
             width={24}
             height={24}
-          />
+          /> */}
         </a>
       </button>
     </>
