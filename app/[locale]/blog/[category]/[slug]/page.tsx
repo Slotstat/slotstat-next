@@ -94,7 +94,7 @@ export default async function BlogArticle({
           {title}
         </h1>
 
-        <div className="prose  prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
+        <div className="prose prose-lg prose-invert prose-li:marker:text-primary prose-a:text-primary">
           <PortableText value={content} />
         </div>
       </div>
