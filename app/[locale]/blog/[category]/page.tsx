@@ -59,13 +59,14 @@ export default async function Home({
             SlotStat provides real-time data on slot games.
           </p>
         </div>
-        <BlogTabs ActiveCategory={category} />
+       
       </div>
       <div className=" min-h-screen grid grid-cols-1  md:grid-cols-4 mt-5 gap-6">
         {data.map((post, idx) => (
           <Card key={idx} post={post} />
         ))}
       </div>
+      <BlogTabs ActiveCategory={category} />
     </div>
   );
 }
