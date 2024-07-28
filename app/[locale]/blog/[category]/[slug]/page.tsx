@@ -150,12 +150,12 @@ export default async function BlogArticle({
         <div className="prose prose-lg prose-invert prose-li:marker:text-primary prose-a:text-primary">
           <MyPortableTextComponent content={content} />
         </div>
-        <TableClientSide
-          blogSearchFromTitle={title}
-          showFilter={false}
-          showCryptoFiatSwitcher={false}
-        />
       </div>
+      <TableClientSide
+        blogSearchFromTitle={title}
+        showFilter={false}
+        showCryptoFiatSwitcher={false}
+      />
     </>
   );
 }
