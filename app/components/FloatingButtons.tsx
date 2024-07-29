@@ -17,7 +17,7 @@ const FloatingButtons = ({
 
   return (
     <div
-      className={`flex cursor-pointer md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
+      className={`flex z-10 cursor-pointer md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
     font-bold text-xs transition-all duration-500 ease-in-out overflow-hidden 
      flex-col items-center justify-around px-3 rounded-lg ${
        isDropdownOpened && "h-32 w-40"
