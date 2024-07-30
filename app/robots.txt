@@ -1,5 +1,12 @@
-User-Agent: *
+# Allow all robots to crawl the production site, except for /private/
+User-agent: *
 Allow: /
 Disallow: /private/
 
+# Disallow all robots from crawling Vercel preview deployments
+User-agent: *
+Disallow: /
+Host: *.vercel.app
+
+# Sitemap location
 Sitemap: https://slotstat.net/sitemap.xml
