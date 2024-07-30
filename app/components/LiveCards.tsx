@@ -83,9 +83,9 @@ const StatCard = ({
   valueType,
   casinoId,
 }: StatCardProp) => {
-  const isImgUrl = (url: string) => {
-    return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
-  };
+  // const isImgUrl = (url: string) => {
+  //   return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
+  // };
 
   const renderNameColor = () => {
     if (casino || game) return "text-grey1";
@@ -200,7 +200,7 @@ const LiveCards = ({
   casinoCardsData?: Promise<Card[]>;
   gamesCardsData?: Promise<Card[]>;
 } & PagesAndStyleDiff) => {
-  const { newJackpot, newUser } = useStore();
+  // const { newJackpot, newUser } = useStore();
   const [cardsDataState, setCardsDataState] = useState(cardsData);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,68 +214,71 @@ const LiveCards = ({
   //   []
   // );
 
-  const getUpdatedCasinoCardsData = useCallback(
-    _.debounce(async () => {
-      if (casinoCardsData) {
-        const updatedCasinoCardsData = await casinoCardsData;
-        setCardsDataState(updatedCasinoCardsData);
-      }
-    }, 2000),
-    []
-  );
+  // const getUpdatedCasinoCardsData = useCallback(
+  //   _.debounce(async () => {
+  //     if (casinoCardsData) {
+  //       const updatedCasinoCardsData = await casinoCardsData;
+  //       setCardsDataState(updatedCasinoCardsData);
+  //     }
+  //   }, 2000),
+  //   []
+  // );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getUpdatedGameCardsData = useCallback(
-    _.debounce(async () => {
-      if (gamesCardsData) {
-        const updatedGamesCardsData = await gamesCardsData;
-        setCardsDataState(updatedGamesCardsData);
-      }
-    }, 2000),
-    []
-  );
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // const getUpdatedGameCardsData = useCallback(
+  //   _.debounce(async () => {
+  //     if (gamesCardsData) {
+  //       console.log("111");
+  //       const updatedGamesCardsData = await gamesCardsData;
+  //       setCardsDataState(updatedGamesCardsData);
+  //     }
+  //   }, 2000),
+  //   []
+  // );
 
-  useEffect(
-    () => {
-      // users count on each page
-      // if (newUser) {
-      //   console.log("111");
-      //   if (casino) {
-      //     console.log("222");
-      //     getUpdatedCasinoCardsData();
-      //   } else if (game) {
-      //     console.log("333");
-      //     getUpdatedGameCardsData();
-      //   } else {
-      //     console.log("444");
-      //     getUpdatedLandingCardsData();
-      //   }
-      // }
 
-      // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
-      if (
-        newJackpot?.casinoId === casinoId &&
-        casinoId !== undefined &&
-        casino
-      ) {
-        getUpdatedCasinoCardsData();
-      }
-      // if we are on a Game page and we have new jackpot data from this game owner casino,  we Update game Cards Data.
-      if (newJackpot?.casinoId === casinoId && casinoId !== undefined && game) {
-        getUpdatedGameCardsData();
-      }
-    },
-    [
-      // newUser,
-      // uncomment when users count is needed but check jackpots logic after uncommenting.
-      // casino,
-      // casinoId,
-      // getUpdatedCasinoCardsData,
-      // getUpdatedGameCardsData,
-      // newJackpot,
-      // game,
-    ]
-  );
+  // uncomment when jackpots will be back and we will need live jackpots statistics
+  // useEffect(
+  //   () => {
+  //     // users count on each page
+  //     // if (newUser) {
+  //     //   console.log("111");
+  //     //   if (casino) {
+  //     //     console.log("222");
+  //     //     getUpdatedCasinoCardsData();
+  //     //   } else if (game) {
+  //     //     console.log("333");
+  //     //     getUpdatedGameCardsData();
+  //     //   } else {
+  //     //     console.log("444");
+  //     //     getUpdatedLandingCardsData();
+  //     //   }
+  //     // }
+
+  //     // if we are on a casino page and we have new jackpot data from this casino,  we Update Casino Cards Data.
+  //     if (
+  //       newJackpot?.casinoId === casinoId &&
+  //       casinoId !== undefined &&
+  //       casino
+  //     ) {
+  //       getUpdatedCasinoCardsData();
+  //     }
+  //     // if we are on a Game page and we have new jackpot data from this game owner casino,  we Update game Cards Data.
+  //     if (newJackpot?.casinoId === casinoId && casinoId !== undefined && game) {
+  //       getUpdatedGameCardsData();
+  //     }
+  //   },
+  //   [
+  //     // newUser,
+  //     // uncomment when users count is needed but check jackpots logic after uncommenting.
+  //     // casino,
+  //     // casinoId,
+  //     // getUpdatedCasinoCardsData,
+  //     // getUpdatedGameCardsData,
+  //     // newJackpot,
+  //     // game,
+  //   ]
+  // );
 
   return (
     <div className="my-4 overflow-x-scroll whitespace-nowrap lg:my-6 md:overflow-auto md:whitespace-normal no-scroll">

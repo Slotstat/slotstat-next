@@ -73,7 +73,6 @@ export default function TableClientSide({
   const [hasComponentMounted, setHasComponentMounted] = useState(false);
 
   const getGames = async (page?: string) => {
-    console.log("2222");
     setLoading(true);
     const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
@@ -121,7 +120,6 @@ export default function TableClientSide({
     );
 
     games.results = filteredGames;
-    console.log("11111", games);
     setGames(games);
     setLoading(false);
   };
@@ -154,7 +152,6 @@ export default function TableClientSide({
       getGames();
       setHandleRecall(false);
     } else if (!handleRecall && !blogSearchFromTitle) {
-      console.log("handleRecall22222", handleRecall);
       setHandleRecall(true);
       getGames();
     }

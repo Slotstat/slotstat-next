@@ -1,12 +1,11 @@
 "use client";
-import { logo, slotLogo } from "../assets";
+import { slotLogo } from "../assets";
 import SubscribeButton from "./SubscribeButton";
 
 // import LanguageToggleButton from "./navbar/LanguageToggleButton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Accordion, AccordionItem as RItem } from "@szhsin/react-accordion";
-import { useEffect } from "react";
 import { Link } from "@/navigation";
 import {
   Instagram,

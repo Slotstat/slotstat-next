@@ -56,10 +56,10 @@ export async function generateMetadata({
         description: smallDescription,
       },
       alternates: {
-        canonical: `/${locale}/blog/${slug}`,
+        canonical: `/${locale}/blog/${category}/${slug}`,
         languages: {
-          "en-US": `en/blog/${slug}`,
-          "ka-GE": `ka/blog/${slug}`,
+          "en-US": `en/blog/${category}/${slug}`,
+          "ka-GE": `ka/blog/${category}/${slug}`,
         },
       },
     };

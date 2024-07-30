@@ -19,19 +19,19 @@ async function getData(category: string) {
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params: { locale, category },
 }: {
-  params: { locale: "en" | "ka" };
+  params: { locale: "en" | "ka"; category: string };
 }) {
   try {
     return {
       title: "Slotstat blob",
       description: "find slots and information about each of them!",
       alternates: {
-        canonical: `/${locale}/blog`,
+        canonical: `/${locale}/blog/${category}`,
         languages: {
-          "en-US": `en/blog`,
-          "ka-GE": `ka/blog`,
+          "en-US": `en/blog/${category}`,
+          "ka-GE": `ka/blog/${category}`,
         },
       },
     };
