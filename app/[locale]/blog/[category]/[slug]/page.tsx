@@ -123,7 +123,6 @@ export default async function BlogArticle({
 }: {
   params: { category: string; slug: string };
 }) {
-  console.log("category", category);
   const data: fullBlog = await getData(category, slug);
   const { titleImage, content, title } = data;
 

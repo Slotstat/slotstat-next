@@ -44,7 +44,7 @@ export default function ChartCasinoAndGameWrapper({
   casinoCardsData: Promise<Card[]>;
   casinoBonuses: any;
 }) {
-  console.log("gameCards", gameCards);
+
   const [compareGameIdQuery, setCompareGameIdQuery] =
     useQueryState("compareGameId");
 
