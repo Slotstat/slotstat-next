@@ -130,6 +130,7 @@ const StatCard = ({
         <div>
           {!!getImageToRender(name) && (
             <Image
+              // unoptimized
               src={getImageToRender(name)}
               alt=""
               className="h-4 w-4 lg:h-6 lg:w-6 "
@@ -235,7 +236,6 @@ const LiveCards = ({
   //   }, 2000),
   //   []
   // );
-
 
   // uncomment when jackpots will be back and we will need live jackpots statistics
   // useEffect(

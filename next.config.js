@@ -11,6 +11,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   reactStrictMode: false,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

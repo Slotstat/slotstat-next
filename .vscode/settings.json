@@ -2,7 +2,8 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
-    "tanstack"
+    "tanstack",
+    "unoptimized"
   ],
   "IDX.aI.enableInlineCompletion": true,
   "IDX.aI.enableCodebaseIndexing": true

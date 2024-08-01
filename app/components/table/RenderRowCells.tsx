@@ -153,10 +153,11 @@ const RenderRowCells = ({
         <div className="h-8 w-8 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
           <div className="relative h-8 w-8 md:w-12 md:h-12 ">
             {!!isImgUrl(imageUrl) && (
-              <img
+              <Image
+                // unoptimized
                 src={imageUrl}
                 alt={name}
-                // fill
+                fill
                 sizes="(max-width: 32px) 100vw,
                 (max-width: 32px) 50vw,
               33vw"
