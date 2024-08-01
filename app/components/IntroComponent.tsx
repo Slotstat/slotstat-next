@@ -61,7 +61,7 @@ export default function IntroComponent() {
           <div className=" flex-col justify-center md:flex">
             <div className="flex justify-between mb-4">
               <h1 className="text-white text-base font-bold md:text-3xl ">
-                Play at Full Resolution
+                Play Informed
               </h1>
               <div className="flex ">
                 {/* <p className="text-grey1 text-xs  mr-2 mt-1">Video Tutorial</p>
@@ -71,9 +71,9 @@ export default function IntroComponent() {
               </div>
             </div>
             <h2 className="text-grey1 md:w-3/4 text-xs md:text-base">
-              SlotStat provides real-time data about slot games through dynamic
-              statistics, including Win Spin Rate, RTP, and Slot Profit Status.
-              Observe, analyze, strategize, and play it full via SlotStat.
+              Slotstat offers real-time data on slot games through dynamic live
+              stats, including Win Spin Rate, RTP, and Slot Profit Status.
+              Observe, analyze, strategize, and play it full with Slotstat.
             </h2>
           </div>
           {/* <div

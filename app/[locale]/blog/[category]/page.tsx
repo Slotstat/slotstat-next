@@ -55,9 +55,7 @@ export default async function Home({
       <div className="flex justify-between">
         <div>
           <h1 className="font-bold text-3xl mb-3">Blog</h1>
-          <p className="text-grey1 mb-6">
-            SlotStat provides real-time data on slot games.
-          </p>
+          <p className="text-grey1 mb-6">All players need to know.</p>
         </div>
         <BlogTabs ActiveCategory={category} />
       </div>
