@@ -1,10 +1,32 @@
-// @ts-nocheck 
+// @ts-nocheck
 import createIntlMiddleware from "next-intl/middleware";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { generateUniqueId } from "./lib/uuid";
 import { locales, localePrefix } from "./navigation";
+import countries from "./lib/countries.json";
 
 export default async function middleware(request: NextRequest) {
+  
+  const { nextUrl: url, geo } = request;
+  const country = geo.country || "US";
+  console.log("country", country);
+
+  const city = geo.city || "San Francisco";
+  const region = geo.region || "CA";
+
+  const countryInfo = countries.find((x) => x.cca2 === country);
+
+  const currencyCode = Object.keys(countryInfo.currencies)[0];
+  const currency = countryInfo.currencies[currencyCode];
+  const languages = Object.values(countryInfo.languages).join(", ");
+
+
+  const country1 = request.headers.get('cf-ipcountry') || 'Unknown'
+  const country2 = request.headers.get('x-user-country') || "duno"
+
+
+  
+
   // Step 1: Use the incoming request
   const defaultLocale = request.headers.get("x-default-locale") || "en";
 
@@ -25,8 +47,19 @@ export default async function middleware(request: NextRequest) {
     response.cookies.set("uniqueId", uniqueId);
   }
 
+  response.headers.set('testcountry1', country1)
+  response.headers.set('testcountry2', country2)
+
+  response.headers.set("country", country);
+  response.headers.set("city", city);
+  response.headers.set("region", region);
+  response.headers.set("currencyCode", currencyCode);
+  response.headers.set("currencySymbol", currency.symbol);
+  response.headers.set("name", currency.name);
+  response.headers.set("languages", languages);
   // Step 3: Alter the response
   response.headers.set("x-default-locale", defaultLocale);
+  NextResponse.rewrite(url);
   return response;
 }
 
@@ -37,5 +70,5 @@ export default async function middleware(request: NextRequest) {
 // };
 export const config = {
   // Match only internationalized pathnames
-  matcher: ["/", "/(ka|en)/:path*"],
+  matcher: ["/", "/(en)/:path*"],
 };
