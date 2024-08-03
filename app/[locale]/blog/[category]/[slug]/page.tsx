@@ -52,7 +52,7 @@ export async function generateMetadata({
       openGraph: {
         images: [
           {
-            url: titleImage, // Use the blog's title image URL
+            url: urlFor(titleImage).url(), // Use the blog's title image URL
             width: 1200,
             height: 630,
             alt: title,
