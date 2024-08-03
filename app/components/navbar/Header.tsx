@@ -22,6 +22,12 @@ const NavList = () => {
 
   return (
     <nav className="my-2 flex flex-row lg:my-0 ml-auto lg:items-center">
+      <span className="mt-4 text-xs  font-normal ml-3  lg:mt-0 md:ml-8 md:text-sm flex ">
+        <Link href={`/blog/slots`} className={checkIsActive("faq")}>
+          {t("blog")}
+        </Link>
+        <div className=" h-1.5 w-1.5 bg-red rounded"/>
+      </span>
       <span className="mt-4 text-xs font-normal ml-3  md:ml-8 hover:text-white lg:mt-0 md:text-sm">
         <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
           {t("howItWorks")}

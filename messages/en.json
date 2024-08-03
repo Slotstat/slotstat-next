@@ -2,7 +2,8 @@
   "navbar": {
     "howItWorks": "How it works",
     "faq": "FAQ",
-    "slotstat": "Slotstat"
+    "slotstat": "Slotstat",
+    "blog":"Blog"
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
 

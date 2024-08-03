@@ -116,14 +116,6 @@ export default async function RootLayout({
           `,
         }}
       />
-      {/* <noscript>
-        <img
-          height="1"
-          width="1"
-          className="hidden"
-          src="https://www.facebook.com/tr?id=7159413720830778&ev=PageView&noscript=1"
-        />
-      </noscript> */}
     </html>
   );
 }
