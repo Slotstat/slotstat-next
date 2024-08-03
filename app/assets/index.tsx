@@ -17,6 +17,7 @@ import logo from "./svg/logo.svg";
 import menu from "./svg/menu.svg";
 import remove from "./svg/remove.svg";
 import search from "./svg/search.svg";
+import redX from "./svg/redX.svg";
 
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
@@ -56,6 +57,7 @@ export {
   remove,
   live,
   search,
+  redX,
   slotLogo,
   moneyBag,
   cookie,

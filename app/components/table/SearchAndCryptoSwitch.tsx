@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useCallback, useEffect, Fragment } from "react";
-import { search } from "../../assets";
+import { redX, search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
@@ -129,8 +129,22 @@ export const SearchAndCryptoSwitch = ({
         onBlur={() => setFocused(false)}
         className="placeholder:text-grey1 w-full  text-xs border-grey1 text-grey1 bg-dark1 border  h-10 px-3 lg:text-sm focus:border-blue1 focus:outline-none  rounded-none rounded-r-lg"
       />
-      <span className="absolute inset-y-0 right-0 pr-3 flex justify-center items-center">
-        <Image src={search} alt="" height={12} width={12} />
+      <span
+        onClick={() => {
+          if (value.length > 0) {
+            setValue("");
+            debouncedSearch("");
+          }
+        }}
+        className={`absolute ${
+          value.length > 0 && "cursor-pointer"
+        } inset-y-0 z-10 right-0 pr-3 flex justify-center items-center`}
+      >
+        {value.length > 0 ? (
+          <img src={redX.src} alt="" height={22} width={22} />
+        ) : (
+          <img className=" " src={search.src} alt="" height={22} width={22} />
+        )}
       </span>
     </div>
   );

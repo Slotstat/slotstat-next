@@ -50,8 +50,14 @@ export async function generateMetadata({
       title: title,
       description: smallDescription,
       openGraph: {
-        // ...openGraphImage,
-        images: titleImage,
+        images: [
+          {
+            url: titleImage, // Use the blog's title image URL
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
         title: title,
         description: smallDescription,
       },

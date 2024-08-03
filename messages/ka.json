@@ -2,7 +2,9 @@
   "navbar": {
     "howItWorks": "როგორ მუშაობს",
     "faq": "ხშირად დასმული კითხვები",
-    "slotstat": "Slotstat"
+    "slotstat": "Slotstat",
+    "blog":"ბლოგი"
+
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
   "faq": {
