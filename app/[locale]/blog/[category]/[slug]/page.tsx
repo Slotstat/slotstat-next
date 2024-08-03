@@ -200,7 +200,7 @@ export default async function BlogArticle({
           <MyPortableTextComponent content={content} />
         </div>
       </div>
-      <h5>{title}</h5>
+      <h5 className="text-white text-2xl font-bold">{title}</h5>
       <TableClientSide
         blogSearchFromTitle={title}
         showFilter={false}
