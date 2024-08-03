@@ -9,6 +9,7 @@ import {
 import { TypedObject } from "@portabletext/types";
 import Image from "next/image";
 
+import { headers } from "next/headers";
 export const revalidate = 30; // revalidate at most 30 seconds
 
 async function getData(category: string, slug: string) {
@@ -46,20 +47,63 @@ export async function generateMetadata({
 
     const { titleImage, smallDescription, title } = data;
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || `https://${headers().get("host")}`;
+    const absoluteImageUrl = new URL(
+      urlFor(titleImage).url(),
+      baseUrl
+    ).toString();
+    const pageUrl = new URL(
+      `/${locale}/blog/${category}/${slug}`,
+      baseUrl
+    ).toString();
+    const fallbackImageUrl = new URL(
+      "../../../../opengraph-image.png",
+      baseUrl
+    ).toString();
+
     return {
       title: title,
       description: smallDescription,
+      // openGraph: {
+      //   images: [
+      //     {
+      //       url: urlFor(titleImage).url(), // Use the blog's title image URL
+      //       width: 1200,
+      //       height: 630,
+      //       alt: title,
+      //     },
+      //   ],
+      //   title: title,
+      //   description: smallDescription,
+      // },
       openGraph: {
+        title,
+        description: smallDescription,
+        url: pageUrl,
+        siteName: "SlotStat",
+        locale: locale,
+        type: "article",
         images: [
           {
-            url: urlFor(titleImage).url(), // Use the blog's title image URL
+            url: absoluteImageUrl,
             width: 1200,
             height: 630,
             alt: title,
           },
+          {
+            url: fallbackImageUrl,
+            width: 1200,
+            height: 630,
+            alt: "SlotStat Default Image",
+          },
         ],
-        title: title,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
         description: smallDescription,
+        images: [absoluteImageUrl, fallbackImageUrl],
       },
       alternates: {
         canonical: `/${locale}/blog/${category}/${slug}`,
@@ -156,6 +200,7 @@ export default async function BlogArticle({
           <MyPortableTextComponent content={content} />
         </div>
       </div>
+      <h5>{title}</h5>
       <TableClientSide
         blogSearchFromTitle={title}
         showFilter={false}
