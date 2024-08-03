@@ -35,7 +35,7 @@ export async function generateMetadata({ params: { locale } }: Params) {
         canonical: `/`,
         languages: {
           "en-US": `en/`,
-          "ka-GE": `ka/`,
+          // "ka-GE": `ka/`,
         },
       },
     };

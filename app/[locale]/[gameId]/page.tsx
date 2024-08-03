@@ -39,7 +39,7 @@ export async function generateMetadata({
         canonical: `/${locale}/${gameId}?casId=${casId}`,
         languages: {
           "en-US": `en/${gameId}?casId=${casId}`,
-          "ka-GE": `ka/${gameId}?casId=${casId}`,
+          // "ka-GE": `ka/${gameId}?casId=${casId}`,
         },
       },
     };

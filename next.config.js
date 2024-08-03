@@ -9,6 +9,31 @@ const withNextIntl = createNextIntlPlugin();
 // );
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/en/aboutus',
+        destination: '/en/about-us',
+        permanent: true,
+      },
+      {
+        source: '/ka/:path*',
+        destination: '/en/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path((?!en|ka).*)',
+        destination: '/en',
+        permanent: true,
+      },
+      {
+        source: '/en/:uuid([a-f0-9-]{36})$',
+        destination: '/en',
+        permanent: false,
+      },
+      // Add more redirects as needed
+    ]
+  },
   reactStrictMode: false,
   images: {
     unoptimized: true,

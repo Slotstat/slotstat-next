@@ -31,7 +31,7 @@ export async function generateMetadata({
         canonical: `/${locale}/blog/${category}`,
         languages: {
           "en-US": `en/blog/${category}`,
-          "ka-GE": `ka/blog/${category}`,
+          // "ka-GE": `ka/blog/${category}`,
         },
       },
     };

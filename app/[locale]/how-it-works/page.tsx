@@ -17,7 +17,7 @@ export async function generateMetadata() {
         canonical: `/how-it-works`,
         languages: {
           "en-US": `en/how-it-works`,
-          "ka-GE": `ka/how-it-works`,
+          // "ka-GE": `ka/how-it-works`,
         },
       },
     };

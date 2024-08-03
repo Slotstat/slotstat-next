@@ -17,7 +17,7 @@ export async function generateMetadata() {
         canonical: `/responsible-gaming`,
         languages: {
           "en-US": `en/responsible-gaming`,
-          "ka-GE": `ka/responsible-gaming`,
+          // "ka-GE": `ka/responsible-gaming`,
         },
       },
     };
