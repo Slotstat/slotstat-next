@@ -24,7 +24,7 @@ export async function generateMetadata() {
         canonical: `/faq`,
         languages: {
           "en-US": `en/faq`,
-          "ka-GE": `ka/faq`,
+          // "ka-GE": `ka/faq`,
         },
       },
     };

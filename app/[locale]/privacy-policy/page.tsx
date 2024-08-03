@@ -19,7 +19,7 @@ export async function generateMetadata() {
         canonical: `/privacy-policy`,
         languages: {
           "en-US": `en/privacy-policy`,
-          "ka-GE": `ka/privacy-policy`,
+          // "ka-GE": `ka/privacy-policy`,
         },
       },
     };

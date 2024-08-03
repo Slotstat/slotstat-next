@@ -20,7 +20,7 @@ export async function generateMetadata() {
         canonical: `/terms-of-use`,
         languages: {
           "en-US": `en/terms-of-use`,
-          "ka-GE": `ka/terms-of-use`,
+          // "ka-GE": `ka/terms-of-use`,
         },
       },
     };

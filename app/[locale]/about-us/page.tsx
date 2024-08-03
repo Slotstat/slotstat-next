@@ -19,7 +19,7 @@ export async function generateMetadata() {
         canonical: `/about-us`,
         languages: {
           "en-US": `en/about-us`,
-          "ka-GE": `ka/about-us`,
+          // "ka-GE": `ka/about-us`,
         },
       },
     };
