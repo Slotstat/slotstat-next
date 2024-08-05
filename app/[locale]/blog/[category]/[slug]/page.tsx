@@ -62,6 +62,8 @@ export async function generateMetadata({
       baseUrl
     ).toString();
 
+    const timestampedImageUrl = `${absoluteImageUrl}?t=${Date.now()}`;
+
     return {
       title: title,
       description: smallDescription,
@@ -86,16 +88,10 @@ export async function generateMetadata({
         type: "article",
         images: [
           {
-            url: absoluteImageUrl,
+            url: timestampedImageUrl,
             width: 1200,
             height: 630,
             alt: title,
-          },
-          {
-            url: fallbackImageUrl,
-            width: 1200,
-            height: 630,
-            alt: "SlotStat Default Image",
           },
         ],
       },
@@ -103,7 +99,7 @@ export async function generateMetadata({
         card: "summary_large_image",
         title,
         description: smallDescription,
-        images: [absoluteImageUrl, fallbackImageUrl],
+        images: [timestampedImageUrl],
       },
       alternates: {
         canonical: `/${locale}/blog/${category}/${slug}`,
