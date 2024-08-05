@@ -1,11 +1,9 @@
 "use client";
-
 import React from "react";
 import AuthInput from "./AuthInput";
 
-type Props = {};
 
-const AuthComponent = ({}: Props) => {
+const AuthComponent = () => {
   return (
     <div className="h-96 flex flex-col justify-between">
       <AuthInput
