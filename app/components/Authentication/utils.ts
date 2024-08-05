@@ -1,10 +1,3 @@
-export type InputForOptions =
-  | "password"
-  | "userName"
-  | "email"
-  | "verification"
-  | undefined;
-
 export const placeHolderHandler = (inputFor: InputForOptions) => {
   switch (inputFor) {
     case "email":

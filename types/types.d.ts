@@ -305,3 +305,21 @@ type FloatingButtonsItem = {
   width: string;
 };
 type FloatingButtonsItems = FloatingButtonsItem[];
+
+type InputForOptions =
+  | "password"
+  | "userName"
+  | "email"
+  | "verification"
+  | undefined;
+
+interface Props {
+  extraContainerClasses?: string;
+  extraInputClasses?: string;
+  type?: string;
+  name?: string;
+  id?: string;
+  inputFor?: InputForOptions;
+  customPlaceholder?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}

@@ -8,18 +8,9 @@ import {
   LockIcon,
   UserIcon,
 } from "./Svgs";
-import { InputForOptions, placeHolderHandler } from "./utils";
+import {  placeHolderHandler } from "./utils";
 
-interface Props {
-  extraContainerClasses?: string;
-  extraInputClasses?: string;
-  type?: string;
-  name?: string;
-  id?: string;
-  inputFor?: InputForOptions;
-  customPlaceholder?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+
 
 const AuthInput = ({
   extraContainerClasses = "",
