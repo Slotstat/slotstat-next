@@ -1,7 +1,18 @@
-"use client"
 import React, { useState } from "react";
 
-export default function FiatCryptoButton(props: any) {
+export default function FiatCryptoButton({
+  active,
+  click,
+  className,
+  title,
+  imgSrc,
+}: {
+  active: boolean;
+  click: () => void;
+  className: string;
+  title: string;
+  imgSrc?: string;
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -15,20 +26,21 @@ export default function FiatCryptoButton(props: any) {
     <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      disabled={props.active}
-      onClick={props.click}
+      disabled={active}
+      onClick={click}
       className={`
-      ${props.active || isHovered ? "bg-blue3" : "bg-grey3"} 
-      ${props.className}
-      text-gray-800 px-4 rounded-lg inline-flex items-center`}
+      ${active || isHovered ? "bg-blue3" : "bg-grey3"} 
+      ${className}
+      text-gray-800 px-4 rounded-lg inline-flex items-center `}
     >
       <span
         className={`${
-          props.active ? "text-blue1" : isHovered ? "text-white" : "text-grey1"
+          active ? "text-blue1" : isHovered ? "text-white" : "text-grey1"
         } leading-6 `}
       >
-        {props.title}
+        {title}
       </span>
+      {imgSrc && <img src={imgSrc} width={24} height={24} className="ml-2" />}
     </button>
   );
 }
