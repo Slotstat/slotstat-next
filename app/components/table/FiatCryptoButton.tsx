@@ -8,7 +8,7 @@ export default function FiatCryptoButton({
   imgSrc,
 }: {
   active: boolean;
-  click: () => void;
+  click: (e: any) => void;
   className: string;
   title: string;
   imgSrc?: string;
