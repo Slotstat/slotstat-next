@@ -39,7 +39,7 @@ export default async function TermsOfUse() {
       <div className="py-6 text-grey1">
         <p>Introduction</p>
 
-        <p className="mb-4">
+        <div className="mb-4">
           <h1>These slotstat.net Terms of Use</h1>
           (the "Terms") govern your access to and use of our website (domains
           and subdomains) and mobile application(s) (mobile applications may
@@ -715,7 +715,7 @@ export default async function TermsOfUse() {
           contrary in these VE Terms, a person who is not a party to these VE
           Terms has no rights at law and in equity to enforce or enjoy the
           benefit of any term in these VE Terms.
-        </p>
+        </div>
         <p>Last updated: 18 MAY 2024</p>
       </div>
     </>
