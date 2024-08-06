@@ -187,6 +187,26 @@ function GreenCheckIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="8"
+      fill="none"
+      viewBox="0 0 12 8"
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M1 3.571L4.636 7 11 1"
+      ></path>
+    </svg>
+  );
+}
+
 export {
   LockIcon,
   EmailIcon,
@@ -195,4 +215,5 @@ export {
   EyeOpenIcon,
   KeyIcon,
   GreenCheckIcon,
+  CheckIcon,
 };

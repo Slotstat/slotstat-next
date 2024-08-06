@@ -1,13 +1,12 @@
 import AuthComponent from "@/app/components/Authentication/AuthComponent";
 
-export default async function Home({
-  params: { category },
-}: {
-  params: { category: string };
-}) {
+interface Props {}
+
+const Home = () => {
   return (
-    <div className="text-white mt-6 ">
+    <div className="text-white ">
       <AuthComponent />
     </div>
   );
-}
+};
+export default Home;
