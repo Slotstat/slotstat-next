@@ -127,7 +127,6 @@ export default function TableClientSide({
         item.provider.toLocaleLowerCase() ===
           blogSearchFromTitle?.toLocaleLowerCase()
     );
-    console.log(filteredGames);
 
     games.results = blogSearchFromTitle ? excludeGamesForBlog : filteredGames;
     setGames(games);
