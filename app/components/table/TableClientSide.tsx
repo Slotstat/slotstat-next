@@ -118,8 +118,18 @@ export default function TableClientSide({
     const filteredGames = games.results.filter((item) =>
       checkRenderOrNot(item)
     );
+    const excludeGamesForBlog = filteredGames.filter(
+      (item) =>
+        item.name.toLocaleLowerCase() ===
+          blogSearchFromTitle?.toLocaleLowerCase() ||
+        item.casinoName.toLocaleLowerCase() ===
+          blogSearchFromTitle?.toLocaleLowerCase() ||
+        item.provider.toLocaleLowerCase() ===
+          blogSearchFromTitle?.toLocaleLowerCase()
+    );
+    console.log(filteredGames);
 
-    games.results = filteredGames;
+    games.results = blogSearchFromTitle ? excludeGamesForBlog : filteredGames;
     setGames(games);
     setLoading(false);
   };
