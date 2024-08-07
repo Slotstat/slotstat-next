@@ -66,7 +66,7 @@ export default function AccordionMenu({
               onClick={() => closeMenu && closeMenu(false)}
               className={`mb-3 font-normal flex flex-row items-center  cursor-pointer ${
                 isMobileMenu
-                  ? "text-base text-white"
+                  ? "text-xs text-white"
                   : "text-grey1 text-xs lg:text-sm"
               } `}
             >
@@ -109,10 +109,10 @@ export default function AccordionMenu({
     <RItem
       {...rest}
       header={({ state: { isEnter } }) => (
-        <div className="mb-3 flex flex-1 items-center justify-between font-bold text-base text-white lg:text-2xl">
+        <div className="mb-3 flex flex-1 items-center justify-between font-bold text-xs text-white lg:text-2xl">
           <h5
             className={`relative font-bold text-white ${
-              isMobileMenu ? "text-base" : "text-xs lg:text-sm"
+              isMobileMenu ? "text-xs" : "text-xs lg:text-sm"
             }`}
           >
             {header}
