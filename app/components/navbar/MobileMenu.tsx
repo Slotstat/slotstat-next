@@ -21,7 +21,7 @@ const MobileMenu = ({
           <Image src={close} alt="" width={32} height={32} />
         </button>
       </div>
-      <div className="h-full flex flex-col justify-between pb-28">
+      <div className="h-full flex flex-col justify-between pb-36">
         <AccordionMenu isMobileMenu={true} closeMenu={closeMenu} />
         <SocialIcons />
       </div>

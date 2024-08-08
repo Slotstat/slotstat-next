@@ -33,6 +33,7 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
   const [hasBorder, setHasBorder] = useState<boolean>(true);
   const [blueNav, setBlueNav] = useState<string>(blueNavSize);
   const [navbarTopDistance, setNavbarTopDistance] = useState<string>("top-14");
+  const [marginTop, setMarginTop] = useState("mt-0");
 
   const listenScrollEvent = () => {
     window.scrollY > 15 ? setBlueNav(blueNavSize0) : setBlueNav(blueNavSize);
@@ -52,9 +53,8 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
     window.scrollY > 15
       ? setNavColor(bgTransparent90)
       : setNavColor(bgTransparent0);
-    window.scrollY > 15
-      ? setNavSize(smallHeaderHeight)
-      : setNavSize(bigHeaderHeight);
+    window.scrollY > 15 ? setMarginTop("-mt-[87px]") : setMarginTop("mt-[0px]");
+
     window.scrollY > 15 ? setHasBorder(false) : setHasBorder(true);
   };
 
@@ -72,23 +72,23 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
     };
   }, [isMainPage]);
 
-  useEffect(() => {
-    if (navbarOpen) {
-      // Disable scrolling on the body when menu is open
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
-    } else {
-      // Re-enable scrolling when menu is closed
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    }
+  // useEffect(() => {
+  //   if (navbarOpen) {
+  //     // Disable scrolling on the body when menu is open
+  //     document.body.style.overflow = "hidden";
+  //     document.body.style.height = "100vh";
+  //   } else {
+  //     // Re-enable scrolling when menu is closed
+  //     document.body.style.overflow = "unset";
+  //     document.body.style.height = "auto";
+  //   }
 
-    // Cleanup function to re-enable scrolling when component unmounts
-    return () => {
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    };
-  }, [navbarOpen]);
+  //   // Cleanup function to re-enable scrolling when component unmounts
+  //   return () => {
+  //     document.body.style.overflow = "unset";
+  //     document.body.style.height = "auto";
+  //   };
+  // }, [navbarOpen]);
 
   return (
     <header>
@@ -105,10 +105,10 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
           isMainPage
             ? `${navColor} ${navSize} ${navbarTopDistance} ${
                 hasBorder ? " lg:border-b-dark3" : "lg:border-b-dark1/90"
-              }  overflow-hidden transition-all duration-300  flex justify-center items-center fixed left-0 right-0 z-10 lg:border-b`
-            : `${navColor} ${navSize} ${
+              }  overflow-visible transition-all duration-300  flex justify-center items-center fixed left-0 right-0 z-10 lg:border-b`
+            : `${navColor} ${navSize} ${marginTop} ${
                 hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
-              } overflow-hidden transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-10 lg:border-b`
+              } overflow-visible transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-10 lg:border-b`
         }
       >
         <div className="flex w-[100%] justify-center">

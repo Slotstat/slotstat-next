@@ -18,10 +18,10 @@ const ChatBot: React.FC = () => {
       <div className="relative">
         <div
           onClick={handleClick}
-          className={`h-14 w-14 rounded-2xl bg-blue1 flex items-center justify-center overflow-hidden `}
+          className={`h-14 w-14 rounded-2xl bg-blue1 flex items-center justify-center overflow-hidden cursor-pointer`}
         >
           <div
-            className={`transform transition-transform duration-500 ${
+            className={`transform transition-transform duration-500 cursor-pointer ${
               rotated ? "rotate-180" : "rotate-0"
             }`}
           >
