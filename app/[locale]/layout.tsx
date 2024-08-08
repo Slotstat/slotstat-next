@@ -89,7 +89,7 @@ export default async function RootLayout({
           </main>
           <Footer />
           <JackpotNotification />
-          <ChatBot />
+          {/* <ChatBot /> */}
           <CookieNotification uniqueId={uniqueId} />
           <TooltipClientSide />
         </NextIntlClientProvider>
