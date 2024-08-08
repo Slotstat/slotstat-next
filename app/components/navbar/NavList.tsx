@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { Link } from "@/navigation";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import { useState } from "react";
 
 const menuItems = [
   { icon: "🕹️", label: "Slot", path: "/blog/slots" },
@@ -11,7 +12,9 @@ const menuItems = [
   { icon: "🎓", label: "Education", path: "/blog/education" },
 ];
 
-const NavList = () => {
+const NavList = ({}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
   const t = useTranslations("navbar");
   const pathName = usePathname();
 
@@ -23,38 +26,43 @@ const NavList = () => {
 
   return (
     <nav className="hidden md:flex  my-2  flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm ">
-      <Popover>
-        <PopoverButton
-          className="relative block text-grey1 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1
-             data-[focus]:outline-white mt-4  md:ml-8 lg:mt-0"
+      <div className="relative">
+        <span
+          onMouseEnter={() => setIsVisible(true)}
+          onMouseLeave={() => setIsVisible(false)}
+          className="mt-4  ml-3 md:ml-8 lg:mt-0 "
         >
-          {t("blog")}
-          <div className="absolute top-0 -right-2 h-1.5 w-1.5 bg-red rounded" />
-        </PopoverButton>
-        <PopoverPanel
-          transition
-          anchor="bottom"
-          className="z-50 top-full border-grey2 border left-0 w-[154px]  bg-dark1 rounded-md shadow-lg pt-4 pb-1
-            font-bold mt-8 transition duration-200 ease-in-out  data-[closed]:-translate-y-1 data-[closed]:opacity-0"
-        >
-          {menuItems.map((item, index) => (
-            <div className="mb-3" key={index}>
-              <Link
-                href={item.path}
-                className="mx-4 flex flex-row items-center  cursor-pointer h-8 "
-              >
-                <div className="mr-2 rounded-full h-8 w-8 bg-grey3 flex items-center justify-center ">
-                  <span>{item.icon}</span>
+          <Link href={"/blog/slots"} className={checkIsActive("howItWorks")}>
+            {t("blog")}
+          </Link>
+        </span>
+        {isVisible && (
+          <div
+            onMouseEnter={() => setIsVisible(true)}
+            onMouseLeave={() => setIsVisible(false)}
+            className="z-50 top-full  left-0 w-[154px] absolute
+            font-bold pt-8 -mt-2 transition duration-200 ease-in-out  data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+          >
+            <div className="pt-4 border-grey2 border bg-dark1 rounded-md shadow-lg  pb-1">
+              {menuItems.map((item, index) => (
+                <div className="mb-3" key={index}>
+                  <Link
+                    href={item.path}
+                    className="mx-4 flex flex-row items-center  cursor-pointer h-8 "
+                  >
+                    <div className="mr-2 rounded-full h-8 w-8 bg-grey3 flex items-center justify-center ">
+                      <span>{item.icon}</span>
+                    </div>
+                    <p className="text-grey1 h-8 hover:text-white text-center">
+                      {item.label}
+                    </p>
+                  </Link>
                 </div>
-                <p className="text-grey1 h-8 hover:text-white text-center">
-                  {item.label}
-                </p>
-              </Link>
+              ))}
             </div>
-          ))}
-        </PopoverPanel>
-      </Popover>
-
+          </div>
+        )}
+      </div>
       <span className="mt-4  ml-3 md:ml-8 lg:mt-0 ">
         <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
           {t("howItWorks")}
