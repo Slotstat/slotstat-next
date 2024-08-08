@@ -62,7 +62,7 @@ const AuthInput = forwardRef(
         <input
           ref={inputRef}
           placeholder={customPlaceholder ?? placeHolderHandler(inputFor)}
-          className={`${extraInputClasses} bg-transparent outline-none w-full ml-3 mr-3`}
+          className={`${extraInputClasses} bg-transparent outline-none w-full ml-3 mr-3 text-sm`}
           type={
             type === "password"
               ? isPasswordVisible

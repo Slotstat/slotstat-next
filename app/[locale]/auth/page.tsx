@@ -4,7 +4,7 @@ interface Props {}
 
 const Home = () => {
   return (
-    <div className="text-white ">
+    <div className="text-white">
       <AuthComponent />
     </div>
   );

@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import AuthInput from "./AuthInput";
 import ButtonComp from "./ButtonComp";
 import CheckboxComp from "./CheckboxComp";
+import Image from "next/image";
+import image18 from "../../assets/img/18.png";
+import policy from "../../assets/img/policy.png";
+import cookie from "../../assets/img/cookie.png";
 
 const AuthComponent = () => {
   const childRef = useRef<{ focus: () => void }>(null);
@@ -30,6 +34,12 @@ const AuthComponent = () => {
         <p className="font-normal text-sm mt-3 text-grey1">Join as a Player</p>
       </div>
       <AuthInput
+        extraContainerClasses="mb-6"
+        onChange={(e) => {}}
+        inputFor="email"
+        type="text"
+      />
+      <AuthInput
         inputFor="userName"
         type="text"
         extraContainerClasses={`!border-red mb-6`}
@@ -42,18 +52,25 @@ const AuthComponent = () => {
         inputFor="password"
         type="password"
       />
-      <AuthInput
-        extraContainerClasses="mb-6"
-        onChange={(e) => {}}
-        inputFor="email"
-        type="text"
-      />
-      <AuthInput
+      {/* <AuthInput
         extraContainerClasses="mb-6"
         onChange={(e) => {}}
         inputFor="verification"
         type="text"
-      />
+      /> */}
+
+      <button
+        type="button"
+        onClick={() => {
+          setIsUpdateMeCheckboxCliced((prev) => !prev);
+        }}
+        className="mb-4 flex items-center max-w-[311px] w-full cursor-pointer text-left"
+      >
+        <CheckboxComp checked={isUpdateMeCheckboxCliced} />
+        <div className="text-sm text-grey1 ml-3">
+          Keep me updated by email with the latest slot news
+        </div>
+      </button>
 
       <ButtonComp
         title="Create an account"
@@ -63,18 +80,44 @@ const AuthComponent = () => {
         }}
         isLoading={isLoading}
       />
-      <button
-        type="button"
-        onClick={() => {
-          setIsUpdateMeCheckboxCliced((prev) => !prev);
-        }}
-        className="mt-4 flex items-center max-w-[311px] w-full cursor-pointer text-left"
-      >
-        <CheckboxComp checked={isUpdateMeCheckboxCliced} />
-        <div className="text-sm text-grey1 ml-3">
-          Keep me updated by email with the latest slot news
+
+      <div className="max-w-[311px] w-full flex items-center text-[10px] !justify-start mt-6 text-grey1">
+        <Image src={image18} alt="" className="h-5 w-5 mr-3" /> By registering,
+        you confirm you are over 18.
+      </div>
+
+      <div className="max-w-[311px] w-full flex items-center text-[10px] !justify-start mt-2 text-grey1">
+        <Image src={policy} alt="" className="h-5 w-5 mr-3" />
+        <div>
+          By registering, you confirm acceptance of our{" "}
+          <a href="https://google.com" target="_blank" className="text-blue1">
+            Terms
+          </a>{" "}
+          &{" "}
+          <a href="https://google.com" target="_blank" className="text-blue1">
+            Privacy Policy
+          </a>
+          .
         </div>
-      </button>
+      </div>
+      <div className="max-w-[311px] w-full flex items-center text-[10px] !justify-start mt-2 text-grey1">
+        <Image src={cookie} alt="" className="h-5 w-5 mr-3" />
+        <div>
+          By registering, you confirm acceptance of our{" "}
+          <a href="https://google.com" target="_blank" className="text-blue1">
+            Cookie Policy
+          </a>
+          .
+        </div>
+      </div>
+      <div className="max-w-[311px] w-full border border-dark3 mt-6 rounded-full" />
+
+      <div className="max-w-[311px] w-full flex items-center justify-between mt-6 mb-6">
+        <div className="text-sm text-grey1">Already have an account? </div>
+        <button type="button" className="text-sm text-blue1">
+          Log in
+        </button>
+      </div>
     </div>
   );
 };
