@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity/sanity";
+import { client } from "@/lib/sanityLib/sanity";
 
 export default async function getSpecificBlogPostByTitle(
   category: string,

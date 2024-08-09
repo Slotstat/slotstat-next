@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import getSpecificBlogPostByTitle from "../../../lib/sanity/sanityRequests";
+import getSpecificBlogPostByTitle from "@/lib/sanityLib/sanityRequests";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
