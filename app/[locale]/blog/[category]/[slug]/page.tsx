@@ -10,24 +10,24 @@ import { TypedObject } from "@portabletext/types";
 import Image from "next/image";
 
 import { headers } from "next/headers";
-import { getDataBySlug } from "@/lib/sanity/sanityRequests";
+// import { getDataBySlug } from "@/lib/sanity/sanityRequests";
 export const revalidate = 30; // revalidate at most 30 seconds
 
-// async function getDataBySlug(category: string, slug: string) {
+async function getDataBySlug(category: string, slug: string) {
 
-//   const query = `
-//       *[_type == "${category}" && slug.current == '${slug}'] {
-//         title,
-//         content,
-//         titleImage,
-//         smallDescription,
-//         "currentSlug": slug.current,
-//         }[0]`;
+  const query = `
+      *[_type == "${category}" && slug.current == '${slug}'] {
+        title,
+        content,
+        titleImage,
+        smallDescription,
+        "currentSlug": slug.current,
+        }[0]`;
 
-//   const data = await client.fetch(query);
+  const data = await client.fetch(query);
 
-//   return data;
-// }
+  return data;
+}
 
 
 
