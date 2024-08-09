@@ -1,5 +1,5 @@
 import TableClientSide from "@/app/components/table/TableClientSide";
-import { client, urlFor } from "@/lib/sanity";
+import { client, urlFor } from "@/lib/sanity/sanity";
 
 import Image from "next/image";
 
