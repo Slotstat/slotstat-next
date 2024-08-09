@@ -1,20 +1,13 @@
 import TableClientSide from "@/app/components/table/TableClientSide";
 import { client, urlFor } from "@/lib/sanity";
-import {
-  PortableText,
-  PortableTextComponentProps,
-  PortableTextMarkComponentProps,
-  PortableTextProps,
-} from "@portabletext/react";
-import { TypedObject } from "@portabletext/types";
+
 import Image from "next/image";
 
 import { headers } from "next/headers";
-// import { getDataBySlug } from "@/lib/sanity/sanityRequests";
+import MyPortableTextComponent from "@/app/components/blog/BlogPortableText";
 export const revalidate = 30; // revalidate at most 30 seconds
 
 async function getDataBySlug(category: string, slug: string) {
-
   const query = `
       *[_type == "${category}" && slug.current == '${slug}'] {
         title,
@@ -28,8 +21,6 @@ async function getDataBySlug(category: string, slug: string) {
 
   return data;
 }
-
-
 
 export async function generateMetadata({
   params: { locale, category, slug },
@@ -120,53 +111,6 @@ export async function generateMetadata({
     };
   }
 }
-// Type for the link value
-interface LinkMarkType {
-  _type: "link";
-  href: string;
-}
-
-// Props for the CustomLink component
-type CustomLinkProps = PortableTextMarkComponentProps<LinkMarkType>;
-
-const CustomLink: React.FC<CustomLinkProps> = ({ value, children }) => {
-  // Check if value exists and has an href property
-  if (!value?.href) {
-    // If there's no valid href, render the children as plain text
-    return <>{children}</>;
-  }
-  return (
-    <a
-      href={value.href}
-      className="text-primary hover:underline"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {children}
-    </a>
-  );
-};
-
-// Props for the MyPortableTextComponent
-interface MyPortableTextComponentProps {
-  content: TypedObject | TypedObject[];
-}
-
-const MyPortableTextComponent: React.FC<MyPortableTextComponentProps> = ({
-  content,
-}) => {
-  const components: PortableTextProps["components"] = {
-    marks: {
-      link: CustomLink,
-    },
-  };
-
-  return (
-    <div className="prose prose-lg prose-invert prose-li:marker:text-primary prose-a:text-primary">
-      <PortableText value={content} components={components} />
-    </div>
-  );
-};
 
 export default async function BlogArticle({
   params: { category, slug },
@@ -195,9 +139,7 @@ export default async function BlogArticle({
         <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
           {title}
         </h1>
-        <div className="prose prose-lg prose-invert prose-li:marker:text-primary prose-a:text-primary">
-          <MyPortableTextComponent content={content} />
-        </div>
+        <MyPortableTextComponent content={content} />
       </div>
       <h5 className="text-white text-2xl font-bold">{title}</h5>
       <TableClientSide
