@@ -76,7 +76,7 @@ export default function ChatFloatingContainer({}: Props) {
   const [isTyping, setIsTyping] = useState(false);
 
   const [threadId, setThreadId] = useState(getCookie("threadId") || undefined);
-  const [runId, setRunId] = useState<string | undefined>(undefined);
+  const [_, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
 
   const messageInputRef = useRef(null);

@@ -3,6 +3,8 @@
 import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
 import axios from "axios";
 import { OptionsType } from "cookies-next/lib/types";
+
+const bearer = `Bearer sk-k4uT6i_50f1G6is_rOg--sqF6FW7Jzpns_sopgAYuST3BlbkFJe3HX2ZlXIuOYdI3vAqG3B_NobuA24EnuaweT_wHhUA`;
 export async function createThread(
   setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>,
   setCookie: (name: string, value: string) => void
@@ -14,7 +16,8 @@ export async function createThread(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
+          // Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
           "OpenAI-Beta": "assistants=v2",
         },
       }
@@ -37,7 +40,7 @@ export async function deleteThread(
   await axios.delete(`https://api.openai.com/v1/threads/${threadId}`, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+      Authorization: bearer,
       "OpenAI-Beta": "assistants=v2",
     },
   });
@@ -57,7 +60,7 @@ export async function getThread(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
           "OpenAI-Beta": "assistants=v2",
         },
       }
@@ -82,7 +85,7 @@ export async function createUserMessage(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
           "OpenAI-Beta": "assistants=v2",
         },
       }
@@ -108,7 +111,7 @@ export async function createRun(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
           "OpenAI-Beta": "assistants=v2",
         },
       }
@@ -132,7 +135,7 @@ export async function retrieveRun(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
           "OpenAI-Beta": "assistants=v2",
         },
       }
@@ -158,7 +161,7 @@ export async function getMessages(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-4GhhqhofmtdEc9CJDbUMT3BlbkFJraPWAfpc9LO9WaKzRjta`,
+          Authorization: bearer,
           "OpenAI-Beta": "assistants=v2",
         },
       }
