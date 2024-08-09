@@ -7,6 +7,7 @@ import AuthInput from "../AuthInput";
 import CheckboxComp from "../CheckboxComp";
 import ButtonComp from "../ButtonComp";
 import { cookie, image18, policy } from "@/app/assets";
+import Link from "next/link";
 
 const SignupPage = () => {
   const childRef = useRef<{ focus: () => void }>(null);
@@ -28,7 +29,7 @@ const SignupPage = () => {
     }
   }, [childRef]);
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center min-h-[700px]">
       <div className="max-w-[311px] w-full flex flex-col items-start mb-6 mt-3">
         <h1 className="font-bold text-2xl text-white">Sign up</h1>
         <p className="font-normal text-sm mt-3 text-grey1">Join as a Player</p>
@@ -74,7 +75,7 @@ const SignupPage = () => {
 
       <ButtonComp
         title="Create an account"
-        extraButtonClasses="max-w-[311px]"
+        extraButtonClasses="max-w-[311px] text-white"
         onClick={() => {
           clickHandler();
         }}
@@ -114,9 +115,13 @@ const SignupPage = () => {
 
       <div className="max-w-[311px] w-full flex items-center justify-between mt-6 mb-6">
         <div className="text-sm text-grey1">Already have an account? </div>
-        <button type="button" className="text-sm text-blue1">
+        <Link
+          href={"/en/auth/login"}
+          type="button"
+          className="text-sm text-blue1"
+        >
           Log in
-        </button>
+        </Link>
       </div>
     </div>
   );

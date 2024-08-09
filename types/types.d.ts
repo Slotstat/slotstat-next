@@ -322,4 +322,5 @@ interface Props {
   inputFor?: InputForOptions;
   customPlaceholder?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: any;
 }

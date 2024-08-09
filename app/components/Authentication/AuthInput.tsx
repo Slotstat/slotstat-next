@@ -25,6 +25,7 @@ const AuthInput = forwardRef(
       inputFor = "email",
       customPlaceholder,
       onChange,
+      value,
     }: Props,
     ref
   ) => {
@@ -62,7 +63,7 @@ const AuthInput = forwardRef(
         <input
           ref={inputRef}
           placeholder={customPlaceholder ?? placeHolderHandler(inputFor)}
-          className={`${extraInputClasses} bg-transparent outline-none w-full ml-3 mr-3 text-sm`}
+          className={`${extraInputClasses} bg-transparent outline-none w-full ml-3 mr-3 text-sm text-white`}
           type={
             type === "password"
               ? isPasswordVisible
@@ -73,6 +74,7 @@ const AuthInput = forwardRef(
           onChange={onChange}
           name={name}
           id={id}
+          value={value}
         />
 
         {type === "password" ? (

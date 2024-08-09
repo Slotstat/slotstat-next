@@ -207,6 +207,26 @@ function CheckIcon() {
   );
 }
 
+function ArrowBackIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="none"
+      viewBox="0 0 20 20"
+    >
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M3.541 10.23h12.5M8.582 15.25L3.54 10.23l5.042-5.021"
+      ></path>
+    </svg>
+  );
+}
+
 export {
   LockIcon,
   EmailIcon,
@@ -216,4 +236,5 @@ export {
   KeyIcon,
   GreenCheckIcon,
   CheckIcon,
+  ArrowBackIcon,
 };
