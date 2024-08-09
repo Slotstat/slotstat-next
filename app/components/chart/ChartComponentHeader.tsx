@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { slot } from "../../assets";
+import { bonus, slot } from "../../assets";
 import FiatCryptoButton from "../table/FiatCryptoButton";
 // import useQueryParams from "@/app/utils/useQueryParams";
 import { useTranslations } from "next-intl";
@@ -81,6 +81,7 @@ export default function ChartComponentHeader({
             changeScreen("bonus");
             setIsGameQuery("bonus");
           }}
+          imgSrc={bonus.src}
           className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>

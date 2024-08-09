@@ -80,12 +80,13 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-TNKZW6GT" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          {/* <div className="fixed h-screen w-full bg-black z-50 mt-14"></div>; */}
           <Header />
-          <div className="flex justify-center mt-[87px]">
-            <div className="w-[100%] min-h-screen max-w-screen-xl lg:px-0 px-4">
+          <main className="flex justify-center mt-[87px]">
+            <div className="w-[100%] max-w-screen-xl lg:px-0 px-4">
               {children}
             </div>
-          </div>
+          </main>
           <Footer />
           <JackpotNotification />
           <ChatBot />

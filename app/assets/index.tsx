@@ -22,6 +22,7 @@ import redX from "./svg/redX.svg";
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
 import cookie from "./img/cookie.png";
+import bonus from "./img/bonus.png";
 
 import triangle from "./img/triangle.png";
 import slot from "./img/slot.png";
@@ -68,4 +69,5 @@ export {
   logoSmall,
   image18,
   policy,
+  bonus,
 };
