@@ -7,6 +7,7 @@ import { useQueryState } from "nuqs";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 import BonusCards from "./BonusCards";
 import LoadingSkeleton from "../LoadingSkeleton";
+import MyPortableTextComponent from "../blog/BlogPortableText";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 
 export default function ChartCasinoAndGameWrapper({
@@ -44,11 +45,12 @@ export default function ChartCasinoAndGameWrapper({
   casinoCardsData: Promise<Card[]>;
   casinoBonuses: any;
 }) {
-
   const [compareGameIdQuery, setCompareGameIdQuery] =
     useQueryState("compareGameId");
 
   const [screen, setScreen] = useState("slot");
+  const [loading, setLoading] = useState(false);
+  const [blogArticle, setBlogArticle] = useState<fullBlog | undefined>();
   const [compareGameClient, setCompareGame] = useState<GameData | undefined>(
     undefined
   );
@@ -56,6 +58,7 @@ export default function ChartCasinoAndGameWrapper({
   const changeScreen = (GameScreenState: string) => {
     setScreen(GameScreenState);
   };
+
   const getCompareCasino = useCallback(async () => {
     if (compareGameIdQuery) {
       const compareGameData: Promise<GameData> =
@@ -65,6 +68,28 @@ export default function ChartCasinoAndGameWrapper({
     }
   }, [compareGameIdQuery]);
 
+  const getArticleFromSanity = async () => {
+    const callServerSideSanity = async (category: string, title: string) => {
+      setLoading(true);
+      const res = await fetch(
+        `/api/blogPost?category=${encodeURIComponent(
+          category
+        )}&title=${encodeURIComponent(title)}`
+      );
+      const data = await res.json();
+      setBlogArticle(data);
+    };
+
+    if (screen === "slot") {
+      const gameName = mainGameObj.name;
+      callServerSideSanity("slots", gameName);
+    } else if (screen === "casino") {
+      const casinoName = mainGameObj.casinoName;
+      callServerSideSanity("casinos", casinoName);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     getCompareCasino();
   }, [compareGameIdQuery, getCompareCasino]);
@@ -72,6 +97,25 @@ export default function ChartCasinoAndGameWrapper({
   useEffect(() => {
     setScreen(ActiveTab);
   }, [ActiveTab]);
+
+  useEffect(() => {
+    setBlogArticle(undefined);
+    getArticleFromSanity();
+  }, [screen]);
+
+  const checkToRenderBlogArticle = () => {
+    if (blogArticle && !loading) {
+      return (
+        <div className=" mb-18">
+          <MyPortableTextComponent content={blogArticle.content} />
+        </div>
+      );
+    } else if (!blogArticle && loading) {
+      return <LoadingSkeleton />;
+    } else {
+      return null;
+    }
+  };
 
   return casino && casinoCards && casinoBonuses ? (
     <>
@@ -88,25 +132,28 @@ export default function ChartCasinoAndGameWrapper({
             />
           )}
           {gamesCardsData && gameCards && (
-            <LiveCards
-              cardsData={gameCards}
-              rows={2}
-              game={true}
-              gamesCardsData={gamesCardsData}
-            />
+            <div className=" pb-12">
+              <LiveCards
+                cardsData={gameCards}
+                rows={2}
+                game={true}
+                gamesCardsData={gamesCardsData}
+              />
+            </div>
           )}
-          {mainGameObj.additionalInfo && (
+          {/* {mainGameObj.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
-          )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
+          )} */}
+          {/* <div className="text-grey1 text-base mb-8 lg:mb-18">
             <div
               dangerouslySetInnerHTML={{
                 __html: mainGameObj.additionalInfo,
               }}
             />
-          </div>
+          </div> */}
+          {checkToRenderBlogArticle()}
         </>
       ) : screen === "casino" ? (
         <div className=" mt-48 md:mt-72">
@@ -119,14 +166,15 @@ export default function ChartCasinoAndGameWrapper({
               casinoCardsData={casinoCardsData}
             />
           )}
-          {casino.additionalInfo && (
+          {/* {casino.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
           )}
           <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-18">
             <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} />
-          </div>
+          </div> */}
+          {checkToRenderBlogArticle()}
         </div>
       ) : (
         <div className="mt-48 md:mt-72">

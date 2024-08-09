@@ -1,6 +1,7 @@
 import Card from "@/app/components/ui/card";
-import { client } from "@/lib/sanity";
+
 import BlogTabs from "@/app/components/blog/BlogTabs";
+import { client } from "@/lib/sanityLib/sanity";
 
 export const revalidate = 30; // revalidate at most 30 seconds
 

@@ -21,11 +21,11 @@ const nextConfig = {
         destination: '/en/:path*',
         permanent: true,
       },
-      {
-        source: '/:path((?!en|ka).*)',
-        destination: '/en',
-        permanent: true,
-      },
+      // {
+      //   source: '/:path((?!en|ka).*)',
+      //   destination: '/en',
+      //   permanent: true,
+      // },
       {
         source: '/en/:uuid([a-f0-9-]{36})$',
         destination: '/en',

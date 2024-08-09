@@ -1,5 +1,5 @@
 "use client";
-import { urlFor } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanityLib/sanity";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
