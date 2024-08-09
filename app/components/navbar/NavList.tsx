@@ -45,15 +45,15 @@ const NavList = ({}) => {
           >
             <div className="pt-4 border-grey2 border bg-dark1 rounded-md shadow-lg  pb-1">
               {menuItems.map((item, index) => (
-                <div className="mb-3" key={index}>
+                <div className="group mb-3" key={index}>
                   <Link
                     href={item.path}
                     className="mx-4 flex flex-row items-center  cursor-pointer h-8 "
                   >
-                    <div className="mr-2 rounded-full h-8 w-8 bg-grey3 flex items-center justify-center ">
+                    <div className="mr-2 rounded-full h-8 w-8 bg-grey3 group-hover:bg-dark3 flex items-center justify-center ">
                       <span>{item.icon}</span>
                     </div>
-                    <p className="text-grey1 h-8 hover:text-white text-center">
+                    <p className="text-grey1 h-8 group-hover:text-white text-center pt-1">
                       {item.label}
                     </p>
                   </Link>
