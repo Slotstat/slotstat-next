@@ -32,6 +32,8 @@ import satellite from "./img/satellite.png";
 import joystick from "./img/joystick.png";
 import eyes from "./img/eye.png";
 import currency from "./img/currency.png";
+import image18 from "./img/18.png";
+import policy from "./img/policy.png";
 
 export {
   logo,
@@ -64,4 +66,6 @@ export {
   triangle,
   slot,
   logoSmall,
+  image18,
+  policy,
 };
