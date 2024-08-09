@@ -7,7 +7,24 @@ import { useQueryState } from "nuqs";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 import BonusCards from "./BonusCards";
 import LoadingSkeleton from "../LoadingSkeleton";
+import { client } from "@/lib/sanity";
+// import { getDataByTitle } from "@/lib/sanity/sanityRequests";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
+
+async function getDataByTitle(category: string, title: string) {
+  const query = `
+      *[_type == "${category}" && slug.current == 'lucky-streak-x'] {
+        title,
+        content,
+        titleImage,
+        smallDescription,
+        "currentSlug": slug.current,
+        }[0]`;
+
+  const data = await client.fetch(query);
+
+  return data;
+}
 
 export default function ChartCasinoAndGameWrapper({
   orderBy,
@@ -44,7 +61,6 @@ export default function ChartCasinoAndGameWrapper({
   casinoCardsData: Promise<Card[]>;
   casinoBonuses: any;
 }) {
-
   const [compareGameIdQuery, setCompareGameIdQuery] =
     useQueryState("compareGameId");
 
@@ -52,6 +68,7 @@ export default function ChartCasinoAndGameWrapper({
   const [compareGameClient, setCompareGame] = useState<GameData | undefined>(
     undefined
   );
+  const [blogArticle, setBlogArticle] = useState();
 
   const changeScreen = (GameScreenState: string) => {
     setScreen(GameScreenState);
@@ -65,11 +82,25 @@ export default function ChartCasinoAndGameWrapper({
     }
   }, [compareGameIdQuery]);
 
+  const getArticleFromSanity = async () => {
+    let article;
+    if (screen === "slot") {
+      const gameName = mainGameObj.name;
+      article = await getDataByTitle("slots", gameName);
+    } else if (screen === "casino") {
+      const casinoName = mainGameObj.casinoName;
+      article = await getDataByTitle("casinos", casinoName);
+    }
+    console.log("article", article);
+    setBlogArticle(article);
+  };
+
   useEffect(() => {
     getCompareCasino();
   }, [compareGameIdQuery, getCompareCasino]);
 
   useEffect(() => {
+    getArticleFromSanity();
     setScreen(ActiveTab);
   }, [ActiveTab]);
 
@@ -95,18 +126,19 @@ export default function ChartCasinoAndGameWrapper({
               gamesCardsData={gamesCardsData}
             />
           )}
-          {mainGameObj.additionalInfo && (
+          {/* {mainGameObj.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info
             </div>
-          )}
-          <div className="text-grey1 text-base mb-8 lg:mb-18">
+          )} */}
+          {/* <div className="text-grey1 text-base mb-8 lg:mb-18">
             <div
               dangerouslySetInnerHTML={{
                 __html: mainGameObj.additionalInfo,
               }}
             />
-          </div>
+          </div> */}
+          <div className="h-6 w-40 bg-red"></div>
         </>
       ) : screen === "casino" ? (
         <div className=" mt-48 md:mt-72">

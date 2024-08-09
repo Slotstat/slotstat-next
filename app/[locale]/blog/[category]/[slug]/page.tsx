@@ -10,22 +10,26 @@ import { TypedObject } from "@portabletext/types";
 import Image from "next/image";
 
 import { headers } from "next/headers";
+import { getDataBySlug } from "@/lib/sanity/sanityRequests";
 export const revalidate = 30; // revalidate at most 30 seconds
 
-async function getData(category: string, slug: string) {
-  const query = `
-    *[_type == "${category}" && slug.current == '${slug}'] {
-        "currentSlug": slug.current,
-          title,
-          content,
-          titleImage,
-          smallDescription
-      }[0]`;
+// async function getDataBySlug(category: string, slug: string) {
 
-  const data = await client.fetch(query);
+//   const query = `
+//       *[_type == "${category}" && slug.current == '${slug}'] {
+//         title,
+//         content,
+//         titleImage,
+//         smallDescription,
+//         "currentSlug": slug.current,
+//         }[0]`;
 
-  return data;
-}
+//   const data = await client.fetch(query);
+
+//   return data;
+// }
+
+
 
 export async function generateMetadata({
   params: { locale, category, slug },
@@ -36,7 +40,7 @@ export async function generateMetadata({
   try {
     var data: fullBlog | undefined;
     if (slug) {
-      data = await getData(category, slug);
+      data = await getDataBySlug(category, slug);
     }
 
     if (!data)
@@ -169,7 +173,7 @@ export default async function BlogArticle({
 }: {
   params: { category: string; slug: string };
 }) {
-  const data: fullBlog = await getData(category, slug);
+  const data: fullBlog = await getDataBySlug(category, slug);
   const { titleImage, content, title } = data;
 
   return (
@@ -191,7 +195,6 @@ export default async function BlogArticle({
         <h1 className=" my-8 block text-white text-3xl  leading-8 font-bold tracking-tight sm:text-4xl">
           {title}
         </h1>
-
         <div className="prose prose-lg prose-invert prose-li:marker:text-primary prose-a:text-primary">
           <MyPortableTextComponent content={content} />
         </div>
