@@ -75,7 +75,8 @@ export default function ChatFloatingContainer({}: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const [threadId, setThreadId] = useState(getCookie("threadId") || undefined);
+  // const [threadId, setThreadId] = useState<string|undefined>(getCookie("threadId") || undefined);
+  const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
 
@@ -90,6 +91,12 @@ export default function ChatFloatingContainer({}: Props) {
 
     setMessages([initialMessage]);
   }, [threadId]);
+
+  //! before release we'll keep it like this. it always removes any cookied thread ids
+  useEffect(() => {
+    const threadId = getCookie("threadId");
+    deleteThread(threadId, deleteCookie);
+  }, []);
 
   function pollRetrieveRun(
     threadId: string | undefined,
@@ -120,7 +127,7 @@ export default function ChatFloatingContainer({}: Props) {
     if (createUserMessageData) {
       const createdRunData = await createRun(
         threadId,
-        "asst_AY7RewVO5DCaloGwj9VLohWk",
+        "asst_fBbZ3QSAzs3Tm45EhkxNxQpx",
         setRunId
       );
 

@@ -2,7 +2,9 @@
 
 import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
 import axios from "axios";
+import { deleteCookie } from "cookies-next";
 import { OptionsType } from "cookies-next/lib/types";
+import { cookies } from "next/headers";
 
 const bearer = `Bearer sk-k4uT6i_50f1G6is_rOg--sqF6FW7Jzpns_sopgAYuST3BlbkFJe3HX2ZlXIuOYdI3vAqG3B_NobuA24EnuaweT_wHhUA`;
 export async function createThread(
@@ -34,7 +36,7 @@ export async function createThread(
 export async function deleteThread(
   threadId: string | undefined,
   deleteCookie: (key: string, options?: OptionsType | undefined) => void,
-  setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>
+  setThreadId?: React.Dispatch<React.SetStateAction<string | undefined>>
 ) {
   if (!threadId) return;
   await axios.delete(`https://api.openai.com/v1/threads/${threadId}`, {
@@ -45,12 +47,12 @@ export async function deleteThread(
     },
   });
   deleteCookie("threadId");
-  setThreadId(undefined);
+  setThreadId && setThreadId(undefined);
 }
 
 export async function getThread(
   threadId: string | undefined,
-  setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>
+  setThreadId?: React.Dispatch<React.SetStateAction<string | undefined>>
 ) {
   if (!threadId) return;
   try {
@@ -65,7 +67,7 @@ export async function getThread(
         },
       }
     );
-    setThreadId(response.data.id);
+    setThreadId && setThreadId(response.data.id);
     // console.log("get thread data", response.data);
     return response.data;
   } catch (error) {
@@ -171,6 +173,8 @@ export async function getMessages(
     setMessages([...[initialMessage], ...response.data.data]);
     return response.data;
   } catch (error) {
+    deleteCookie("");
     console.error(error);
+    return "error";
   }
 }
