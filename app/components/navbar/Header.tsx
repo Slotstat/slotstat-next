@@ -21,7 +21,7 @@ const MenuButton = ({ toggleNav }: { toggleNav: () => void }) => (
     className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
     onClick={toggleNav}
   >
-    <Image src={menu} alt="" width={32} height={32} />
+    <Image src={menu} className="h-8 w-8" alt="" width={32} height={32} />
   </button>
 );
 
