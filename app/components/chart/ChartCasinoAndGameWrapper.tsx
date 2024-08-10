@@ -82,7 +82,6 @@ export default function ChartCasinoAndGameWrapper({
 
     if (screen === "slot") {
       const gameName = mainGameObj.name.trim();
-      console.log("gameName", gameName.length);
       callServerSideSanity("slots", gameName);
     } else if (screen === "casino") {
       const casinoName = mainGameObj.casinoName;

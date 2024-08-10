@@ -89,7 +89,7 @@ export default function ChartComponentHeader({
       <a
         href={redirectUrl}
         target="_blank"
-        className="h-10 text-white bg-blue1 hover:bg-blue4 ml-6 items-center
+        className="h-10 text-white bg-blue1 hover:bg-blue4 md:ml-6  items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
         <p>{t("play")}</p>
