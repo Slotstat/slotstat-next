@@ -35,6 +35,8 @@ const NavList = ({}) => {
           <Link href={"/blog/slots"} className={checkIsActive("howItWorks")}>
             {t("blog")}
           </Link>
+          <div className="absolute top-0 -right-2 h-1.5 w-1.5 bg-red rounded" />
+
         </span>
         {isVisible && (
           <div

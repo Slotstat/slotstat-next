@@ -12,7 +12,7 @@ function Card({ post }: { post: simpleBlogCard }) {
   const { title, smallDescription, currentSlug, titleImage, _createdAt } = post;
   return (
     <Link href={`${pathname}/${currentSlug}`}>
-      <div className="max-w-sm rounded-xl overflow-hidden hover:opacity-60 mb-12  bg-dark2 ">
+      <div className="max-w-sm rounded-xl overflow-hidden md:hover:opacity-60   bg-dark2 ">
         <div className="relative w-full h-[152px]">
           <Image
             src={urlFor(titleImage).url()}
