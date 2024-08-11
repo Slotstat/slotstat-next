@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { headers } from "next/headers";
 import MyPortableTextComponent from "@/app/components/blog/BlogPortableText";
+import Breadcrumbs from "@/app/components/Breadcrumbs";
 export const revalidate = 30; // revalidate at most 30 seconds
 
 async function getDataBySlug(category: string, slug: string) {
@@ -113,20 +114,25 @@ export async function generateMetadata({
 }
 
 export default async function BlogArticle({
-  params: { category, slug },
+  params: { category, slug, locale },
 }: {
-  params: { category: string; slug: string };
+  params: { category: string; slug: string; locale: string };
 }) {
   const data: fullBlog = await getDataBySlug(category, slug);
   const { titleImage, content, title } = data;
+  const breadcrumbs = [
+    { name: category, url: `/blog/${category}` },
+    { name: title },
+  ];
 
   return (
     <>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
-        <div className="fw-full h-[400px] relative ">
+        <div className="w-full h-40 md:h-[400px] relative ">
           {titleImage && (
             <Image
-              className="rounded-3xl"
+              className="rounded-xl md:rounded-3xl"
               src={urlFor(titleImage).url()}
               alt={title}
               fill
@@ -141,12 +147,16 @@ export default async function BlogArticle({
         </h1>
         <MyPortableTextComponent content={content} />
       </div>
-      <h5 className="text-white text-2xl font-bold">{title}</h5>
-      <TableClientSide
-        blogSearchFromTitle={title}
-        showFilter={false}
-        showCryptoFiatSwitcher={false}
-      />
+      {(category === "slots" || category === "providers" || category=== "casinos" ) && (
+        <>
+          <h5 className="text-white text-2xl font-bold">{title}</h5>
+          <TableClientSide
+            blogSearchFromTitle={title}
+            showFilter={false}
+            showCryptoFiatSwitcher={false}
+          />
+        </>
+      )}
     </>
   );
 }
