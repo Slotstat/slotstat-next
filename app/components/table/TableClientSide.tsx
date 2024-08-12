@@ -48,11 +48,10 @@ const checkRenderOrNot = (row: GameData) => {
 };
 
 export default function TableClientSide({
-  showFilter = false,
+  showFilter,
   onAddToCompare,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
-  showCryptoFiatSwitcher,
   setIsFiatState,
   gameId,
   orderByBottomsheet,
@@ -60,6 +59,7 @@ export default function TableClientSide({
   directionBottomsheet,
   isFiatBottomsheet,
   blogSearchFromTitle,
+  showSearch
 }: TableWrapperProps) {
   const { gamesList, setGames, handleRecall, setHandleRecall } =
     useGamesListStore();
@@ -184,7 +184,6 @@ export default function TableClientSide({
       ) : (
         <Table
           showFilter={showFilter}
-          showCryptoFiatSwitcher={showCryptoFiatSwitcher}
           setIsFiatState={setIsFiatState}
           gamesList={gamesList}
           setScrollY={setScrollY}
@@ -193,6 +192,7 @@ export default function TableClientSide({
           setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
           setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
           loading={loading}
+          showSearch={showSearch}
         />
       )}
     </>

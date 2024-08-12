@@ -147,13 +147,15 @@ export default async function BlogArticle({
         </h1>
         <MyPortableTextComponent content={content} />
       </div>
-      {(category === "slots" || category === "providers" || category=== "casinos" ) && (
+      {(category === "slots" ||
+        category === "providers" ||
+        category === "casinos") && (
         <>
-          <h5 className="text-white text-2xl font-bold">{title}</h5>
+          <h5 className="text-white text-2xl font-bold -mb-12 md:-mb-16">{title}</h5>
           <TableClientSide
             blogSearchFromTitle={title}
-            showFilter={false}
-            showCryptoFiatSwitcher={false}
+            showFilter={true}
+            showSearch={false}
           />
         </>
       )}

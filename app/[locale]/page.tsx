@@ -21,7 +21,8 @@ export async function generateMetadata({ params: { locale } }: Params) {
       };
 
     return {
-      title: "SlotStat: Real-Time Slot Statistics & Data-Driven Gambling Insights",
+      title:
+        "SlotStat: Real-Time Slot Statistics & Data-Driven Gambling Insights",
       description:
         "Explore SlotStat for real-time slot statistics and insights. Discover RTP, Win Spin Rate, and more to make smarter decisions while playing.",
       openGraph: {
@@ -61,7 +62,7 @@ export default async function Home({ params: { locale } }: Params) {
       {landingCards && <LiveCards cardsData={landingCards} />}
       <IntroComponent />
       <div className="my-6 lg:my-12 my">
-        <TableClientSide showFilter={true} showCryptoFiatSwitcher={true} />
+        <TableClientSide showFilter={true} />
       </div>
     </>
   );
