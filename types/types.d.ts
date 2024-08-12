@@ -255,10 +255,10 @@ type TableWrapperProps = {
   isFiatBottomsheet?: string;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
-  showCryptoFiatSwitcher?: boolean;
   setIsFiatState?: (text: string) => void;
   gameId?: string;
   blogSearchFromTitle?: string;
+  showSearch?: boolean;
 };
 
 interface TableProps extends TableWrapperProps {

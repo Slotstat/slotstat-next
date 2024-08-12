@@ -12,10 +12,10 @@ import { useQueryState } from "nuqs";
 const Table = ({
   gamesList,
   showFilter = false,
+  showSearch = true,
   onAddToCompare,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
-  showCryptoFiatSwitcher,
   setIsFiatState,
   setScrollY,
   getGames,
@@ -48,19 +48,21 @@ const Table = ({
           <>
             <div className="flex w-full  justify-between">
               <div className="flex w-full md:w-auto">
-                <SearchAndCryptoSwitch
-                  keyWord={keyWord || ""}
-                  isFiat={isFiat || ""}
-                  cryptoFiatSwitcher={cryptoFiatSwitcher}
-                  setCasinoFilter={(keyWord) => {
-                    setScrollY(window.scrollY);
-                    if (setSearchKeyInBottomSheet) {
-                      setSearchKeyInBottomSheet(keyWord);
-                    } else {
-                      setKeyWord(keyWord);
-                    }
-                  }}
-                />
+                {showSearch && (
+                  <SearchAndCryptoSwitch
+                    keyWord={keyWord || ""}
+                    isFiat={isFiat || ""}
+                    cryptoFiatSwitcher={cryptoFiatSwitcher}
+                    setCasinoFilter={(keyWord) => {
+                      setScrollY(window.scrollY);
+                      if (setSearchKeyInBottomSheet) {
+                        setSearchKeyInBottomSheet(keyWord);
+                      } else {
+                        setKeyWord(keyWord);
+                      }
+                    }}
+                  />
+                )}
               </div>
 
               <Dropdown
