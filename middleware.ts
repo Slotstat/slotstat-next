@@ -6,7 +6,6 @@ import { locales, localePrefix } from "./navigation";
 import countries from "./lib/countries.json";
 
 export default async function middleware(request: NextRequest) {
-
   const { nextUrl: url, geo } = request;
 
   const country = geo.country || "US";
@@ -20,12 +19,7 @@ export default async function middleware(request: NextRequest) {
   // const currency = countryInfo.currencies[currencyCode];
   // const languages = Object.values(countryInfo.languages).join(", ");
 
-
   // const country1 = request.headers.get('cf-ipcountry') || 'Unknown'
-
-
-
-  
 
   // Step 1: Use the incoming request
   const defaultLocale = request.headers.get("x-default-locale") || "en";
@@ -41,20 +35,22 @@ export default async function middleware(request: NextRequest) {
   const response = handleI18nRouting(request);
 
   let uniqueId = request.cookies.get("uniqueId")?.value;
-  
+
   if (!uniqueId) {
     //   // If not found, generate a new unique ID
     uniqueId = generateUniqueId();
     //   // Store the unique ID in localStorage to use it across renders
     response.cookies.set("uniqueId", uniqueId);
   }
+  country && response.cookies.set("country", country);
+  // city && response.cookies.set("city", city);
+  region && response.cookies.set("region", region);
 
   // response.headers.set('testcountry1', country1)
 
-
-  response.headers.set("country", country);
-  response.headers.set("city", city);
-  response.headers.set("region", region);
+  // response.headers.set("country", country);
+  // response.headers.set("city", city);
+  // response.headers.set("region", region);
   // response.headers.set("currencyCode", currencyCode);
   // response.headers.set("currencySymbol", currency.symbol);
   // response.headers.set("name", currency.name);

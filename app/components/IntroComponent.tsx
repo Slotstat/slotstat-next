@@ -1,11 +1,11 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { triangle } from "../assets";
-import { Switch } from "@headlessui/react";
+// import Image from "next/image";
+import React from "react";
+// import { triangle } from "../assets";
+// import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
-import { setCookie, getCookie } from "cookies-next";
-import VideoButton from "../assets/svg/VideoButton";
+// import { setCookie, getCookie } from "cookies-next";
+// import VideoButton from "../assets/svg/VideoButton";
 const data = ["erti", "ori", "sami", "otxi", "xuti", "eqvsi"];
 export default function IntroComponent() {
   // const [selectedValue, setSelectedValue] = useState("erti");
