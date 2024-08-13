@@ -72,23 +72,23 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
     };
   }, [isMainPage]);
 
-  // useEffect(() => {
-  //   if (navbarOpen) {
-  //     // Disable scrolling on the body when menu is open
-  //     document.body.style.overflow = "hidden";
-  //     document.body.style.height = "100vh";
-  //   } else {
-  //     // Re-enable scrolling when menu is closed
-  //     document.body.style.overflow = "unset";
-  //     document.body.style.height = "auto";
-  //   }
+  useEffect(() => {
+    if (navbarOpen) {
+      // Disable scrolling on the body when menu is open
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+    } else {
+      // Re-enable scrolling when menu is closed
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    }
 
-  //   // Cleanup function to re-enable scrolling when component unmounts
-  //   return () => {
-  //     document.body.style.overflow = "unset";
-  //     document.body.style.height = "auto";
-  //   };
-  // }, [navbarOpen]);
+    // Cleanup function to re-enable scrolling when component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    };
+  }, [navbarOpen]);
 
   return (
     <header>

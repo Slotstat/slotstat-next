@@ -11,7 +11,7 @@ const MobileMenu = ({
   closeMenu: Dispatch<SetStateAction<boolean>>;
 }) => {
   return (
-    <div className="fixed h-screen max-h-screen top-0 bottom-0 left-0 right-0 bg-dark2 z-50 p-4 ">
+    <div className="fixed h-screen max-h-screen top-0 bottom-0 left-0 right-0 bg-dark2 z-50 p-4 overflow-y-auto">
       <div className="flex flex-row justify-between pb-2 mb-3">
         <ReusableHeaderLogo closeMenu={closeMenu} />
         <button
@@ -25,6 +25,7 @@ const MobileMenu = ({
         <AccordionMenu isMobileMenu={true} closeMenu={closeMenu} />
         <SocialIcons />
       </div>
+      
     </div>
   );
 };
