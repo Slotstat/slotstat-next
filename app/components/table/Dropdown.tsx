@@ -61,7 +61,7 @@ const Dropdown = ({
 
   return (
     <div className="z-1">
-      <div className="hidden md:block  z-1 h-10 w-full md:w-64">
+      <div className="hidden md:block  z-1 h-10 w-full md:w-[306px]">
         <Listbox value={selected} onChange={select}>
           {({ open }) => (
             <div className="relative">

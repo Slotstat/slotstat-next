@@ -33,6 +33,7 @@ import satellite from "./img/satellite.png";
 import joystick from "./img/joystick.png";
 import eyes from "./img/eye.png";
 import currency from "./img/currency.png";
+import videoThumb from "./img/videothumb.png";
 
 export {
   logo,
@@ -66,4 +67,5 @@ export {
   slot,
   logoSmall,
   bonus,
+  videoThumb
 };

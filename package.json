@@ -44,6 +44,7 @@
     "react-paginate": "^8.2.0",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-tooltip": "^5.27.1",
+    "react-youtube": "^10.1.0",
     "server-only": "^0.0.1",
     "sharp": "^0.33.4",
     "typescript": "5.5.4",

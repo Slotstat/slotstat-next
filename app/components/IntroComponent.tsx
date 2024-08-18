@@ -1,18 +1,16 @@
 "use client";
-// import Image from "next/image";
-import React from "react";
-// import { triangle } from "../assets";
+import React, { useEffect, useState } from "react";
+import { triangle, videoThumb } from "../assets";
 // import { Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
 // import { setCookie, getCookie } from "cookies-next";
-// import VideoButton from "../assets/svg/VideoButton";
-const data = ["erti", "ori", "sami", "otxi", "xuti", "eqvsi"];
+import YouTube from "react-youtube";
+
 export default function IntroComponent() {
   // const [selectedValue, setSelectedValue] = useState("erti");
   // const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   // const [enabled, setEnabled] = useState(true);
-  // const [openVideo, setOpenVideo] = useState(false);
-  // const [isHovered, setIsHovered] = useState(false);
+  const [openVideo, setOpenVideo] = useState(false);
   // useEffect(() => {
   //   if (getCookie("videoOpen") == "true") {
   //     setEnabled(true);
@@ -21,13 +19,31 @@ export default function IntroComponent() {
   //   }
   // }, []);
 
-  // const handleMouseEnter = () => {
-  //   setIsHovered(true);
-  // };
+  const [dimensions, setDimensions] = useState({
+    width: "100%",
+    height: "360",
+  });
 
-  // const handleMouseLeave = () => {
-  //   setIsHovered(false);
-  // };
+  useEffect(() => {
+    function handleResize() {
+      const width = Math.min(window.innerWidth - 30, 1140); // Max width of 640, with some padding
+      const height = Math.round((width / 16) * 9); // 16:9 aspect ratio
+      setDimensions({ width: `${width}px`, height: `${height}px` });
+    }
+
+    handleResize(); // Set initial size
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const opts = {
+    width: dimensions.width,
+    height: dimensions.height,
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+
   return (
     <div>
       {/* <div className="flex justify-between text-grey1">
@@ -52,83 +68,52 @@ export default function IntroComponent() {
         </div>
       </div> */}
 
-      <motion.div
-        // animate={{ height: enabled ? "auto" : 0 }}
-        // animate={{ height: enabled ? 202 : 0 }}
-        className="overflow-hidden"
-      >
-        <div className="flex justify-between my-3 ">
-          <div className=" flex-col justify-center md:flex">
-            <div className="flex justify-between mb-4">
-              <h1 className="text-white text-base font-bold md:text-3xl ">
-                Play Informed
-              </h1>
-              <div className="flex ">
-                {/* <p className="text-grey1 text-xs  mr-2 mt-1">Video Tutorial</p>
-                <a href={""} target="_blank">
-                  <VideoButton />
-                </a> */}
-              </div>
-            </div>
-            <h2 className="text-grey1 md:w-3/4 text-xs md:text-base">
-              Slotstat offers real-time data on slot games through dynamic live
-              stats, including Win Spin Rate, RTP, and Slot Profit Status.
-              Observe, analyze, strategize, and play it full with Slotstat.
-            </h2>
+      <div className="flex md:flex-row flex-col justify-between my-3 ">
+        <div className=" flex-col justify-center md:flex">
+          <div className="flex justify-between mb-1 md:mb-4">
+            <h1 className="text-white text-base font-bold md:text-3xl ">
+              Play Informed
+            </h1>
           </div>
-          {/* <div
-            className="relative cursor-pointer md:h-[106px] "
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => setOpenVideo(true)}
-          >
-            <Image
-              className="hidden md:flex"
-              src={laptop}
-              alt="slotstat video cover"
-              width={306}
-              height={106}
-            />
-            <Image
-              className="flex md:hidden "
-              src={laptop}
-              alt="slotstat video cover"
-              objectFit="cover"
-            />
-            <div
-              className={`${
-                isHovered ? "bg-dark1/70" : "bg-dark1/50"
-              }  absolute top-0 bottom-0 right-0 left-0 rounded-xl flex justify-center items-center`}
-            >
-              <div className="flex text-white items-center text-base">
-                <span>Play</span>
-                <Image
-                  src={triangle}
-                  alt="triangle"
-                  width={16}
-                  height={16}
-                  className="ml-2 w-4 h-4"
-                />
-              </div>
-            </div>
-          </div> */}
+          <h2 className="text-grey1 md:w-3/4 text-xs md:text-base">
+            Slotstat offers real-time data on slot games through dynamic live
+            stats, including Win Spin Rate, RTP, and Slot Profit Status.
+            Observe, analyze, strategize, and play it full with Slotstat.
+          </h2>
         </div>
-      </motion.div>
-      {/* {openVideo && (
+
+        <div
+          onClick={() => setOpenVideo(true)}
+          className="relative h-[137px] w-full mt-3 rounded-xl overflow-hidden cursor-pointer md:w-[306px] md:min-w-[306px] md:h-[169px]  md:mt-0  "
+        >
+          <img
+            src={videoThumb.src}
+            alt="Video tutorial background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 flex flex-row justify-center items-center bg-dark1/25 hover:bg-dark1/40">
+            <div className="text-white text-base font-bold">Video tutorial</div>
+            <img src={triangle.src} className="h-6 w-6" />
+          </div>
+        </div>
+      </div>
+
+      {openVideo && (
         <div
           onClick={() => setOpenVideo(false)}
           className=" bg-dark1/80 top-0 bottom-0 right-0 left-0 fixed z-10 flex items-center justify-center"
         >
           <div onClick={(e) => e.stopPropagation()} className="">
-            <video controls className=" rounded-2xl">
+            {/* <video controls className=" rounded-2xl">
               <source
                 src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                 type="video/mp4"
               />
-            </video>
+            </video> */}
+            <YouTube videoId={"uQ948MFeWmk"} opts={opts} />
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
