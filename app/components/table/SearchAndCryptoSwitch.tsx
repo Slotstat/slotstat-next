@@ -5,7 +5,7 @@ import { redX, search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import { Listbox, Transition } from "@headlessui/react";
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import ArrowUp from "@/app/assets/svg/ArrowUp";
 
 const debounce = 1000;
@@ -61,7 +61,7 @@ export const SearchAndCryptoSwitch = ({
       >
         {({ open }) => (
           <div className="relative">
-            <Listbox.Button
+            <ListboxButton
               className={`relative border cursor-pointer ${
                 open ? "border-blue1" : "border-grey1"
               } w-full h-10 cursor-default rounded-l-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 text-xs lg:text-sm`}
@@ -81,21 +81,21 @@ export const SearchAndCryptoSwitch = ({
                   <ArrowUp />
                 </span>
               </span>
-            </Listbox.Button>
+            </ListboxButton>
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-dark2 py-1 shadow-lg ring-1 ring-dark3 ring-opacity-5 focus:outline-none text-sm">
+              <ListboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-dark2 py-1 shadow-lg ring-1 ring-dark3 ring-opacity-5 focus:outline-none text-sm">
                 {SORT_BY.map((item, i) => (
-                  <Listbox.Option
+                  <ListboxOption
                     key={i}
                     className={({ active, selected }) =>
-                      `relative cursor-pointer select-none  py-2  px-2 rounded-md ${
+                      `relative cursor-pointer select-none  mx-1 py-2  px-2 rounded-md ${
                         active ? "bg-dark1 text-blue2" : "text-white"
-                      } ${selected ? "bg-dark1" : "bg-dark2"}`
+                      } `
                     }
                     value={item}
                   >
@@ -103,17 +103,15 @@ export const SearchAndCryptoSwitch = ({
                       <>
                         <span
                           title={item.label}
-                          className={`block truncate text-xs md:text-base ${
-                            selected ? "text-blue2" : "font-normal"
-                          }`}
+                          className={`block truncate text-xs md:text-base `}
                         >
                           {item.label}
                         </span>
                       </>
                     )}
-                  </Listbox.Option>
+                  </ListboxOption>
                 ))}
-              </Listbox.Options>
+              </ListboxOptions>
             </Transition>
           </div>
         )}

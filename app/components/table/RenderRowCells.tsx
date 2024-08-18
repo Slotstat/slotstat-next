@@ -214,12 +214,11 @@ const RenderRowCells = ({
         onClick={onGoToWebSiteClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={`${
-          isHovered ? "text-white bg-blue1" : "text-grey1 bg-grey3"
-        }  w-32 items-center justify-center flex py-2 rounded-lg  text-xs md:text-base `}
+        className=" hover:text-[#969CB0] hover:bg-blue3 text-white bg-blue1 
+        w-32 items-center justify-center flex py-2 rounded-lg  text-xs md:text-base"
       >
         <p className="mr-1">{t("play")}</p>
-        <LinkIconSmall fill={isHovered ? "#fff" : "#969CB0"} />
+        <LinkIconSmall fill={isHovered ? "#969CB0" : "#fff"} />
       </div>
     );
   };

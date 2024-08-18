@@ -81,7 +81,7 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          <main className="flex justify-center mt-[87px]">
+          <main className="flex justify-center mt-16 md:mt-[87px]">
             <div className="w-[100%] max-w-screen-xl lg:px-0 px-4">
               {children}
             </div>
