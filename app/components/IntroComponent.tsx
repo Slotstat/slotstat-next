@@ -92,8 +92,8 @@ export default function IntroComponent() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 flex flex-row justify-center items-center bg-dark1/25 hover:bg-dark1/40">
-            <div className="text-white text-base font-bold">Video tutorial</div>
-            <img src={triangle.src} className="h-6 w-6" />
+            <div className="text-white text-xs md:text-base font-bold">Video tutorial</div>
+            <img src={triangle.src} className="h-4 w-4 md:h-6 md:w-6" />
           </div>
         </div>
       </div>
