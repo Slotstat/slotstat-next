@@ -281,8 +281,8 @@ const LiveCards = ({
   // );
 
   return (
-    <div className="my-4 overflow-x-scroll whitespace-nowrap lg:my-6 md:overflow-auto md:whitespace-normal no-scroll">
-      <div className="grid grid-cols-4 w-[250%] md:w-full gap-4">
+    <div className="my-3 md:my-4 overflow-x-scroll whitespace-nowrap lg:my-6 md:overflow-auto md:whitespace-normal no-scroll">
+      <div className="grid grid-cols-4 w-[250%] md:w-full gap-6">
         {cardsDataState &&
           cardsDataState.map((card, i) => (
             <StatCard
