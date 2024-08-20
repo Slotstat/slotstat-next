@@ -4,12 +4,11 @@ import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
 import axios from "axios";
 import { deleteCookie } from "cookies-next";
 import { OptionsType } from "cookies-next/lib/types";
-import { getServerSideProps } from "next/dist/build/templates/pages";
 import { cookies } from "next/headers";
 
 // const bearer = `Bearer sk-k4uT6i_50f1G6is_rOg--sqF6FW7Jzpns_sopgAYuST3BlbkFJe3HX2ZlXIuOYdI3vAqG3B_NobuA24EnuaweT_wHhUA`;
 const bearer = `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`;
-getServerSideProps
+
 export async function createThread(
   setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>,
   setCookie: (name: string, value: string) => void
