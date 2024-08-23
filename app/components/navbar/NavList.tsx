@@ -12,15 +12,15 @@ const menuItems = [
   { icon: "🎓", label: "Education", path: "/blog/education" },
 ];
 
-const NavList = ({}) => {
+const NavList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isGeoVisible, setIsGeoOpen] = useState(false);
 
   const t = useTranslations("navbar");
   const pathName = usePathname();
 
-  const geoRef = useRef(null);
-  const triggerRef = useRef(null);
+  const geoRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
 
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
@@ -33,8 +33,8 @@ const NavList = ({}) => {
       if (
         geoRef.current &&
         triggerRef.current &&
-        !geoRef.current.contains(event.target) &&
-        !triggerRef.current.contains(event.target)
+        !geoRef.current.contains(event.target as Node) &&
+        !triggerRef.current.contains(event.target as Node)
       ) {
         setIsGeoOpen(false);
       }
@@ -50,8 +50,8 @@ const NavList = ({}) => {
     <nav className="hidden md:flex my-2 flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm">
       <div className="relative">
         <span
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}
+          // onMouseEnter={() => setIsVisible(true)}
+          // onMouseLeave={() => setIsVisible(false)}
           className="mt-4 ml-3 md:ml-8 lg:mt-0"
         >
           <Link href={"/blog/slots"} className={checkIsActive("howItWorks")}>
@@ -96,7 +96,7 @@ const NavList = ({}) => {
         </Link>
       </span>
 
-      <div className="relative" ref={triggerRef}>
+      {/* <div className="relative" ref={triggerRef}>
         <div
           onClick={() => setIsGeoOpen(!isGeoVisible)}
           className="mt-4 ml-3 md:ml-8 lg:mt-0 cursor-pointer"
@@ -108,7 +108,7 @@ const NavList = ({}) => {
             <Geo />
           </div>
         )}
-      </div>
+      </div> */}
     </nav>
   );
 };
