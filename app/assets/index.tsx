@@ -1,6 +1,7 @@
 import back from "./img/back.png";
 import chartPattern from "./img/chart-pattern.png";
 import close from "./img/close.png";
+import closeMinus from "./img/minus.png";
 import forward from "./img/forward.png";
 import adj from "./svg/adj.svg";
 
@@ -67,5 +68,6 @@ export {
   slot,
   logoSmall,
   bonus,
-  videoThumb
+  videoThumb,
+  closeMinus,
 };

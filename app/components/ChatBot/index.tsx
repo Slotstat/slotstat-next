@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
 import ChatFloatingContainer from "./ChatFloatingContainer";
 import Image from "next/image";
-import { close } from "../../assets";
+import { close, closeMinus } from "../../assets";
 
 const ChatBot: React.FC = () => {
   const [rotated, setRotated] = useState(false);
@@ -13,6 +13,7 @@ const ChatBot: React.FC = () => {
   const handleClick = () => {
     setRotated(!rotated);
   };
+
   return (
     <div className="z-10 fixed right-0 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 ">
       <div className="relative">
@@ -27,7 +28,7 @@ const ChatBot: React.FC = () => {
           >
             {rotated ? (
               <Image
-                src={close}
+                src={closeMinus}
                 alt=""
                 className={`h-6 w-6`}
                 width={24}
