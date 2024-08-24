@@ -52,7 +52,7 @@ export default async function Home({
   const data: simpleBlogCard[] = await getData(category);
 
   return (
-    <div className='text-white mt-6 '>
+    <div className='text-white mt-6 mb-12 md:mb-20'>
       <div className='md:flex md:justify-between'>
         <div>
           <h1 className='font-bold text-3xl mb-3'>Blog</h1>
