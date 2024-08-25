@@ -43,8 +43,8 @@ const Table = ({
 
   return (
     <>
-      <div className=" my-3 md:my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
-        {showFilter && (
+      {showFilter && (
+        <div className=" my-3 md:my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
           <>
             <div className="flex w-full  justify-between">
               <div className="flex w-full md:w-auto">
@@ -78,8 +78,8 @@ const Table = ({
               />
             </div>
           </>
-        )}
-      </div>
+        </div>
+      )}
 
       {!loading && gamesList ? (
         <TableIn

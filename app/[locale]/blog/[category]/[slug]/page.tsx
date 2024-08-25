@@ -44,7 +44,8 @@ export async function generateMetadata({
     const { titleImage, smallDescription, title } = data;
 
     const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || `https://${headers().get("host")}`;
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      `https://${headers().get("host")}`;
     const absoluteImageUrl = new URL(
       urlFor(titleImage).url(),
       baseUrl
@@ -150,14 +151,16 @@ export default async function BlogArticle({
       {(category === "slots" ||
         category === "providers" ||
         category === "casinos") && (
-        <>
-          <h5 className="text-white text-2xl font-bold -mb-12 md:-mb-16">{title}</h5>
+        <div className="mb-3 md:mb-6 lg:mb-12">
+          <h5 className="text-white text-2xl font-bold  md:-mb-16">
+            {title}
+          </h5>
           <TableClientSide
             blogSearchFromTitle={title}
             showFilter={true}
             showSearch={false}
           />
-        </>
+        </div>
       )}
     </>
   );

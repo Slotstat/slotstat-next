@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   Listbox,
   ListboxButton,
@@ -18,35 +18,50 @@ const Dropdown = ({
   orderBy?: string | null;
 }) => {
   const t = useTranslations("sortBy");
-
   const SORT_BY: FloatingButtonsItems = [
     { label: t("AllSlots"), id: "0", value: "", width: "w-28" },
     { label: t("slotInWin"), id: "1", value: "spsH", width: "w-40" },
-    { label: t("slotsInLose"), id: "2", value: "spsL", width: "w-40" },
-    { label: t("highestRTP"), id: "3", value: "fixedRtp", width: "w-40" },
-    // { label: t("slotInWin"), id: "4", value: "slotInWin" },
-    // { label: t("slotsInLose"), id: "5", value: "slotInLose" },
-    // { label: t("slotInWinR"), id: "2", value: "slotInWinR" },
-    // { label: t("slotsInLoseR"), id: "3", value: "slotInLoseR" },
-    // old
-    // { label: t("t1hLong"), id: "8", value: "p1h" },
-    // { label: t("t24hLong"), id: "9", value: "p24h" },
-    // { label: t("RTP"), id: "10", value: "fixedRtp" },
-    // very old
-    // { label: t("p24h"), id: "1", value: "p24h" },
-    // { label: t("p1h"), id: "2", value: "p1h" },
-    // { label: t("p1m"), id: "4", value: "p1m" },
-    // { label: t("p1y"), id: "5", value: "p1y" },
-    // { label: t("all"), id: "6", value: "all" },
-    // { label: t("jackpot"), id: "7", value: "jackpot" },
+    {
+      label: t("slotsInLose"),
+      id: "2",
+      value: "spsL",
+      width: "w-40",
+    },
+    {
+      label: t("highestRTP"),
+      id: "3",
+      value: "fixedRtp",
+      width: "w-40",
+    },
   ];
 
   const [selected, setSelected] = useState(SORT_BY[0]);
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleScroll = () => {
+    if (dropDownRef.current) {
+      const rect = dropDownRef.current.getBoundingClientRect();
+      if (rect.bottom <= window.innerHeight) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    }
+  };
 
   const select = (v: any) => {
     setSelected(v);
     onChange(v.value);
   };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // check visibility on mount
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const index = SORT_BY.findIndex((x) => x.value === orderBy);
@@ -60,7 +75,7 @@ const Dropdown = ({
   }, [orderBy]);
 
   return (
-    <div className="z-1">
+    <div ref={dropDownRef} className="z-1">
       <div className="hidden md:block  z-1 h-10 w-full md:w-[306px]">
         <Listbox value={selected} onChange={select}>
           {({ open }) => (
@@ -98,7 +113,9 @@ const Dropdown = ({
                       key={i}
                       className={({ active, selected }) =>
                         `relative cursor-pointer select-none mx-1 py-2  px-2 rounded-md ${
-                          active ? "bg-dark1 text-blue2" : "text-white"
+                          active
+                            ? "bg-dark1 text-blue2"
+                            : "text-white"
                         } `
                       }
                       value={item}
@@ -121,7 +138,13 @@ const Dropdown = ({
           )}
         </Listbox>
       </div>
-      <FloatingButtons select={select} selected={selected} items={SORT_BY} />
+      {isVisible && (
+        <FloatingButtons
+          select={select}
+          selected={selected}
+          items={SORT_BY}
+        />
+      )}
     </div>
   );
 };

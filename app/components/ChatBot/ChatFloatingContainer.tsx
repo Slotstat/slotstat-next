@@ -12,7 +12,6 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import logo from "../../assets/img/logoSmall.png";
-// import logo from "../assets/img/logoSmall.png";
 import Image from "next/image";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import {
@@ -75,8 +74,9 @@ export default function ChatFloatingContainer({}: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const [threadId, setThreadId] = useState(getCookie("threadId") || undefined);
-  const [_, setRunId] = useState<string | undefined>(undefined);
+  // const [threadId, setThreadId] = useState<string|undefined>(getCookie("threadId") || undefined);
+  const [threadId, setThreadId] = useState<string | undefined>(undefined);
+  const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
 
   const messageInputRef = useRef(null);
@@ -90,6 +90,12 @@ export default function ChatFloatingContainer({}: Props) {
 
     setMessages([initialMessage]);
   }, [threadId]);
+
+  //! before release we'll keep it like this. it always removes any cookied thread ids
+  useEffect(() => {
+    const threadId = getCookie("threadId");
+    deleteThread(threadId, deleteCookie);
+  }, []);
 
   function pollRetrieveRun(
     threadId: string | undefined,
@@ -120,7 +126,7 @@ export default function ChatFloatingContainer({}: Props) {
     if (createUserMessageData) {
       const createdRunData = await createRun(
         threadId,
-        "asst_AY7RewVO5DCaloGwj9VLohWk",
+        "asst_fBbZ3QSAzs3Tm45EhkxNxQpx",
         setRunId
       );
 
@@ -130,7 +136,8 @@ export default function ChatFloatingContainer({}: Props) {
 
   return (
     <div className="bottom-20 absolute right-[20px] overflow-hidden rounded-[14px] !font-modernist">
-      <div
+      <button
+        type="button"
         onClick={() => {
           if (userMessage) {
             handleNewUserMessage(userMessage);
@@ -139,7 +146,7 @@ export default function ChatFloatingContainer({}: Props) {
         className="absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center bg-grey1 cursor-pointer"
       >
         <ArrowUpWithStickIcon />
-      </div>
+      </button>
       <ChatContainer
         style={{
           height: "561px",
@@ -156,7 +163,8 @@ export default function ChatFloatingContainer({}: Props) {
           <ConversationHeader.Content>
             <div className="flex items-center justify-between">
               <div className="text-white font-bold font-modernist">SlotGPT</div>
-              <div
+              <button
+                type="button"
                 className="text-white cursor-pointer"
                 onClick={() => {
                   deleteThread(threadId, deleteCookie, setThreadId);
@@ -164,7 +172,7 @@ export default function ChatFloatingContainer({}: Props) {
                 }}
               >
                 <NewConvoIcon />
-              </div>
+              </button>
             </div>
           </ConversationHeader.Content>
         </ConversationHeader>

@@ -6,13 +6,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-function Card({ post }: { post: simpleBlogCard }) {
+function Card({
+  post,
+}: {
+  post: simpleBlogCard;
+}) {
   const pathname = usePathname();
 
-  const { title, smallDescription, currentSlug, titleImage, _createdAt } = post;
+  const {
+    title,
+    smallDescription,
+    currentSlug,
+    titleImage,
+    _createdAt,
+  } = post;
   return (
     <Link href={`${pathname}/${currentSlug}`}>
-      <div className="max-w-sm rounded-xl overflow-hidden md:hover:opacity-60   bg-dark2 ">
+      <div className="max-w-sm rounded-xl overflow-hidden md:hover:opacity-60 bg-dark2 active:opacity-60 ">
         <div className="relative w-full h-[152px]">
           <Image
             src={urlFor(titleImage).url()}
@@ -30,7 +40,9 @@ function Card({ post }: { post: simpleBlogCard }) {
             {smallDescription}
           </h3>
           <p className="text-white text-base mb-6 ">
-            {moment(_createdAt).format("DD MMM. YYYY")}
+            {moment(_createdAt).format(
+              "DD MMM. YYYY"
+            )}
           </p>
         </div>
         {/* <div className="px-6 pt-4 pb-2">
