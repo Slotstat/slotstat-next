@@ -56,7 +56,7 @@ export default function BlogTabs({
   return (
     <>
       <div
-        className={`flex justify-center bg-dark1/90 w-[100%]  ${scrolled && "fixed top-0 z-10 left-0 right-0 py-3 md:py-0"}`}
+        className={`flex justify-center bg-dark1/90 w-[100%]  ${scrolled && "fixed top-0 z-10 left-0 right-0 py-3 px-4 md:px-0 md:py-0"}`}
       >
         <div className="max-w-screen-xl w-[100%] md:flex  md:justify-between ">
           <div
