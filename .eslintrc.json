@@ -1,3 +1,35 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "rules": {
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "indent": ["error", 2],
+    "max-len": ["warn", { "code": 100 }],
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "no-debugger": "error",
+    "eqeqeq": "error",
+    "curly": ["error", "all"],
+    "trailing-comma": ["error", "es5"],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off", // Turn on if not using TypeScript
+    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "newlines-between": "always"
+      }
+    ],
+    "import/no-extraneous-dependencies": "error",
+    "import/no-unresolved": "error",
+    "import/no-duplicates": "error",
+    "no-shadow": "error",
+    "consistent-return": "error",
+    "no-param-reassign": "error",
+    "prefer-const": "error",
+    "no-var": "error"
+  }
 }

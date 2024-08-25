@@ -44,11 +44,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function Home({
-  params: { category },
-}: {
-  params: { category: string };
-}) {
+export default async function Home({ params: { category } }: { params: { category: string } }) {
   const data: simpleBlogCard[] = await getData(category);
 
   return (
