@@ -26,6 +26,7 @@ import {
 import ChatIcon from "@/app/assets/svg/ChatIcon";
 import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
 import ArrowUpWithStickIcon from "@/app/assets/svg/ArrowUpWithStickIcon";
+import moment from "moment";
 
 type Props = {};
 type Content = {
@@ -50,7 +51,7 @@ export interface ChatMessage {
 }
 
 const initialMessage: ChatMessage = {
-  id: "",
+  id: "firstMessageId",
   object: "thread.message",
   created_at: Date.now(),
   assistant_id: null,
@@ -72,10 +73,16 @@ const initialMessage: ChatMessage = {
 //! DO NOT DELETE THE COMMENTS FOR NOW
 export default function ChatFloatingContainer({}: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  const [warningMessage, setWarningMessage] = useState<
+    ChatMessage | undefined
+  >();
   const [isTyping, setIsTyping] = useState(false);
 
-  // const [threadId, setThreadId] = useState<string|undefined>(getCookie("threadId") || undefined);
-  const [threadId, setThreadId] = useState<string | undefined>(undefined);
+  const [threadId, setThreadId] = useState<string | undefined>(
+    getCookie("threadId") || undefined
+  );
+  // const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
 
@@ -92,10 +99,10 @@ export default function ChatFloatingContainer({}: Props) {
   }, [threadId]);
 
   //! before release we'll keep it like this. it always removes any cookied thread ids
-  useEffect(() => {
-    const threadId = getCookie("threadId");
-    deleteThread(threadId, deleteCookie);
-  }, []);
+  // useEffect(() => {
+  //   const threadId = getCookie("threadId");
+  //   deleteThread(threadId, deleteCookie);
+  // }, []);
 
   function pollRetrieveRun(
     threadId: string | undefined,
@@ -118,6 +125,33 @@ export default function ChatFloatingContainer({}: Props) {
 
   const handleNewUserMessage = async (newMessage: string) => {
     if (isTyping) return;
+    if (messages.length >= 41) {
+      const limitMessage = messages[messages.length - 40];
+      // const limitMessage = messages[messages.length - 40];
+
+      const createdAtMoment = moment(limitMessage.created_at * 1000);
+      const now = moment();
+
+      const minutesPassed = now.diff(createdAtMoment, "minutes");
+
+      if (minutesPassed < 60) {
+        let initialMessageWarning = { ...initialMessage };
+        initialMessageWarning.id = `warningId + ${now}`;
+        initialMessageWarning.content[0].text.value = `Limit reached, please try again in ${
+          60 - minutesPassed
+        } minutes!`;
+
+        // console.log("-0-0-0-0", [...[initialMessageWarning], ...messages]);
+        setWarningMessage(initialMessageWarning);
+
+        return;
+      } else {
+        setWarningMessage(undefined);
+      }
+    }
+    if (warningMessage) {
+      setWarningMessage(undefined);
+    }
 
     const createUserMessageData = await createUserMessage(threadId, newMessage);
     setMessages([...messages, ...[createUserMessageData]]);
@@ -143,9 +177,11 @@ export default function ChatFloatingContainer({}: Props) {
             handleNewUserMessage(userMessage);
           }
         }}
-        className="absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center bg-grey1 cursor-pointer"
+        className={`absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center ${
+          userMessage ? "bg-blue1" : "bg-grey1"
+        } cursor-pointer`}
       >
-        <ArrowUpWithStickIcon />
+        <ArrowUpWithStickIcon isWriting={userMessage ? true : false} />
       </button>
       <ChatContainer
         style={{
@@ -161,8 +197,10 @@ export default function ChatFloatingContainer({}: Props) {
             <ChatIcon />
           </Avatar>
           <ConversationHeader.Content>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between -ml-3.5">
               <div className="text-white font-bold font-modernist">SlotGPT</div>
+
+              {/* //! before release leave this here so testing will be easier  */}
               <button
                 type="button"
                 className="text-white cursor-pointer"
@@ -177,11 +215,11 @@ export default function ChatFloatingContainer({}: Props) {
           </ConversationHeader.Content>
         </ConversationHeader>
         <MessageList
-          className="!bg-dark2"
+          className="!bg-dark2 !text-white"
           typingIndicator={
             isTyping && (
               <TypingIndicator
-                className="!bg-dark2"
+                className="!bg-dark2 !text-white !ml-3"
                 content="SlotGPT is typing"
               />
             )
@@ -211,6 +249,30 @@ export default function ChatFloatingContainer({}: Props) {
               )}
             </Message>
           ))}
+          {warningMessage && (
+            <Message
+              model={{
+                direction:
+                  warningMessage.role === "assistant" ? "incoming" : "outgoing",
+                // message: warningMessage.content[0].text.value,
+                message: `<div class="text-red" style={{color: "red"}}>${warningMessage.content[0].text.value}</div>`,
+                position: "single",
+                sender: warningMessage.role === "assistant" ? "ChatGPT" : "",
+                // sentTime: "15 mins ago",
+              }}
+              className="!bg-transparent red-message"
+              data-tooltip-class-name=""
+            >
+              {warningMessage.role === "assistant" && (
+                <Avatar
+                  name="ChatGPT"
+                  className="h-full flex items-center justify-center"
+                >
+                  <ChatIcon />
+                </Avatar>
+              )}
+            </Message>
+          )}
         </MessageList>
         <MessageInput
           value={userMessage}

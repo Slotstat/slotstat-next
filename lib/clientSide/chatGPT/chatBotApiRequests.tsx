@@ -160,7 +160,7 @@ export async function getMessages(
   if (!threadId) return;
   try {
     const response = await axios.get(
-      `https://api.openai.com/v1/threads/${threadId}/messages?order=asc`,
+      `https://api.openai.com/v1/threads/${threadId}/messages?order=asc&limit=100`,
 
       {
         headers: {

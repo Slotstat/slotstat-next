@@ -1,5 +1,5 @@
 import * as React from "react";
-const ArrowUpWithStickIcon = () => (
+const ArrowUpWithStickIcon = ({ isWriting }: { isWriting: boolean }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="11"
@@ -8,7 +8,7 @@ const ArrowUpWithStickIcon = () => (
     viewBox="0 0 11 11"
   >
     <path
-      stroke="#3C3F49"
+      stroke={isWriting ? "#fff" : "#3C3F49"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

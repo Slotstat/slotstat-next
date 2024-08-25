@@ -112,6 +112,7 @@
 .cs-message--incoming .cs-message__content {
   background-color: transparent !important;
   color: white !important;
+  padding-left: 6px !important;
 }
 
 .cs-message--outgoing .cs-message__content {
@@ -136,4 +137,18 @@
 
 .cs-message-input__content-editor-wrapper .cs-message-input__content-editor[contenteditable="true"]:empty::before {
   color: #969cb0 !important;
+}
+
+.cs-typing-indicator__dot {
+  background-color: #fff !important;
+}
+
+.cs-typing-indicator__text {
+  color: #fff !important;
+}
+.cs-message__html-content .red-message {
+  color: red !important;
+}
+.cs-message--incoming .cs-message__avatar{
+  margin: 0px !important;
 }
