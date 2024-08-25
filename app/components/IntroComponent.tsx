@@ -41,6 +41,7 @@ export default function IntroComponent() {
     height: dimensions.height,
     playerVars: {
       autoplay: 1,
+      rel: 0,
     },
   };
 

@@ -1,6 +1,7 @@
 import back from "./img/back.png";
 import chartPattern from "./img/chart-pattern.png";
 import close from "./img/close.png";
+import closeMinus from "./img/minus.png";
 import forward from "./img/forward.png";
 import adj from "./svg/adj.svg";
 
@@ -16,7 +17,7 @@ import live from "./svg/live.svg";
 import logo from "./svg/logo.svg";
 import menu from "./svg/menu.svg";
 import remove from "./svg/remove.svg";
-import search from "./svg/search.svg";
+import search from "./img/search.png";
 import redX from "./svg/redX.svg";
 
 import slotLogo from "./img/slotLogo.png";
@@ -67,5 +68,6 @@ export {
   slot,
   logoSmall,
   bonus,
-  videoThumb
+  videoThumb,
+  closeMinus,
 };

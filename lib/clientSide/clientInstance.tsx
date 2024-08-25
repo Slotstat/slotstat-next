@@ -9,6 +9,7 @@ const slotStatClientInstance = () => {
 
   const country = getCookie("country");
   const region = getCookie("region");
+  console.log("country", country, region);
 
   const lang = cookie === "en" ? "en-US" : "ka-GE";
   return axios.create({
