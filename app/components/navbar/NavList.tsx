@@ -47,7 +47,7 @@ const NavList = () => {
   }, []);
 
   return (
-    <nav className="hidden md:flex my-2 flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm">
+    <nav className="hidden lg:flex my-2 flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm">
       <div className="relative">
         <span
           // onMouseEnter={() => setIsVisible(true)}

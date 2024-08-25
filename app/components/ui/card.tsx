@@ -1,49 +1,48 @@
-'use client';
-import { urlFor } from '@/lib/sanityLib/sanity';
-import moment from 'moment';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import * as React from 'react';
+"use client";
+import { urlFor } from "@/lib/sanityLib/sanity";
+import moment from "moment";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import * as React from "react";
 
-function Card({ post }: { post: simpleBlogCard }) {
+function Card({
+  post,
+}: {
+  post: simpleBlogCard;
+}) {
   const pathname = usePathname();
-  const [clicked, setClicked] = React.useState(false);
 
-  const handleClick = () => {
-    setClicked(true);
-    setTimeout(() => {
-      setClicked(false);
-    }, 300);
-  };
-
-  const { title, smallDescription, currentSlug, titleImage, _createdAt } = post;
+  const {
+    title,
+    smallDescription,
+    currentSlug,
+    titleImage,
+    _createdAt,
+  } = post;
   return (
     <Link href={`${pathname}/${currentSlug}`}>
-      <div
-        onClick={handleClick}
-        className={`max-w-sm rounded-xl overflow-hidden md:hover:opacity-60 bg-dark2 ${
-          clicked ? 'opacity-60' : 'opacity-100'
-        } transition-opacity duration-300 ease-in-out md:opacity-100`}
-      >
-        <div className='relative w-full h-[152px]'>
+      <div className="max-w-sm rounded-xl overflow-hidden md:hover:opacity-60 bg-dark2 active:opacity-60 ">
+        <div className="relative w-full h-[152px]">
           <Image
             src={urlFor(titleImage).url()}
-            alt='image'
+            alt="image"
             fill
-            className='rounded-t-xl object-cover'
+            className="rounded-t-xl object-cover"
           />
         </div>
 
-        <div className='mt-4 mx-4 '>
-          <h2 className='font-bold text-white text-xl truncate mb-3'>
+        <div className="mt-4 mx-4 ">
+          <h2 className="font-bold text-white text-xl truncate mb-3">
             {title}
           </h2>
-          <h3 className='text-grey1 text-base h-18 line-clamp-3 mb-4'>
+          <h3 className="text-grey1 text-base h-18 line-clamp-3 mb-4">
             {smallDescription}
           </h3>
-          <p className='text-white text-base mb-6 '>
-            {moment(_createdAt).format('DD MMM. YYYY')}
+          <p className="text-white text-base mb-6 ">
+            {moment(_createdAt).format(
+              "DD MMM. YYYY"
+            )}
           </p>
         </div>
         {/* <div className="px-6 pt-4 pb-2">
