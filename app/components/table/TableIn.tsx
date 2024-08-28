@@ -167,7 +167,7 @@ export default function TableIn({
                   : (currentPage - 1) * pageSize}{" "}
                 -{(currentPage - 1) * pageSize + data.length}
               </span>
-              out of {rowCount - (rowCount - data?.length)}
+              out of {rowCount}
             </div>
             {!orderBy ? (
               <ReactPaginate
@@ -177,8 +177,8 @@ export default function TableIn({
                   getGames((selected + 1).toString());
                   // setPageQuery(selected.toString());
                 }}
-                // pageRangeDisplayed={1}
-                // marginPagesDisplayed={3}
+                pageRangeDisplayed={1}
+                marginPagesDisplayed={1}
                 renderOnZeroPageCount={null}
                 previousLabel={
                   <Image
