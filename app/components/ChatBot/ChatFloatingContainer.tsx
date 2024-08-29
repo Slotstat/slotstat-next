@@ -149,7 +149,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
       if (minutesPassed < 60) {
         let initialMessageWarning = { ...initialMessage };
         initialMessageWarning.id = `warningId + ${now}`;
-        initialMessageWarning.content[0].text.value = `Limit reached, please try again in ${
+        initialMessageWarning.content[0].text.value = `Limit reached, please get back in ${
           60 - minutesPassed
         } minutes!`;
 
@@ -216,12 +216,12 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           <ConversationHeader.Content>
             <div className="flex items-center justify-between -ml-3.5">
               <div className="flex lg:hidden" />
-              <div className="text-white font-bold font-modernist mr-10 lg:mr-0">
+              <div className="text-white font-bold font-modernist mr-0 lg:mr-0">
                 SlotGPT
               </div>
 
               {/* //! before release leave this here so testing will be easier  */}
-              <button
+              {/* <button
                 type="button"
                 className="text-white cursor-pointer "
                 onClick={() => {
@@ -230,7 +230,9 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
                 }}
               >
                 <NewConvoIcon />
-              </button>
+              </button> */}
+              <div className="text-white rounded-md bg-dark1 px-4 py-1 text-sm">Beta</div>
+              {/* <div className=" text-white rounded-md bg-dark1 px-4 py-1 text-sm">Beta</div> */}
             </div>
           </ConversationHeader.Content>
         </ConversationHeader>
