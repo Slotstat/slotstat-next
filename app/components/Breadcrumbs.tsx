@@ -8,7 +8,6 @@ export default function Breadcrumbs({
 }: {
   breadcrumbs: breadcrumbsType;
 }) {
-  console.log("url", breadcrumbs);
   return (
     <div className="my-4 flex flex-row items-center text-xs lg:text-sm lg:my-6">
       <Link href="/" className={"text-opaque1  mr-2"}>
@@ -16,7 +15,6 @@ export default function Breadcrumbs({
       </Link>
 
       {breadcrumbs.map((item, index) => {
-        console.log("object.", item.url);
         return (
           <>
             <ForwardIcon color="#FFFFFF66" size={18} />

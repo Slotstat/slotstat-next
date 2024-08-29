@@ -2,13 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { search } from "@/app/assets";
 import ArrowDown from "@/app/assets/svg/ArrowDown";
 import { countries } from "@/app/utils/countries";
-
-type countryOrState = { name: string; emoji?: string };
-type country = {
-  name: string;
-  emoji?: string;
-  states?: countryOrState[];
-};
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 
 const DropdownInput = ({
   title,
@@ -24,7 +18,10 @@ const DropdownInput = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
@@ -98,9 +95,14 @@ const DropdownInput = ({
   );
 };
 
-const Geo = () => {
+const Geo = ({
+  chosenCountry,
+  setChosenCountry,
+}: {
+  chosenCountry?: country;
+  setChosenCountry: (country: country) => void;
+}) => {
   const [chosenState, setChosenState] = useState<countryOrState>();
-  const [chosenCountry, setChosenCountry] = useState<country>();
   const [countriesList, setCountriesList] = useState(countries);
   const [StatesList, setStatesList] = useState<countryOrState[]>();
 
@@ -128,6 +130,21 @@ const Geo = () => {
     setStatesList(filteredStates);
   };
 
+  const saveChosenCountry = () => {
+    setCookie("country", chosenCountry?.code);
+    setCookie("region", "");
+
+    location.reload();
+  };
+
+  const setCurrentLocation = () => {
+    const currentLocCountry = getCookie("currentLocCountry");
+    const currentLocRegion = getCookie("currentLocRegion");
+    currentLocCountry && setCookie("country", currentLocCountry);
+    currentLocRegion && setCookie("region", currentLocRegion);
+    location.reload();
+  };
+
   return (
     <div className="z-50 top-full right-0 absolute font-bold pt-8 transition duration-200 ease-in-out">
       <div className="w-[342px] p-4 bg-dark1 border border-grey1 rounded-xl">
@@ -150,10 +167,16 @@ const Geo = () => {
           />
         )}
         <div className="flex flex-row justify-between">
-          <div className="text-grey1 bg-grey3 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer">
+          <div
+            onClick={setCurrentLocation}
+            className="text-grey1 bg-grey3 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer"
+          >
             <p>Current location</p>
           </div>
-          <div className="hover:text-[#969CB0] hover:bg-blue3 text-white bg-blue1 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer">
+          <div
+            onClick={saveChosenCountry}
+            className="hover:text-[#969CB0] hover:bg-blue3 text-white bg-blue1 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer"
+          >
             <p>Save</p>
           </div>
         </div>

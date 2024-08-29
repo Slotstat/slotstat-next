@@ -8,10 +8,10 @@ import countries from "./lib/countries.json";
 export default async function middleware(request: NextRequest) {
   const { nextUrl: url, geo } = request;
 
-  const country = geo.country || "US";
+  const country = geo.country || "GE";
 
-  const city = geo.city || "San Francisco";
-  const region = geo.region || "CA";
+  // const city = geo.city || "San Francisco";
+  const region = geo.region || "TB";
 
   const countryInfo = countries.find((x) => x.cca2 === country);
 
@@ -22,7 +22,8 @@ export default async function middleware(request: NextRequest) {
   // const country1 = request.headers.get('cf-ipcountry') || 'Unknown'
 
   // Step 1: Use the incoming request
-  const defaultLocale = request.headers.get("x-default-locale") || "en";
+  const defaultLocale =
+    request.headers.get("x-default-locale") || "en";
 
   // Step 2: Create and call the next-intl middleware
   const handleI18nRouting = createIntlMiddleware({
@@ -35,6 +36,7 @@ export default async function middleware(request: NextRequest) {
   const response = handleI18nRouting(request);
 
   let uniqueId = request.cookies.get("uniqueId")?.value;
+  let countryFromCookie = request.cookies.get("country")?.value;
 
   if (!uniqueId) {
     //   // If not found, generate a new unique ID
@@ -42,9 +44,15 @@ export default async function middleware(request: NextRequest) {
     //   // Store the unique ID in localStorage to use it across renders
     response.cookies.set("uniqueId", uniqueId);
   }
-  country && response.cookies.set("country", country);
+
+  if (!countryFromCookie) {
+    country && response.cookies.set("country", country);
+    region && response.cookies.set("region", region);
+  }
+  country && response.cookies.set("currentLocCountry", country);
+    region && response.cookies.set("currentLocRegion", region);
+
   // city && response.cookies.set("city", city);
-  region && response.cookies.set("region", region);
 
   // response.headers.set('testcountry1', country1)
 
