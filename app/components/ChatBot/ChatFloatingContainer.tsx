@@ -181,7 +181,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   };
 
   return (
-    <div className="overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen h-screen lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto">
+    <div className="overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto">
       <button
         type="button"
         onClick={() => {
