@@ -16,7 +16,7 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="z-10 fixed right-0 bottom-0 mr-5 mb-5 sm:mr-6 sm:mb-6 ">
+    <div className="z-10 fixed bottom-5 right-0 lg:right-0 lg:bottom-0 mr-5 mb-5 lg:mr-6 lg:mb-6 ">
       <OutsideClickHandler
         onOutsideClick={() => {
           if (rotated) {
