@@ -27,7 +27,7 @@ const ChatBot: React.FC = () => {
         <div className="relative">
           <div
             onClick={handleClick}
-            className={`h-14 w-14 rounded-2xl bg-blue1 flex items-center justify-center overflow-hidden cursor-pointer`}
+            className={`lg:h-14 lg:w-14 h-10 w-10 rounded-lg lg:rounded-2xl  bg-blue1 flex items-center justify-center overflow-hidden cursor-pointer`}
           >
             <div
               className={`transform transition-transform duration-500 cursor-pointer ${
@@ -38,15 +38,12 @@ const ChatBot: React.FC = () => {
                 <Image
                   src={closeMinus}
                   alt=""
-                  className={`h-6 w-6`}
-                  width={24}
-                  height={24}
+                  className={`lg:h-6 lg:w-6 h-4.5`}
                 />
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  className={`lg:h-6 lg:w-6 h-4.5`}
                   fill="none"
                   viewBox="0 0 24 24"
                 >
