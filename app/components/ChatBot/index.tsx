@@ -58,7 +58,7 @@ const ChatBot: React.FC = () => {
               )}
             </div>
           </div>
-          {rotated && <ChatFloatingContainer />}
+          {rotated && <ChatFloatingContainer setRotated={setRotated} />}
         </div>
       </OutsideClickHandler>
     </div>

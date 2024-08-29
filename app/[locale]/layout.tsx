@@ -73,7 +73,6 @@ export default async function RootLayout({
   }
   const uniqueId = cookies().get("uniqueId")?.value;
 
-
   return (
     <html lang={locale} className={`${modernistBold.variable}`}>
       {/* <GoogleAnalytics gaId="G-SY6HC72KX9" /> */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
+import { baseUrl } from "@/lib/baseURL";
 import axios from "axios";
 import { deleteCookie } from "cookies-next";
 import { OptionsType } from "cookies-next/lib/types";
@@ -173,6 +174,35 @@ export async function getMessages(
 
     // console.log("get messages list data", response.data);
     setMessages([...[initialMessage], ...response.data.data]);
+    return response.data;
+  } catch (error) {
+    deleteCookie("");
+    console.error(error);
+    return "error";
+  }
+}
+
+export async function postSaveThreadIdInBE(
+  threadId: string | undefined,
+  additionalInfo: string | undefined
+) {
+  if (!threadId) return;
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/chat/trace`,
+      { traceId: threadId, title: additionalInfo ?? "noTitle" },
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: bearer,
+          "OpenAI-Beta": "assistants=v2",
+        },
+      }
+    );
+
+    console.log("get messages list data", response);
+
     return response.data;
   } catch (error) {
     deleteCookie("");

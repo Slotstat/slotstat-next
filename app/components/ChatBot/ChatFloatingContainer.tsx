@@ -21,14 +21,18 @@ import {
   deleteThread,
   getMessages,
   getThread,
+  postSaveThreadIdInBE,
   retrieveRun,
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
 import ChatIcon from "@/app/assets/svg/ChatIcon";
 import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
 import ArrowUpWithStickIcon from "@/app/assets/svg/ArrowUpWithStickIcon";
 import moment from "moment";
+import { ArrowLeft } from "@/app/assets/svg/ArrowLeft";
 
-type Props = {};
+type Props = {
+  setRotated: (e: boolean) => void;
+};
 type Content = {
   type: string;
   text: {
@@ -71,7 +75,7 @@ const initialMessage: ChatMessage = {
   metadata: {},
 };
 //! DO NOT DELETE THE COMMENTS FOR NOW
-export default function ChatFloatingContainer({}: Props) {
+export default function ChatFloatingContainer({ setRotated }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const [warningMessage, setWarningMessage] = useState<
@@ -88,14 +92,22 @@ export default function ChatFloatingContainer({}: Props) {
 
   const messageInputRef = useRef(null);
 
-  useEffect(() => {
+  const mountLoader = async () => {
     if (threadId) {
       getMessages(threadId, setMessages, initialMessage);
     } else {
-      createThread(setThreadId, setCookie);
+      const threadData = await createThread(setThreadId, setCookie);
+      if (threadData) {
+        // threadData.created_at
+        postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
+      }
     }
 
     setMessages([initialMessage]);
+  };
+
+  useEffect(() => {
+    mountLoader();
   }, [threadId]);
 
   //! before release we'll keep it like this. it always removes any cookied thread ids
@@ -169,7 +181,7 @@ export default function ChatFloatingContainer({}: Props) {
   };
 
   return (
-    <div className="bottom-20 absolute right-[20px] overflow-hidden rounded-[14px] !font-modernist">
+    <div className="overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen lg:absolute lg:rounded-[14px] lg:w-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto">
       <button
         type="button"
         onClick={() => {
@@ -183,27 +195,35 @@ export default function ChatFloatingContainer({}: Props) {
       >
         <ArrowUpWithStickIcon isWriting={userMessage ? true : false} />
       </button>
-      <ChatContainer
-        style={{
-          height: "561px",
-          width: "403px",
-        }}
-      >
+      <ChatContainer className="lg:h-[561px] lg:w-[403px] h-full w-full ">
         <ConversationHeader className="!bg-blue1 !border-0">
           <Avatar
             className="h-full flex items-center justify-center"
             name="SlotGPT"
           >
-            <ChatIcon />
+            <div className="hidden lg:flex">
+              <ChatIcon />
+            </div>
+            <div
+              onClick={() => {
+                setRotated(false);
+              }}
+              className="lg:hidden flex cursor-pointer"
+            >
+              <ArrowLeft />
+            </div>
           </Avatar>
           <ConversationHeader.Content>
             <div className="flex items-center justify-between -ml-3.5">
-              <div className="text-white font-bold font-modernist">SlotGPT</div>
+              <div className="flex lg:hidden" />
+              <div className="text-white font-bold font-modernist mr-10 lg:mr-0">
+                SlotGPT
+              </div>
 
               {/* //! before release leave this here so testing will be easier  */}
               <button
                 type="button"
-                className="text-white cursor-pointer"
+                className="text-white cursor-pointer "
                 onClick={() => {
                   deleteThread(threadId, deleteCookie, setThreadId);
                   // deleteThread(threadId);
