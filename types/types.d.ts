@@ -305,3 +305,11 @@ type FloatingButtonsItem = {
   width: string;
 };
 type FloatingButtonsItems = FloatingButtonsItem[];
+
+type countryOrState = { name: string; emoji?: string };
+type country = {
+  name: string;
+  emoji?: string;
+  states?: countryOrState[];
+  code: string;
+};

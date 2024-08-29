@@ -229,7 +229,7 @@ const LiveCards = ({
   // const getUpdatedGameCardsData = useCallback(
   //   _.debounce(async () => {
   //     if (gamesCardsData) {
-  //       console.log("111");
+
   //       const updatedGamesCardsData = await gamesCardsData;
   //       setCardsDataState(updatedGamesCardsData);
   //     }
