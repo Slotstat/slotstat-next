@@ -121,7 +121,9 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     run_id: string,
     next: (
       threadId: string | undefined,
-      setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
+      setMessages: React.Dispatch<
+        React.SetStateAction<ChatMessage[]>
+      >,
       initialMessage: ChatMessage
     ) => void
   ) {
@@ -165,7 +167,10 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
       setWarningMessage(undefined);
     }
 
-    const createUserMessageData = await createUserMessage(threadId, newMessage);
+    const createUserMessageData = await createUserMessage(
+      threadId,
+      newMessage
+    );
     setMessages([...messages, ...[createUserMessageData]]);
     setIsTyping(true);
     setUserMessage("");
@@ -180,8 +185,62 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     }
   };
 
+  const [viewportHeight, setViewportHeight] = useState("100vh");
+
+  useEffect(() => {
+    const KEYBOARD_THRESHOLD = 0; // Adjust this value as needed
+
+    const detectKeyboard = () => {
+      if (typeof window !== "undefined") {
+        const currentViewportHeight =
+          window.visualViewport?.height || window.innerHeight;
+        const initialViewportHeight = window.screen.height;
+        if (window.innerWidth < 768) {
+          if (
+            initialViewportHeight - currentViewportHeight >
+            KEYBOARD_THRESHOLD
+          ) {
+            setViewportHeight(`${currentViewportHeight}px`);
+            window.scrollTo(0, 0);
+          } else {
+            setViewportHeight("100vh");
+          }
+        } else {
+          setViewportHeight("");
+        }
+      }
+    };
+
+    // Initial check
+    detectKeyboard();
+
+    // Set up event listeners
+    window.addEventListener("resize", detectKeyboard);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener(
+        "resize",
+        detectKeyboard
+      );
+    }
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", detectKeyboard);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener(
+          "resize",
+          detectKeyboard
+        );
+      }
+    };
+  }, []);
+
   return (
-    <div className="overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto">
+    <div
+      className={`overflow-hidden !font-modernist fixed  right-0 top-0 w-screen 
+    lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto`}
+      style={{ height: viewportHeight }}
+    >
       <button
         type="button"
         onClick={() => {
@@ -193,7 +252,9 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           userMessage ? "bg-blue1" : "bg-grey1"
         } cursor-pointer`}
       >
-        <ArrowUpWithStickIcon isWriting={userMessage ? true : false} />
+        <ArrowUpWithStickIcon
+          isWriting={userMessage ? true : false}
+        />
       </button>
       <ChatContainer className="lg:h-[561px] lg:w-[403px] h-full w-full ">
         <ConversationHeader className="!bg-blue1 !border-0">
@@ -254,7 +315,8 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
             <Message
               key={i}
               model={{
-                direction: msg.role === "assistant" ? "incoming" : "outgoing",
+                direction:
+                  msg.role === "assistant" ? "incoming" : "outgoing",
                 message: msg.content[0].text.value,
                 position: "single",
                 sender: msg.role === "assistant" ? "ChatGPT" : "",
@@ -277,11 +339,16 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
             <Message
               model={{
                 direction:
-                  warningMessage.role === "assistant" ? "incoming" : "outgoing",
+                  warningMessage.role === "assistant"
+                    ? "incoming"
+                    : "outgoing",
                 // message: warningMessage.content[0].text.value,
                 message: `<div class="text-red" style={{color: "red"}}>${warningMessage.content[0].text.value}</div>`,
                 position: "single",
-                sender: warningMessage.role === "assistant" ? "ChatGPT" : "",
+                sender:
+                  warningMessage.role === "assistant"
+                    ? "ChatGPT"
+                    : "",
                 // sentTime: "15 mins ago",
               }}
               className="!bg-transparent red-message"
@@ -307,6 +374,8 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           onSend={handleNewUserMessage}
           attachButton={false}
           sendButton={false}
+          // onFocus={() => setIsKeyboardVisible(true)}
+          // onBlur={() => setIsKeyboardVisible(false)}
         />
       </ChatContainer>
     </div>

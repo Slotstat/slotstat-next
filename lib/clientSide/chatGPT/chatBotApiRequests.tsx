@@ -11,7 +11,9 @@ import { cookies } from "next/headers";
 const bearer = `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`;
 
 export async function createThread(
-  setThreadId: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setThreadId: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >,
   setCookie: (name: string, value: string) => void
 ) {
   try {
@@ -38,24 +40,34 @@ export async function createThread(
 
 export async function deleteThread(
   threadId: string | undefined,
-  deleteCookie: (key: string, options?: OptionsType | undefined) => void,
-  setThreadId?: React.Dispatch<React.SetStateAction<string | undefined>>
+  deleteCookie: (
+    key: string,
+    options?: OptionsType | undefined
+  ) => void,
+  setThreadId?: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
 ) {
   if (!threadId) return;
-  await axios.delete(`https://api.openai.com/v1/threads/${threadId}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: bearer,
-      "OpenAI-Beta": "assistants=v2",
-    },
-  });
+  await axios.delete(
+    `https://api.openai.com/v1/threads/${threadId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: bearer,
+        "OpenAI-Beta": "assistants=v2",
+      },
+    }
+  );
   deleteCookie("threadId");
   setThreadId && setThreadId(undefined);
 }
 
 export async function getThread(
   threadId: string | undefined,
-  setThreadId?: React.Dispatch<React.SetStateAction<string | undefined>>
+  setThreadId?: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
 ) {
   if (!threadId) return;
   try {
@@ -176,7 +188,8 @@ export async function getMessages(
     setMessages([...[initialMessage], ...response.data.data]);
     return response.data;
   } catch (error) {
-    deleteCookie("");
+    // levani chaxede amas
+    // deleteCookie("");
     console.error(error);
     return "error";
   }
@@ -205,7 +218,8 @@ export async function postSaveThreadIdInBE(
 
     return response.data;
   } catch (error) {
-    deleteCookie("");
+    // levani chaxede amas
+    // deleteCookie("");
     console.error(error);
     return "error";
   }

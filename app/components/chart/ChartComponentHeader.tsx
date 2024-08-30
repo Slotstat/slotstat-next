@@ -23,14 +23,20 @@ export default function ChartComponentHeader({
   const t = useTranslations("table");
 
   const [scrollY, setScrollY] = useState<number | null>(null);
-  const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
+  const [showSmallHeader, setShowSmallHeader] =
+    useState<boolean>(false);
   const [headerSize, setHeaderSize] = useState<string>("h-24");
 
-  const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } = gameObj;
+  const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } =
+    gameObj;
 
   const listenScrollEvent = () => {
-    window.scrollY > 247 ? setShowSmallHeader(true) : setShowSmallHeader(false);
-    window.scrollY > 220 ? setHeaderSize("h-16") : setHeaderSize("h-24");
+    window.scrollY > 247
+      ? setShowSmallHeader(true)
+      : setShowSmallHeader(false);
+    window.scrollY > 220
+      ? setHeaderSize("h-16")
+      : setHeaderSize("h-24");
   };
 
   useEffect(() => {
@@ -61,7 +67,7 @@ export default function ChartComponentHeader({
             changeScreen("slot");
             setIsGameQuery("slot");
           }}
-          className={"py-2 text-xs md:ml-3 md:py-3 md:text-base"}
+          className={"py-2 px-4 text-xs md:ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
           title={"Casino"}
@@ -71,7 +77,7 @@ export default function ChartComponentHeader({
             changeScreen("casino");
             setIsGameQuery("casino");
           }}
-          className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
+          className={"py-2 px-4 text-xs ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
           title={"Bonus"}
@@ -82,7 +88,7 @@ export default function ChartComponentHeader({
             setIsGameQuery("bonus");
           }}
           imgSrc={bonus.src}
-          className={"py-2 text-xs ml-3 md:py-3 md:text-base"}
+          className={"py-2 px-4 text-xs ml-3 md:py-3 md:text-base"}
         />
       </div>
       {/* )} */}
@@ -127,14 +133,15 @@ export default function ChartComponentHeader({
               {casinoName} - {name}
             </h1>
             <p className="hidden md:flex text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
-              Explore comprehensive statistics for the slot game, along with
-              details about the hosting casino and its bonuses and promotions.
-              Everything you need to make informed gaming decisions is right
-              here on this page.
+              Explore comprehensive statistics for the slot game,
+              along with details about the hosting casino and its
+              bonuses and promotions. Everything you need to make
+              informed gaming decisions is right here on this page.
             </p>
             <p className="flex md:hidden text-grey1 my-4  leading-6 text-xs ">
-              Find comprehensive slot game stats, casino details, and bonus info
-              all on one page. Make informed gaming decisions easily
+              Find comprehensive slot game stats, casino details, and
+              bonus info all on one page. Make informed gaming
+              decisions easily
             </p>
             {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 

@@ -3,6 +3,8 @@ import { usePathname } from "next/navigation";
 import { Link } from "@/navigation";
 import { useState, useRef, useEffect } from "react";
 import Geo from "./Geo";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
+import { countries } from "@/app/utils/countries";
 
 const menuItems = [
   { icon: "🕹️", label: "Slot", path: "/blog/slots" },
@@ -15,6 +17,7 @@ const menuItems = [
 const NavList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isGeoVisible, setIsGeoOpen] = useState(false);
+  const [chosenCountry, setChosenCountry] = useState<country>();
 
   const t = useTranslations("navbar");
   const pathName = usePathname();
@@ -25,10 +28,21 @@ const NavList = () => {
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
     const segments = pathName.split("/");
-    return segments[1] === path ? "text-white" : "text-grey1 hover:text-white";
+    return segments[1] === path
+      ? "text-white"
+      : "text-grey1 hover:text-white";
   };
 
   useEffect(() => {
+    const countryCode = getCookie("country");
+    if (countryCode) {
+      const countryByCookie = countries.filter((countryObject) =>
+        countryObject.code.includes(countryCode)
+      );
+      setChosenCountry(countryByCookie[0])
+
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         geoRef.current &&
@@ -47,14 +61,17 @@ const NavList = () => {
   }, []);
 
   return (
-    <nav className="hidden md:flex my-2 flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm">
+    <nav className="hidden lg:flex my-2 flex-row lg:my-0 ml-auto lg:items-center font-bold text-xs md:text-sm">
       <div className="relative">
         <span
           // onMouseEnter={() => setIsVisible(true)}
           // onMouseLeave={() => setIsVisible(false)}
           className="mt-4 ml-3 md:ml-8 lg:mt-0"
         >
-          <Link href={"/blog/slots"} className={checkIsActive("howItWorks")}>
+          <Link
+            href={"/blog/slots"}
+            className={checkIsActive("howItWorks")}
+          >
             {t("blog")}
           </Link>
           <div className="absolute top-0 -right-2 h-1.5 w-1.5 bg-red rounded" />
@@ -86,7 +103,10 @@ const NavList = () => {
         )}
       </div>
       <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
-        <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
+        <Link
+          href={`/how-it-works`}
+          className={checkIsActive("howItWorks")}
+        >
           {t("howItWorks")}
         </Link>
       </span>
@@ -99,13 +119,18 @@ const NavList = () => {
       {/* <div className="relative" ref={triggerRef}>
         <div
           onClick={() => setIsGeoOpen(!isGeoVisible)}
-          className="mt-4 ml-3 md:ml-8 lg:mt-0 cursor-pointer"
+          className={`ml-8 rounded-full h-8 w-8 flex items-center justify-center cursor-pointer hover:bg-grey1 
+            ${isGeoVisible ? "bg-grey1" : "bg-grey3"}
+            `}
         >
-          <div className={"text-grey1 hover:text-white "}>lang</div>
+          <span>{chosenCountry?.emoji}</span>
         </div>
         {isGeoVisible && (
           <div ref={geoRef}>
-            <Geo />
+            <Geo
+              chosenCountry={chosenCountry}
+              setChosenCountry={setChosenCountry}
+            />
           </div>
         )}
       </div> */}

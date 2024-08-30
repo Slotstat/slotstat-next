@@ -29,7 +29,10 @@ export default function TableIn({
   const t = useTranslations("table");
   const f = useTranslations();
 
-  const data = useMemo(() => [...gamesList.results], [gamesList.results]);
+  const data = useMemo(
+    () => [...gamesList.results],
+    [gamesList.results]
+  );
   const { pageCount, rowCount, currentPage, pageSize } = gamesList;
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
 
@@ -48,40 +51,44 @@ export default function TableIn({
           <div className="w-full overflow-x-scroll no-scroll">
             <table className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base">
               <thead>
-                {tableInstance.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <th
-                          style={{
-                            maxWidth: header.column.columnDef.maxSize,
-                            minWidth: header.column.columnDef.minSize,
-                            width: header.column.columnDef.size,
-                          }}
-                          key={header.id}
-                        >
-                          <div className="flex items-center text-xs font-bold md:text-base">
-                            <div>
-                              {flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
+                {tableInstance
+                  .getHeaderGroups()
+                  .map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => {
+                        return (
+                          <th
+                            style={{
+                              maxWidth:
+                                header.column.columnDef.maxSize,
+                              minWidth:
+                                header.column.columnDef.minSize,
+                              width: header.column.columnDef.size,
+                            }}
+                            key={header.id}
+                          >
+                            <div className="flex items-center text-xs font-bold md:text-base">
+                              <div>
+                                {flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                              </div>
+
+                              {/* @ts-ignore  */}
+                              {header.column.columnDef.hint && (
+                                <TooltipComponent
+                                  // @ts-ignore
+                                  text={header.column.columnDef.hint}
+                                  classN="ml-2"
+                                />
                               )}
                             </div>
-
-                            {/* @ts-ignore  */}
-                            {header.column.columnDef.hint && (
-                              <TooltipComponent
-                                // @ts-ignore
-                                text={header.column.columnDef.hint}
-                                classN="ml-2"
-                              />
-                            )}
-                          </div>
-                        </th>
-                      );
-                    })}
-                  </tr>
-                ))}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  ))}
               </thead>
 
               <tbody className="xl:w-full">
@@ -155,8 +162,10 @@ export default function TableIn({
               Showing
               <span className="text-white mx-1">
                 {/* {currentPage} - {currentPage * pageSize} */}
-                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
-                {(currentPage - 1) * pageSize + data.length}
+                {currentPage === 1
+                  ? 1
+                  : (currentPage - 1) * pageSize}{" "}
+                -{(currentPage - 1) * pageSize + data.length}
               </span>
               out of {rowCount}
             </div>
@@ -168,8 +177,8 @@ export default function TableIn({
                   getGames((selected + 1).toString());
                   // setPageQuery(selected.toString());
                 }}
-                // pageRangeDisplayed={1}
-                // marginPagesDisplayed={3}
+                pageRangeDisplayed={1}
+                marginPagesDisplayed={1}
                 renderOnZeroPageCount={null}
                 previousLabel={
                   <Image
@@ -203,16 +212,16 @@ export default function TableIn({
               />
             ) : (
               <span className=" text-sm text-grey1 font-light max-w-2xl text-center">
-                Listing sorted by highest ratings at the moment (5-minute
-                intervals). Maximum 50 games shown. Games may vary every 5
-                minutes as SPS data updates live.
+                Listing sorted by highest ratings at the moment
+                (5-minute intervals). Maximum 50 games shown. Games
+                may vary every 5 minutes as SPS data updates live.
               </span>
             )}
             <div className=" text-xs mt-2 text-grey1 md:text-transparent">
               Showing{" "}
               <span className="text-white md:text-transparent">
-                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
-                {(currentPage - 1) * pageSize + data.length}
+                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize}{" "}
+                -{(currentPage - 1) * pageSize + data.length}
               </span>{" "}
               out of {rowCount}
             </div>

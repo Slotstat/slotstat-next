@@ -52,15 +52,10 @@ export default async function Home({
   const data: simpleBlogCard[] = await getData(category);
 
   return (
-    <div className="text-white mt-6 ">
-      <div className="flex justify-between">
-        <div>
-          <h1 className="font-bold text-3xl mb-3">Blog</h1>
-          <p className="text-grey1 mb-6">All players need to know.</p>
-        </div>
-        <BlogTabs ActiveCategory={category} />
-      </div>
-      <div className=" min-h-screen grid grid-cols-1  md:grid-cols-4 mt-5 gap-6">
+    <div className="text-white mt-6 mb-12 md:mb-20">
+      <BlogTabs ActiveCategory={category} />
+
+      <div className=" min-h-96 grid grid-cols-1 md:grid-cols-4 mt-5 gap-6">
         {data.map((post, idx) => (
           <Card key={idx} post={post} />
         ))}
