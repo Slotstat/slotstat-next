@@ -116,7 +116,7 @@ const NavList = () => {
         </Link>
       </span>
 
-      {/* <div className="relative" ref={triggerRef}>
+      <div className="relative" ref={triggerRef}>
         <div
           onClick={() => setIsGeoOpen(!isGeoVisible)}
           className={`ml-8 rounded-full h-8 w-8 flex items-center justify-center cursor-pointer hover:bg-grey1 
@@ -133,7 +133,7 @@ const NavList = () => {
             />
           </div>
         )}
-      </div> */}
+      </div>
     </nav>
   );
 };
