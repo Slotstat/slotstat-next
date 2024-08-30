@@ -185,61 +185,61 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     }
   };
 
-  const [viewportHeight, setViewportHeight] = useState("100vh");
+  // const [viewportHeight, setViewportHeight] = useState("100vh");
 
-  useEffect(() => {
-    const KEYBOARD_THRESHOLD = 0; // Adjust this value as needed
+  // useEffect(() => {
+  //   const KEYBOARD_THRESHOLD = 0; // Adjust this value as needed
 
-    const detectKeyboard = () => {
-      if (typeof window !== "undefined") {
-        const currentViewportHeight =
-          window.visualViewport?.height || window.innerHeight;
-        const initialViewportHeight = window.screen.height;
-        if (window.innerWidth < 768) {
-          if (
-            initialViewportHeight - currentViewportHeight >
-            KEYBOARD_THRESHOLD
-          ) {
-            setViewportHeight(`${currentViewportHeight}px`);
-            window.scrollTo(0, 0);
-          } else {
-            setViewportHeight("100vh");
-          }
-        } else {
-          setViewportHeight("");
-        }
-      }
-    };
+  //   const detectKeyboard = () => {
+  //     if (typeof window !== "undefined") {
+  //       const currentViewportHeight =
+  //         window.visualViewport?.height || window.innerHeight;
+  //       const initialViewportHeight = window.screen.height;
+  //       if (window.innerWidth < 768) {
+  //         if (
+  //           initialViewportHeight - currentViewportHeight >
+  //           KEYBOARD_THRESHOLD
+  //         ) {
+  //           setViewportHeight(`${currentViewportHeight}px`);
+  //           window.scrollTo(0, 0);
+  //         } else {
+  //           setViewportHeight("100vh");
+  //         }
+  //       } else {
+  //         setViewportHeight("");
+  //       }
+  //     }
+  //   };
 
-    // Initial check
-    detectKeyboard();
+  //   // Initial check
+  //   detectKeyboard();
 
-    // Set up event listeners
-    window.addEventListener("resize", detectKeyboard);
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener(
-        "resize",
-        detectKeyboard
-      );
-    }
+  //   // Set up event listeners
+  //   window.addEventListener("resize", detectKeyboard);
+  //   if (window.visualViewport) {
+  //     window.visualViewport.addEventListener(
+  //       "resize",
+  //       detectKeyboard
+  //     );
+  //   }
 
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", detectKeyboard);
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener(
-          "resize",
-          detectKeyboard
-        );
-      }
-    };
-  }, []);
+  //   // Cleanup
+  //   return () => {
+  //     window.removeEventListener("resize", detectKeyboard);
+  //     if (window.visualViewport) {
+  //       window.visualViewport.removeEventListener(
+  //         "resize",
+  //         detectKeyboard
+  //       );
+  //     }
+  //   };
+  // }, []);
 
   return (
     <div
-      className={`overflow-hidden !font-modernist fixed  right-0 top-0 w-screen 
-    lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto`}
-      style={{ height: viewportHeight }}
+      className={`overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen 
+    lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto `}
+      // style={{ height: viewportHeight }}
     >
       <button
         type="button"
