@@ -127,7 +127,7 @@ const NavList = () => {
       <div className="lg:relative" ref={triggerRef}>
         <div
           onClick={() => setIsGeoOpen(!isGeoVisible)}
-          className={`ml-8 text-base rounded-full h-[36px] w-[36px] flex items-center justify-center cursor-pointer hover:bg-grey1 
+          className={`ml-8 text-lg rounded-full h-[36px] w-[36px] flex items-center justify-center cursor-pointer hover:bg-grey1 
             ${isGeoVisible ? "bg-grey1" : "bg-grey3"}
             `}
         >

@@ -90,7 +90,7 @@ const DropdownInput = ({
                     setShowDropdown(false);
                     setErrorState && setErrorState(false);
                   }}
-                  className="group p-1.5 font-bold flex flex-row items-center cursor-pointer text-grey1 hover:bg-dark1 rounded-lg"
+                  className="group p-1.5 font-bold flex flex-row text-base items-center cursor-pointer text-grey1 hover:bg-dark1 rounded-lg"
                 >
                   <div className="group-hover:bg-grey3 mr-2 rounded-full h-8 w-8 bg-dark1 flex items-center justify-center">
                     <span>{item.emoji}</span>
