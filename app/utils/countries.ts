@@ -311,8 +311,16 @@ export const countries = [
     image:
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CA.svg",
     states: [
-      { name: "Alberta", emoji: "🇨🇦" },
-      { name: "Ontario", emoji: "🇨🇦" },
+      { name: "Alberta", emoji: "🇨🇦", code: "AB" },
+      { name: "British Columbia", emoji: "🇨🇦", code: "BC" },
+      { name: "Manitoba", emoji: "🇨🇦", code: "MB" },
+      { name: "New Brunswick", emoji: "🇨🇦", code: "NB" },
+      { name: "Newfoundland and Labrador", emoji: "🇨🇦", code: "NL" },
+      { name: "Nova Scotia", emoji: "🇨🇦", code: "NS" },
+      { name: "Ontario", emoji: "🇨🇦", code: "ON" },
+      { name: "Prince Edward Island", emoji: "🇨🇦", code: "PE" },
+      { name: "Quebec", emoji: "🇨🇦", code: "QC" },
+      { name: "Saskatchewan", emoji: "🇨🇦", code: "SK" },
     ],
   },
   {
@@ -2071,7 +2079,8 @@ export const countries = [
     name: "England",
     code: "ENGLAND",
     emoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    unicode: "U+1F3F4 U+E0067 U+E0062 U+E0065 U+E006E U+E0067 U+E007F",
+    unicode:
+      "U+1F3F4 U+E0067 U+E0062 U+E0065 U+E006E U+E0067 U+E007F",
     image:
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ENGLAND.svg",
   },
@@ -2079,7 +2088,8 @@ export const countries = [
     name: "Scotland",
     code: "SCOTLAND",
     emoji: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-    unicode: "U+1F3F4 U+E0067 U+E0062 U+E0073 U+E0063 U+E0074 U+E007F",
+    unicode:
+      "U+1F3F4 U+E0067 U+E0062 U+E0073 U+E0063 U+E0074 U+E007F",
     image:
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SCOTLAND.svg",
   },
@@ -2087,7 +2097,8 @@ export const countries = [
     name: "Wales",
     code: "WALES",
     emoji: "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-    unicode: "U+1F3F4 U+E0067 U+E0062 U+E0077 U+E006C U+E0073 U+E007F",
+    unicode:
+      "U+1F3F4 U+E0067 U+E0062 U+E0077 U+E006C U+E0073 U+E007F",
     image:
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/WALES.svg",
   },
