@@ -17,8 +17,9 @@ const menuItems = [
 const NavList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isGeoVisible, setIsGeoOpen] = useState(false);
-  const [chosenCountry, setChosenCountry] = useState<country>();
-  const [chosenState, setChosenState] = useState<countryOrState>();
+
+  const [initialCountry, setInitialCountry] = useState<country>();
+  const [initialState, setInitialState] = useState<countryOrState>();
 
   const t = useTranslations("navbar");
   const pathName = usePathname();
@@ -29,9 +30,7 @@ const NavList = () => {
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
     const segments = pathName.split("/");
-    return segments[1] === path
-      ? "text-white"
-      : "text-grey1 hover:text-white";
+    return segments[1] === path ? "text-white" : "text-grey1 hover:text-white";
   };
 
   useEffect(() => {
@@ -42,12 +41,12 @@ const NavList = () => {
         countryObject.code.includes(countryCode)
       );
       if (countryByCookie[0].states && region) {
-        const regionByCookie = countryByCookie[0].states.filter(
-          (regionObject) => regionObject.code.includes(region)
+        const regionByCookie = countryByCookie[0].states.filter((regionObject) =>
+          regionObject.code.includes(region)
         );
-        setChosenState(regionByCookie[0]);
+        setInitialState(regionByCookie[0]);
       }
-      setChosenCountry(countryByCookie[0]);
+      setInitialCountry(countryByCookie[0]);
     }
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -76,10 +75,7 @@ const NavList = () => {
             // onMouseLeave={() => setIsVisible(false)}
             className="mt-4 ml-3 md:ml-8 lg:mt-0"
           >
-            <Link
-              href={"/blog/slots"}
-              className={checkIsActive("howItWorks")}
-            >
+            <Link href={"/blog/slots"} className={checkIsActive("howItWorks")}>
               {t("blog")}
             </Link>
             <div className="absolute top-0 -right-2 h-1.5 w-1.5 bg-red rounded" />
@@ -111,10 +107,7 @@ const NavList = () => {
           )}
         </div>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
-          <Link
-            href={`/how-it-works`}
-            className={checkIsActive("howItWorks")}
-          >
+          <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
             {t("howItWorks")}
           </Link>
         </span>
@@ -131,16 +124,11 @@ const NavList = () => {
             ${isGeoVisible ? "bg-grey1" : "bg-grey3"}
             `}
         >
-          <span>{chosenCountry?.emoji}</span>
+          <span>{initialCountry?.emoji}</span>
         </div>
         {isGeoVisible && (
           <div ref={geoRef}>
-            <Geo
-              chosenCountry={chosenCountry}
-              setChosenCountry={setChosenCountry}
-              chosenState={chosenState}
-              setChosenState={setChosenState}
-            />
+            <Geo initialCountry={initialCountry} initialState={initialState} />
           </div>
         )}
       </div>

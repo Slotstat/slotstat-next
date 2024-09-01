@@ -5,19 +5,17 @@ import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import DropdownInput from "./DropdownInput";
 
 const Geo = ({
-  chosenCountry,
-  setChosenCountry,
-  chosenState,
-  setChosenState,
+  initialCountry,
+  initialState,
 }: {
-  chosenCountry?: country;
-  setChosenCountry: (country: country) => void;
-  chosenState?: countryOrState;
-  setChosenState: (country?: countryOrState) => void;
+  initialCountry?: country;
+  initialState?: countryOrState;
 }) => {
   const [countriesList, setCountriesList] = useState(countries);
   const [StatesList, setStatesList] = useState<countryOrState[]>();
   const [errorState, setErrorState] = useState(false);
+  const [chosenCountry, setChosenCountry] = useState<country | undefined>(initialCountry);
+  const [chosenState, setChosenState] = useState<countryOrState | undefined>(initialState);
 
   const chooseCountry = (country: country) => {
     setChosenCountry(country);
@@ -44,6 +42,9 @@ const Geo = ({
   };
 
   const saveChosenCountry = () => {
+    // 1. if user choose country and state as well we set cookies
+    // 2. if user choose country without states we update country and state is blank
+    // 3. if user choose country which has state but don't choose state we show error
     if (chosenCountry?.states && chosenState?.code) {
       setCookie("country", chosenCountry?.code);
       setCookie("region", chosenState?.code);
@@ -72,7 +73,7 @@ const Geo = ({
   return (
     <div
       // className="z-50 top-full right-0 absolute font-bold pt-8 transition duration-200 ease-in-out"
-        className="z-50 absolute font-bold pt-8 transition duration-200 ease-in-out
+      className="z-50 absolute font-bold pt-8 transition duration-200 ease-in-out
       right-4 left-4 lg:top-full lg:left-auto lg:right-0"
     >
       <div className="w-full lg:w-[342px] p-4 bg-dark1 border border-grey1 rounded-xl">
