@@ -1,10 +1,6 @@
 import { useEffect, useMemo } from "react";
 import ReactPaginate from "react-paginate";
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { back } from "../../assets";
 import Image from "next/image";
 import RenderRowCells from "./RenderRowCells";
@@ -29,10 +25,7 @@ export default function TableIn({
   const t = useTranslations("table");
   const f = useTranslations();
 
-  const data = useMemo(
-    () => [...gamesList.results],
-    [gamesList.results]
-  );
+  const data = useMemo(() => [...gamesList.results], [gamesList.results]);
   const { pageCount, rowCount, currentPage, pageSize } = gamesList;
   const columns = useMemo(() => casinoOrGameColumns(t), [t]);
 
@@ -51,44 +44,37 @@ export default function TableIn({
           <div className="w-full overflow-x-scroll no-scroll">
             <table className="relative w-[857px] md:w-[1013px] text-xs xl:w-full md:text-base">
               <thead>
-                {tableInstance
-                  .getHeaderGroups()
-                  .map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => {
-                        return (
-                          <th
-                            style={{
-                              maxWidth:
-                                header.column.columnDef.maxSize,
-                              minWidth:
-                                header.column.columnDef.minSize,
-                              width: header.column.columnDef.size,
-                            }}
-                            key={header.id}
-                          >
-                            <div className="flex items-center text-xs font-bold md:text-base">
-                              <div>
-                                {flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext()
-                                )}
-                              </div>
-
-                              {/* @ts-ignore  */}
-                              {header.column.columnDef.hint && (
-                                <TooltipComponent
-                                  // @ts-ignore
-                                  text={header.column.columnDef.hint}
-                                  classN="ml-2"
-                                />
-                              )}
+                {tableInstance.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <th
+                          style={{
+                            maxWidth: header.column.columnDef.maxSize,
+                            minWidth: header.column.columnDef.minSize,
+                            width: header.column.columnDef.size,
+                          }}
+                          key={header.id}
+                        >
+                          <div className="flex items-center text-xs font-bold md:text-base">
+                            <div>
+                              {flexRender(header.column.columnDef.header, header.getContext())}
                             </div>
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  ))}
+
+                            {/* @ts-ignore  */}
+                            {header.column.columnDef.hint && (
+                              <TooltipComponent
+                                // @ts-ignore
+                                text={header.column.columnDef.hint}
+                                classN="ml-2"
+                              />
+                            )}
+                          </div>
+                        </th>
+                      );
+                    })}
+                  </tr>
+                ))}
               </thead>
 
               <tbody className="xl:w-full">
@@ -118,11 +104,7 @@ export default function TableIn({
                           >
                             {onAddToCompare ? (
                               <div className=" h-full flex items-center ">
-                                <RenderRowCells
-                                  cell={cell}
-                                  row={row}
-                                  index={i}
-                                />
+                                <RenderRowCells cell={cell} row={row} index={i} />
                               </div>
                             ) : (
                               <Link
@@ -131,11 +113,7 @@ export default function TableIn({
                                 }&isFiat=${isFiat || "false"}`}
                                 className=" h-full flex items-center "
                               >
-                                <RenderRowCells
-                                  cell={cell}
-                                  row={row}
-                                  index={i}
-                                />
+                                <RenderRowCells cell={cell} row={row} index={i} />
                               </Link>
                             )}
                           </td>
@@ -149,9 +127,9 @@ export default function TableIn({
           </div>
         ) : (
           <div className=" flex w-full bg-dark2 justify-center items-center p-28 text-white">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center ">
               <NotFoundIcon />
-              <p className="mt-6">{f("itemNotFound")}</p>
+              <p className="mt-6 w-60">{f("itemNotFound")}</p>
             </div>
           </div>
         )}
@@ -162,10 +140,8 @@ export default function TableIn({
               Showing
               <span className="text-white mx-1">
                 {/* {currentPage} - {currentPage * pageSize} */}
-                {currentPage === 1
-                  ? 1
-                  : (currentPage - 1) * pageSize}{" "}
-                -{(currentPage - 1) * pageSize + data.length}
+                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
+                {(currentPage - 1) * pageSize + data.length}
               </span>
               out of {rowCount}
             </div>
@@ -181,22 +157,10 @@ export default function TableIn({
                 marginPagesDisplayed={1}
                 renderOnZeroPageCount={null}
                 previousLabel={
-                  <Image
-                    src={back}
-                    alt=""
-                    className="h-4 w-4"
-                    height={96}
-                    width={96}
-                  />
+                  <Image src={back} alt="" className="h-4 w-4" height={96} width={96} />
                 }
                 nextLabel={
-                  <Image
-                    src={back}
-                    alt=""
-                    className="h-4 w-4 rotate-180"
-                    height={96}
-                    width={96}
-                  />
+                  <Image src={back} alt="" className="h-4 w-4 rotate-180" height={96} width={96} />
                 }
                 breakLabel="..."
                 containerClassName="pagination"
@@ -212,16 +176,15 @@ export default function TableIn({
               />
             ) : (
               <span className=" text-sm text-grey1 font-light max-w-2xl text-center">
-                Listing sorted by highest ratings at the moment
-                (5-minute intervals). Maximum 50 games shown. Games
-                may vary every 5 minutes as SPS data updates live.
+                Listing sorted by highest ratings at the moment (5-minute intervals). Maximum 50
+                games shown. Games may vary every 5 minutes as SPS data updates live.
               </span>
             )}
             <div className=" text-xs mt-2 text-grey1 md:text-transparent">
               Showing{" "}
               <span className="text-white md:text-transparent">
-                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize}{" "}
-                -{(currentPage - 1) * pageSize + data.length}
+                {currentPage === 1 ? 1 : (currentPage - 1) * pageSize} -
+                {(currentPage - 1) * pageSize + data.length}
               </span>{" "}
               out of {rowCount}
             </div>

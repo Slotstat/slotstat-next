@@ -48,7 +48,7 @@ const DropdownInput = ({
               {chosen.name}
             </div>
           ) : (
-            <div className="font-bold text-base flex flex-row items-center cursor-pointer text-grey1">
+            <div className="font-bold text-xs lg:text-base flex flex-row items-center cursor-pointer text-grey1">
               {placeHolder}
             </div>
           )}
