@@ -282,7 +282,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
               </div>
 
               {/* //! before release leave this here so testing will be easier  */}
-              {/* <button
+              <button
                 type="button"
                 className="text-white cursor-pointer "
                 onClick={() => {
@@ -291,10 +291,10 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
                 }}
               >
                 <NewConvoIcon />
-              </button> */}
-              <div className="text-white rounded-md bg-dark1 px-4 py-1 text-sm">
+              </button>
+              {/* <div className="text-white rounded-md bg-dark1 px-4 py-1 text-sm">
                 Beta
-              </div>
+              </div> */}
               {/* <div className=" text-white rounded-md bg-dark1 px-4 py-1 text-sm">Beta</div> */}
             </div>
           </ConversationHeader.Content>
