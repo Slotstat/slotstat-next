@@ -18,7 +18,7 @@ const blueNavSize0 = "h-[0px]";
 
 const MenuButton = ({ toggleNav }: { toggleNav: () => void }) => (
   <button
-    className="ml-8 h-9 w-6 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
+    className="ml-3 h-9 w-6 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
     onClick={toggleNav}
   >
     <Image
@@ -137,8 +137,8 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
             <div className="flex items-center">
               <NavList />
               {/* <LanguageToggleButton /> */}
+              <MenuButton toggleNav={() => setNavbarOpen(true)} />
             </div>
-            <MenuButton toggleNav={() => setNavbarOpen(true)} />
           </div>
         </div>
       </div>
