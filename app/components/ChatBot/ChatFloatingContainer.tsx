@@ -21,13 +21,18 @@ import {
   deleteThread,
   getMessages,
   getThread,
+  postSaveThreadIdInBE,
   retrieveRun,
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
 import ChatIcon from "@/app/assets/svg/ChatIcon";
 import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
 import ArrowUpWithStickIcon from "@/app/assets/svg/ArrowUpWithStickIcon";
+import moment from "moment";
+import { ArrowLeft } from "@/app/assets/svg/ArrowLeft";
 
-type Props = {};
+type Props = {
+  setRotated: (e: boolean) => void;
+};
 type Content = {
   type: string;
   text: {
@@ -50,7 +55,7 @@ export interface ChatMessage {
 }
 
 const initialMessage: ChatMessage = {
-  id: "",
+  id: "firstMessageId",
   object: "thread.message",
   created_at: Date.now(),
   assistant_id: null,
@@ -70,39 +75,55 @@ const initialMessage: ChatMessage = {
   metadata: {},
 };
 //! DO NOT DELETE THE COMMENTS FOR NOW
-export default function ChatFloatingContainer({}: Props) {
+export default function ChatFloatingContainer({ setRotated }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  const [warningMessage, setWarningMessage] = useState<
+    ChatMessage | undefined
+  >();
   const [isTyping, setIsTyping] = useState(false);
 
-  // const [threadId, setThreadId] = useState<string|undefined>(getCookie("threadId") || undefined);
-  const [threadId, setThreadId] = useState<string | undefined>(undefined);
+  const [threadId, setThreadId] = useState<string | undefined>(
+    getCookie("threadId") || undefined
+  );
+  // const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
 
   const messageInputRef = useRef(null);
 
-  useEffect(() => {
+  const mountLoader = async () => {
     if (threadId) {
       getMessages(threadId, setMessages, initialMessage);
     } else {
-      createThread(setThreadId, setCookie);
+      const threadData = await createThread(setThreadId, setCookie);
+      if (threadData) {
+        // threadData.created_at
+        postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
+      }
     }
 
     setMessages([initialMessage]);
+  };
+
+  useEffect(() => {
+    mountLoader();
   }, [threadId]);
 
   //! before release we'll keep it like this. it always removes any cookied thread ids
-  useEffect(() => {
-    const threadId = getCookie("threadId");
-    deleteThread(threadId, deleteCookie);
-  }, []);
+  // useEffect(() => {
+  //   const threadId = getCookie("threadId");
+  //   deleteThread(threadId, deleteCookie);
+  // }, []);
 
   function pollRetrieveRun(
     threadId: string | undefined,
     run_id: string,
     next: (
       threadId: string | undefined,
-      setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
+      setMessages: React.Dispatch<
+        React.SetStateAction<ChatMessage[]>
+      >,
       initialMessage: ChatMessage
     ) => void
   ) {
@@ -118,8 +139,38 @@ export default function ChatFloatingContainer({}: Props) {
 
   const handleNewUserMessage = async (newMessage: string) => {
     if (isTyping) return;
+    if (messages.length >= 41) {
+      const limitMessage = messages[messages.length - 40];
+      // const limitMessage = messages[messages.length - 40];
 
-    const createUserMessageData = await createUserMessage(threadId, newMessage);
+      const createdAtMoment = moment(limitMessage.created_at * 1000);
+      const now = moment();
+
+      const minutesPassed = now.diff(createdAtMoment, "minutes");
+
+      if (minutesPassed < 60) {
+        let initialMessageWarning = { ...initialMessage };
+        initialMessageWarning.id = `warningId + ${now}`;
+        initialMessageWarning.content[0].text.value = `Limit reached, please get back in ${
+          60 - minutesPassed
+        } minutes!`;
+
+        // console.log("-0-0-0-0", [...[initialMessageWarning], ...messages]);
+        setWarningMessage(initialMessageWarning);
+
+        return;
+      } else {
+        setWarningMessage(undefined);
+      }
+    }
+    if (warningMessage) {
+      setWarningMessage(undefined);
+    }
+
+    const createUserMessageData = await createUserMessage(
+      threadId,
+      newMessage
+    );
     setMessages([...messages, ...[createUserMessageData]]);
     setIsTyping(true);
     setUserMessage("");
@@ -134,8 +185,62 @@ export default function ChatFloatingContainer({}: Props) {
     }
   };
 
+  // const [viewportHeight, setViewportHeight] = useState("100vh");
+
+  // useEffect(() => {
+  //   const KEYBOARD_THRESHOLD = 0; // Adjust this value as needed
+
+  //   const detectKeyboard = () => {
+  //     if (typeof window !== "undefined") {
+  //       const currentViewportHeight =
+  //         window.visualViewport?.height || window.innerHeight;
+  //       const initialViewportHeight = window.screen.height;
+  //       if (window.innerWidth < 768) {
+  //         if (
+  //           initialViewportHeight - currentViewportHeight >
+  //           KEYBOARD_THRESHOLD
+  //         ) {
+  //           setViewportHeight(`${currentViewportHeight}px`);
+  //           window.scrollTo(0, 0);
+  //         } else {
+  //           setViewportHeight("100vh");
+  //         }
+  //       } else {
+  //         setViewportHeight("");
+  //       }
+  //     }
+  //   };
+
+  //   // Initial check
+  //   detectKeyboard();
+
+  //   // Set up event listeners
+  //   window.addEventListener("resize", detectKeyboard);
+  //   if (window.visualViewport) {
+  //     window.visualViewport.addEventListener(
+  //       "resize",
+  //       detectKeyboard
+  //     );
+  //   }
+
+  //   // Cleanup
+  //   return () => {
+  //     window.removeEventListener("resize", detectKeyboard);
+  //     if (window.visualViewport) {
+  //       window.visualViewport.removeEventListener(
+  //         "resize",
+  //         detectKeyboard
+  //       );
+  //     }
+  //   };
+  // }, []);
+
   return (
-    <div className="bottom-20 absolute right-[20px] overflow-hidden rounded-[14px] !font-modernist">
+    <div
+      className={`overflow-hidden !font-modernist fixed bottom-0 right-0 top-0 w-screen 
+    lg:absolute lg:rounded-[14px] lg:w-auto lg:h-auto lg:right-[20px] lg:bottom-20 lg:left-auto lg:top-auto `}
+      // style={{ height: viewportHeight }}
+    >
       <button
         type="button"
         onClick={() => {
@@ -143,45 +248,63 @@ export default function ChatFloatingContainer({}: Props) {
             handleNewUserMessage(userMessage);
           }
         }}
-        className="absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center bg-grey1 cursor-pointer"
+        className={`absolute z-50 bottom-[13px] right-[18px] h-[28px] w-[28px] rounded-full flex items-center justify-center ${
+          userMessage ? "bg-blue1" : "bg-grey1"
+        } cursor-pointer`}
       >
-        <ArrowUpWithStickIcon />
+        <ArrowUpWithStickIcon
+          isWriting={userMessage ? true : false}
+        />
       </button>
-      <ChatContainer
-        style={{
-          height: "561px",
-          width: "403px",
-        }}
-      >
+      <ChatContainer className="lg:h-[561px] lg:w-[403px] h-full w-full ">
         <ConversationHeader className="!bg-blue1 !border-0">
           <Avatar
             className="h-full flex items-center justify-center"
             name="SlotGPT"
           >
-            <ChatIcon />
+            <div className="hidden lg:flex">
+              <ChatIcon />
+            </div>
+            <div
+              onClick={() => {
+                setRotated(false);
+              }}
+              className="lg:hidden flex cursor-pointer"
+            >
+              <ArrowLeft />
+            </div>
           </Avatar>
           <ConversationHeader.Content>
-            <div className="flex items-center justify-between">
-              <div className="text-white font-bold font-modernist">SlotGPT</div>
-              <button
+            <div className="flex items-center justify-between -ml-3.5">
+              <div className="flex lg:hidden" />
+              <div className="text-white font-bold font-modernist mr-0 lg:mr-0">
+                SlotGPT
+              </div>
+
+              {/* //! before release leave this here so testing will be easier  */}
+              {/* <button
                 type="button"
-                className="text-white cursor-pointer"
+                className="text-white cursor-pointer "
                 onClick={() => {
                   deleteThread(threadId, deleteCookie, setThreadId);
                   // deleteThread(threadId);
                 }}
               >
                 <NewConvoIcon />
-              </button>
+              </button> */}
+              <div className="text-white rounded-md bg-dark1 px-4 py-1 text-sm">
+                Beta
+              </div>
+              {/* <div className=" text-white rounded-md bg-dark1 px-4 py-1 text-sm">Beta</div> */}
             </div>
           </ConversationHeader.Content>
         </ConversationHeader>
         <MessageList
-          className="!bg-dark2"
+          className="!bg-dark2 !text-white"
           typingIndicator={
             isTyping && (
               <TypingIndicator
-                className="!bg-dark2"
+                className="!bg-dark2 !text-white !ml-3"
                 content="SlotGPT is typing"
               />
             )
@@ -192,7 +315,8 @@ export default function ChatFloatingContainer({}: Props) {
             <Message
               key={i}
               model={{
-                direction: msg.role === "assistant" ? "incoming" : "outgoing",
+                direction:
+                  msg.role === "assistant" ? "incoming" : "outgoing",
                 message: msg.content[0].text.value,
                 position: "single",
                 sender: msg.role === "assistant" ? "ChatGPT" : "",
@@ -211,6 +335,35 @@ export default function ChatFloatingContainer({}: Props) {
               )}
             </Message>
           ))}
+          {warningMessage && (
+            <Message
+              model={{
+                direction:
+                  warningMessage.role === "assistant"
+                    ? "incoming"
+                    : "outgoing",
+                // message: warningMessage.content[0].text.value,
+                message: `<div class="text-red" style={{color: "red"}}>${warningMessage.content[0].text.value}</div>`,
+                position: "single",
+                sender:
+                  warningMessage.role === "assistant"
+                    ? "ChatGPT"
+                    : "",
+                // sentTime: "15 mins ago",
+              }}
+              className="!bg-transparent red-message"
+              data-tooltip-class-name=""
+            >
+              {warningMessage.role === "assistant" && (
+                <Avatar
+                  name="ChatGPT"
+                  className="h-full flex items-center justify-center"
+                >
+                  <ChatIcon />
+                </Avatar>
+              )}
+            </Message>
+          )}
         </MessageList>
         <MessageInput
           value={userMessage}
@@ -221,6 +374,8 @@ export default function ChatFloatingContainer({}: Props) {
           onSend={handleNewUserMessage}
           attachButton={false}
           sendButton={false}
+          // onFocus={() => setIsKeyboardVisible(true)}
+          // onBlur={() => setIsKeyboardVisible(false)}
         />
       </ChatContainer>
     </div>
