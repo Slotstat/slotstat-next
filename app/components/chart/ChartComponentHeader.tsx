@@ -126,7 +126,7 @@ export default function ChartComponentHeader({
           showSmallHeader ? "flex md:hidden" : "flex"
         } absolute top-0 right-0 left-0 h-60 md:h-[328px]`}
       >
-        <Image src={slot} alt="cover" className="h-60 md:h-[328px]" />
+        <Image src={slot} alt="cover" className="h-60 w-full md:h-[328px]" />
         <div className="absolute top-0 right-0 left-0 h-60 md:h-[328px] flex justify-center bg-dark1/90">
           <div className="w-[100%] max-w-screen-xl mt-[63px] px-4 pt-4 pb-2 md:pb-6 md:pt-12 md:px-0">
             <h1 className="text-white md:h-[48px] text-xl font-bold md:mb-4 md:text-3xl ">
