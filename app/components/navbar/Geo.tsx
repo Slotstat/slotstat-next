@@ -100,7 +100,7 @@ const Geo = ({
         <div className="flex flex-row justify-between">
           <div
             onClick={setCurrentLocation}
-            className="text-grey1 bg-grey3 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer"
+            className="text-grey1 bg-grey3 hover:bg-dark3 h-12 w-[147px] items-center justify-center flex py-2 rounded-lg text-xs md:text-base cursor-pointer"
           >
             <p>Current location</p>
           </div>

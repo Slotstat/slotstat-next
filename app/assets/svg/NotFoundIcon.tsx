@@ -1,7 +1,7 @@
 import * as React from "react";
 const NotFoundIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={80} height={80} fill="none">
-    <g clipPath="url(#a)">
+  <svg width={80} height={80} fill="none">
+    <g>
       <path
         fill="#367CFF"
         d="M40 80C62.09 80 80 62.09 80 40S62.09 0 40 0 0 17.909 0 40s17.909 40 40 40Z"
