@@ -44,7 +44,7 @@ const Table = ({
   return (
     <>
       {showFilter && (
-        <div className=" my-3 md:my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
+        <div className="my-3 mr-4 lg:mr-0 md:my-8 flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0 lg:my-6">
           <>
             <div className="flex w-full  justify-between">
               <div className="flex w-full md:w-auto">

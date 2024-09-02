@@ -61,7 +61,7 @@ export default async function Home({ params: { locale } }: Params) {
     <>
       {landingCards && <LiveCards cardsData={landingCards} />}
       <IntroComponent />
-      <div className="my-3 md:my-6 lg:my-12 my">
+      <div className="my-3 md:my-6 lg:my-12 -mr-4 lg:mr-0">
         <TableClientSide showFilter={true} />
       </div>
     </>
