@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import Geo from "./Geo";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { countries } from "@/app/utils/countries";
+import EmojiText from "../ui/EmojiText";
 
 const menuItems = [
   { icon: "🕹️", label: "Slot", path: "/blog/slots" },
@@ -124,7 +125,7 @@ const NavList = () => {
             ${isGeoVisible ? "bg-grey1" : "bg-grey3"}
             `}
         >
-          <span>{initialCountry?.emoji}</span>
+          {initialCountry?.emoji && <EmojiText item={initialCountry} />}
         </div>
         {isGeoVisible && (
           <div ref={geoRef}>

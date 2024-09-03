@@ -206,8 +206,7 @@ type CasinoNamesWithCompareButtonProps = {
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;
 };
-type ActionPaneProps = CasinoNamesWithCompareButtonProps &
-  DateFilterForChartProps;
+type ActionPaneProps = CasinoNamesWithCompareButtonProps & DateFilterForChartProps;
 
 type Type = "AllGames" | "Game";
 interface QueryParamsGamePage extends QueryParams {
@@ -306,10 +305,11 @@ type FloatingButtonsItem = {
 };
 type FloatingButtonsItems = FloatingButtonsItem[];
 
-type countryOrState = { name: string; emoji?: string; code: string };
+type countryOrState = { name: string; emoji?: string; code: string; image: string };
 type country = {
   name: string;
-  emoji?: string;
+  emoji: string;
   states?: countryOrState[];
   code: string;
+  image: string;
 };

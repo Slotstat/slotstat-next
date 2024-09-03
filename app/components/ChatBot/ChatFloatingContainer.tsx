@@ -7,12 +7,11 @@ import {
   Message,
   MessageInput,
   MessageList,
-  MessageSeparator,
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import logo from "../../assets/img/logoSmall.png";
-import Image from "next/image";
+// import logo from "../../assets/img/logoSmall.png";
+// import Image from "next/image";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import {
   createRun,
@@ -20,7 +19,6 @@ import {
   createUserMessage,
   deleteThread,
   getMessages,
-  getThread,
   postSaveThreadIdInBE,
   retrieveRun,
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
@@ -78,14 +76,10 @@ const initialMessage: ChatMessage = {
 export default function ChatFloatingContainer({ setRotated }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const [warningMessage, setWarningMessage] = useState<
-    ChatMessage | undefined
-  >();
+  const [warningMessage, setWarningMessage] = useState<ChatMessage | undefined>();
   const [isTyping, setIsTyping] = useState(false);
 
-  const [threadId, setThreadId] = useState<string | undefined>(
-    getCookie("threadId") || undefined
-  );
+  const [threadId, setThreadId] = useState<string | undefined>(getCookie("threadId") || undefined);
   // const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
@@ -107,6 +101,11 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   };
 
   useEffect(() => {
+    async function getAPI() {
+      // const key = await fetch("../../api/getChatData");
+      // console.log("../../api/getChatData", key);
+    }
+    getAPI();
     mountLoader();
   }, [threadId]);
 
@@ -121,9 +120,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     run_id: string,
     next: (
       threadId: string | undefined,
-      setMessages: React.Dispatch<
-        React.SetStateAction<ChatMessage[]>
-      >,
+      setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
       initialMessage: ChatMessage
     ) => void
   ) {
@@ -167,19 +164,12 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
       setWarningMessage(undefined);
     }
 
-    const createUserMessageData = await createUserMessage(
-      threadId,
-      newMessage
-    );
+    const createUserMessageData = await createUserMessage(threadId, newMessage);
     setMessages([...messages, ...[createUserMessageData]]);
     setIsTyping(true);
     setUserMessage("");
     if (createUserMessageData) {
-      const createdRunData = await createRun(
-        threadId,
-        "asst_fBbZ3QSAzs3Tm45EhkxNxQpx",
-        setRunId
-      );
+      const createdRunData = await createRun(threadId, "asst_fBbZ3QSAzs3Tm45EhkxNxQpx", setRunId);
 
       pollRetrieveRun(threadId, createdRunData.id, getMessages);
     }
@@ -252,16 +242,11 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           userMessage ? "bg-blue1" : "bg-grey1"
         } cursor-pointer`}
       >
-        <ArrowUpWithStickIcon
-          isWriting={userMessage ? true : false}
-        />
+        <ArrowUpWithStickIcon isWriting={userMessage ? true : false} />
       </button>
       <ChatContainer className="lg:h-[561px] lg:w-[403px] h-full w-full ">
         <ConversationHeader className="!bg-blue1 !border-0">
-          <Avatar
-            className="h-full flex items-center justify-center"
-            name="SlotGPT"
-          >
+          <Avatar className="h-full flex items-center justify-center" name="SlotGPT">
             <div className="hidden lg:flex">
               <ChatIcon />
             </div>
@@ -277,9 +262,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           <ConversationHeader.Content>
             <div className="flex items-center justify-between -ml-3.5">
               <div className="flex lg:hidden" />
-              <div className="text-white font-bold font-modernist mr-0 lg:mr-0">
-                SlotGPT
-              </div>
+              <div className="text-white font-bold font-modernist mr-0 lg:mr-0">SlotGPT</div>
 
               {/* //! before release leave this here so testing will be easier  */}
               <button
@@ -315,8 +298,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
             <Message
               key={i}
               model={{
-                direction:
-                  msg.role === "assistant" ? "incoming" : "outgoing",
+                direction: msg.role === "assistant" ? "incoming" : "outgoing",
                 message: msg.content[0].text.value,
                 position: "single",
                 sender: msg.role === "assistant" ? "ChatGPT" : "",
@@ -326,10 +308,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
               data-tooltip-class-name=""
             >
               {msg.role === "assistant" && (
-                <Avatar
-                  name="ChatGPT"
-                  className="h-full flex items-center justify-center"
-                >
+                <Avatar name="ChatGPT" className="h-full flex items-center justify-center">
                   <ChatIcon />
                 </Avatar>
               )}
@@ -338,27 +317,18 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           {warningMessage && (
             <Message
               model={{
-                direction:
-                  warningMessage.role === "assistant"
-                    ? "incoming"
-                    : "outgoing",
+                direction: warningMessage.role === "assistant" ? "incoming" : "outgoing",
                 // message: warningMessage.content[0].text.value,
                 message: `<div class="text-red" style={{color: "red"}}>${warningMessage.content[0].text.value}</div>`,
                 position: "single",
-                sender:
-                  warningMessage.role === "assistant"
-                    ? "ChatGPT"
-                    : "",
+                sender: warningMessage.role === "assistant" ? "ChatGPT" : "",
                 // sentTime: "15 mins ago",
               }}
               className="!bg-transparent red-message"
               data-tooltip-class-name=""
             >
               {warningMessage.role === "assistant" && (
-                <Avatar
-                  name="ChatGPT"
-                  className="h-full flex items-center justify-center"
-                >
+                <Avatar name="ChatGPT" className="h-full flex items-center justify-center">
                   <ChatIcon />
                 </Avatar>
               )}

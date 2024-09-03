@@ -3,9 +3,9 @@
 import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
 import { baseUrl } from "@/lib/baseURL";
 import axios from "axios";
-import { deleteCookie } from "cookies-next";
+// import { deleteCookie } from "cookies-next";
 import { OptionsType } from "cookies-next/lib/types";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 // const bearer = `Bearer sk-k4uT6i_50f1G6is_rOg--sqF6FW7Jzpns_sopgAYuST3BlbkFJe3HX2ZlXIuOYdI3vAqG3B_NobuA24EnuaweT_wHhUA`;
 const bearer = `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`;
