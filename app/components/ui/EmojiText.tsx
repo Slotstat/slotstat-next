@@ -1,10 +1,15 @@
+"use client";
 import twemoji from "twemoji";
-import { useEffect, ReactNode } from "react";
+import { useEffect, ReactNode, useRef } from "react";
 
 export default function EmojiText({ emoji }: { emoji: string }) {
+  const emojiContainerRef = useRef(null);
+
   useEffect(() => {
-    twemoji.parse(document.body);
+    if (emojiContainerRef.current) {
+      twemoji.parse(emojiContainerRef.current);
+    }
   }, []);
 
-  return <span>{emoji}</span>;
+  return <span ref={emojiContainerRef}>{emoji}</span>;
 }
