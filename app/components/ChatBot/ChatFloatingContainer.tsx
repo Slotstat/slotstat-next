@@ -103,7 +103,6 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   useEffect(() => {
     // async function getAPI() {
     //   // const key = await fetch("../../api/getChatData");
-    //   // console.log("../../api/getChatData", key);
     // }
     // getAPI();
     mountLoader();
