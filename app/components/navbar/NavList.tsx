@@ -125,7 +125,7 @@ const NavList = () => {
             ${isGeoVisible ? "bg-grey1" : "bg-grey3"}
             `}
         >
-          {initialCountry?.emoji && <EmojiText emoji={initialCountry?.emoji} />}
+          {initialCountry?.emoji && <EmojiText item={initialCountry} />}
         </div>
         {isGeoVisible && (
           <div ref={geoRef}>

@@ -1,15 +1,41 @@
 "use client";
-import twemoji from "twemoji";
-import { useEffect, ReactNode, useRef } from "react";
+import Image from "next/image";
+import { useEffect, ReactNode, useRef, useState } from "react";
 
-export default function EmojiText({ emoji }: { emoji: string }) {
-  const emojiContainerRef = useRef(null);
+// function checkEmojiSupport() {
+//   if (typeof window !== "undefined") {
+//     if (localStorage.getItem("isEmojiSupported") !== null) {
+//       return JSON.parse(localStorage.getItem("isEmojiSupported"));
+//     }
 
-  useEffect(() => {
-    if (emojiContainerRef.current) {
-      twemoji.parse(emojiContainerRef.current);
-    }
-  }, []);
+//     const context = document.createElement("canvas").getContext("2d");
+//     context.font = "32px Arial";
+//     const text = "😂"; // Test with a common emoji
+//     const width = context.measureText(text).width;
+//     const fallbackWidth = context.measureText("😂").width;
 
-  return <span ref={emojiContainerRef}>{emoji}</span>;
+//     const supported = width !== fallbackWidth;
+//     localStorage.setItem("isEmojiSupported", JSON.stringify(supported));
+//     return supported;
+//   }
+//   return true; // Assume supported in SSR environments
+// }
+
+export default function EmojiText({ item }: { item: country }) {
+  //   const [isEmojiSupported, setIsEmojiSupported] = useState(true);
+
+  //   useEffect(() => {
+  //     setIsEmojiSupported(checkEmojiSupport());
+  //   }, []);
+
+  return (
+    <img src={item.image} className="h-4 w-4" />
+    // <>
+    //   {false ? (
+    //     <span>{item.emoji}</span>
+    //   ) : (
+    // <img src={item.image} className="h-5 w-5" />
+    //   )}
+    // </>
+  );
 }
