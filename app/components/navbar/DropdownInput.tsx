@@ -44,7 +44,7 @@ const DropdownInput = ({
           {chosen ? (
             <div className="font-bold text-xs lg:text-base flex flex-row items-center text-white">
               <div className="mr-2 rounded-full text-base h-8 w-8 bg-dark1 flex items-center justify-center">
-                <EmojiText emoji={chosen.emoji} />
+                <EmojiText item={chosen} />
               </div>
               {chosen.name}
             </div>
@@ -89,7 +89,7 @@ const DropdownInput = ({
                   className="group p-1.5 font-bold flex flex-row text-xs lg:text-base items-center cursor-pointer text-grey1 hover:bg-dark1 rounded-lg"
                 >
                   <div className="group-hover:bg-grey3 text-base mr-2 rounded-full h-8 w-8 bg-dark1 flex items-center justify-center">
-                    <EmojiText emoji={item.emoji} />
+                  <EmojiText item={item} />
                   </div>
                   {item.name}
                 </div>

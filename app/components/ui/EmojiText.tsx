@@ -1,10 +1,7 @@
-import twemoji from "twemoji";
-import { useEffect, ReactNode } from "react";
-
-export default function EmojiText({ emoji }: { emoji: string }) {
-  useEffect(() => {
-    twemoji.parse(document.body);
-  }, []);
-
-  return <span>{emoji}</span>;
+export default function EmojiText({ item }: { item: country }) {
+  return (
+    <span>
+      <img src={item.image} alt={item.name} className="h-4 w-4" />
+    </span>
+  );
 }
