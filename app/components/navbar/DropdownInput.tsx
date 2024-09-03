@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { search } from "@/app/assets";
 import ArrowDown from "@/app/assets/svg/ArrowDown";
+import EmojiText from "../ui/EmojiText";
 
 const DropdownInput = ({
   title,
@@ -43,7 +44,7 @@ const DropdownInput = ({
           {chosen ? (
             <div className="font-bold text-xs lg:text-base flex flex-row items-center text-white">
               <div className="mr-2 rounded-full text-base h-8 w-8 bg-dark1 flex items-center justify-center">
-                <span>{chosen.emoji}</span>
+                <EmojiText emoji={chosen.emoji} />
               </div>
               {chosen.name}
             </div>
@@ -88,7 +89,7 @@ const DropdownInput = ({
                   className="group p-1.5 font-bold flex flex-row text-xs lg:text-base items-center cursor-pointer text-grey1 hover:bg-dark1 rounded-lg"
                 >
                   <div className="group-hover:bg-grey3 text-base mr-2 rounded-full h-8 w-8 bg-dark1 flex items-center justify-center">
-                    <span>{item.emoji}</span>
+                    <EmojiText emoji={item.emoji} />
                   </div>
                   {item.name}
                 </div>
