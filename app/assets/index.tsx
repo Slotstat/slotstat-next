@@ -17,9 +17,9 @@ import live from "./svg/live.svg";
 import logo from "./svg/logo.svg";
 import menu from "./svg/menu.svg";
 import remove from "./svg/remove.svg";
-import search from "./img/search.png";
 import redX from "./svg/redX.svg";
 
+import search from "./img/search.png";
 import slotLogo from "./img/slotLogo.png";
 import moneyBag from "./img/moneyBag.png";
 import cookie from "./img/cookie.png";

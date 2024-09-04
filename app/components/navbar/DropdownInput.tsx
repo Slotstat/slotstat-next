@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { search } from "@/app/assets";
-import ArrowDown from "@/app/assets/svg/ArrowDown";
+
 import EmojiText from "../ui/EmojiText";
+import { ArrowDown } from "@/app/assets/svg/SVGComponents";
 
 const DropdownInput = ({
   title,

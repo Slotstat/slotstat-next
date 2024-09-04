@@ -5,14 +5,21 @@ import { redX, search } from "../../assets";
 import Image from "next/image";
 import _ from "lodash";
 import { useTranslations } from "next-intl";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
-import ArrowUp from "@/app/assets/svg/ArrowUp";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition,
+} from "@headlessui/react";
+import { ArrowUp } from "@/app/assets/svg/SVGComponents";
+
 
 const debounce = 1000;
 
 const SORT_BY = [
   { label: "Crypto", id: "0", value: "false" },
-  { label: "Fiat", id: "0", value: "true" },
+  { label: "Fiat", id: "1", value: "true" },
 ];
 export const SearchAndCryptoSwitch = ({
   setCasinoFilter,
@@ -55,10 +62,7 @@ export const SearchAndCryptoSwitch = ({
 
   return (
     <div className={`z-1 relative input w-full md:w-96 border-grey1 flex`}>
-      <Listbox
-        value={selected}
-        onChange={(item) => cryptoFiatSwitcher(item.value)}
-      >
+      <Listbox value={selected} onChange={(item) => cryptoFiatSwitcher(item.value)}>
         {({ open }) => (
           <div className="relative">
             <ListboxButton
@@ -66,18 +70,11 @@ export const SearchAndCryptoSwitch = ({
                 open ? "border-blue1" : "border-grey1"
               } w-full h-10 cursor-default rounded-l-lg bg-dark1 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:ring-2  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 text-xs lg:text-sm`}
             >
-              <span
-                title={selected.label}
-                className="block truncate text-white"
-              >
+              <span title={selected.label} className="block truncate text-white">
                 {selected.label}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                <span
-                  className={`origin-center  duration-150 ${
-                    open ? "" : "rotate-180"
-                  }`}
-                >
+                <span className={`origin-center  duration-150 ${open ? "" : "rotate-180"}`}>
                   <ArrowUp />
                 </span>
               </span>
@@ -93,7 +90,7 @@ export const SearchAndCryptoSwitch = ({
                   <ListboxOption
                     key={i}
                     className={({ active, selected }) =>
-                      `relative cursor-pointer select-none  mx-1 py-2  px-2 rounded-md ${
+                      `relative cursor-pointer select-none mx-1 py-2  px-2 rounded-md ${
                         active ? "bg-dark1 text-blue2" : "text-white"
                       } `
                     }
@@ -101,10 +98,7 @@ export const SearchAndCryptoSwitch = ({
                   >
                     {({ selected }) => (
                       <>
-                        <span
-                          title={item.label}
-                          className={`block truncate text-xs md:text-base `}
-                        >
+                        <span title={item.label} className={`block truncate text-xs md:text-base `}>
                           {item.label}
                         </span>
                       </>
