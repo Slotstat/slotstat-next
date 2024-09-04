@@ -302,6 +302,7 @@ type FloatingButtonsItem = {
   id: string;
   value: string;
   width: string;
+  hint?: string;
 };
 type FloatingButtonsItems = FloatingButtonsItem[];
 

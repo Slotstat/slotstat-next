@@ -24,9 +24,10 @@ import {
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
 import ChatIcon from "@/app/assets/svg/ChatIcon";
 import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
-import ArrowUpWithStickIcon from "@/app/assets/svg/ArrowUpWithStickIcon";
+
 import moment from "moment";
-import { ArrowLeft } from "@/app/assets/svg/ArrowLeft";
+import { ArrowLeft, ArrowUpWithStickIcon } from "@/app/assets/svg/SVGComponents";
+
 
 type Props = {
   setRotated: (e: boolean) => void;

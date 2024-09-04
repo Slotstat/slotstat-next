@@ -1,8 +1,6 @@
 import { Link } from "@/navigation";
 import React, { useState } from "react";
-import ArrowUp from "../assets/svg/ArrowUp";
-import ArrowDown from "../assets/svg/ArrowDown";
-
+import { ArrowDown, Checkmark } from "../assets/svg/SVGComponents";
 const FloatingButtons = ({
   select,
   selected,
@@ -19,8 +17,8 @@ const FloatingButtons = ({
     <div
       className={`flex z-10 cursor-pointer md:hidden shadow-[0_0px_15px_2px_rgba(88,135,246,0.2)] fixed bottom-10 left-1/2 transform -translate-x-1/2 h-10 bg-blue1 text-white
     font-bold text-xs transition-all duration-500 ease-in-out overflow-hidden 
-     flex-col items-center justify-around px-3 rounded-lg ${
-       isDropdownOpened && "h-32 w-40"
+     flex-col  justify-around px-3 py-1.5 rounded-lg w-48 ${
+       isDropdownOpened && "h-32"
      } ${selected.width}`}
     >
       {isDropdownOpened ? (
@@ -33,7 +31,7 @@ const FloatingButtons = ({
             if (select) {
               return (
                 <div
-                  className="text-center h-8 flex items-center justify-center "
+                  className=" py-1.5 flex justify-between  "
                   key={item.value}
                   onClick={() => {
                     select(item);
@@ -41,7 +39,13 @@ const FloatingButtons = ({
                     setIsDropdownOpened(false);
                   }}
                 >
-                  {item.label}
+                  <span>
+                    <span>{item.label}</span>
+                    {item.hint && (
+                      <span className="text-[#D0DDFC] font-normal ml-1">{item.hint}</span>
+                    )}
+                  </span>
+                  {selected.label === item.label && <Checkmark />}
                 </div>
               );
             } else {
@@ -63,13 +67,13 @@ const FloatingButtons = ({
         </div>
       ) : (
         <div
-          className="text-center h-8 flex items-center justify-center  "
+          className="w-full text-center h-8 flex flex-row items-center justify-between  "
           onClick={() => {
             setTimeout(() => setIsVisible(true), 300);
             setIsDropdownOpened(true);
           }}
         >
-          {selected.label} <ArrowDown />
+          <span>{selected.label}</span> <ArrowDown />
         </div>
       )}
     </div>
