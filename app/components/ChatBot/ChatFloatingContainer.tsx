@@ -28,7 +28,6 @@ import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
 import moment from "moment";
 import { ArrowLeft, ArrowUpWithStickIcon } from "@/app/assets/svg/SVGComponents";
 
-
 type Props = {
   setRotated: (e: boolean) => void;
 };
@@ -102,11 +101,11 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   };
 
   useEffect(() => {
-    // async function getAPI() {
-    //   // const key = await fetch("../../api/getChatData");
-    //   // console.log("../../api/getChatData", key);
-    // }
-    // getAPI();
+    async function getAPI() {
+      const key = await fetch("/api/chat");
+      console.log("11111", key);
+    }
+    getAPI();
     mountLoader();
   }, [threadId]);
 

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { ChatMessage } from "@/app/components/ChatBot/ChatFloatingContainer";
 import { baseUrl } from "@/lib/baseURL";
