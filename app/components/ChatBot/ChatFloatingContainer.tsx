@@ -19,7 +19,7 @@ import {
   createUserMessage,
   deleteThread,
   getMessages,
-  postSaveThreadIdInBE,
+  // postSaveThreadIdInBE,
   retrieveRun,
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
 import ChatIcon from "@/app/assets/svg/ChatIcon";
@@ -93,7 +93,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
       const threadData = await createThread(setThreadId, setCookie);
       if (threadData) {
         // threadData.created_at
-        postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
+        // postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
       }
     }
 
@@ -102,8 +102,8 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
 
   useEffect(() => {
     async function getAPI() {
-      const key = await fetch("/api/chat");
-      console.log("11111", key);
+      const data = await fetch("/api/chat");
+      console.log("11111", data.json());
     }
     getAPI();
     mountLoader();
@@ -298,16 +298,16 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
             <Message
               key={i}
               model={{
-                direction: msg.role === "assistant" ? "incoming" : "outgoing",
-                message: msg.content[0].text.value,
+                direction: msg?.role === "assistant" ? "incoming" : "outgoing",
+                message: msg?.content[0].text.value,
                 position: "single",
-                sender: msg.role === "assistant" ? "ChatGPT" : "",
+                sender: msg?.role === "assistant" ? "ChatGPT" : "",
                 // sentTime: "15 mins ago",
               }}
               className="!bg-transparent"
               data-tooltip-class-name=""
             >
-              {msg.role === "assistant" && (
+              {msg?.role === "assistant" && (
                 <Avatar name="ChatGPT" className="h-full flex items-center justify-center">
                   <ChatIcon />
                 </Avatar>
