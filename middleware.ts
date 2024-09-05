@@ -42,7 +42,7 @@ export default async function middleware(request: NextRequest) {
     cloudflareCountry && response.cookies.set("country", cloudflareCountry);
     region && response.cookies.set("region", region);
   }
-  country && response.cookies.set("currentLocCountry", cloudflareCountry);
+  cloudflareCountry && response.cookies.set("currentLocCountry", cloudflareCountry);
   region && response.cookies.set("currentLocRegion", region);
 
 
