@@ -43,7 +43,7 @@ export default async function middleware(request: NextRequest) {
 
   if (!countryFromCookie) {
     country && response.cookies.set("country", country);
-    region && response.cookies.set("region", region);
+    // region && response.cookies.set("region", region);
   }
   country && response.cookies.set("currentLocCountry", country);
   region && response.cookies.set("currentLocRegion", region);
