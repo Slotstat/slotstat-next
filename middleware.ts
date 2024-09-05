@@ -17,6 +17,7 @@ export default async function middleware(request: NextRequest) {
 
   const country1 = request.headers.get("CF-IPCountry");
   const region1 = request.headers.get("CF-IPRegion") || "unknown";
+  const city1 = request.headers.get("CF-IPCity") || "unknown";
 
   // Step 1: Use the incoming request
   const defaultLocale = request.headers.get("x-default-locale") || "en";
@@ -60,6 +61,7 @@ export default async function middleware(request: NextRequest) {
   // Step 3: Alter the response
   response.headers.set("X-User-Country", country1 || "unknown");
   response.headers.set("X-User-region", region1 || "unknown");
+  response.headers.set("X-User-city", city1 || "unknown");
   response.headers.set("x-default-locale", defaultLocale);
   NextResponse.rewrite(url);
   return response;
