@@ -91,6 +91,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     } else {
       const threadData = await createThread(setThreadId, setCookie);
       if (threadData) {
+        console.log("threadData", threadData?.id, threadData?.created_at);
         postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
       }
     }

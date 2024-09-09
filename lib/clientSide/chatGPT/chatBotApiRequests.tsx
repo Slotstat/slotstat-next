@@ -38,10 +38,9 @@ export async function createThread(
     const response = await axios.post("/api/chat/thread", {});
 
     const data = await response;
-    console.log("data111", data);
     setThreadId(data.data.data.id);
     setCookie("threadId", data.data.data.id);
-    return data;
+    return data.data.data;
   } catch (error) {
     console.error(error);
   }
