@@ -8,22 +8,15 @@ import countries from "./lib/countries.json";
 export default async function middleware(request: NextRequest) {
   const { nextUrl: url, geo } = request;
 
-  const country = geo.country || "GE";
-
-  // const city = geo.city || "San Francisco";
+  const cloudflareCountry = request.headers.get("CF-IPCountry");
+  const vercelCountry = geo.country || "GE";
   const region = geo.region || "TB";
 
-  const countryInfo = countries.find((x) => x.cca2 === country);
+  // const countryInfo = countries.find((x) => x.cca2 === country);
 
-  // const currencyCode = Object.keys(countryInfo.currencies)[0];
-  // const currency = countryInfo.currencies[currencyCode];
-  // const languages = Object.values(countryInfo.languages).join(", ");
-
-  // const country1 = request.headers.get('cf-ipcountry') || 'Unknown'
 
   // Step 1: Use the incoming request
-  const defaultLocale =
-    request.headers.get("x-default-locale") || "en";
+  const defaultLocale = request.headers.get("x-default-locale") || "en";
 
   // Step 2: Create and call the next-intl middleware
   const handleI18nRouting = createIntlMiddleware({
@@ -46,15 +39,12 @@ export default async function middleware(request: NextRequest) {
   }
 
   if (!countryFromCookie) {
-    country && response.cookies.set("country", country);
+    cloudflareCountry && response.cookies.set("country", cloudflareCountry);
     region && response.cookies.set("region", region);
   }
-  country && response.cookies.set("currentLocCountry", country);
-    region && response.cookies.set("currentLocRegion", region);
+  cloudflareCountry && response.cookies.set("currentLocCountry", cloudflareCountry);
+  region && response.cookies.set("currentLocRegion", region);
 
-  // city && response.cookies.set("city", city);
-
-  // response.headers.set('testcountry1', country1)
 
   // response.headers.set("country", country);
   // response.headers.set("city", city);
@@ -64,6 +54,9 @@ export default async function middleware(request: NextRequest) {
   // response.headers.set("name", currency.name);
   // response.headers.set("languages", languages);
   // Step 3: Alter the response
+  // response.headers.set("X-User-Country", country1 || "unknown");
+  // response.headers.set("X-User-region", region1 || "unknown");
+  // response.headers.set("X-User-city", city1 || "unknown");
   response.headers.set("x-default-locale", defaultLocale);
   NextResponse.rewrite(url);
   return response;

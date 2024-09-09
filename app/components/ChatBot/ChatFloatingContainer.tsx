@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Avatar,
@@ -19,7 +18,7 @@ import {
   createUserMessage,
   deleteThread,
   getMessages,
-  // postSaveThreadIdInBE,
+  postSaveThreadIdInBE,
   retrieveRun,
 } from "@/lib/clientSide/chatGPT/chatBotApiRequests";
 import ChatIcon from "@/app/assets/svg/ChatIcon";
@@ -92,28 +91,12 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     } else {
       const threadData = await createThread(setThreadId, setCookie);
       if (threadData) {
-        // threadData.created_at
-        // postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
+        postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
       }
     }
 
     setMessages([initialMessage]);
   };
-
-  useEffect(() => {
-    async function getAPI() {
-      const data = await fetch("/api/chat");
-      console.log("11111", data.json());
-    }
-    getAPI();
-    mountLoader();
-  }, [threadId]);
-
-  //! before release we'll keep it like this. it always removes any cookied thread ids
-  // useEffect(() => {
-  //   const threadId = getCookie("threadId");
-  //   deleteThread(threadId, deleteCookie);
-  // }, []);
 
   function pollRetrieveRun(
     threadId: string | undefined,
@@ -126,12 +109,13 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   ) {
     const intervalId = setInterval(async () => {
       const data = await retrieveRun(threadId, run_id);
+
       if (data?.status === "completed") {
         clearInterval(intervalId);
         next(threadId, setMessages, initialMessage);
         setIsTyping(false);
       }
-    }, 500);
+    }, 700);
   }
 
   const handleNewUserMessage = async (newMessage: string) => {
@@ -152,7 +136,6 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           60 - minutesPassed
         } minutes!`;
 
-        // console.log("-0-0-0-0", [...[initialMessageWarning], ...messages]);
         setWarningMessage(initialMessageWarning);
 
         return;
@@ -175,55 +158,9 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     }
   };
 
-  // const [viewportHeight, setViewportHeight] = useState("100vh");
-
-  // useEffect(() => {
-  //   const KEYBOARD_THRESHOLD = 0; // Adjust this value as needed
-
-  //   const detectKeyboard = () => {
-  //     if (typeof window !== "undefined") {
-  //       const currentViewportHeight =
-  //         window.visualViewport?.height || window.innerHeight;
-  //       const initialViewportHeight = window.screen.height;
-  //       if (window.innerWidth < 768) {
-  //         if (
-  //           initialViewportHeight - currentViewportHeight >
-  //           KEYBOARD_THRESHOLD
-  //         ) {
-  //           setViewportHeight(`${currentViewportHeight}px`);
-  //           window.scrollTo(0, 0);
-  //         } else {
-  //           setViewportHeight("100vh");
-  //         }
-  //       } else {
-  //         setViewportHeight("");
-  //       }
-  //     }
-  //   };
-
-  //   // Initial check
-  //   detectKeyboard();
-
-  //   // Set up event listeners
-  //   window.addEventListener("resize", detectKeyboard);
-  //   if (window.visualViewport) {
-  //     window.visualViewport.addEventListener(
-  //       "resize",
-  //       detectKeyboard
-  //     );
-  //   }
-
-  //   // Cleanup
-  //   return () => {
-  //     window.removeEventListener("resize", detectKeyboard);
-  //     if (window.visualViewport) {
-  //       window.visualViewport.removeEventListener(
-  //         "resize",
-  //         detectKeyboard
-  //       );
-  //     }
-  //   };
-  // }, []);
+  useEffect(() => {
+    mountLoader();
+  }, [threadId]);
 
   return (
     <div
