@@ -26,6 +26,7 @@ import NewConvoIcon from "@/app/assets/svg/NewConvoIcon";
 
 import moment from "moment";
 import { ArrowLeft, ArrowUpWithStickIcon } from "@/app/assets/svg/SVGComponents";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 type Props = {
   setRotated: (e: boolean) => void;
@@ -82,14 +83,24 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
   // const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const [runId, setRunId] = useState<string | undefined>(undefined);
   const [userMessage, setUserMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const messageInputRef = useRef(null);
 
   const mountLoader = async () => {
+    setLoading(true);
+
     if (threadId) {
-      getMessages(threadId, setMessages, initialMessage);
+      const messages = await getMessages(threadId);
+
+      setTimeout(() => {
+        setMessages([...[initialMessage], ...messages.data]);
+        setLoading(false);
+      }, 100);
     } else {
       const threadData = await createThread(setThreadId, setCookie);
+      setLoading(false);
+
       if (threadData) {
         postSaveThreadIdInBE(threadData?.id, threadData?.created_at);
       }
@@ -98,24 +109,17 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     setMessages([initialMessage]);
   };
 
-  function pollRetrieveRun(
-    threadId: string | undefined,
-    run_id: string,
-    next: (
-      threadId: string | undefined,
-      setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
-      initialMessage: ChatMessage
-    ) => void
-  ) {
+  function pollRetrieveRun(threadId: string | undefined, run_id: string) {
     const intervalId = setInterval(async () => {
       const data = await retrieveRun(threadId, run_id);
 
       if (data?.status === "completed") {
         clearInterval(intervalId);
-        next(threadId, setMessages, initialMessage);
+        const messages = await getMessages(threadId);
+        setMessages([...[initialMessage], ...messages.data]);
         setIsTyping(false);
       }
-    }, 700);
+    }, 500);
   }
 
   const handleNewUserMessage = async (newMessage: string) => {
@@ -231,26 +235,46 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           }
         >
           {/* <MessageSeparator className="!bg-dark2 " content="Today" /> */}
-          {messages.map((msg, i) => (
-            <Message
-              key={i}
-              model={{
-                direction: msg?.role === "assistant" ? "incoming" : "outgoing",
-                message: msg?.content[0].text.value,
-                position: "single",
-                sender: msg?.role === "assistant" ? "ChatGPT" : "",
-                // sentTime: "15 mins ago",
-              }}
-              className="!bg-transparent"
-              data-tooltip-class-name=""
-            >
-              {msg?.role === "assistant" && (
-                <Avatar name="ChatGPT" className="h-full flex items-center justify-center">
-                  <ChatIcon />
-                </Avatar>
-              )}
-            </Message>
-          ))}
+          {loading ? (
+            <SkeletonTheme baseColor="#24262C" highlightColor="#444">
+              <section className=" w-full">
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+                <Skeleton count={1} className="h-14 mb-5 col-span-1 " />
+              </section>
+            </SkeletonTheme>
+          ) : (
+            <>
+              {messages.map((msg, i) => (
+                <Message
+                  key={i}
+                  model={{
+                    direction: msg?.role === "assistant" ? "incoming" : "outgoing",
+                    message: msg?.content[0].text.value,
+                    position: "single",
+                    sender: msg?.role === "assistant" ? "ChatGPT" : "",
+                    // sentTime: "15 mins ago",
+                  }}
+                  className="!bg-transparent"
+                  data-tooltip-class-name=""
+                >
+                  {msg?.role === "assistant" && (
+                    <Avatar name="ChatGPT" className="h-full flex items-center justify-center">
+                      <ChatIcon />
+                    </Avatar>
+                  )}
+                </Message>
+              ))}
+            </>
+          )}
           {warningMessage && (
             <Message
               model={{

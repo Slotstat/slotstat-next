@@ -116,17 +116,12 @@ export async function retrieveRun(threadId: string | undefined, run_id: string) 
   }
 }
 
-export async function getMessages(
-  threadId: string | undefined,
-  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
-  initialMessage: ChatMessage
-) {
+export async function getMessages(threadId: string | undefined) {
   if (!threadId) return;
   try {
     const response = await fetch(`/api/chat/messages?threadId=${threadId}`);
     const data = await response.json();
-
-    setMessages([...[initialMessage], ...data.data]);
+    return data;
   } catch (error) {
     console.error(error);
     return "error";
