@@ -158,7 +158,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
     if (createUserMessageData) {
       const createdRunData = await createRun(threadId, "asst_fBbZ3QSAzs3Tm45EhkxNxQpx", setRunId);
 
-      pollRetrieveRun(threadId, createdRunData.id, getMessages);
+      pollRetrieveRun(threadId, createdRunData.id);
     }
   };
 
