@@ -45,15 +45,12 @@ export default function ChartCasinoAndGameWrapper({
   casinoCardsData: Promise<Card[]>;
   casinoBonuses: any;
 }) {
-  const [compareGameIdQuery, setCompareGameIdQuery] =
-    useQueryState("compareGameId");
+  const [compareGameIdQuery, setCompareGameIdQuery] = useQueryState("compareGameId");
 
   const [screen, setScreen] = useState("slot");
   const [loading, setLoading] = useState(false);
   const [blogArticle, setBlogArticle] = useState<fullBlog | undefined>();
-  const [compareGameClient, setCompareGame] = useState<GameData | undefined>(
-    undefined
-  );
+  const [compareGameClient, setCompareGame] = useState<GameData | undefined>(undefined);
 
   const changeScreen = (GameScreenState: string) => {
     setScreen(GameScreenState);
@@ -61,8 +58,7 @@ export default function ChartCasinoAndGameWrapper({
 
   const getCompareCasino = useCallback(async () => {
     if (compareGameIdQuery) {
-      const compareGameData: Promise<GameData> =
-        getSingleGameClientSide(compareGameIdQuery);
+      const compareGameData: Promise<GameData> = getSingleGameClientSide(compareGameIdQuery);
       const compareGame = await compareGameData;
       setCompareGame(compareGame);
     }
@@ -72,9 +68,7 @@ export default function ChartCasinoAndGameWrapper({
     const callServerSideSanity = async (category: string, title: string) => {
       setLoading(true);
       const res = await fetch(
-        `/api/blogPost?category=${encodeURIComponent(
-          category
-        )}&title=${encodeURIComponent(title)}`
+        `/api/blogPost?category=${encodeURIComponent(category)}&title=${encodeURIComponent(title)}`
       );
       const data = await res.json();
       setBlogArticle(data);
@@ -184,9 +178,9 @@ export default function ChartCasinoAndGameWrapper({
             </div>
           )}
           <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-12 ">
-            Activate bonuses and promotions by clicking either the 'Get Bonus'
-            or 'Read More' button on the corresponding card. Explore exclusive
-            rewards and enhance your gaming journey now!
+            Activate bonuses and promotions by clicking either the 'Get Bonus' or 'Read More' button
+            on the corresponding card. Explore exclusive rewards and enhance your gaming journey
+            now!
             {/* <div dangerouslySetInnerHTML={{ __html: casino.additionalInfo }} /> */}
           </div>
           <BonusCards cardsData={casinoBonuses} />
