@@ -61,8 +61,7 @@ export default function TableClientSide({
   blogSearchFromTitle,
   showSearch,
 }: TableWrapperProps) {
-  const { gamesList, setGames, handleRecall, setHandleRecall } =
-    useGamesListStore();
+  const { gamesList, setGames, handleRecall, setHandleRecall } = useGamesListStore();
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [firstPageIds, setFirstPageIds] = useState<string>("");
@@ -70,13 +69,11 @@ export default function TableClientSide({
   const [orderBy] = useQueryState("orderBy");
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
-  const [hasComponentMounted, setHasComponentMounted] =
-    useState(false);
+  const [hasComponentMounted, setHasComponentMounted] = useState(false);
 
   const getGames = async (page?: string) => {
     setLoading(true);
-    const checkedKeyword =
-      keyWord || keyWordBottomsheet || blogSearchFromTitle;
+    const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
 
     const gamesListData: Promise<gamesList> = getGameListClientSide({
@@ -93,58 +90,41 @@ export default function TableClientSide({
     // saves first page games ids in a state
     if (games.currentPage === 1 && firstPageIds === "") {
       let firstPageGameIds: string = "";
-      games.results.map(
-        (game) =>
-          (firstPageGameIds =
-            firstPageGameIds + `&ids=${game.gameId}`)
-      );
+      games.results.map((game) => (firstPageGameIds = firstPageGameIds + `&ids=${game.gameId}`));
       setFirstPageIds(firstPageGameIds);
     }
 
     if (checkedOrderBy === "spsH") {
-      const filteredGames = games.results.filter(
-        (item) => item.sps > 0
-      );
+      const filteredGames = games.results.filter((item) => item.sps > 0);
 
       games.results = filteredGames;
     }
     if (checkedOrderBy === "spsL") {
-      const filteredGames = games.results.filter(
-        (item) => item.sps < 0
-      );
+      const filteredGames = games.results.filter((item) => item.sps < 0);
       games.results = filteredGames;
     }
 
     if (gameId) {
-      const removeIndex = games.results
-        .map((item) => item.gameId)
-        .indexOf(gameId);
+      const removeIndex = games.results.map((item) => item.gameId).indexOf(gameId);
       ~removeIndex && games.results.splice(removeIndex, 1);
     }
 
     // check if game has everything to be visible
-    const filteredGames = games.results.filter((item) =>
-      checkRenderOrNot(item)
-    );
+    const filteredGames = games.results.filter((item) => checkRenderOrNot(item));
 
     const toLowerCase = (text: string) => text.toLocaleLowerCase();
 
     const excludeGamesForBlog = filteredGames.filter((item) => {
       if (blogSearchFromTitle) {
         return (
-          toLowerCase(item.name) ===
-            toLowerCase(blogSearchFromTitle) ||
-          toLowerCase(item.casinoName) ===
-            toLowerCase(blogSearchFromTitle) ||
-          toLowerCase(item.provider) ===
-            toLowerCase(blogSearchFromTitle)
+          toLowerCase(item.name) === toLowerCase(blogSearchFromTitle) ||
+          toLowerCase(item.casinoName) === toLowerCase(blogSearchFromTitle) ||
+          toLowerCase(item.provider) === toLowerCase(blogSearchFromTitle)
         );
       }
     });
 
-    games.results = blogSearchFromTitle
-      ? excludeGamesForBlog
-      : filteredGames;
+    games.results = blogSearchFromTitle ? excludeGamesForBlog : filteredGames;
     setGames(games);
     setLoading(false);
   };

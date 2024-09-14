@@ -27,6 +27,7 @@ const AuthComponent = () => {
       childRef.current.focus();
     }
   }, [childRef]);
+  
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-[311px] w-full flex flex-col items-start mb-6 mt-3">

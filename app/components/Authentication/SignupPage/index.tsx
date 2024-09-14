@@ -9,7 +9,7 @@ import ButtonComp from "../ButtonComp";
 import { cookie, image18, policy } from "@/app/assets";
 import Link from "next/link";
 
-const SignupPage = () => {
+const SignUpPage = () => {
   const childRef = useRef<{ focus: () => void }>(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -127,4 +127,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SignUpPage;

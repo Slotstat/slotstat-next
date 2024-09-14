@@ -15,6 +15,7 @@ import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import ChatBot from "../components/ChatBot";
+import { Providers } from "../providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
@@ -22,8 +23,7 @@ export const metadata: Metadata = {
     default: "SlotStat",
     template: `%s | SlotStat`,
   },
-  description:
-    "Unique platform which gives you opportunity to choose where to play and win! ",
+  description: "Unique platform which gives you opportunity to choose where to play and win! ",
   verification: {
     google: "bPl9dfYMLYDqQzT7LjnCi9JNyWR_MBqfqE9JFFMaC_U",
   },
@@ -79,40 +79,40 @@ export default async function RootLayout({
       {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
       <GoogleTagManager gtmId="GTM-TNKZW6GT" />
       <body suppressHydrationWarning={true}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main className="flex justify-center mt-[87px]">
-            <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">
-              {children}
-            </div>
-          </main>
-          <Footer />
-          <JackpotNotification />
-          <ChatBot />
-          <CookieNotification uniqueId={uniqueId} />
-          <TooltipClientSide />
-        </NextIntlClientProvider>
+        <Providers>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header />
+            <main className="flex justify-center mt-[87px]">
+              <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">{children}</div>
+            </main>
+            <Footer />
+            <JackpotNotification />
+            <ChatBot />
+            <CookieNotification uniqueId={uniqueId} />
+            <TooltipClientSide />
+          </NextIntlClientProvider>
+        </Providers>
       </body>
       {/* <script
         type="text/javascript"
         src="https://betfury.bet/sources/d4c09e4f7.js"
         async
-      ></script> */}
+        ></script> */}
       <Script
         id="fb-pixel"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-               !function(f,b,e,v,n,t,s)
-               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-               if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-               n.queue=[];t=b.createElement(e);t.async=!0;
-               t.src=v;s=b.getElementsByTagName(e)[0];
-               s.parentNode.insertBefore(t,s)}(window, document,'script',
-               'https://connect.facebook.net/en_US/fbevents.js');
-               fbq('init', '7159413720830778');
-               fbq('track', 'PageView');
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '7159413720830778');
+          fbq('track', 'PageView');
           `,
         }}
       />
