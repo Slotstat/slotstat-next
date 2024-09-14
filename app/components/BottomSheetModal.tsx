@@ -94,7 +94,6 @@ const BottomSheetModal = ({
             <TableClientSide
               // directionBottomsheet={direction}
               showFilter={true}
-              showCryptoFiatSwitcher={true}
               keyWordBottomsheet={keyWord}
               orderByBottomsheet={orderBy}
               isFiatBottomsheet={isFiatState}

@@ -30,17 +30,17 @@ export default function FiatCryptoButton({
       onClick={click}
       className={`
       ${active || isHovered ? "bg-blue3" : "bg-grey3"} 
-      ${className}
-      text-gray-800 px-4 rounded-lg inline-flex items-center `}
+      text-gray-800  rounded-lg inline-flex items-center 
+      ${className}`}
     >
       <span
-        className={`${
-          active ? "text-blue1" : isHovered ? "text-white" : "text-grey1"
-        } leading-6 `}
+        className={`${active ? "text-blue1" : isHovered ? "text-white" : "text-grey1"} leading-6 `}
       >
         {title}
       </span>
-      {imgSrc && <img src={imgSrc} width={24} height={24} className="ml-2" />}
+      {imgSrc && (
+        <img src={imgSrc} width={24} height={24} className="ml-2" />
+      )}
     </button>
   );
 }

@@ -437,8 +437,8 @@ const ChartComponent = ({
       <div className="flex flex-row flex-wrap mt-36 md:mt-64">
         <div className="w-full py-6 lg:pr-3 lg:pt-12 lg:pb-6 lg:w-3/4">
           <div className="flex flex-col lg:items-center lg:justify-between lg:flex-row">
-            <div className="flex flex-row items-center ">
-              <h2 className="flex flex-1 items-center  lg:text-[24px] font-bold text-white ">
+            <div className="flex flex-row items-center justify-start ">
+              <h2 className="flex items-center  lg:text-2xl font-bold text-white ">
                 {t("gamePage.Win-spinRate")}
               </h2>
 

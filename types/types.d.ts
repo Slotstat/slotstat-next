@@ -206,8 +206,7 @@ type CasinoNamesWithCompareButtonProps = {
   compareGameObject: GameData | undefined;
   mainGameObject: GameData | undefined;
 };
-type ActionPaneProps = CasinoNamesWithCompareButtonProps &
-  DateFilterForChartProps;
+type ActionPaneProps = CasinoNamesWithCompareButtonProps & DateFilterForChartProps;
 
 type Type = "AllGames" | "Game";
 interface QueryParamsGamePage extends QueryParams {
@@ -255,10 +254,10 @@ type TableWrapperProps = {
   isFiatBottomsheet?: string;
   setSearchKeyInBottomSheet?: (text: string) => void;
   setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
-  showCryptoFiatSwitcher?: boolean;
   setIsFiatState?: (text: string) => void;
   gameId?: string;
   blogSearchFromTitle?: string;
+  showSearch?: boolean;
 };
 
 interface TableProps extends TableWrapperProps {
@@ -303,6 +302,7 @@ type FloatingButtonsItem = {
   id: string;
   value: string;
   width: string;
+  hint?: string;
 };
 type FloatingButtonsItems = FloatingButtonsItem[];
 
@@ -324,3 +324,11 @@ interface Props {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: any;
 }
+type countryOrState = { name: string; emoji?: string; code: string; image: string };
+type country = {
+  name: string;
+  emoji: string;
+  states?: countryOrState[];
+  code: string;
+  image: string;
+};

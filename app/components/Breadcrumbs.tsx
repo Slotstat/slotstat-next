@@ -14,31 +14,37 @@ export default function Breadcrumbs({
         Home
       </Link>
 
-      {breadcrumbs.map((item, index) => (
-        <>
-          <ForwardIcon color="#FFFFFF66" size={18} />
-          {item.url ? (
-            <Link
-              key={index}
-              href={item.url}
-              className={`${
-                index === breadcrumbs.length - 1 ? "text-white" : "text-opaque1"
-              } mx-2`}
-            >
-              {item.name}
-            </Link>
-          ) : (
-            <p
-              key={index}
-              className={`${
-                index === breadcrumbs.length - 1 ? "text-white" : "text-opaque1"
-              } mx-2 cursor-default`}
-            >
-              {item.name}
-            </p>
-          )}
-        </>
-      ))}
+      {breadcrumbs.map((item, index) => {
+        return (
+          <>
+            <ForwardIcon color="#FFFFFF66" size={18} />
+            {item.url ? (
+              <Link
+                key={index}
+                href={item.url}
+                className={`${
+                  index === breadcrumbs.length - 1
+                    ? "text-white"
+                    : "text-opaque1"
+                } mx-2`}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <p
+                key={index}
+                className={`${
+                  index === breadcrumbs.length - 1
+                    ? "text-white"
+                    : "text-opaque1"
+                } mx-2 cursor-default`}
+              >
+                {item.name}
+              </p>
+            )}
+          </>
+        );
+      })}
     </div>
   );
 }

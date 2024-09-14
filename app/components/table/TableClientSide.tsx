@@ -48,11 +48,10 @@ const checkRenderOrNot = (row: GameData) => {
 };
 
 export default function TableClientSide({
-  showFilter = false,
+  showFilter,
   onAddToCompare,
   setSearchKeyInBottomSheet,
   setOrderByKeyInBottomSheet,
-  showCryptoFiatSwitcher,
   setIsFiatState,
   gameId,
   orderByBottomsheet,
@@ -60,6 +59,7 @@ export default function TableClientSide({
   directionBottomsheet,
   isFiatBottomsheet,
   blogSearchFromTitle,
+  showSearch,
 }: TableWrapperProps) {
   const { gamesList, setGames, handleRecall, setHandleRecall } =
     useGamesListStore();
@@ -70,11 +70,13 @@ export default function TableClientSide({
   const [orderBy] = useQueryState("orderBy");
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
-  const [hasComponentMounted, setHasComponentMounted] = useState(false);
+  const [hasComponentMounted, setHasComponentMounted] =
+    useState(false);
 
   const getGames = async (page?: string) => {
     setLoading(true);
-    const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
+    const checkedKeyword =
+      keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
 
     const gamesListData: Promise<gamesList> = getGameListClientSide({
@@ -92,18 +94,24 @@ export default function TableClientSide({
     if (games.currentPage === 1 && firstPageIds === "") {
       let firstPageGameIds: string = "";
       games.results.map(
-        (game) => (firstPageGameIds = firstPageGameIds + `&ids=${game.gameId}`)
+        (game) =>
+          (firstPageGameIds =
+            firstPageGameIds + `&ids=${game.gameId}`)
       );
       setFirstPageIds(firstPageGameIds);
     }
 
     if (checkedOrderBy === "spsH") {
-      const filteredGames = games.results.filter((item) => item.sps > 0);
+      const filteredGames = games.results.filter(
+        (item) => item.sps > 0
+      );
 
       games.results = filteredGames;
     }
     if (checkedOrderBy === "spsL") {
-      const filteredGames = games.results.filter((item) => item.sps < 0);
+      const filteredGames = games.results.filter(
+        (item) => item.sps < 0
+      );
       games.results = filteredGames;
     }
 
@@ -118,17 +126,25 @@ export default function TableClientSide({
     const filteredGames = games.results.filter((item) =>
       checkRenderOrNot(item)
     );
-    const excludeGamesForBlog = filteredGames.filter(
-      (item) =>
-        item.name.toLocaleLowerCase() ===
-          blogSearchFromTitle?.toLocaleLowerCase() ||
-        item.casinoName.toLocaleLowerCase() ===
-          blogSearchFromTitle?.toLocaleLowerCase() ||
-        item.provider.toLocaleLowerCase() ===
-          blogSearchFromTitle?.toLocaleLowerCase()
-    );
 
-    games.results = blogSearchFromTitle ? excludeGamesForBlog : filteredGames;
+    const toLowerCase = (text: string) => text.toLocaleLowerCase();
+
+    const excludeGamesForBlog = filteredGames.filter((item) => {
+      if (blogSearchFromTitle) {
+        return (
+          toLowerCase(item.name) ===
+            toLowerCase(blogSearchFromTitle) ||
+          toLowerCase(item.casinoName) ===
+            toLowerCase(blogSearchFromTitle) ||
+          toLowerCase(item.provider) ===
+            toLowerCase(blogSearchFromTitle)
+        );
+      }
+    });
+
+    games.results = blogSearchFromTitle
+      ? excludeGamesForBlog
+      : filteredGames;
     setGames(games);
     setLoading(false);
   };
@@ -179,22 +195,18 @@ export default function TableClientSide({
 
   return (
     <>
-      {ifWeHaveBlogTitleButNotHaveGamesListFromIt ? (
-        <></>
-      ) : (
-        <Table
-          showFilter={showFilter}
-          showCryptoFiatSwitcher={showCryptoFiatSwitcher}
-          setIsFiatState={setIsFiatState}
-          gamesList={gamesList}
-          setScrollY={setScrollY}
-          getGames={getGames}
-          onAddToCompare={onAddToCompare}
-          setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
-          setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
-          loading={loading}
-        />
-      )}
+      <Table
+        showFilter={showFilter}
+        setIsFiatState={setIsFiatState}
+        gamesList={gamesList}
+        setScrollY={setScrollY}
+        getGames={getGames}
+        onAddToCompare={onAddToCompare}
+        setSearchKeyInBottomSheet={setSearchKeyInBottomSheet}
+        setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
+        loading={loading}
+        showSearch={showSearch}
+      />
     </>
   );
 }

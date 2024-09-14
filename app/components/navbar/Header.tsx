@@ -18,10 +18,16 @@ const blueNavSize0 = "h-[0px]";
 
 const MenuButton = ({ toggleNav }: { toggleNav: () => void }) => (
   <button
-    className="ml-8 h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
+    className="ml-3 h-9 w-6 flex-shrink-0 items-center justify-center rounded-lg text-[10px] font-normal lg:hidden"
     onClick={toggleNav}
   >
-    <Image src={menu} alt="" width={32} height={32} />
+    <Image
+      src={menu}
+      className="h-9 w-6"
+      alt=""
+      width={32}
+      height={32}
+    />
   </button>
 );
 
@@ -32,11 +38,14 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
   const [navColor, setNavColor] = useState<string>(bgTransparent0);
   const [hasBorder, setHasBorder] = useState<boolean>(true);
   const [blueNav, setBlueNav] = useState<string>(blueNavSize);
-  const [navbarTopDistance, setNavbarTopDistance] = useState<string>("top-14");
+  const [navbarTopDistance, setNavbarTopDistance] =
+    useState<string>("top-14");
   const [marginTop, setMarginTop] = useState("mt-0");
 
   const listenScrollEvent = () => {
-    window.scrollY > 15 ? setBlueNav(blueNavSize0) : setBlueNav(blueNavSize);
+    window.scrollY > 15
+      ? setBlueNav(blueNavSize0)
+      : setBlueNav(blueNavSize);
     window.scrollY > 15
       ? setNavbarTopDistance("top-0")
       : setNavbarTopDistance("top-14");
@@ -53,7 +62,9 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
     window.scrollY > 15
       ? setNavColor(bgTransparent90)
       : setNavColor(bgTransparent0);
-    window.scrollY > 15 ? setMarginTop("-mt-[87px]") : setMarginTop("mt-[0px]");
+    window.scrollY > 15
+      ? setMarginTop("-mt-[87px]")
+      : setMarginTop("mt-[0px]");
 
     window.scrollY > 15 ? setHasBorder(false) : setHasBorder(true);
   };
@@ -61,34 +72,39 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
   useEffect(() => {
     if (isMainPage) {
       window.addEventListener("scroll", listenScrollEvent);
+      listenScrollEvent();
     } else {
       window.addEventListener("scroll", listenScrollEventCollapsible);
+      listenScrollEventCollapsible();
     }
 
     return () => {
       isMainPage
         ? window.removeEventListener("scroll", listenScrollEvent)
-        : window.removeEventListener("scroll", listenScrollEventCollapsible);
+        : window.removeEventListener(
+            "scroll",
+            listenScrollEventCollapsible
+          );
     };
   }, [isMainPage]);
 
-  // useEffect(() => {
-  //   if (navbarOpen) {
-  //     // Disable scrolling on the body when menu is open
-  //     document.body.style.overflow = "hidden";
-  //     document.body.style.height = "100vh";
-  //   } else {
-  //     // Re-enable scrolling when menu is closed
-  //     document.body.style.overflow = "unset";
-  //     document.body.style.height = "auto";
-  //   }
+  useEffect(() => {
+    if (navbarOpen) {
+      // Disable scrolling on the body when menu is open
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+    } else {
+      // Re-enable scrolling when menu is closed
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    }
 
-  //   // Cleanup function to re-enable scrolling when component unmounts
-  //   return () => {
-  //     document.body.style.overflow = "unset";
-  //     document.body.style.height = "auto";
-  //   };
-  // }, [navbarOpen]);
+    // Cleanup function to re-enable scrolling when component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    };
+  }, [navbarOpen]);
 
   return (
     <header>
@@ -104,10 +120,14 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
         className={
           isMainPage
             ? `${navColor} ${navSize} ${navbarTopDistance} ${
-                hasBorder ? " lg:border-b-dark3" : "lg:border-b-dark1/90"
+                hasBorder
+                  ? " lg:border-b-dark3"
+                  : "lg:border-b-dark1/90"
               }  overflow-visible transition-all duration-300  flex justify-center items-center fixed left-0 right-0 z-10 lg:border-b`
             : `${navColor} ${navSize} ${marginTop} ${
-                hasBorder ? " lg:border-b-dark3" : " lg:border-b-dark1/90"
+                hasBorder
+                  ? " lg:border-b-dark3"
+                  : " lg:border-b-dark1/90"
               } overflow-visible transition-all duration-300  flex justify-center items-center	fixed top-0 left-0 right-0 z-10 lg:border-b`
         }
       >
@@ -117,8 +137,8 @@ const MainPageHeader = ({ isMainPage }: { isMainPage: boolean }) => {
             <div className="flex items-center">
               <NavList />
               {/* <LanguageToggleButton /> */}
+              <MenuButton toggleNav={() => setNavbarOpen(true)} />
             </div>
-            <MenuButton toggleNav={() => setNavbarOpen(true)} />
           </div>
         </div>
       </div>

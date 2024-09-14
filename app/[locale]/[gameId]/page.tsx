@@ -7,6 +7,7 @@ import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
 
+
 export async function generateMetadata({
   params: { gameId, locale },
   searchParams: { orderBy, keyWord, direction, isFiat, casId },
@@ -72,17 +73,24 @@ export default async function gamePage({
   const casinoData: Promise<CasinoData> = getCasino(casId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
-  const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
+  // const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-  const [mainGame, gameCards, compareGame, casino, casinoCards, casinoBonuses] =
-    await Promise.all([
-      mainGameData,
-      gamesCardsData,
-      compareGameData,
-      casinoData,
-      casinoCardsData,
-      casinoBonusData,
-    ]);
+
+  const [
+    mainGame,
+    gameCards,
+    //  compareGame,
+    casino,
+    casinoCards,
+    casinoBonuses,
+  ] = await Promise.all([
+    mainGameData,
+    gamesCardsData,
+    // compareGameData,
+    casinoData,
+    casinoCardsData,
+    casinoBonusData,
+  ]);
 
   if (!mainGame) {
     return notFound();
