@@ -24,12 +24,22 @@ export const metadata: Metadata = {
     template: `%s | SlotStat`,
   },
   description: "Unique platform which gives you opportunity to choose where to play and win! ",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   verification: {
     google: "bPl9dfYMLYDqQzT7LjnCi9JNyWR_MBqfqE9JFFMaC_U",
   },
   openGraph: {
     images: "../opengraph-image.png",
   },
+  manifest: "/manifest.json",
   // viewport:
   //   "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
