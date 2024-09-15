@@ -14,9 +14,11 @@ import { ArrowUp } from "@/app/assets/svg/SVGComponents";
 const Dropdown = ({
   onChange,
   orderBy,
+  setOrderByKeyInBottomSheet,
 }: {
   onChange: (v?: string) => void;
   orderBy?: string | null;
+  setOrderByKeyInBottomSheet?: (text: string | undefined) => void;
 }) => {
   const t = useTranslations("sortBy");
   const SORT_BY: FloatingButtonsItems = [
@@ -56,9 +58,14 @@ const Dropdown = ({
     setSelected(v);
     onChange(v.value);
   };
+
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // check visibility on mount
+    if (setOrderByKeyInBottomSheet) {
+      setIsVisible(true);
+    } else {
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // check visibility on mount
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
