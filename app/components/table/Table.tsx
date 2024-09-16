@@ -67,6 +67,7 @@ const Table = ({
 
               <Dropdown
                 orderBy={orderBy}
+                setOrderByKeyInBottomSheet={setOrderByKeyInBottomSheet}
                 onChange={(orderBy) => {
                   setScrollY(window.scrollY);
                   if (setOrderByKeyInBottomSheet) {

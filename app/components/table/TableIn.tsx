@@ -40,7 +40,7 @@ export default function TableIn({
   return (
     <>
       {data?.length > 0 ? (
-        <div className="w-full overflow-x-scroll ">
+        <div className="w-full overflow-x-scroll no-scrollbar">
           <table className="relative w-[857px]  text-xs lg:w-full md:text-base">
             <thead>
               {tableInstance.getHeaderGroups().map((headerGroup) => (

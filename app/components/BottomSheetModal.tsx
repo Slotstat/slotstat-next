@@ -65,12 +65,10 @@ const BottomSheetModal = ({
         }
       }}
     >
-      <div className="bg-dark1 py-8 flex justify-center  ">
+      <div className="bg-dark1 py-8 flex justify-center ">
         <div className=" w-[100%] max-w-screen-xl lg:px-0 px-4">
           <div className="fixed z-10 bg-dark1 flex top-0 h-20 items-center justify-between w-[100%] max-w-screen-xl pr-4 lg:px-0 ">
-            <span className=" text-2xl leading-4  text-white">
-              {t("select-slot-to-compare")}
-            </span>
+            <span className=" text-2xl leading-4  text-white">{t("select-slot-to-compare")}</span>
 
             <button
               className="flex items-center justify-center rounded-xl bg-dark2 p-2 hover:bg-dark3 mx-4 lg:mx-0 "
@@ -80,13 +78,7 @@ const BottomSheetModal = ({
                 setOrderBy("");
               }}
             >
-              <Image
-                src={close}
-                alt=""
-                className="h-6 w-6"
-                width={24}
-                height={24}
-              />
+              <Image src={close} alt="" className="h-6 w-6" width={24} height={24} />
             </button>
           </div>
 
