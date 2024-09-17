@@ -321,7 +321,7 @@ interface Props {
   id?: string;
   inputFor?: InputForOptions;
   customPlaceholder?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: any;
 }
 type countryOrState = { name: string; emoji?: string; code: string; image: string };

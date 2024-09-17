@@ -6,6 +6,8 @@ import Geo from "./Geo";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { countries } from "@/app/utils/countries";
 import EmojiText from "../ui/EmojiText";
+import { useSession } from "next-auth/react";
+import { handleSignOut } from "@/app/actions/authActions";
 
 const menuItems = [
   { icon: "🕹️", label: "Slot", path: "/blog/slots" },
@@ -16,6 +18,8 @@ const menuItems = [
 ];
 
 const NavList = () => {
+  const { data: session } = useSession();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isGeoVisible, setIsGeoOpen] = useState(false);
 
@@ -117,6 +121,25 @@ const NavList = () => {
             {t("faq")}
           </Link>
         </span>
+        {!session ? (
+          <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
+            <Link href={`/auth/login`} className={checkIsActive("login")}>
+              login
+            </Link>
+          </span>
+        ) : (
+          <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
+            <form
+              action={() => {
+                handleSignOut();
+              }}
+            >
+              <button type="submit" className={checkIsActive("login")}>
+                sign out
+              </button>
+            </form>
+          </span>
+        )}
       </div>
       <div className="lg:relative" ref={triggerRef}>
         <div

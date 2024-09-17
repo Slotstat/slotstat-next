@@ -84,12 +84,12 @@ export default async function RootLayout({
   const uniqueId = cookies().get("uniqueId")?.value;
 
   return (
-    <html lang={locale} className={`${modernistBold.variable}`}>
-      {/* <GoogleAnalytics gaId="G-SY6HC72KX9" /> */}
-      {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
-      <GoogleTagManager gtmId="GTM-TNKZW6GT" />
-      <body suppressHydrationWarning={true}>
-        <Providers>
+    <Providers>
+      <html lang={locale} className={`${modernistBold.variable}`}>
+        {/* <GoogleAnalytics gaId="G-SY6HC72KX9" /> */}
+        {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
+        <GoogleTagManager gtmId="GTM-TNKZW6GT" />
+        <body suppressHydrationWarning={true}>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Header />
             <main className="flex justify-center mt-[87px]">
@@ -101,18 +101,17 @@ export default async function RootLayout({
             <CookieNotification uniqueId={uniqueId} />
             <TooltipClientSide />
           </NextIntlClientProvider>
-        </Providers>
-      </body>
-      {/* <script
+        </body>
+        {/* <script
         type="text/javascript"
         src="https://betfury.bet/sources/d4c09e4f7.js"
         async
         ></script> */}
-      <Script
-        id="fb-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+        <Script
+          id="fb-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -124,8 +123,9 @@ export default async function RootLayout({
           fbq('init', '7159413720830778');
           fbq('track', 'PageView');
           `,
-        }}
-      />
-    </html>
+          }}
+        />
+      </html>
+    </Providers>
   );
 }

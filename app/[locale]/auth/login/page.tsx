@@ -1,10 +1,28 @@
-import LoginPage from "@/app/components/Authentication/LoginPage";
-import React from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import LoginInputs from "@/app/components/Authentication/LoginPage/LoginInputs";
+import ResetPasswordEmailInput from "@/app/components/Authentication/LoginPage/ResetPasswordEmailInput";
 
-type Props = {};
+const Login = () => {
+  const [isResetScreenVisible, setIsResetScreenVisible] = useState(false);
+  const [userEmail, setUserEmail] = useState<any>();
+  const returnToLogin = () => {
+    setIsResetScreenVisible(false);
+  };
 
-const Login = (props: Props) => {
-  return <LoginPage />;
+  return (
+    <div className="flex flex-col items-center min-h-[700px]">
+      {isResetScreenVisible ? (
+        <ResetPasswordEmailInput
+          returnToLogin={returnToLogin}
+          userEmail={userEmail}
+          setUserEmail={setUserEmail}
+        />
+      ) : (
+        <LoginInputs setIsResetScreenVisible={setIsResetScreenVisible} />
+      )}
+    </div>
+  );
 };
 
 export default Login;

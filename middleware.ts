@@ -1,22 +1,41 @@
-// @ts-nocheck
+// import { chainMiddleware } from "./middlewares/chainMiddleware";
+// import withI18n from "./withI18n";
+// import { withAuth } from "./middlewares/withAuth";
+
+// export default chainMiddleware([withI18n, withAuth]);
+
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { generateUniqueId } from "./lib/uuid";
 import { locales, localePrefix } from "./navigation";
 import countries from "./lib/countries.json";
 
-export default async function middleware(request: NextRequest) {
+function combineMiddleware(...middlewares: Function[]) {
+  return async (req: NextRequest) => {
+    console.log("Reached the combined middleware");
+    for (const middleware of middlewares) {
+      const result = await middleware(req, NextResponse.next(), () => {});
+      if (result instanceof Response || result instanceof NextResponse) {
+        return result;
+      }
+    }
+    return NextResponse.next();
+  };
+}
+import { auth } from "@/auth";
+
+function middleware(request: NextRequest) {
   const { nextUrl: url, geo } = request;
 
   const cloudflareCountry = request.headers.get("CF-IPCountry");
-  const vercelCountry = geo.country || "GE";
-  const region = geo.region || "TB";
+  // const vercelCountry = geo.country || "GE";
+  const region = geo?.region || "TB";
 
   // const countryInfo = countries.find((x) => x.cca2 === country);
 
-
   // Step 1: Use the incoming request
-  const defaultLocale = request.headers.get("x-default-locale") || "en";
+  // const defaultLocale: "en" = request.headers.get("x-default-locale") || "en";
+  const defaultLocale = "en";
 
   // Step 2: Create and call the next-intl middleware
   const handleI18nRouting = createIntlMiddleware({
@@ -45,7 +64,6 @@ export default async function middleware(request: NextRequest) {
   cloudflareCountry && response.cookies.set("currentLocCountry", cloudflareCountry);
   region && response.cookies.set("currentLocRegion", region);
 
-
   // response.headers.set("country", country);
   // response.headers.set("city", city);
   // response.headers.set("region", region);
@@ -71,3 +89,5 @@ export const config = {
   // Match only internationalized pathnames
   matcher: ["/", "/(en)/:path*"],
 };
+
+export default combineMiddleware(middleware, auth);

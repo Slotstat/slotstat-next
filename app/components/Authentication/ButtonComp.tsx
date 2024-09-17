@@ -11,13 +11,14 @@ type Props = {
   isLoading?: boolean;
   extraButtonClasses?: string;
   onClick?: () => void;
+  type: "button" | "submit" | "reset" | undefined;
 };
 
-const ButtonComp = ({ title, isLoading, extraButtonClasses, onClick }: Props) => {
+const ButtonComp = ({ title, isLoading, extraButtonClasses, onClick, type = "button" }: Props) => {
   const primaryButtonColors = "hover:bg-[#3A6FEB] bg-[#5887F6] focus:bg-[#255CDE]";
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`w-full max-w-[311px] flex items-center justify-center text-sm font-bold py-3 rounded-lg ${primaryButtonColors} ${extraButtonClasses}`}
     >
