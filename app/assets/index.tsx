@@ -37,8 +37,11 @@ import currency from "./img/currency.png";
 import image18 from "./img/18.png";
 import policy from "./img/policy.png";
 import videoThumb from "./img/videothumb.png";
+import email from "./img/email.png";
+import check from "./img/check.png";
 
 export {
+  check,
   logo,
   link,
   globe,
@@ -74,4 +77,5 @@ export {
   bonus,
   videoThumb,
   closeMinus,
+  email,
 };

@@ -3,11 +3,15 @@ import { usePathname } from "next/navigation";
 import { Link } from "@/navigation";
 import { useState, useRef, useEffect } from "react";
 import Geo from "./Geo";
-import { setCookie, getCookie, deleteCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 import { countries } from "@/app/utils/countries";
 import EmojiText from "../ui/EmojiText";
 import { useSession } from "next-auth/react";
-import { handleSignOut } from "@/app/actions/authActions";
+import ProfileMenu from "./ProfileMenue";
+import { ProfileIcon } from "@/app/assets/svg/SVGComponents";
+import ButtonComp from "../Authentication/ButtonComp";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const menuItems = [
   { icon: "🕹️", label: "Slot", path: "/blog/slots" },
@@ -18,10 +22,11 @@ const menuItems = [
 ];
 
 const NavList = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const [isVisible, setIsVisible] = useState(false);
   const [isGeoVisible, setIsGeoOpen] = useState(false);
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
 
   const [initialCountry, setInitialCountry] = useState<country>();
   const [initialState, setInitialState] = useState<countryOrState>();
@@ -30,7 +35,9 @@ const NavList = () => {
   const pathName = usePathname();
 
   const geoRef = useRef<HTMLDivElement | null>(null);
-  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const triggerGeoRef = useRef<HTMLDivElement | null>(null);
+  const triggerProfileRef = useRef<HTMLDivElement | null>(null);
+  const profileRef = useRef<HTMLDivElement | null>(null);
 
   const checkIsActive = (path: string) => {
     if (!pathName) return "text-grey1";
@@ -54,25 +61,33 @@ const NavList = () => {
       setInitialCountry(countryByCookie[0]);
     }
 
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutsideGeo = (event: MouseEvent) => {
       if (
         geoRef.current &&
-        triggerRef.current &&
+        triggerGeoRef.current &&
         !geoRef.current.contains(event.target as Node) &&
-        !triggerRef.current.contains(event.target as Node)
+        !triggerGeoRef.current.contains(event.target as Node)
       ) {
         setIsGeoOpen(false);
       }
+      if (
+        profileRef.current &&
+        triggerProfileRef.current &&
+        !profileRef.current.contains(event.target as Node) &&
+        !triggerProfileRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileVisible(false);
+      }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutsideGeo);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutsideGeo);
     };
   }, []);
 
   return (
-    <nav className=" flex flex-row  font-bold text-xs md:text-sm">
+    <nav className="flex flex-row font-bold text-xs md:text-sm">
       <div className="hidden lg:flex my-2 flex-row lg:my-0 ml-auto lg:items-center ">
         <div className="relative">
           <span
@@ -121,27 +136,42 @@ const NavList = () => {
             {t("faq")}
           </Link>
         </span>
-        {!session ? (
-          <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
-            <Link href={`/auth/login`} className={checkIsActive("login")}>
-              login
-            </Link>
+        {status === "loading" ? (
+          <span className="mt-4 ml-3 md:ml-8 lg:mt-0  ">
+            <SkeletonTheme baseColor="#24262C" highlightColor="#444">
+              <section className="flex w-44 ">
+                <Skeleton count={1} className="h-12 min-w-20 " />
+                <Skeleton count={1} className="h-12 min-w-20 ml-3" />
+              </section>
+            </SkeletonTheme>
           </span>
         ) : (
-          <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
-            <form
-              action={() => {
-                handleSignOut();
-              }}
-            >
-              <button type="submit" className={checkIsActive("login")}>
-                sign out
-              </button>
-            </form>
-          </span>
+          !session && (
+            <>
+              <span className="mt-4 ml-3 md:ml-8 lg:mt-0 ">
+                <Link href={`/auth/login`}>
+                  <ButtonComp
+                    type="button"
+                    extraButtonClasses="w-full text-grey1 !text-sm !font-bold py-2 px-5  hover:bg-grey2 bg-dark1 border border-grey1 "
+                    title="Log in"
+                  />
+                </Link>
+              </span>
+
+              <span className="mt-4 ml-2 md:ml-3 lg:mt-0">
+                <Link href={`/auth/sign-up`}>
+                  <ButtonComp
+                    type="button"
+                    extraButtonClasses="w-full text-white !text-sm py-2 px-5 !font-bold "
+                    title="Sign up"
+                  />
+                </Link>
+              </span>
+            </>
+          )
         )}
       </div>
-      <div className="lg:relative" ref={triggerRef}>
+      <div className="lg:relative" ref={triggerGeoRef}>
         <div
           onClick={() => setIsGeoOpen(!isGeoVisible)}
           className={`ml-8 text-lg rounded-full h-[36px] w-[36px] flex items-center justify-center cursor-pointer hover:bg-grey1 
@@ -156,6 +186,28 @@ const NavList = () => {
           </div>
         )}
       </div>
+
+      {session && (
+        <div className="lg:relative" ref={triggerProfileRef}>
+          <div
+            onClick={() => setIsProfileVisible(!isProfileVisible)}
+            className={`ml-4 text-lg rounded-full h-[36px] w-[36px] flex items-center justify-center cursor-pointer hover:bg-grey1 
+            ${isProfileVisible ? "bg-grey1" : "bg-grey3"}
+            `}
+          >
+            {session?.user?.image ? (
+              <img src={session?.user?.image} alt={session?.user?.name} className="h-4 w-4" />
+            ) : (
+              <ProfileIcon />
+            )}
+          </div>
+          {isProfileVisible && (
+            <div ref={profileRef}>
+              <ProfileMenu />
+            </div>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

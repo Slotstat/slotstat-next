@@ -72,7 +72,6 @@ const Geo = ({
 
   return (
     <div
-      // className="z-50 top-full right-0 absolute font-bold pt-8 transition duration-200 ease-in-out"
       className="z-50 absolute font-bold pt-8 transition duration-200 ease-in-out
       right-4 left-4 lg:top-full lg:left-auto lg:right-0"
     >

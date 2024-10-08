@@ -311,6 +311,7 @@ type InputForOptions =
   | "userName"
   | "email"
   | "verification"
+  | "emailOrUsername"
   | undefined;
 
 interface Props {
@@ -323,8 +324,10 @@ interface Props {
   customPlaceholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: any;
+  error?: boolean;
 }
 type countryOrState = { name: string; emoji?: string; code: string; image: string };
+
 type country = {
   name: string;
   emoji: string;

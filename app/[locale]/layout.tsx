@@ -17,6 +17,10 @@ import Script from "next/script";
 import ChatBot from "../components/ChatBot";
 import { Providers } from "../providers";
 
+// export function generateStaticParams() {
+//   return [{ locale: "en" }];
+// }
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
   title: {
@@ -51,7 +55,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-const modernistBold = localFont({
+const modernistFont = localFont({
   src: [
     {
       path: "../../public/fonts/Sk-Modernist-Regular.otf",
@@ -84,13 +88,10 @@ export default async function RootLayout({
   const uniqueId = cookies().get("uniqueId")?.value;
 
   return (
-    <Providers>
-      <html lang={locale} className={`${modernistBold.variable}`}>
-        {/* <GoogleAnalytics gaId="G-SY6HC72KX9" /> */}
-        {/* <GoogleAnalytics GA_MEASUREMENT_ID="G-SY6HC72KX9" /> */}
-        <GoogleTagManager gtmId="GTM-TNKZW6GT" />
-        <body suppressHydrationWarning={true}>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+    <html lang={locale} className={modernistFont.variable}>
+      <body>
+        <Providers>
+          <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
             <Header />
             <main className="flex justify-center mt-[87px]">
               <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">{children}</div>
@@ -101,12 +102,7 @@ export default async function RootLayout({
             <CookieNotification uniqueId={uniqueId} />
             <TooltipClientSide />
           </NextIntlClientProvider>
-        </body>
-        {/* <script
-        type="text/javascript"
-        src="https://betfury.bet/sources/d4c09e4f7.js"
-        async
-        ></script> */}
+        </Providers>
         <Script
           id="fb-pixel"
           strategy="afterInteractive"
@@ -125,7 +121,7 @@ export default async function RootLayout({
           `,
           }}
         />
-      </html>
-    </Providers>
+      </body>
+    </html>
   );
 }

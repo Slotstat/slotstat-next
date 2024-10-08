@@ -65,11 +65,11 @@ export default function TableClientSide({
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [firstPageIds, setFirstPageIds] = useState<string>("");
+  const [hasComponentMounted, setHasComponentMounted] = useState(false);
   const [keyWord] = useQueryState("keyWord");
   const [orderBy] = useQueryState("orderBy");
   const [direction] = useQueryState("direction");
   const [isFiat] = useQueryState("isFiat");
-  const [hasComponentMounted, setHasComponentMounted] = useState(false);
 
   const getGames = async (page?: string) => {
     setLoading(true);

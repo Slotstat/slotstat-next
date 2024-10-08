@@ -2,6 +2,8 @@ export const placeHolderHandler = (inputFor: InputForOptions) => {
   switch (inputFor) {
     case "email":
       return "Email";
+    case "emailOrUsername":
+      return "Email or username";
     case "password":
       return "Password";
     case "userName":

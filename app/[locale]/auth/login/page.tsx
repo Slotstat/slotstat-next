@@ -5,7 +5,6 @@ import ResetPasswordEmailInput from "@/app/components/Authentication/LoginPage/R
 
 const Login = () => {
   const [isResetScreenVisible, setIsResetScreenVisible] = useState(false);
-  const [userEmail, setUserEmail] = useState<any>();
   const returnToLogin = () => {
     setIsResetScreenVisible(false);
   };
@@ -15,8 +14,7 @@ const Login = () => {
       {isResetScreenVisible ? (
         <ResetPasswordEmailInput
           returnToLogin={returnToLogin}
-          userEmail={userEmail}
-          setUserEmail={setUserEmail}
+
         />
       ) : (
         <LoginInputs setIsResetScreenVisible={setIsResetScreenVisible} />

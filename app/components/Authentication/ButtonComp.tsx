@@ -15,7 +15,8 @@ type Props = {
 };
 
 const ButtonComp = ({ title, isLoading, extraButtonClasses, onClick, type = "button" }: Props) => {
-  const primaryButtonColors = "hover:bg-[#3A6FEB] bg-[#5887F6] focus:bg-[#255CDE]";
+  const primaryButtonColors = "hover:bg-[#3A6FEB] bg-[#5887F6] ";
+  // focus:bg-[#255CDE]
   return (
     <button
       type={type}
