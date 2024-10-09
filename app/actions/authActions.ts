@@ -1,4 +1,6 @@
-// "use server";
+"use server";
+
+import { baseUrl } from "@/lib/baseURL";
 
 // import { signIn, signOut } from "@/auth";
 // import { AuthError } from "next-auth";
@@ -81,3 +83,27 @@
 // export async function handleSignOut() {
 //   await signOut({ redirect: true, redirectTo: "/" });
 // }
+
+export async function refreshAccessToken(refreshToken: string) {
+    try {
+      const response = await fetch(`${baseUrl}/api/user/refreshtoken`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_Token: refreshToken }),
+      });
+      console.log("4444", await response.json());
+      if (!response.ok) {
+        throw new Error("Failed to refresh token");
+      }
+
+      const data = await response.json();
+      if (!data.access_Token || !data.refresh_Token) {
+        throw new Error("Invalid token response");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error in refreshAccessToken:", error);
+      return null;
+    }
+  }

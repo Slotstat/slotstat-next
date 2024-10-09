@@ -19,6 +19,7 @@ const ButtonComp = ({ title, isLoading, extraButtonClasses, onClick, type = "but
   // focus:bg-[#255CDE]
   return (
     <button
+      disabled={isLoading}
       type={type}
       onClick={onClick}
       className={`w-full max-w-[311px] flex items-center justify-center text-sm font-bold py-3 rounded-lg ${primaryButtonColors} ${extraButtonClasses}`}

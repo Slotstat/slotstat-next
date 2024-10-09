@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./app/api/auth/[...nextAuth]/auth";
+import { auth, signOut } from "./app/api/auth/[...nextAuth]/auth";
 import createMiddleware from "next-intl/middleware";
 import { generateUniqueId } from "./lib/uuid";
 import { locales, localePrefix } from "./navigation";
 import { baseUrl } from "./lib/baseURL";
+// import { signOut } from "next-auth/react";
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -11,19 +12,35 @@ const intlMiddleware = createMiddleware({
   defaultLocale: "en",
 });
 
-async function refreshAccessToken(refreshToken: string) {
-  const response = await fetch(`${baseUrl}/api/user/refreshtoken`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ refresh_Token: refreshToken }),
-  });
 
-  if (!response.ok) {
-    throw new Error("Failed to refresh token");
-  }
 
-  return response.json();
-}
+// async function refreshAccessToken(refreshToken: string) {
+//   try {
+//     const response = await fetch(`${baseUrl}/api/user/refreshtoken`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ refresh_Token: refreshToken }),
+//     });
+
+//     if (!response.ok) {
+//       console.log("99");
+//       return null;
+//       // throw new Error("Failed to refresh token");
+//     }
+
+//     const data = await response.json();
+//     console.log("88", data);
+//     if (!data.access_Token || !data.refresh_Token) {
+//       return null;
+//       // throw new Error("Invalid token response");
+//     }
+
+//     return data;
+//   } catch (error) {
+//     console.error("Error in refreshAccessToken:", error);
+//     return null;
+//   }
+// }
 
 function isTokenExpired(token: string): boolean {
   if (!token) return true;
@@ -39,8 +56,11 @@ function isTokenExpired(token: string): boolean {
 }
 
 export default auth(async (req) => {
-  const response = intlMiddleware(req);
-  const { geo } = req;
+  let response = intlMiddleware(req);
+  const pathname = req.nextUrl.pathname;
+  console.log("PATH:", pathname);
+  const { geo, nextUrl } = req;
+
   const cloudflareCountry = req.headers.get("CF-IPCountry");
   const region = geo?.region || "TB";
 
@@ -69,28 +89,36 @@ export default auth(async (req) => {
 
   response.headers.set("x-default-locale", "en");
 
-  // Check if the user is authenticated
   const session = req.auth;
 
   const isLoggedIn = !!session;
 
+  const url = nextUrl.clone();
+  console.log("--------");
+
   if (isLoggedIn) {
     const accessToken = session.accessToken;
     const refreshToken = session.refreshToken;
-
-    if (isTokenExpired(accessToken)) {
-      try {
-        const newTokens = await refreshAccessToken(refreshToken);
-        // Update the session with new tokens
-        session.accessToken = newTokens.access_Token;
-        session.refreshToken = newTokens.refresh_Token;
-        // You might need to update the session in the response
-        // This depends on how NextAuth stores the session
-        // You may need to use a custom session strategy for this
-      } catch (error) {
-        console.error("Failed to refresh token:", error);
-        // Redirect to login if refresh fails
-        return NextResponse.redirect(new URL("/en/auth/login", req.url));
+    if (nextUrl.searchParams.get("so") !== "1") {
+      if (isTokenExpired(accessToken)) {
+        console.log("cookie");
+        response.cookies.set("authjs.session-token1", "1");
+        // if (!isTokenExpired(accessToken) && nextUrl.searchParams.get("so") !== "2") {
+        // url.searchParams.set("so", "1");
+        // return NextResponse.redirect(url);
+        // try {
+        //   const newTokens = await refreshAccessToken(refreshToken + "4");
+        //   if (newTokens && newTokens.access_Token && newTokens.refresh_Token) {
+        //     console.log("gvaqvs tokenebi");
+        //   } else {
+        //     response.cookies.set("authjs.session-token1", "1");
+        //   }
+        // } catch (error) {
+        //   // signOut();
+        //   console.log("7777");
+        //   console.error("Failed to refresh token:", error);
+        //   // return signOutUser(req);
+        // }
       }
     }
   }
@@ -117,4 +145,15 @@ export default auth(async (req) => {
 
 export const config = {
   matcher: ["/", "/(en)/:path*"],
+  // matcher: [
+  //   /*
+  //    * Match all request paths except for the ones starting with:
+  //    * - api (API routes)
+  //    * - _next/static (static files)
+  //    * - _next/image (image optimization files)
+  //    * - favicon.ico (favicon file)
+  //    */
+  //   // "/((?!api|_next/static|_next/image|favicon.ico).*)",
+  //   "/(en)/:path*",
+  // ],
 };

@@ -16,6 +16,7 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import ChatBot from "../components/ChatBot";
 import { Providers } from "../providers";
+import { AuthCheck } from "../components/Authentication/AuthCheck";
 
 // export function generateStaticParams() {
 //   return [{ locale: "en" }];
@@ -92,6 +93,7 @@ export default async function RootLayout({
       <body>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
+          {/* <AuthCheck /> */}
             <Header />
             <main className="flex justify-center mt-[87px]">
               <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">{children}</div>
