@@ -31,11 +31,8 @@ export default function VerifyEmail() {
       let fixedToken = token.replace(/ /g, "+");
 
       const body = JSON.stringify({ email, userName, token: fixedToken });
-      console.log(
-        "11111",
-        "CfDJ8OfmCGunE6ZPo6JL1dTsVjEqnoqfzUMWj91Tym067+tB0HW+ZsD/dbOUn8hcxChJXMlxm025MUnVCHmYCkRAnCc4fqwQrfexm60Y+6+NCyfMWsVZKrN76r+8tAeeJY5rUW5TWeOBYGY4DIwlQrK/vJpzeO00WTWrl+1a7mAmT3ik6fYPYwOc1SBxNFS0WyYSpZ/s9GvurbVF50+M302TKoOZDHpTZelkmKXvqe+C2zPCvBVhmJSrm69wIvG/+lko1A=="
-      );
-      console.log("22222", fixedToken);
+
+      console.log("22222", body);
 
       try {
         const response = await fetch("/api/user/email-verify", {
