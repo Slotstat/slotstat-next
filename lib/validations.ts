@@ -30,6 +30,18 @@ export const resetPasswordSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
+export const passwordResetSchema = z
+  .object({
+    password: passwordChecker,
+    confirmPassword: passwordChecker,
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+
+export type PasswordResetInput = z.infer<typeof passwordResetSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type resetPassword = z.infer<typeof resetPasswordSchema>;

@@ -19,20 +19,12 @@ export default function VerifyEmail() {
       const userName = searchParams.get("user-name");
       const token = searchParams.get("token");
 
-      // const email = "giorgikhimshiashvili@gmail.com";
-      // const userName = "kh1msh0";
-      // const token =
-
       if (!email || !userName || !token) {
         setVerificationStatus("error");
         return;
       }
-      // let noSpacesToken = token.replace(/\s+/g, "");
-      let fixedToken = token.replace(/ /g, "+");
 
-      const body = JSON.stringify({ email, userName, token: fixedToken });
-
-      console.log("22222", body);
+      const body = JSON.stringify({ email, userName, token });
 
       try {
         const response = await fetch("/api/user/email-verify", {
@@ -40,7 +32,7 @@ export default function VerifyEmail() {
           headers: { "Content-Type": "application/json" },
           body,
         });
-        console.log("response", response);
+
         if (response.ok) {
           setVerificationStatus("success");
         } else {

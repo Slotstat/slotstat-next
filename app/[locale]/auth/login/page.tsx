@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import LoginInputs from "@/app/components/Authentication/LoginPage/LoginInputs";
 import ResetPasswordEmailInput from "@/app/components/Authentication/LoginPage/ResetPasswordEmailInput";
 
