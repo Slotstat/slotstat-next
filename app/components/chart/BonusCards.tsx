@@ -18,9 +18,7 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
         >
           <div className="flex flex-row justify-between">
             <div className=" text-grey1 text-base truncate">
-              {card.valueType === "CasinoPromotion"
-                ? "Casino promotion"
-                : "Welcome bonus"}
+              {card.valueType === "CasinoPromotion" ? "Casino promotion" : "Welcome bonus"}
             </div>
             {!!isImgUrl(card.imageUrl) && (
               <Image
@@ -32,28 +30,23 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
               />
             )}
           </div>
-          <div className="text-white font-bold h-12 line-clamp-2 ">
-            {card.name}
-          </div>
-          <div className="text-grey1 text-xs font-bold line-clamp-2 h-8">
-            {card.additionalInfo}
-          </div>
+          <div className="text-white font-bold h-12 line-clamp-2 ">{card.name}</div>
+          <div className="text-grey1 text-xs font-bold line-clamp-2 h-8">{card.additionalInfo}</div>
           {card.valueType === "WelcomeBonus" ? (
             <button
-              onClick={() =>
-                window.open(card.redirectUrl, "_blank", "noreferrer")
-              }
+              onClick={() => window.open(card.redirectUrl, "_blank", "noreferrer")}
               className="w-full h-10 px-6 py-2  rounded-md text-base font-medium text-white bg-green1 hover:bg-green2 focus:outline-none focus:ring-2 focus:ring-green1 focus:ring-offset-2 appearance-none"
             >
               Get Bonus
             </button>
           ) : (
-            <button className="flex justify-center items-center w-full h-10 px-6 py-2 border border-transparent rounded-md text-base font-medium text-white bg-dark1 hover:bg-dark3 focus:outline-none focus:ring-2 focus:ring-dark1 focus:ring-offset-2">
+            <button
+              onClick={() => window.open(card.redirectUrl, "_blank", "noreferrer ")}
+              className="flex justify-center items-center w-full h-10 px-6 py-2 border border-transparent rounded-md text-base font-medium text-white bg-dark1 hover:bg-dark3 focus:outline-none focus:ring-2 focus:ring-dark1 focus:ring-offset-2"
+            >
               <span className="flex items-center">Read more</span>
               <LinkIcon
-                onClick={() =>
-                  window.open(card.redirectUrl, "_blank", "noreferrer ")
-                }
+                onClick={() => window.open(card.redirectUrl, "_blank", "noreferrer ")}
                 className="ml-2 cursor-pointer"
               />
             </button>
@@ -61,9 +54,7 @@ function BonusCards({ cardsData }: { cardsData: Array<Bonus> }) {
           <div className="flex flex-row justify-between ">
             <span className="text-xs text-grey1">Expire date:</span>
             <span className="text-xs text-white">
-              {card.expireDate
-                ? moment(card.expireDate).format("DD MMM. YYYY")
-                : "Not specified"}
+              {card.expireDate ? moment(card.expireDate).format("DD MMM. YYYY") : "Not specified"}
             </span>
           </div>
         </div>
