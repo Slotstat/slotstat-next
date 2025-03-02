@@ -75,12 +75,12 @@ const Footer = () => {
               >
                 {t("howItWorks")}
               </Link>
-              <Link
+              {/* <Link
                 href="/responsible-gaming"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >
                 {tFooter("responsibleGaming")}
-              </Link>
+              </Link> */}
             </div>
             <div className="mt-8 lg:mt-0 lg:ml-18">
               <h5 className="mb-4 block text-xs font-black text-white lg:text-sm">

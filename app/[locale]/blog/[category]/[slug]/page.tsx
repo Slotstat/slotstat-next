@@ -43,21 +43,10 @@ export async function generateMetadata({
 
     const { titleImage, smallDescription, title } = data;
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      `https://${headers().get("host")}`;
-    const absoluteImageUrl = new URL(
-      urlFor(titleImage).url(),
-      baseUrl
-    ).toString();
-    const pageUrl = new URL(
-      `/${locale}/blog/${category}/${slug}`,
-      baseUrl
-    ).toString();
-    const fallbackImageUrl = new URL(
-      "../../../../opengraph-image.png",
-      baseUrl
-    ).toString();
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `https://${headers().get("host")}`;
+    const absoluteImageUrl = new URL(urlFor(titleImage).url(), baseUrl).toString();
+    const pageUrl = new URL(`/${locale}/blog/${category}/${slug}`, baseUrl).toString();
+    const fallbackImageUrl = new URL("../../../../opengraph-image.png", baseUrl).toString();
 
     const timestampedImageUrl = `${absoluteImageUrl}?t=${Date.now()}`;
 
@@ -119,16 +108,15 @@ export default async function BlogArticle({
 }: {
   params: { category: string; slug: string; locale: string };
 }) {
+  console.log("4444", category, slug);
   const data: fullBlog = await getDataBySlug(category, slug);
-  const { titleImage, content, title } = data;
-  const breadcrumbs = [
-    { name: category, url: `/blog/${category}` },
-    { name: title },
-  ];
+  console.log("data", data);
+  // const { titleImage, content, title } = data;
+  // const breadcrumbs = [{ name: category, url: `/blog/${category}` }, { name: title }];
 
   return (
     <>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
+      {/* <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
         <div className="w-full h-40 md:h-[400px] relative ">
           {titleImage && (
@@ -148,20 +136,12 @@ export default async function BlogArticle({
         </h1>
         <MyPortableTextComponent content={content} />
       </div>
-      {(category === "slots" ||
-        category === "providers" ||
-        category === "casinos") && (
+      {(category === "slots" || category === "providers" || category === "casinos") && (
         <div className="mb-3 md:mb-6 lg:mb-12">
-          <h5 className="text-white text-2xl font-bold  md:-mb-16">
-            {title}
-          </h5>
-          <TableClientSide
-            blogSearchFromTitle={title}
-            showFilter={true}
-            showSearch={false}
-          />
+          <h5 className="text-white text-2xl font-bold  md:-mb-16">{title}</h5>
+          <TableClientSide blogSearchFromTitle={title} showFilter={true} showSearch={false} />
         </div>
-      )}
+      )} */}
     </>
   );
 }
