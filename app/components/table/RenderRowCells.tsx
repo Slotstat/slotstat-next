@@ -12,12 +12,7 @@ import UpIconGreen from "@/app/assets/svg/UpIconBlue";
 import DownIconRed from "@/app/assets/svg/DownIconBlue";
 import MinusWhite from "@/app/assets/svg/MinusBlue";
 
-const CountUpForJackpots = ({
-  jackpot,
-  jackpotCurrency,
-  casinoCurrency,
-  casinoId,
-}: any) => {
+const CountUpForJackpots = ({ jackpot, jackpotCurrency, casinoCurrency, casinoId }: any) => {
   const { newJackpot } = useStore();
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(Number(jackpot));
@@ -52,11 +47,7 @@ const CountUpForJackpots = ({
     <div className=" text-green1 text-xs md:text-base ">
       {end === 0 ? (
         <div>
-          {jackpotCurrency
-            ? jackpotCurrency + " "
-            : casinoCurrency
-            ? casinoCurrency + " "
-            : ""}
+          {jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""}
           {end}
         </div>
       ) : (
@@ -68,11 +59,7 @@ const CountUpForJackpots = ({
           decimals={2}
           decimal="."
           prefix={
-            jackpotCurrency
-              ? jackpotCurrency + " "
-              : casinoCurrency
-              ? casinoCurrency + " "
-              : ""
+            jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""
           }
           onEnd={() => {
             jackpot !== 0 && increaseJackpot();
@@ -134,19 +121,17 @@ const RenderRowCells = ({
     sps,
   } = row.original;
 
-  const onGoToWebSiteClick = (event: {
-    defaultPrevented: any;
-    preventDefault: () => void;
-  }) => {
+  const onGoToWebSiteClick = (event: { defaultPrevented: any; preventDefault: () => void }) => {
     if (event.defaultPrevented) return;
     event.preventDefault();
     window.open(redirectUrl, "_blank", "noreferrer");
   };
 
   const isImgUrl = (url: string) => {
-    return /\.(jpg|jpeg|png|webp|avif|gif)$/.test(url);
+    return /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(url)
   };
 
+  // console.log("first", imageUrl);
   const GameNameProvider = () => {
     return (
       <div className="flex flex-row items-center">
@@ -223,8 +208,7 @@ const RenderRowCells = ({
     );
   };
 
-  const renderEmptyValue = () =>
-    cell.renderValue() ? <>{cell.renderValue()}</> : <>--</>;
+  const renderEmptyValue = () => (cell.renderValue() ? <>{cell.renderValue()}</> : <>--</>);
 
   const showUpOrDownIcon = (
     indicator: number,
@@ -297,9 +281,7 @@ const RenderRowCells = ({
     // return <>{showUpOrDownIcon(t24h, cell.renderValue())}</>;
     case 4:
       return (
-        <div
-          className={`text-xs text-grey1  md:text-base ${maxX && "text-white"}`}
-        >
+        <div className={`text-xs text-grey1  md:text-base ${maxX && "text-white"}`}>
           {maxX ? maxX : "No maxX"}
         </div>
       );
@@ -307,11 +289,7 @@ const RenderRowCells = ({
       return <div>{rtp.preferredValue.toFixed(2)} %</div>;
     // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
     case 6:
-      return rtp ? (
-        <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} />
-      ) : (
-        <>--</>
-      );
+      return rtp ? <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} /> : <>--</>;
     case 7:
       return <Play />;
     default:
