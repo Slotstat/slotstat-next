@@ -7,30 +7,88 @@ export const casinoOrGameColumns = (t: any) => {
         </div>
       ),
       accessorKey: "name",
-      maxSize: 273,
-      size: 273,
-      minSize: 188,
+      maxSize: 290,
+      size: 290,
+      minSize: 148,
+    },
+
+    {
+      header: t("play"),
+      accessorKey: "play",
+      maxSize: 114,
+      size: 114,
+      minSize: 59,
+      hint: t("playHint"),
+    },
+    {
+      header: t("liveRTP"),
+      accessorKey: "totalRtp",
+      maxSize: 117,
+      size: 117,
+      minSize: 59,
+      hint: t("playHint"),
     },
     {
       header: (
         <div>
-          {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
+          {t("liveRTP")}
+          <span className="text-grey1 text-xs font-normal ml-1">(Per 100 Spins)</span>
         </div>
       ),
-      accessorKey: "casino",
-      maxSize: 242,
-      size: 242,
-      minSize: 148,
+      accessorKey: "currencRtp",
+      maxSize: 189,
+      size: 189,
+      minSize: 100,
+      hint: t("playHint"),
+    },
+
+    {
+      header: (
+        <div>
+          {t("wsr")}
+          <span className="text-grey1 text-xs font-normal ml-1">(Per 100 Spins)</span>
+        </div>
+      ),
+      accessorKey: "wsr",
+      maxSize: 185,
+      size: 185,
+      minSize: 100,
+      hint: t("h1GameHint"),
+    },
+
+    {
+      header: t("RTP"),
+      accessorKey: "fixedRtp",
+      maxSize: 86,
+      size: 86,
+      minSize: 74,
+      hint: t("RTPhint"),
+    },
+
+    {
+      header: t("casino"),
+      accessorKey: "casinoName",
+      maxSize: 172,
+      size: 172,
+      minSize: 100,
       hint: t("casinoBonusHint"),
     },
     {
-      header: t("h1"),
-      accessorKey: "p1h",
-      maxSize: 127,
-      size: 127,
-      minSize: 99,
-      hint: t("h1GameHint"),
+      header: t("statistics"),
+      accessorKey: "statType",
+      maxSize: 141,
+      size: 141,
+      minSize: 100,
+      hint: t("casinoBonusHint"),
     },
+    // {
+    //   header: t("SPS"),
+    //   accessorKey: "SPS",
+    //   maxSize: 108,
+    //   size: 108,
+    //   minSize: 72,
+    //   hint: t("SPSHint"),
+    // },
     // {
     //   header: t("h24"),
     //   accessorKey: "p24h",
@@ -40,51 +98,34 @@ export const casinoOrGameColumns = (t: any) => {
     //   hint: t("h24GameHint"),
     // },
 
-    {
-      header: t("jackpot"),
-      accessorKey: "jackpot",
-      maxSize: 203,
-      size: 203,
-      minSize: 136,
-      hint: t("jackpotHint"),
-    },
-    {
-      header: t("maxX"),
-      accessorKey: "maxX",
-      maxSize: 143,
-      size: 143,
-      minSize: 107,
-      hint: t("maxXHint"),
-    },
-    {
-      header: t("RTP"),
-      // (
-      //   <div>
-      //     {t("RTP")} /<span className="text-grey1 ml-1">{t("swing")}</span>
-      //   </div>
-      // )
-      accessorKey: "RTP",
-      maxSize: 109,
-      size: 109,
-      minSize: 74,
-      hint: t("RTPhint"),
-    },
-    {
-      header: t("SPS"),
-      accessorKey: "SPS",
-      maxSize: 108,
-      size: 108,
-      minSize: 72,
-      hint: t("SPSHint"),
-    },
-    {
-      header: t("play"),
-      accessorKey: "play",
-      maxSize: 89,
-      size: 89,
-      minSize: 59,
-      hint: t("playHint"),
-    },
+    // {
+    //   header: t("jackpot"),
+    //   accessorKey: "jackpot",
+    //   maxSize: 203,
+    //   size: 203,
+    //   minSize: 136,
+    //   hint: t("jackpotHint"),
+    // },
+    // {
+    //   header: t("maxX"),
+    //   accessorKey: "maxX",
+    //   maxSize: 143,
+    //   size: 143,
+    //   minSize: 107,
+    //   hint: t("maxXHint"),
+    // },
+    // {
+    //   header: (
+    //     <div>
+    //       {t("casino")} /<span className="text-grey1 ml-1">{t("bonus")}</span>
+    //     </div>
+    //   ),
+    //   accessorKey: "casino",
+    //   maxSize: 242,
+    //   size: 242,
+    //   minSize: 148,
+    //   hint: t("casinoBonusHint"),
+    // },
   ];
 
   return CASINO_GAME_COLS;

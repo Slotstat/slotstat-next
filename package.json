@@ -46,6 +46,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "react-tooltip": "^5.27.1",
     "react-youtube": "^10.1.0",
+    "recharts": "^2.15.3",
     "server-only": "^0.0.1",
     "sharp": "^0.33.4",
     "twemoji": "^14.0.2",

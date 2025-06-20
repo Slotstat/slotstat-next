@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import { baseUrl } from "../baseURL";
 
-const slotStatClientInstance = () => {
+const slotStatClientInstance = (bURL?: string) => {
   const uniqueId = getCookie("uniqueId");
   const cookie = getCookie("NEXT_LOCALE");
 
@@ -13,7 +13,7 @@ const slotStatClientInstance = () => {
 
   const lang = cookie === "en" ? "en-US" : "ka-GE";
   return axios.create({
-    baseURL: baseUrl,
+    baseURL: bURL || baseUrl,
     // timeout: 10000,
     headers: {
       "Content-Type": "application/json",

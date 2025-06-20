@@ -45,7 +45,7 @@
     @apply text-base font-bold text-white;
   }
   th {
-    @apply border-y border-dark3 text-start py-6;
+    @apply border-y border-dark3 text-start py-4;
   }
   th:first-child,
   td:first-child {

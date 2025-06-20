@@ -3,8 +3,7 @@
     "howItWorks": "როგორ მუშაობს",
     "faq": "ხშირად დასმული კითხვები",
     "slotstat": "Slotstat",
-    "blog":"ბლოგი"
-
+    "blog": "ბლოგი"
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
   "faq": {
@@ -81,7 +80,11 @@
     "casinoLink": "კაზინოს ლინკი",
     "playHint": "თამაში",
     "casino": "კაზინო",
-    "bonus": "ბონუსები"
+    "bonus": "ბონუსები",
+    "statistics": "სტატისტიკა",
+    "liveRTP": "მომდევნო RTP",
+    "per100Spins": "პერ 100 სპინები",
+    "wsr": "WSR"
   },
   "gamePage": {
     "findYourGame": "იპოვე შენი თამაში",
@@ -106,7 +109,9 @@
     "slotInWinR": "Slots In Win (random)",
     "slotsInLoseR": "Slots in lose (random)",
     "slotInWin": "Slots In Win ",
-    "slotsInLose": "Slots in lose"
+    "slotsInLose": "Slots in lose",
+    "apiDriven": "Api Driven",
+    "algorithmDriven": "Algorithm Driven"
   },
   "searchPlaceholder": "მოძებნე კაზინო, თამაში ან პროვაიდერი",
   "noStatistic": "უპს, შესაბამისი სტატისტიკა მალე განახლდება!!",

@@ -2,7 +2,6 @@
 
 // const defaultTheme = require("tailwindcss/defaultTheme");
 
-
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -32,6 +31,8 @@ module.exports = {
         green2: "#01c278",
         opaque1: "#FFFFFF66",
         red: "#FA4611",
+        yellow1: "#FCD712",
+        darkBlue: "#13171E",
 
         sky: {
           50: "#f0f9ff",

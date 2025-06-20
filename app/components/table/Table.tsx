@@ -8,6 +8,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TableIn from "./TableIn";
 import { useQueryState } from "nuqs";
+import NewTableIn from "./NewTableIn";
 
 const Table = ({
   gamesList,
@@ -83,7 +84,7 @@ const Table = ({
       )}
 
       {!loading && gamesList ? (
-        <TableIn
+        <NewTableIn
           gamesList={gamesList}
           onAddToCompare={onAddToCompare}
           orderBy={orderBy}

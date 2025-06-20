@@ -12,70 +12,70 @@ import UpIconGreen from "@/app/assets/svg/UpIconBlue";
 import DownIconRed from "@/app/assets/svg/DownIconBlue";
 import MinusWhite from "@/app/assets/svg/MinusBlue";
 
-const CountUpForJackpots = ({ jackpot, jackpotCurrency, casinoCurrency, casinoId }: any) => {
-  const { newJackpot } = useStore();
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(Number(jackpot));
+// const CountUpForJackpots = ({ jackpot, jackpotCurrency, casinoCurrency, casinoId }: any) => {
+//   const { newJackpot } = useStore();
+//   const [start, setStart] = useState(0);
+//   const [end, setEnd] = useState(Number(jackpot));
 
-  const increaseJackpot = () => {
-    setStart(Number(end));
+//   const increaseJackpot = () => {
+//     setStart(Number(end));
 
-    if (jackpot !== 0) {
-      if (
-        newJackpot?.casinoId &&
-        newJackpot?.ccy &&
-        newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
-        end !== Number(newJackpot.amount)
-      ) {
-        setEnd(Number(newJackpot.amount));
-      } else {
-        setEnd(end + 0.2);
-      }
-    }
-  };
+//     if (jackpot !== 0) {
+//       if (
+//         newJackpot?.casinoId &&
+//         newJackpot?.ccy &&
+//         newJackpot?.casinoId + newJackpot?.ccy === casinoId &&
+//         end !== Number(newJackpot.amount)
+//       ) {
+//         setEnd(Number(newJackpot.amount));
+//       } else {
+//         setEnd(end + 0.2);
+//       }
+//     }
+//   };
 
-  useEffect(() => {
-    setEnd(Number(jackpot));
+//   useEffect(() => {
+//     setEnd(Number(jackpot));
 
-    return () => {
-      setStart(0);
-      setEnd(0);
-    };
-  }, [jackpot]);
+//     return () => {
+//       setStart(0);
+//       setEnd(0);
+//     };
+//   }, [jackpot]);
 
-  return (
-    <div className=" text-green1 text-xs md:text-base ">
-      {end === 0 ? (
-        <div>
-          {jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""}
-          {end}
-        </div>
-      ) : (
-        <CountUp
-          start={start}
-          end={end}
-          duration={2}
-          separator=" "
-          decimals={2}
-          decimal="."
-          prefix={
-            jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""
-          }
-          onEnd={() => {
-            jackpot !== 0 && increaseJackpot();
-          }}
-          delay={0}
-        >
-          {({ countUpRef }) => (
-            <div>
-              <span ref={countUpRef} />
-            </div>
-          )}
-        </CountUp>
-      )}
-    </div>
-  );
-};
+//   return (
+//     <div className=" text-green1 text-xs md:text-base ">
+//       {end === 0 ? (
+//         <div>
+//           {jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""}
+//           {end}
+//         </div>
+//       ) : (
+//         <CountUp
+//           start={start}
+//           end={end}
+//           duration={2}
+//           separator=" "
+//           decimals={2}
+//           decimal="."
+//           prefix={
+//             jackpotCurrency ? jackpotCurrency + " " : casinoCurrency ? casinoCurrency + " " : ""
+//           }
+//           onEnd={() => {
+//             jackpot !== 0 && increaseJackpot();
+//           }}
+//           delay={0}
+//         >
+//           {({ countUpRef }) => (
+//             <div>
+//               <span ref={countUpRef} />
+//             </div>
+//           )}
+//         </CountUp>
+//       )}
+//     </div>
+//   );
+// };
 
 const RenderRowCells = ({
   row,
@@ -92,21 +92,25 @@ const RenderRowCells = ({
     redirectUrl,
     imageUrl,
     name,
-    t1H,
-    t24h,
-    jackpot,
-    jackpotCurrency,
-    casinoCurrency,
-    casinoId,
     provider,
-    rtp,
-    casinoName,
-    bounties,
-    jackpotInfo,
     currencRtp,
-    rtpChange,
-    rtpState,
-    maxX,
+    totalRtp,
+    fixedRtp,
+    wsrChange,
+    statType,
+    // t1H,
+    // t24h,
+    // jackpot,
+    // jackpotCurrency,
+    // casinoCurrency,
+    // casinoId,
+    // rtp,
+    // casinoName,
+    // bounties,
+    // jackpotInfo,
+    // rtpChange,
+    // rtpState,
+    // maxX,
     // fixedRtp,
     // currencyCode,
     // fixedRtp,
@@ -117,8 +121,8 @@ const RenderRowCells = ({
     // p24h,
     // s24h,
     // type,
-    verificationStatus,
-    sps,
+    // verificationStatus,
+    // sps,
   } = row.original;
 
   const onGoToWebSiteClick = (event: { defaultPrevented: any; preventDefault: () => void }) => {
@@ -128,10 +132,9 @@ const RenderRowCells = ({
   };
 
   const isImgUrl = (url: string) => {
-    return /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(url)
+    return /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(url);
   };
 
-  // console.log("first", imageUrl);
   const GameNameProvider = () => {
     return (
       <div className="flex flex-row items-center">
@@ -166,24 +169,24 @@ const RenderRowCells = ({
     );
   };
 
-  const CasinoBonus = () => {
-    return (
-      <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
-        <div className=" flex flex-row">
-          <h3 className="mr-1" title={bounties}>
-            {casinoName}
-          </h3>
-          {verificationStatus == 1 && <Verified />}
-        </div>
-        <p
-          title={bounties}
-          className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base"
-        >
-          {bounties}
-        </p>
-      </div>
-    );
-  };
+  // const CasinoBonus = () => {
+  //   return (
+  //     <div className="text-xs truncate md:text-base max-w-[124px] md:max-w-[206px]">
+  //       <div className=" flex flex-row">
+  //         <h3 className="mr-1" title={bounties}>
+  //           {casinoName}
+  //         </h3>
+  //         {verificationStatus == 1 && <Verified />}
+  //       </div>
+  //       <p
+  //         title={bounties}
+  //         className="text-grey1 truncate  text-xs max-w-[124px] md:max-w-[206px] md:text-base"
+  //       >
+  //         {bounties}
+  //       </p>
+  //     </div>
+  //   );
+  // };
 
   const Play = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -199,11 +202,11 @@ const RenderRowCells = ({
         onClick={onGoToWebSiteClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className=" hover:text-[#969CB0] hover:bg-blue3 text-white bg-blue1 
-        w-32 items-center justify-center flex py-2 rounded-lg  text-xs md:text-base"
+        className=" hover:text-white hover:bg-blue1 text-grey1  bg-grey3
+        w-20 items-center justify-center flex py-1.5 rounded-3xl  text-xs md:text-base"
       >
         <p className="mr-1">{t("play")}</p>
-        <LinkIconSmall fill={isHovered ? "#969CB0" : "#fff"} />
+        <LinkIconSmall fill={isHovered ? "#fff" : "#969CB0"} />
       </div>
     );
   };
@@ -211,7 +214,6 @@ const RenderRowCells = ({
   const renderEmptyValue = () => (cell.renderValue() ? <>{cell.renderValue()}</> : <>--</>);
 
   const showUpOrDownIcon = (
-    indicator: number,
     Cell:
       | string
       | number
@@ -222,25 +224,47 @@ const RenderRowCells = ({
       | null
       | undefined
   ) => {
-    if (indicator === 1) {
+    if (wsrChange === 1) {
       return (
         <div className="flex flex-row items-center text-xs md:text-base text-white ">
-          <UpIconGreen className="" />
           {Cell}%
+          <UpIconGreen className="" />
         </div>
       );
-    } else if (indicator === -1) {
+    } else if (wsrChange === -1) {
       return (
         <div className="flex flex-row items-center text-xs md:text-base text-rwhiteed">
-          <DownIconRed className="" />
           {Cell}%
+          <DownIconRed className="" />
         </div>
       );
     } else {
       return (
         <div className="flex flex-row items-center text-xs md:text-base ">
-          <MinusWhite className="" />
           {Cell}%
+          <MinusWhite className="" />
+        </div>
+      );
+    }
+  };
+
+  const AddPercentSign = ({ number }: { number: number }) => {
+    return <div className="text-base font-bold">{number} %</div>;
+  };
+
+  const StatType = () => {
+    if (statType == "ApiDriven") {
+      return (
+        <div>
+          <p className=" text-yellow1 text-base font-bold">API-Driven</p>
+          <p className=" text-grey1 text-base font-bold">Accuracy 100 % </p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p className=" text-white text-base font-bold">Algorithm-Driven</p>
+          <p className=" text-grey1 text-base font-bold">Accuracy 100 % </p>
         </div>
       );
     }
@@ -250,48 +274,47 @@ const RenderRowCells = ({
     case 0:
       return <GameNameProvider />;
     case 1:
-      return <CasinoBonus />;
-    case 2:
-      return <>{showUpOrDownIcon(t1H, cell.renderValue())}</>;
-    case 3:
-      if (jackpotInfo) {
-        return (
-          <div
-            className={`text-xs text-grey1  md:text-base ${
-              // @ts-ignore
-              jackpotInfo != "No jackpot" && "text-white"
-            }`}
-          >
-            {jackpotInfo}
-          </div>
-        );
-      } else {
-        return jackpot === 0 ? (
-          renderEmptyValue()
-        ) : (
-          <CountUpForJackpots
-            jackpot={jackpot}
-            jackpotCurrency={jackpotCurrency}
-            casinoCurrency={casinoCurrency}
-            casinoId={casinoId}
-          />
-        );
-      }
-
-    // return <>{showUpOrDownIcon(t24h, cell.renderValue())}</>;
-    case 4:
-      return (
-        <div className={`text-xs text-grey1  md:text-base ${maxX && "text-white"}`}>
-          {maxX ? maxX : "No maxX"}
-        </div>
-      );
-    case 5:
-      return <div>{rtp.preferredValue.toFixed(2)} %</div>;
-    // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
-    case 6:
-      return rtp ? <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} /> : <>--</>;
-    case 7:
       return <Play />;
+    case 2:
+      return <AddPercentSign number={totalRtp} />;
+
+    case 3:
+      return <AddPercentSign number={currencRtp} />;
+    //   if (jackpotInfo) {
+    //     return (
+    //       <div
+    //         className={`text-xs text-grey1  md:text-base ${
+    //           // @ts-ignore
+    //           jackpotInfo != "No jackpot" && "text-white"
+    //         }`}
+    //       >
+    //         {jackpotInfo}
+    //       </div>
+    //     );
+    //   } else {
+    //     return jackpot === 0 ? (
+    //       renderEmptyValue()
+    //     ) : (
+    //       <CountUpForJackpots
+    //         jackpot={jackpot}
+    //         jackpotCurrency={jackpotCurrency}
+    //         casinoCurrency={casinoCurrency}
+    //         casinoId={casinoId}
+    //       />
+    //     );
+    //   }
+
+    case 4:
+      return <>{showUpOrDownIcon(cell.renderValue())}</>;
+
+    case 5:
+      return <AddPercentSign number={fixedRtp} />;
+    //  <div>{rtp.preferredValue.toFixed(2)} %</div>;
+    // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
+    // case 6:
+    //   return rtp ? <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} /> : <>--</>;
+    case 7:
+      return <StatType />;
     default:
       return renderEmptyValue();
   }

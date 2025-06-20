@@ -1,6 +1,8 @@
 "use client";
 import slotStatClientInstance from "./clientInstance";
 
+const BURL = "https://stagingapi.slotstat.net";
+
 export default async function getGameListClientSide({
   keyWord,
   direction,
@@ -9,6 +11,7 @@ export default async function getGameListClientSide({
   page,
   ids,
 }: QueryParams) {
+  let statisticsType = null;
   if (
     orderBy === "slotInLoseR" ||
     orderBy === "fixedRtp" ||
@@ -16,11 +19,7 @@ export default async function getGameListClientSide({
     orderBy === "spsH"
   ) {
     direction = "desc";
-  } else if (
-    orderBy === "slotInWinR" ||
-    orderBy === "slotInWin" ||
-    orderBy === "spsL"
-  ) {
+  } else if (orderBy === "slotInWinR" || orderBy === "slotInWin" || orderBy === "spsL") {
     direction = "asc";
   }
 
@@ -30,12 +29,15 @@ export default async function getGameListClientSide({
     orderBy = "currencRtp";
   } else if (orderBy === "spsL" || orderBy === "spsH") {
     orderBy = "sps";
+  } else if (orderBy === "AlogrithmDriven" || orderBy === "ApiDriven") {
+    statisticsType = orderBy;
+    orderBy = null;
   }
 
-
   try {
-    const res = await slotStatClientInstance().request({
-      url: `/api/Game/aggregated?` + ids,
+    const res = await slotStatClientInstance(BURL).request({
+      // url: `/api/Game/aggregated?` + ids,
+      url: "/api/Game/aggregated",
       method: "GET",
       params: {
         keyWord: keyWord || null,
@@ -45,6 +47,7 @@ export default async function getGameListClientSide({
         isFiat: isFiat === "true" ? true : null,
         pageSize: 50,
         page: page || 1,
+        statisticsType: statisticsType || null,
       },
     });
 

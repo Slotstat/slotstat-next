@@ -150,11 +150,15 @@ type GameData = {
   jackpotInfo: string;
   verificationStatus: number;
   fixedRtp: number;
+  totalRtp: number;
   currencRtp: number;
   rtpChange: number;
   rtpState: number;
   sps: number;
   maxX: string;
+  statType: string;
+  wsr: number;
+  wsrChange: number;
 };
 
 type RTP = {
@@ -178,6 +182,17 @@ type gamesList = {
   pageSize: number;
   rowCount: number;
 };
+
+type RTPWSRData = {
+  aggregatedWsrId: string;
+  betCount: number;
+  casinoId: string;
+  date: string;
+  gameId: string;
+  rate: number;
+  rtp: number;
+  totalRtp: number;
+}[];
 
 type StatisticsData = {
   betCount?: number;
@@ -223,6 +238,7 @@ type QueryParams = {
   ActiveTab?: string;
   page?: string;
   ids?: string;
+  statisticsType?: "AlogrithmDriven" | "ApiDriven";
 };
 
 interface CasinoData extends GameData {

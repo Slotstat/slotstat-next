@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ChartComponentHeader from "./ChartComponentHeader";
 import LiveCards from "../LiveCards";
 import ChartComponent from "./ChartComponent";
+import BarChartComponent from "./BarChartComponent";
 import { useQueryState } from "nuqs";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 import BonusCards from "./BonusCards";
@@ -116,7 +117,7 @@ export default function ChartCasinoAndGameWrapper({
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       {screen === "slot" ? (
         <>
-          {mainGameObj && (
+          {/* {mainGameObj && (
             <ChartComponent
               gameId={gameId}
               compareGameId={compareGameIdQuery || undefined}
@@ -124,9 +125,9 @@ export default function ChartCasinoAndGameWrapper({
               compareGame={compareGameClient || compareGame}
               isFiat={isFiat || "false"}
             />
-          )}
+          )} */}
           {gamesCardsData && gameCards && (
-            <div className=" pb-12">
+            <div className="  mt-36 md:mt-64">
               <LiveCards
                 cardsData={gameCards}
                 rows={2}
@@ -135,6 +136,8 @@ export default function ChartCasinoAndGameWrapper({
               />
             </div>
           )}
+          <BarChartComponent mainGame={mainGameObj} />
+
           {/* {mainGameObj.additionalInfo && (
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               info

@@ -83,7 +83,11 @@
     "casinoLink": "Casino link",
     "playHint": "Play button directly sends the player to the selected slot on the chosen casino interface. Via the Play button SlotStat keeps tabs on player preferences and improves its mechanism based on this information.",
     "casino": "Casino",
-    "bonus": "Bonus"
+    "bonus": "Bonus",
+    "statistics": "Statistics",
+    "liveRTP": "Live RTP",
+    "per100Spins": "Per 100 Spins",
+    "wsr": "WSR"
   },
   "gamePage": {
     "findYourGame": "Find your game",
@@ -108,7 +112,10 @@
     "slotsInLoseR": "Slots in lose (random)",
     "slotInWin": "Slots in win",
     "slotsInLose": "Slots in lose",
-    "highestRTP": "Slots with Highest RTP"
+    "highestRTP": "Slots with Highest RTP",
+    "apiDriven": "Api Driven",
+    "algorithmDriven": "Algorithm Driven"
+
   },
 
   "searchPlaceholder": "Search game, casino or provider",

@@ -37,6 +37,18 @@ const Dropdown = ({
       value: "fixedRtp",
       width: "w-40",
     },
+    {
+      label: t("apiDriven"),
+      id: "4",
+      value: "ApiDriven",
+      width: "w-40",
+    },
+    {
+      label: t("algorithmDriven"),
+      id: "5",
+      value: "AlogrithmDriven",
+      width: "w-40",
+    },
   ];
 
   const [selected, setSelected] = useState(SORT_BY[0]);
