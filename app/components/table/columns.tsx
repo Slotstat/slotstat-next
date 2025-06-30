@@ -17,7 +17,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "play",
       maxSize: 114,
       size: 114,
-      minSize: 59,
+      minSize: 90,
       hint: t("playHint"),
     },
     {
@@ -25,7 +25,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "totalRtp",
       maxSize: 117,
       size: 117,
-      minSize: 59,
+      minSize: 80,
       hint: t("playHint"),
     },
     {
@@ -38,7 +38,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "currencRtp",
       maxSize: 189,
       size: 189,
-      minSize: 100,
+      minSize: 180,
       hint: t("playHint"),
     },
 
@@ -52,16 +52,15 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "wsr",
       maxSize: 185,
       size: 185,
-      minSize: 100,
+      minSize: 140,
       hint: t("h1GameHint"),
     },
-
     {
       header: t("RTP"),
       accessorKey: "fixedRtp",
       maxSize: 86,
       size: 86,
-      minSize: 74,
+      minSize: 60,
       hint: t("RTPhint"),
     },
 
@@ -70,7 +69,7 @@ export const casinoOrGameColumns = (t: any) => {
       accessorKey: "casinoName",
       maxSize: 172,
       size: 172,
-      minSize: 100,
+      minSize: 90,
       hint: t("casinoBonusHint"),
     },
     {
