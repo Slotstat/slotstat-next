@@ -77,7 +77,7 @@ export default function NewRTPWidget({
   }, [newRtp]);
 
   return (
-    <div className="rounded-xl bg-dark2 p-4 h-full ">
+    <div className="rounded-xl bg-dark2 p-4 h-full max-sm:rounded-t-[0px] max-sm:p-1">
       {gameObject?.rtp && RTP ? (
         <div className="rounded-xl bg-dark1 h-full flex flex-col items-center pt-4  relative justify-between">
           <p className="text-lg text-white text-center mb-8 h-12">

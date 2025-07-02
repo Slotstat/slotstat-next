@@ -135,7 +135,8 @@
   color: white !important;
 }
 
-.cs-message-input__content-editor-wrapper .cs-message-input__content-editor[contenteditable="true"]:empty::before {
+.cs-message-input__content-editor-wrapper
+  .cs-message-input__content-editor[contenteditable="true"]:empty::before {
   color: #969cb0 !important;
 }
 
@@ -149,7 +150,7 @@
 .cs-message__html-content .red-message {
   color: red !important;
 }
-.cs-message--incoming .cs-message__avatar{
+.cs-message--incoming .cs-message__avatar {
   margin: 0px !important;
 }
 
@@ -160,6 +161,23 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@media (max-width: 768px) {
+  .slot_page_card_container_wrapper {
+    margin-top: 9.7rem;
+  }
+  .slot_page_card_container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .slot_page_card_container div {
+    width: calc(50% - 8px);
+    flex-grow: initial;
+  }
 }

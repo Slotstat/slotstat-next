@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { currency, eyes, joystick, live, satellite, slotIcon } from "../assets";
+import { useState } from "react";
+import { currency, eyes, joystick, linkIcon, live, satellite, slotIcon } from "../assets";
 import Image from "next/image";
-import LinkIcon from "../assets/svg/LinkIcon";
 import TooltipComponent from "./TooltipComponent";
 import useStore from "@/app/(store)/store";
 import _ from "lodash";
@@ -119,12 +118,10 @@ const StatCard = ({
 
   return (
     <div
-      className={`flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow ${
+      className={`flex flex-col justify-between rounded-2xl bg-dark2 p-4 lg:p-6 md:w-full grow max-sm:p-3 max-sm:h-[68px] ${
         redirectUrl && "hover:bg-dark3 cursor-pointer"
       } `}
-      onClick={() =>
-        redirectUrl && window.open(redirectUrl, "_blank", "noreferrer")
-      }
+      onClick={() => redirectUrl && window.open(redirectUrl, "_blank", "noreferrer")}
     >
       <div className="flex items-center justify-between">
         <div>
@@ -139,22 +136,15 @@ const StatCard = ({
             />
           )}
         </div>
-        {isLive && (
-          <Image
-            src={live}
-            alt=""
-            className="ml-3"
-            width="0"
-            height="0"
-            sizes="100vw"
-          />
-        )}
+        {isLive && <Image src={live} alt="" className="ml-3" width="0" height="0" sizes="100vw" />}
       </div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 flex items-center justify-between max-sm:mt-[12px]">
         <span
-          className={`whitespace-nowrap text-xs leading-5 flex flex-row  md:text-base text-grey1`}
+          className={`whitespace-nowrap text-xs flex flex-row  md:text-base text-grey1 items-center`}
         >
-          <span className=" mr-3 cursor-default">{name}:</span>
+          <span className="max-sm:text-[10px] max-sm:leading-[16px] mr-3 max-sm:mr-[4px] cursor-default">
+            {name}:
+          </span>
           {isLive && additionalProps ? (
             <AnimatedCounterComponent
               additionalProps={additionalProps}
@@ -164,22 +154,27 @@ const StatCard = ({
             />
           ) : (
             <span
-              className={`text-white cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold`}
+              className={`text-white cursor-default truncate max-w-[100px] lg:max-w-[140px] font-bold max-sm:text-[10px] max-sm:leading-[16px]`}
               title={value}
             >
               {value}
             </span>
           )}
           {redirectUrl && (
-            <LinkIcon
-              onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
-              className=" ml-2 cursor-pointer"
+            <img
+              src={linkIcon.src}
+              alt="link"
+              className="ml-2 cursor-pointer max-sm:ml-[2px] max-sm:w-[16px]"
             />
+            // <LinkIcon
+            //   onClick={() => window.open(redirectUrl, "_blank", "noreferrer")}
+            //   className=" ml-2 cursor-pointer max-sm:ml-[2px]"
+            // />
           )}
         </span>
         {additionalInfo && (
           <>
-            <TooltipComponent big text={additionalInfo} />
+            <TooltipComponent big text={additionalInfo} classN="max-sm:w-[16px] max-sm:h-[16px]" />
           </>
         )}
       </div>
@@ -282,16 +277,10 @@ const LiveCards = ({
 
   return (
     <div className="my-3 md:my-4 overflow-x-scroll whitespace-nowrap lg:my-6 md:overflow-auto md:whitespace-normal no-scroll">
-      <div className="grid grid-cols-4 w-[250%] md:w-full gap-3 md:gap-6">
+      <div className="slot_page_card_container grid grid-cols-4 w-[250%] md:w-full gap-3 md:gap-6">
         {cardsDataState &&
           cardsDataState.map((card, i) => (
-            <StatCard
-              key={i}
-              {...card}
-              casinoId={casinoId}
-              casino={casino}
-              game={game}
-            />
+            <StatCard key={i} {...card} casinoId={casinoId} casino={casino} game={game} />
           ))}
       </div>
     </div>

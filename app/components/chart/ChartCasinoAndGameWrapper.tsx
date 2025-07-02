@@ -127,7 +127,7 @@ export default function ChartCasinoAndGameWrapper({
             />
           )} */}
           {gamesCardsData && gameCards && (
-            <div className="  mt-36 md:mt-64">
+            <div className="slot_page_card_container_wrapper mt-36 md:mt-64">
               <LiveCards
                 cardsData={gameCards}
                 rows={2}

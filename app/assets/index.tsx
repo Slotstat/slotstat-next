@@ -35,6 +35,8 @@ import joystick from "./img/joystick.png";
 import eyes from "./img/eye.png";
 import currency from "./img/currency.png";
 import videoThumb from "./img/videothumb.png";
+import linkIcon from "./svg/link-img.svg";
+import InfoImg from "./svg/info-img.svg";
 
 export {
   logo,
@@ -70,4 +72,6 @@ export {
   bonus,
   videoThumb,
   closeMinus,
+  linkIcon,
+  InfoImg,
 };

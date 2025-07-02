@@ -13,7 +13,7 @@ export default function TooltipComponent({
   const [color, setColor] = useState("#969CB0");
 
   return (
-    <div className={big ? "w-6 h-6" : "w-4 h-4" }>
+    <div className={big ? "w-6 h-6" : "w-4 h-4"}>
       <span className="cursor-pointer" data-tooltip-id="my-tooltip" data-tooltip-content={text}>
         <svg
           onMouseEnter={() => setColor("#5887F5")}

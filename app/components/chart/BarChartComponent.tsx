@@ -59,7 +59,7 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
 
   return (
     <div className="flex w-full  flex-row flex-wrap pb-12  h-auto">
-      <div className="h-full bg-dark2 p-4 pt-3  rounded-xl shadow lg:w-3/4 w-full">
+      <div className="h-full bg-dark2 p-4 pt-3  rounded-xl shadow lg:w-3/4 w-full max-sm:rounded-b-[0px] max-sm:px-1 max-sm:py-[12px] max-sm:pb-[0px]">
         <div className="text-base font-bold text-white pb-3 pl-3">
           {mainGame.casinoName}/{mainGame.name}
         </div>
@@ -68,6 +68,7 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
             <div className="text-base font-bold text-white ">Insider Overview</div>
             <TooltipComponent
               big
+              classN="max-sm:w-[16px] max-sm:h-[16px]"
               text={"On this chart each group of columns shows data per 1000 spin"}
             />
           </div>
