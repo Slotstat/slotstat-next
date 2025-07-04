@@ -46,7 +46,6 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
   const [gameData, setGameData] = useState<any>(null);
 
   const getStatisticOfGame = async () => {
-    console.log("first");
     const gamesListData: Promise<RTPWSRData> = getRTPWSRClientSide();
 
     let game1000SpinData = await gamesListData;

@@ -90,7 +90,7 @@ export default function TableClientSide({
 
     let games = await gamesListData;
     // let games = await newGamesListData;
-    console.log("first", games);
+
     // saves first page games ids in a state
     // if (games.currentPage === 1 && firstPageIds === "") {
     //   let firstPageGameIds: string = "";
