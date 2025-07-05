@@ -18,7 +18,7 @@ export default function ChartCasinoAndGameWrapper({
   isFiat,
   ActiveTab,
   casinoCards,
-  casino,
+  // casino,
   gameCards,
   gameId,
   mainGameObj,
@@ -35,7 +35,7 @@ export default function ChartCasinoAndGameWrapper({
   isFiat?: string | null;
   ActiveTab: string;
   casinoCards: Card[];
-  casino: CasinoData;
+  // casino: CasinoData;
   gameCards: Card[];
   gameId: string;
   mainGameObj: GameData;
@@ -112,7 +112,7 @@ export default function ChartCasinoAndGameWrapper({
     }
   };
 
-  return casino && casinoCards && casinoBonuses ? (
+  return casinoCards && casinoBonuses ? (
     <>
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       {screen === "slot" ? (
@@ -175,11 +175,11 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-48 md:mt-72">
-          {casino.additionalInfo && (
+
             <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
               Unlock Exclusive Casino Bonuses and Promotions
             </div>
-          )}
+
           <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-12 ">
             Activate bonuses and promotions by clicking either the 'Get Bonus' or 'Read More' button
             on the corresponding card. Explore exclusive rewards and enhance your gaming journey
@@ -194,7 +194,6 @@ export default function ChartCasinoAndGameWrapper({
         screen={screen}
         gameObj={mainGameObj}
         ActiveTab={ActiveTab}
-        casinoURL={casino.redirectUrl}
       />
     </>
   ) : (

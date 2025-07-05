@@ -75,7 +75,7 @@ export default function NewRTPWidget({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRtp]);
-
+  // console.log("gameObject?.rtp && RTP ", gameObject, RTP);
   return (
     <div className="rounded-xl bg-dark2 p-4 h-full max-sm:rounded-t-[0px] max-sm:p-1">
       {gameObject?.rtp && RTP ? (

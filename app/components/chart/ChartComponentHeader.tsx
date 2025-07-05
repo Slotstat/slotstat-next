@@ -9,7 +9,6 @@ import { useQueryState } from "nuqs";
 export default function ChartComponentHeader({
   gameObj,
   ActiveTab,
-  casinoURL,
   changeScreen,
   screen,
 }: {
@@ -17,7 +16,6 @@ export default function ChartComponentHeader({
   changeScreen: (GameScreenState: string) => void;
   gameObj: GameData;
   ActiveTab?: string;
-  casinoURL: string;
 }) {
   const [_, setIsGameQuery] = useQueryState("ActiveTab");
   const t = useTranslations("table");
@@ -148,7 +146,7 @@ export default function ChartComponentHeader({
             <div className="flex items-center justify-between text-white  font-bold">
               <div className="hidden md:flex items-center">
                 <a
-                  href={casinoURL}
+                  href={redirectUrl}
                   target="_blank"
                   className=" flex items-center"
                 >

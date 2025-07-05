@@ -70,7 +70,7 @@ export default async function gamePage({
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
 
-  const casinoData: Promise<CasinoData> = getCasino(casId);
+  // const casinoData: Promise<CasinoData> = getCasino(casId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
   // const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
@@ -80,14 +80,14 @@ export default async function gamePage({
     mainGame,
     gameCards,
     //  compareGame,
-    casino,
+    // casino,
     casinoCards,
     casinoBonuses,
   ] = await Promise.all([
     mainGameData,
     gamesCardsData,
     // compareGameData,
-    casinoData,
+    // casinoData,
     casinoCardsData,
     casinoBonusData,
   ]);
@@ -106,7 +106,7 @@ export default async function gamePage({
     <div className="min-h-screen">
       <ChartCasinoAndGameWrapper
         casId={casId}
-        casino={casino}
+        // casino={casino}
         casinoCardsData={casinoCardsData}
         casinoBonuses={casinoBonuses}
         // compareGame={compareGame}
