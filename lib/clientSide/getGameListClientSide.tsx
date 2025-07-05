@@ -1,7 +1,7 @@
 "use client";
 import slotStatClientInstance from "./clientInstance";
 
-const BURL = "https://stagingapi.slotstat.net";
+// const BURL = "https://stagingapi.slotstat.net";
 
 export default async function getGameListClientSide({
   keyWord,
@@ -35,7 +35,7 @@ export default async function getGameListClientSide({
   }
 
   try {
-    const res = await slotStatClientInstance(BURL).request({
+    const res = await slotStatClientInstance().request({
       // url: `/api/Game/aggregated?` + ids,
       url: "/api/Game/aggregated",
       method: "GET",

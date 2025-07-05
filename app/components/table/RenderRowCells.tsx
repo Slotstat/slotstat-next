@@ -324,7 +324,7 @@ const RenderRowCells = ({
       return <AddPercentSign number={fixedRtp} />;
     //  <div>{rtp.preferredValue.toFixed(2)} %</div>;
     // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
-    case 6:
+    // case 6:
     //   return rtp ? <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} /> : <>--</>;
     case 7:
       return <StatType />;
