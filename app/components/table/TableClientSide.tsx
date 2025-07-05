@@ -4,7 +4,7 @@ import Table from "./Table";
 import getGameListClientSide from "@/lib/clientSide/getGameListClientSide";
 import { useQueryState } from "nuqs";
 import { useGamesListStore } from "@/app/(store)/store";
-// import getNewListing from "@/lib/clientSide/getNewListing";
+
 
 // const checkRenderOrNot = (row: GameData) => {
 //   const {
@@ -77,7 +77,7 @@ export default function TableClientSide({
     const checkedKeyword = keyWord || keyWordBottomsheet || blogSearchFromTitle;
     const checkedOrderBy = orderBy || orderByBottomsheet;
 
-    // const newGamesListData: Promise<gamesList> = getNewListing();
+
 
     const gamesListData: Promise<gamesList> = getGameListClientSide({
       orderBy: checkedOrderBy,
