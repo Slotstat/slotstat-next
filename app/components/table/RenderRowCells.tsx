@@ -111,9 +111,7 @@ const RenderRowCells = ({
     // rtpChange,
     // rtpState,
     // maxX,
-    // fixedRtp,
     // currencyCode,
-    // fixedRtp,
     // isCrypto,
     // dataSource,
     // gameId,
@@ -248,6 +246,21 @@ const RenderRowCells = ({
     }
   };
 
+  const LiveRTP = ({ number }: { number: number }) => {
+    return (
+      <div>
+        <AddPercentSign number={number} />
+        <div>
+          {number > fixedRtp ? (
+            <p className="text-red">Hungry</p>
+          ) : (
+            <p className="text-green3">Well-fed</p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   const AddPercentSign = ({ number }: { number: number }) => {
     return <div className="text-base font-bold">{number} %</div>;
   };
@@ -276,7 +289,7 @@ const RenderRowCells = ({
     case 1:
       return <Play />;
     case 2:
-      return <AddPercentSign number={totalRtp} />;
+      return <LiveRTP number={totalRtp} />;
 
     case 3:
       return <AddPercentSign number={currencRtp} />;
@@ -311,7 +324,7 @@ const RenderRowCells = ({
       return <AddPercentSign number={fixedRtp} />;
     //  <div>{rtp.preferredValue.toFixed(2)} %</div>;
     // return name !== "All Games" && rtp ? <RTPListing rtp={rtp} /> : <>--</>;
-    // case 6:
+    case 6:
     //   return rtp ? <SPS rtp={rtp} rtpChange={rtpChange} rtpState={rtpState} sps={sps} /> : <>--</>;
     case 7:
       return <StatType />;
