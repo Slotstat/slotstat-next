@@ -22,25 +22,26 @@ export default function NewRTPWidget({
   const slotIsLosing = t("CasinoIsLosing");
   const slotIsInProfit = t("CasinoIsInProfit");
   const neutral = t("neutral");
-
+  const max = 50;
+  const min = 200;
   const RTPAngleCalculator = ({
     value,
-    preferredValue,
+    fixedRtp,
     max,
     min,
   }: {
     value: number;
-    preferredValue: number;
+    fixedRtp: number;
     max: number;
     min: number;
   }) => {
-    if (value > preferredValue) {
+    if (value > fixedRtp) {
       const casinoLosingIndicatorSizeCounter =
-        RTPCenterAngle + (value - preferredValue) * (RTPCenterAngle / (max - preferredValue));
+        RTPCenterAngle + (value - fixedRtp) * (RTPCenterAngle / (max - fixedRtp));
       setAngle(casinoLosingIndicatorSizeCounter);
-    } else if (value < preferredValue) {
+    } else if (value < fixedRtp) {
       const casinoWiningIndicatorSizeCounter =
-        RTPCenterAngle - (preferredValue - value) * (RTPCenterAngle / (preferredValue - min));
+        RTPCenterAngle - (fixedRtp - value) * (RTPCenterAngle / (fixedRtp - min));
       setAngle(casinoWiningIndicatorSizeCounter);
     } else {
       setAngle(RTPCenterAngle);
@@ -48,37 +49,38 @@ export default function NewRTPWidget({
   };
 
   useEffect(() => {
-    if (gameObject?.rtp) {
-      const { preferredValue, max, min } = gameObject?.rtp;
+    if (gameObject?.fixedRtp && gameObject.totalRtp) {
+      const { fixedRtp } = gameObject;
 
       RTPAngleCalculator({
-        value: gameObject.rtp.value,
-        preferredValue,
+        value: gameObject.totalRtp,
+        fixedRtp,
         max,
         min,
       });
 
-      setRTP(gameObject.rtp.value);
+      setRTP(gameObject.totalRtp);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameObject]);
 
-  useEffect(() => {
-    if (newRtp && gameObject?.rtp && newRtp.rtpId === gameObject.rtp.id) {
-      const { value } = newRtp;
-      const { preferredValue, max, min } = gameObject.rtp;
+  // useEffect(() => {
+  //   if (newRtp && gameObject && newRtp.rtpId === gameObject) {
+  //     const { value } = newRtp;
+  //     const { fixedRtp } = gameObject;
 
-      RTPAngleCalculator({ value, preferredValue, max, min });
-      setTimeout(() => {
-        setRTP(value);
-      }, 10000);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newRtp]);
-  // console.log("gameObject?.rtp && RTP ", gameObject, RTP);
+  //     RTPAngleCalculator({ value, fixedRtp, max, min });
+  //     setTimeout(() => {
+  //       setRTP(value);
+  //     }, 10000);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [newRtp]);
+
+  console.log("gameObject?.rtp && RTP ", gameObject);
   return (
     <div className="rounded-xl bg-dark2 p-4 h-full max-sm:rounded-t-[0px] max-sm:p-1">
-      {gameObject?.rtp && RTP ? (
+      {gameObject?.fixedRtp ? (
         <div className="rounded-xl bg-dark1 h-full flex flex-col items-center pt-4  relative justify-between">
           <p className="text-lg text-white text-center mb-8 h-12">
             {gameObject?.casinoName} {gameObject?.name}
@@ -108,7 +110,7 @@ export default function NewRTPWidget({
                   fontSize="14"
                   fontFamily="modernist-bold"
                 >
-                  RTP <tspan fill="white">{gameObject?.rtp?.preferredValue}%</tspan>
+                  RTP <tspan fill="white">{gameObject?.fixedRtp}%</tspan>
                 </text>
                 <text
                   x="50%"
@@ -131,20 +133,20 @@ export default function NewRTPWidget({
                   fontSize="12"
                   fontFamily="modernist"
                 >
-                  {RTP === gameObject?.rtp?.preferredValue ? (
+                  {RTP && RTP === gameObject?.fixedRtp ? (
                     neutral
-                  ) : RTP > gameObject?.rtp?.preferredValue ? (
+                  ) : RTP && RTP > gameObject?.fixedRtp ? (
                     <>
                       {slotIsLosing}{" "}
                       <tspan fill="#fff">
-                        {(RTP - gameObject?.rtp?.preferredValue).toFixed(2)}%
+                        {(RTP - gameObject?.fixedRtp).toFixed(2)}%
                       </tspan>
                     </>
-                  ) : (
+                  ) : RTP && (
                     <>
-                      {slotIsInProfit}{" "}
+                      {slotIsInProfit}
                       <tspan fill="#fff">
-                        {(gameObject?.rtp?.preferredValue - RTP).toFixed(2)}%
+                        {(gameObject?.fixedRtp - RTP).toFixed(2)}%
                       </tspan>
                     </>
                   )}
