@@ -262,22 +262,22 @@ const RenderRowCells = ({
   };
 
   const AddPercentSign = ({ number }: { number: number }) => {
-    return <div className="text-base font-bold">{number} %</div>;
+    return <div className="text-xs lg:text-base font-bold">{number} %</div>;
   };
 
   const StatType = () => {
     if (statType == "ApiDriven") {
       return (
         <div>
-          <p className=" text-yellow1 text-base font-bold">API-Driven</p>
-          <p className=" text-grey1 text-base font-bold">Accuracy 100 % </p>
+          <p className=" text-yellow1 text-xs lg:text-base font-bold">API-Driven</p>
+          <p className=" text-grey1 text-xs lg:text-base  font-bold">Accuracy 100% </p>
         </div>
       );
     } else {
       return (
         <div>
-          <p className=" text-white text-base font-bold">Algorithm-Driven</p>
-          <p className=" text-grey1 text-base font-bold">Accuracy 100 % </p>
+          <p className=" text-white text-xs lg:text-base  font-bold">Algo-driven</p>
+          <p className=" text-grey1 text-xs lg:text-base font-bold">Accuracy 100% </p>
         </div>
       );
     }
