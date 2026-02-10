@@ -3,9 +3,13 @@
     "howItWorks": "How it works",
     "faq": "FAQ",
     "slotstat": "Slotstat",
-    "blog":"Blog"
+    "blog": "Blog"
   },
   "lang": { "ka": "ქარ", "en": "Eng" },
+  "Home": {
+    "HomeSeoTitle": "SlotStat: Real-Time Slot Statistics & Data-Driven Gambling Insights",
+    "HomeSeoDesc": "Explore SlotStat for real-time slot statistics and insights. Discover RTP, Win Spin Rate, and more to make smarter decisions while playing."
+  },
 
   "faq": {
     "theFAQs": "Frequently Asked Questions",
@@ -115,7 +119,6 @@
     "highestRTP": "Slots with Highest RTP",
     "apiDriven": "Api Driven",
     "algorithmDriven": "Algorithm Driven"
-
   },
 
   "searchPlaceholder": "Search game, casino or provider",

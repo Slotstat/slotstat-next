@@ -29,33 +29,26 @@ export async function generateMetadata() {
   }
 }
 
-export default function ResponsibleGaming() {
+import { unstable_setRequestLocale } from "next-intl/server";
+
+export default function ResponsibleGaming({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   return (
     <div className="text-grey1 mb-10">
       <h1 className=" text-4xl font-black text-white my-6">
-        SlotStat prioritizes responsible gambling to ensure a safe and enjoyable
-        experience for all players.
+        SlotStat prioritizes responsible gambling to ensure a safe and enjoyable experience for all
+        players.
       </h1>
 
       <h2 className="text-xl font-bold my-4">SlotStat's Commitment</h2>
 
       <ul className="list-disc ml-6">
         <li>
-          Information and Resources: Access guides on gambling risks and
-          responsible practices.
+          Information and Resources: Access guides on gambling risks and responsible practices.
         </li>
-        <li>
-          Deposit Limits: Set daily, weekly, or monthly limits to manage
-          spending.
-        </li>
-        <li>
-          Self-Exclusion: Temporarily or permanently block access to the account
-          if needed.
-        </li>
-        <li>
-          Support and Assistance: Find links to professional support services
-          and helplines.
-        </li>
+        <li>Deposit Limits: Set daily, weekly, or monthly limits to manage spending.</li>
+        <li>Self-Exclusion: Temporarily or permanently block access to the account if needed.</li>
+        <li>Support and Assistance: Find links to professional support services and helplines.</li>
       </ul>
 
       <h2 className="text-lg font-semibold my-4">Watch for these signs:</h2>
@@ -76,8 +69,8 @@ export default function ResponsibleGaming() {
       </ul>
 
       <p className="mt-8">
-        SlotStat believes data is the foundation of responsible gambling. Stay
-        informed. Play responsibly.
+        SlotStat believes data is the foundation of responsible gambling. Stay informed. Play
+        responsibly.
       </p>
     </div>
   );

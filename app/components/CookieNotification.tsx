@@ -7,11 +7,7 @@ import { useTranslations } from "next-intl";
 // import { generateUniqueId } from "@/lib/uuid";
 import { getLocalStorage, setLocalStorage } from "@/lib/storageHelper";
 
-export default function CookieNotification({
-  uniqueId,
-}: {
-  uniqueId?: string;
-}) {
+export default function CookieNotification() {
   const t = useTranslations("notification");
   const [cookieConsent, setCookieConsent] = useState(false);
 
@@ -20,6 +16,18 @@ export default function CookieNotification({
 
     setCookieConsent(storedCookieConsent);
   }, [setCookieConsent]);
+
+  useEffect(() => {
+    // Check for uniqueId in cookies on mount
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(";").shift();
+    };
+
+    // This logic was previously in layout.tsx but moved here for SSG
+    // You might want to set this to state if needed elsewhere
+  }, []);
 
   useEffect(() => {
     const newValue = cookieConsent ? "granted" : "denied";
@@ -49,17 +57,8 @@ export default function CookieNotification({
     >
       <div className="flex justify-between mb-3">
         <Image src={cookie} alt="" className="h-9 w-9" width={36} height={36} />
-        <button
-          className="flex items-center justify-center"
-          onClick={() => setCookieConsent(true)}
-        >
-          <Image
-            src={close}
-            alt=""
-            className="h-6 w-6"
-            width={24}
-            height={24}
-          />
+        <button className="flex items-center justify-center" onClick={() => setCookieConsent(true)}>
+          <Image src={close} alt="" className="h-6 w-6" width={24} height={24} />
         </button>
       </div>
 

@@ -1,0 +1,95 @@
+yarn run v1.22.22
+$ next build
+  ▲ Next.js 14.2.5
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+ ⨯ ESLint: Invalid Options: - Unknown options: useEslintrc, extensions - 'extensions' has been removed.
+   Collecting page data ...
+   Generating static pages (0/21) ...
+   Generating static pages (5/21) 
+   Generating static pages (10/21) 
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+l [Error]: MISSING_MESSAGE: Home (en)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:38282
+    at t.createBaseTranslator (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:38332)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:36359
+    at t.eX (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:36411)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/app/[locale]/page.js:4:12925
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.P (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/app/[locale]/page.js:4:13023) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Home (en)'
+}
+l [Error]: MISSING_MESSAGE: Home (en)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:38282
+    at t.createBaseTranslator (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:38332)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:36359
+    at t.eX (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/chunks/890.js:59:36411)
+    at /Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/app/[locale]/page.js:4:12925
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at listOnTimeout (node:internal/timers:549:9)
+    at process.processTimers (node:internal/timers:523:7)
+    at async Module.P (/Users/giorgikhimshiashvili/Desktop/work/my-work/slotstat-next/.next/server/app/[locale]/page.js:4:13023) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'Home (en)'
+}
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+   Generating static pages (15/21) 
+ ✓ Generating static pages (21/21)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          883 B          88.4 kB
+├ ● /[locale]                            7.93 kB         245 kB
+├   └ /en
+├ ƒ /[locale]/[gameId]                   146 kB          306 kB
+├ ● /[locale]/about-us                   1.21 kB        96.5 kB
+├   └ /en/about-us
+├ ƒ /[locale]/blog/[category]            29.7 kB         156 kB
+├ ƒ /[locale]/blog/[category]/[slug]     2.69 kB         235 kB
+├ ● /[locale]/faq                        5.03 kB         110 kB
+├   └ /en/faq
+├ ● /[locale]/how-it-works               1.21 kB        96.5 kB
+├   └ /en/how-it-works
+├ ● /[locale]/privacy-policy             1.21 kB        96.5 kB
+├   └ /en/privacy-policy
+├ ● /[locale]/responsible-gaming         141 B          87.6 kB
+├   └ /en/responsible-gaming
+├ ● /[locale]/terms-of-use               1.21 kB        96.5 kB
+├   └ /en/terms-of-use
+├ ƒ /api/blogPost                        0 B                0 B
+├ ƒ /api/chat/messages                   0 B                0 B
+├ ƒ /api/chat/postSaveThreadIdInBE       0 B                0 B
+├ ƒ /api/chat/run                        0 B                0 B
+├ ƒ /api/chat/thread                     0 B                0 B
+├ ○ /apple-icon.png                      0 B                0 B
+├ ○ /opengraph-image.png                 0 B                0 B
+├ ○ /robots.txt                          0 B                0 B
+├ ○ /sitemap.xml                         0 B                0 B
+└ ○ /twitter-image.png                   0 B                0 B
++ First Load JS shared by all            87.5 kB
+  ├ chunks/7023-6ca959dd20d4983b.js      31.7 kB
+  ├ chunks/fd9d1056-f93cadf34cd73eb3.js  53.7 kB
+  └ other shared chunks (total)          2.15 kB
+
+
+ƒ Middleware                             44.2 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+
+Done in 13.55s.

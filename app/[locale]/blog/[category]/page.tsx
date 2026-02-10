@@ -3,7 +3,7 @@ import Card from "@/app/components/ui/card";
 import BlogTabs from "@/app/components/blog/BlogTabs";
 import { client } from "@/lib/sanityLib/sanity";
 
-export const revalidate = 30; // revalidate at most 30 seconds
+export const revalidate = 3600; // revalidate at most 1 hour
 
 async function getData(category: string) {
   const query = `
@@ -44,11 +44,14 @@ export async function generateMetadata({
   }
 }
 
+import { unstable_setRequestLocale } from "next-intl/server";
+
 export default async function Home({
-  params: { category },
+  params: { category, locale },
 }: {
-  params: { category: string };
+  params: { category: string; locale: string };
 }) {
+  unstable_setRequestLocale(locale);
   const data: simpleBlogCard[] = await getData(category);
 
   return (

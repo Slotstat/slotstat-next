@@ -139,6 +139,7 @@ const RenderRowCells = ({
         <div className="h-8 w-8 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
           <div className="relative h-8 w-8 md:w-12 md:h-12 ">
             {!!isImgUrl(imageUrl) && (
+              // console.log("Image URL:", imageUrl),
               <Image
                 // unoptimized
                 src={imageUrl}

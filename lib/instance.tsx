@@ -1,16 +1,15 @@
 import axios from "axios";
-import { cookies } from "next/headers";
 import { baseUrl } from "./baseURL";
 
 const slotStatClient = (locale?: string) => {
-  const uniqueId = cookies().get("uniqueId")?.value;
-  const cookie = cookies().get("NEXT_LOCALE")?.value;
+  // const uniqueId = cookies().get("uniqueId")?.value;
+  // const cookie = cookies().get("NEXT_LOCALE")?.value;
 
-  const country = cookies().get("country")?.value;
-  const region = cookies().get("region")?.value;
+  // const country = cookies().get("country")?.value;
+  // const region = cookies().get("region")?.value;
 
-  let lang = cookie === "en" ? "en-US" : "ka-GE";
-  let lang1 = locale === "en" ? "en-US" : locale === "ka" ? "ka-GE" : lang;
+  // let lang = cookie === "en" ? "en-US" : "ka-GE";
+  let lang1 = locale === "en" ? "en-US" : locale === "ka" ? "ka-GE" : "en-US";
 
   return axios.create({
     baseURL: baseUrl,
@@ -18,9 +17,9 @@ const slotStatClient = (locale?: string) => {
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": lang1,
-      "X-User-ID": uniqueId,
-      country: country,
-      region: region,
+      // "X-User-ID": uniqueId,
+      // country: country,
+      // region: region,
     },
   });
 };

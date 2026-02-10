@@ -9,6 +9,7 @@ export async function getLandingCards(locale: "en" | "ka") {
     if (res.status != 200) throw new Error("Can't successfully fetch data");
     return res.data;
   } catch (error) {
+    console.error("getLandingCards Error:", error);
     return false;
   }
 }
@@ -21,6 +22,7 @@ export async function getLandingOffers(locale: "en" | "ka") {
     if (res.status != 200) throw new Error("Can't successfully fetch data");
     return res.data;
   } catch (error) {
+    console.error("getLandingOffers Error:", error);
     return false;
   }
 }

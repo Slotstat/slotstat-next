@@ -36,7 +36,10 @@ export async function generateMetadata() {
   }
 }
 
-export default function FAQ() {
+import { unstable_setRequestLocale } from "next-intl/server";
+
+export default function FAQ({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("faq");
 
   const columns = useMemo(() => accordionData(t), [t]);
@@ -47,23 +50,15 @@ export default function FAQ() {
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       <div className="py-6 ">
         <div className='h-full relative  flex w-full flex-col items-center   justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/bg.png")] bg-cover lg:bg-auto   md:bg-[url("./assets/img/chart-pattern.png")]  lg:bg-right lg:bg-no-repeat py-12 px-9 lg:items-start lg:py-24 lg:px-28'>
-          <h1 className=" text-xs my-2 font-bold text-blue1 lg:text-lg">
-            {t("theFAQs")}
-          </h1>
-          <p className="my-2 text-lg font-bold text-white lg:text-6xl">
-            {t("helpCentre")}
-          </p>
-          <p className=" text-xs my-2  font-normal text-grey1 lg:text-lg">
-            {t("aboutProduct")}
-          </p>
+          <h1 className=" text-xs my-2 font-bold text-blue1 lg:text-lg">{t("theFAQs")}</h1>
+          <p className="my-2 text-lg font-bold text-white lg:text-6xl">{t("helpCentre")}</p>
+          <p className=" text-xs my-2  font-normal text-grey1 lg:text-lg">{t("aboutProduct")}</p>
         </div>
         <div className=" flex flex-col  lg:my-28 lg:flex-row">
           <div className="hidden lg:flex lg:flex-col lg:flex-1">
             <p className="text-[18px] font-normal text-blue1">{t("support")}</p>
             <p className="my-2 text-[32px] font-bold text-white">{t("FAQs")}</p>
-            <p className="text-[18px] font-normal text-grey1">
-              {t("What-you-need-to-know")}
-            </p>
+            <p className="text-[18px] font-normal text-grey1">{t("What-you-need-to-know")}</p>
           </div>
           <div className="mt-16 lg:mt-0 lg:flex-1">
             <Accordion data={columns} />

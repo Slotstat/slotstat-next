@@ -12,13 +12,13 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/en/aboutus',
-        destination: '/en/about-us',
+        source: "/en/aboutus",
+        destination: "/en/about-us",
         permanent: true,
       },
       {
-        source: '/ka/:path*',
-        destination: '/en/:path*',
+        source: "/ka/:path*",
+        destination: "/en/:path*",
         permanent: true,
       },
       // {
@@ -27,15 +27,16 @@ const nextConfig = {
       //   permanent: true,
       // },
       {
-        source: '/en/:uuid([a-f0-9-]{36})$',
-        destination: '/en',
+        source: "/en/:uuid([a-f0-9-]{36})$",
+        destination: "/en",
         permanent: false,
       },
       // Add more redirects as needed
-    ]
+    ];
   },
   reactStrictMode: false,
   images: {
+    minimumCacheTTL: 60,
     unoptimized: true,
     remotePatterns: [
       {

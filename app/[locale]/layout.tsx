@@ -7,9 +7,10 @@ import Footer from "../components/Footer";
 import JackpotNotification from "../components/JackpotNotification";
 import TooltipClientSide from "../components/TooltipClientSide";
 import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import CookieNotification from "../components/CookieNotification";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 // import GoogleAnalytics from "../components/GoogleAnalytics";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
@@ -67,6 +68,11 @@ const modernistBold = localFont({
   display: "swap",
 });
 
+export function generateStaticParams() {
+  return [{ locale: "en" }];
+  // return [{ locale: "en" }, { locale: "ka" }];
+}
+
 export default async function RootLayout({
   children,
   params: { locale },
@@ -74,13 +80,14 @@ export default async function RootLayout({
   children: ReactNode;
   params: { locale: "en" | "ka" };
 }) {
+  unstable_setRequestLocale(locale);
   let messages;
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
-  const uniqueId = cookies().get("uniqueId")?.value;
+  // const uniqueId = cookies().get("uniqueId")?.value;
 
   return (
     <html lang={locale} className={`${modernistBold.variable}`}>
@@ -96,7 +103,7 @@ export default async function RootLayout({
           <Footer />
           <JackpotNotification />
           <ChatBot />
-          <CookieNotification uniqueId={uniqueId} />
+          <CookieNotification />
           <TooltipClientSide />
         </NextIntlClientProvider>
       </body>

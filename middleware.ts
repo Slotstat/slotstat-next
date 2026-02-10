@@ -14,7 +14,6 @@ export default async function middleware(request: NextRequest) {
 
   // const countryInfo = countries.find((x) => x.cca2 === country);
 
-
   // Step 1: Use the incoming request
   const defaultLocale = request.headers.get("x-default-locale") || "en";
 
@@ -39,12 +38,22 @@ export default async function middleware(request: NextRequest) {
   }
 
   if (!countryFromCookie) {
-    cloudflareCountry && response.cookies.set("country", cloudflareCountry);
+    if (cloudflareCountry) {
+      response.cookies.set("country", cloudflareCountry);
+    } else if (vercelCountry) {
+      response.cookies.set("country", vercelCountry);
+    }
+
     region && response.cookies.set("region", region);
   }
-  cloudflareCountry && response.cookies.set("currentLocCountry", cloudflareCountry);
-  region && response.cookies.set("currentLocRegion", region);
 
+  if (cloudflareCountry) {
+    response.cookies.set("currentLocCountry", cloudflareCountry);
+  } else if (vercelCountry) {
+    response.cookies.set("currentLocCountry", vercelCountry);
+  }
+
+  region && response.cookies.set("currentLocRegion", region);
 
   // response.headers.set("country", country);
   // response.headers.set("city", city);

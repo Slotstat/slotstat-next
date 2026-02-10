@@ -31,7 +31,10 @@ export async function generateMetadata() {
 
 const breadcrumbs = [{ name: "How it works" }];
 
-export default async function HowItWorks() {
+import { unstable_setRequestLocale } from "next-intl/server";
+
+export default async function HowItWorks({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
@@ -40,31 +43,26 @@ export default async function HowItWorks() {
           SlotStat Mechanics and How it Works
         </h1>
         <h2 className="mb-8">
-          Slotstat is an information worktop where users have the power to
-          observe general details and real-time statistics of slots and casinos.
-          On the landing page, players will find some handy figurines like: RTP,
-          RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing SlotStat data
-          may turn up for players as a tool to plan beforehand playing and an
+          Slotstat is an information worktop where users have the power to observe general details
+          and real-time statistics of slots and casinos. On the landing page, players will find some
+          handy figurines like: RTP, RTP SWING, Win Spin Rate, bonuses and Jackpot. Analyzing
+          SlotStat data may turn up for players as a tool to plan beforehand playing and an
           advantageous gambling experience.
         </h2>
         <p className="">Figurines:</p>
         <ol className="list-decimal list-inside mb-10 ">
           <li className="">
-            RTP - Return to Player Percentage. RTP is predicted, the ideal point
-            to which slots constantly aspire and represents the casino tendency
-            to realize payouts.
+            RTP - Return to Player Percentage. RTP is predicted, the ideal point to which slots
+            constantly aspire and represents the casino tendency to realize payouts.
           </li>
           <li className="">
-            RTP SWING - Parameter shows the game’s variance from the ideal RTP
-            in real-time.
+            RTP SWING - Parameter shows the game’s variance from the ideal RTP in real-time.
           </li>
           <li className="">
-            Win Spin Rate - Win Spin Rate is a frequency of winning spins, where
-            win is higher than initial bet.
+            Win Spin Rate - Win Spin Rate is a frequency of winning spins, where win is higher than
+            initial bet.
           </li>
-          <li className="">
-            Jackpot - Figurine shows maximum Jackpot value of the chosen slot.
-          </li>
+          <li className="">Jackpot - Figurine shows maximum Jackpot value of the chosen slot.</li>
 
           {/* <ul className="list-disc  list-inside ml-5">
             <li className="mb-8">
@@ -106,22 +104,21 @@ export default async function HowItWorks() {
         </ol>
         <p className="">Games Listing Page:</p>
         <p className="mb-6">
-          On the landing page after selecting the slot and clicking on its bar,
-          the player gets directed to the game page of the SlotStat interface,
-          where the player is able to analyze general information and real-time
-          statistics of desired slot game. Based on this information the player
-          can determine whether it’s play time or not.
+          On the landing page after selecting the slot and clicking on its bar, the player gets
+          directed to the game page of the SlotStat interface, where the player is able to analyze
+          general information and real-time statistics of desired slot game. Based on this
+          information the player can determine whether it’s play time or not.
         </p>
         <p className="">Game Page:</p>
         <p className="mb-6">
-          Game Page is a full-scaled graph of the average win spin frequency
-          where the player has flexibility to customize time frames and get a
-          detailed visualization of chosen game according to its preferences.
+          Game Page is a full-scaled graph of the average win spin frequency where the player has
+          flexibility to customize time frames and get a detailed visualization of chosen game
+          according to its preferences.
         </p>
         <p className="mb-6">
-          As an additional function SlotStat also offers a ‘Compare’ button,
-          which appears to be an unmatched possibility for users to contrast
-          graphs and RTP counters of the specific casino or game to another.
+          As an additional function SlotStat also offers a ‘Compare’ button, which appears to be an
+          unmatched possibility for users to contrast graphs and RTP counters of the specific casino
+          or game to another.
         </p>
 
         <p>All set, SlotStat data is all yours now. Use it as you please.</p>
