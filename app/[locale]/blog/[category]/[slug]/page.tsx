@@ -6,6 +6,8 @@ import Image from "next/image";
 import { headers } from "next/headers";
 import MyPortableTextComponent from "@/app/components/blog/BlogPortableText";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import JsonLd from "@/app/components/JsonLd";
+
 export const revalidate = 3600; // revalidate at most 1 hour
 
 async function getDataBySlug(category: string, slug: string) {
@@ -16,11 +18,26 @@ async function getDataBySlug(category: string, slug: string) {
         titleImage,
         smallDescription,
         "currentSlug": slug.current,
+        _createdAt,
+        _updatedAt
         }[0]`;
 
   const data = await client.fetch(query);
 
   return data;
+}
+
+export async function generateStaticParams() {
+  const query = `*[_type in ["slots", "casinos", "providers", "news", "education"]] {
+    "category": _type,
+    "slug": slug.current
+  }`;
+  const posts = await client.fetch(query);
+
+  return posts.map((post: any) => ({
+    category: post.category,
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({
@@ -53,18 +70,6 @@ export async function generateMetadata({
     return {
       title: title,
       description: smallDescription,
-      // openGraph: {
-      //   images: [
-      //     {
-      //       url: urlFor(titleImage).url(), // Use the blog's title image URL
-      //       width: 1200,
-      //       height: 630,
-      //       alt: title,
-      //     },
-      //   ],
-      //   title: title,
-      //   description: smallDescription,
-      // },
       openGraph: {
         title,
         description: smallDescription,
@@ -112,11 +117,32 @@ export default async function BlogArticle({
 }) {
   unstable_setRequestLocale(locale);
   const data: fullBlog = await getDataBySlug(category, slug);
-  const { titleImage, content, title } = data;
+
+  if (!data) return null; // Handle missing data gracefully in SSG/ISR
+
+  const { titleImage, content, title, _createdAt, _updatedAt } = data;
   const breadcrumbs = [{ name: category, url: `/blog/${category}` }, { name: title }];
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: title,
+          image: [urlFor(titleImage).url()],
+          datePublished: _createdAt,
+          dateModified: _updatedAt || _createdAt,
+          description: data.smallDescription,
+          author: [
+            {
+              "@type": "Organization",
+              name: "SlotStat",
+              url: "https://slotstat.net",
+            },
+          ],
+        }}
+      />
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div className="mt-8 max-w-[856px] mx-auto px-4 mb-12">
         <div className="w-full h-40 md:h-[400px] relative ">

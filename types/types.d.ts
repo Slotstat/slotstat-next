@@ -311,6 +311,8 @@ interface fullBlog {
   content: any;
   titleImage: any;
   smallDescription: string;
+  _createdAt: string;
+  _updatedAt: string;
 }
 
 type FloatingButtonsItem = {

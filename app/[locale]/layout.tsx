@@ -16,14 +16,19 @@ import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import ChatBot from "../components/ChatBot";
+import JsonLd from "../components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://slotstat.net"),
   title: {
-    default: "SlotStat",
+    default: "SlotStat | Easy Way to Win & Slots Statistics",
     template: `%s | SlotStat`,
   },
-  description: "Unique platform which gives you opportunity to choose where to play and win! ",
+  description:
+    "Discover the easiest ways to win with comprehensive slots statistics. SlotStat provides data-driven strategies for players to maximize their winning potential.",
+  alternates: {
+    canonical: "./",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -37,18 +42,18 @@ export const metadata: Metadata = {
     google: "bPl9dfYMLYDqQzT7LjnCi9JNyWR_MBqfqE9JFFMaC_U",
   },
   openGraph: {
-    images: "../opengraph-image.png",
+    images: "/opengraph-image.png",
+    type: "website",
+    siteName: "SlotStat",
   },
   manifest: "/manifest.json",
-  // viewport:
-  //   "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1.0,
-  userScalable: false,
+  maximumScale: 5.0, // Allow zooming for better accessibility/AEO
+  userScalable: true,
 };
 
 const modernistBold = localFont({
@@ -96,6 +101,29 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-TNKZW6GT" />
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "SlotStat",
+              url: "https://slotstat.net",
+              logo: "https://slotstat.net/icon-512.png",
+              sameAs: ["https://twitter.com/slotstat", "https://facebook.com/slotstat"],
+            }}
+          />
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "SlotStat",
+              url: "https://slotstat.net",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://slotstat.net/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }}
+          />
           <Header />
           <main className="flex justify-center mt-[96px]">
             <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">{children}</div>

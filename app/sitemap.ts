@@ -18,15 +18,11 @@ const getGames = async (casinoIds: string[]) => {
   try {
     const responseArray = await Promise.all(
       casinoIds.map(async (casinoId) => {
-        const response = await axios.get(
-          `${baseUrl}/api/Game/aggregated/${casinoId}`
-        );
+        const response = await axios.get(`${baseUrl}/api/Game/aggregated/${casinoId}`);
 
         // Check if the response is successful
         if (response.status !== 200) {
-          throw new Error(
-            `Failed to fetch "${baseUrl}/api/Game/aggregated/${casinoId}"`
-          );
+          throw new Error(`Failed to fetch "${baseUrl}/api/Game/aggregated/${casinoId}"`);
         }
 
         const gameURL = response.data?.results?.map((gameObject: GameData) =>
@@ -51,15 +47,16 @@ export default async function sitemap() {
   const baseUrlSitemap = "https://slotstat.net";
 
   var casinosIds: string[] = [];
-  // const casinosData: CasinoData[] = await getCasinos();
-  // const casinosUrls =
-  //   casinosData?.map((casino) => {
-  //     casinosIds.push(casino.casinoId);
-  //     return {
-  //       url: `${baseUrlSitemap}/${casino.casinoId}`,
-  //       lastModified: new Date(),
-  //     };
-  //   }) ?? [];
+  const casinosData: any[] = await getCasinos();
+
+  const casinosUrls =
+    casinosData?.map((casino: any) => {
+      casinosIds.push(casino.casinoId);
+      return {
+        url: `${baseUrlSitemap}/${casino.casinoId}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
 
   const allGamesIDs = await getGames(casinosIds);
   const allGamesURLs =
@@ -92,7 +89,7 @@ export default async function sitemap() {
       url: `${baseUrlSitemap}/privacy-policy`,
       lastModified: new Date(),
     },
-    // ...casinosUrls,
+    ...casinosUrls,
     ...allGamesURLs,
   ];
 }
