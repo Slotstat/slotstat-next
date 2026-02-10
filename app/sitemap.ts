@@ -7,8 +7,7 @@ const getCasinos = async () => {
       method: "get",
       url: `${baseUrl}/api/casino/aggregated`,
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent": "Vercel-Worker-Client",
       },
     });
 
@@ -24,8 +23,7 @@ const getGames = async (casinoIds: string[]) => {
       casinoIds.map(async (casinoId) => {
         const response = await axios.get(`${baseUrl}/api/Game/aggregated/${casinoId}`, {
           headers: {
-            "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "User-Agent": "Vercel-Worker-Client",
           },
         });
 

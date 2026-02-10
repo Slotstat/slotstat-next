@@ -6,8 +6,7 @@ export async function getLandingCards(locale: "en" | "ka") {
       url: `/api/landing/card`,
       method: "GET",
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent": "Vercel-Worker-Client",
       },
     });
     if (res.status != 200) throw new Error("Can't successfully fetch data");
@@ -23,8 +22,7 @@ export async function getLandingOffers(locale: "en" | "ka") {
       url: `/api/landing/offer`,
       method: "GET",
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent": "Vercel-Worker-Client",
       },
     });
     if (res.status != 200) throw new Error("Can't successfully fetch data");
