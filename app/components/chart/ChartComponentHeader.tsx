@@ -5,6 +5,7 @@ import FiatCryptoButton from "../table/FiatCryptoButton";
 // import useQueryParams from "@/app/utils/useQueryParams";
 import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
+import ShareButtons from "../ShareButtons";
 
 export default function ChartComponentHeader({
   gameObj,
@@ -21,20 +22,14 @@ export default function ChartComponentHeader({
   const t = useTranslations("table");
 
   const [scrollY, setScrollY] = useState<number | null>(null);
-  const [showSmallHeader, setShowSmallHeader] =
-    useState<boolean>(false);
+  const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
   const [headerSize, setHeaderSize] = useState<string>("h-24");
 
-  const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } =
-    gameObj;
+  const { casinoName, name, imageUrl, casinoImageUrl, redirectUrl } = gameObj;
 
   const listenScrollEvent = () => {
-    window.scrollY > 247
-      ? setShowSmallHeader(true)
-      : setShowSmallHeader(false);
-    window.scrollY > 220
-      ? setHeaderSize("h-16")
-      : setHeaderSize("h-24");
+    window.scrollY > 247 ? setShowSmallHeader(true) : setShowSmallHeader(false);
+    window.scrollY > 220 ? setHeaderSize("h-16") : setHeaderSize("h-24");
   };
 
   useEffect(() => {
@@ -131,25 +126,19 @@ export default function ChartComponentHeader({
               {casinoName} - {name}
             </h1>
             <p className="hidden md:flex text-grey1 mb-3 leading-6 text-xs md:mb-8  md:text-base">
-              Explore comprehensive statistics for the slot game,
-              along with details about the hosting casino and its
-              bonuses and promotions. Everything you need to make
-              informed gaming decisions is right here on this page.
+              Explore comprehensive statistics for the slot game, along with details about the
+              hosting casino and its bonuses and promotions. Everything you need to make informed
+              gaming decisions is right here on this page.
             </p>
             <p className="flex md:hidden text-grey1 my-4  leading-6 text-xs ">
-              Find comprehensive slot game stats, casino details, and
-              bonus info all on one page. Make informed gaming
-              decisions easily
+              Find comprehensive slot game stats, casino details, and bonus info all on one page.
+              Make informed gaming decisions easily
             </p>
             {/* <div onClick={() => setGameScreen("false")}>dsfcswfdvcwe</div> */}
 
-            <div className="flex items-center justify-between text-white  font-bold">
+            <div className="flex flex-col md:flex-row md:items-center justify-between text-white font-bold w-full">
               <div className="hidden md:flex items-center">
-                <a
-                  href={redirectUrl}
-                  target="_blank"
-                  className=" flex items-center"
-                >
+                <a href={redirectUrl} target="_blank" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
                     <Image
                       src={casinoImageUrl}
@@ -163,11 +152,7 @@ export default function ChartComponentHeader({
                   </div>
                   <p>{casinoName}</p>
                 </a>
-                <a
-                  href={redirectUrl}
-                  target="_blank"
-                  className=" flex items-center"
-                >
+                <a href={redirectUrl} target="_blank" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
                     <Image
                       src={imageUrl}
@@ -181,7 +166,21 @@ export default function ChartComponentHeader({
                   <p>{name}</p>
                 </a>
               </div>
-              {buttons()}
+
+              {/* Mobile Share Buttons Row Removed */}
+
+              <div className="flex items-center w-full md:w-auto justify-between md:justify-end">
+                <div className="hidden md:flex">
+                  <ShareButtons
+                    title={`${casinoName} - ${name}`}
+                    stats={{
+                      rtp: gameObj.rtp?.value ? Number(gameObj.rtp.value) : undefined,
+                      maxWin: gameObj.maxX,
+                    }}
+                  />
+                </div>
+                {buttons()}
+              </div>
             </div>
           </div>
         </div>

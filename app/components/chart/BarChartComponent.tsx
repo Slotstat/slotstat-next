@@ -15,6 +15,7 @@ import {
 import NewRTPWidget from "./NewRTPWidget";
 import getRTPWSRClientSide from "@/lib/clientSide/getRTPWSRClientSide";
 import TooltipComponent from "../TooltipComponent";
+import ShareButtons from "../ShareButtons";
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
@@ -151,6 +152,15 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
       </div>
       <div className="w-full lg:pl-5 lg:w-1/4">
         <NewRTPWidget color="#5887F6" gameObject={mainGame} />
+        <div className="mt-4 flex justify-center md:hidden">
+          <ShareButtons
+            title={`${mainGame.casinoName} - ${mainGame.name}`}
+            stats={{
+              rtp: mainGame.rtp?.value ? Number(mainGame.rtp.value) : undefined,
+              maxWin: mainGame.maxX,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

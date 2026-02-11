@@ -10,6 +10,7 @@ import BonusCards from "./BonusCards";
 import LoadingSkeleton from "../LoadingSkeleton";
 import MyPortableTextComponent from "../blog/BlogPortableText";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
+import ShareButtons from "../ShareButtons";
 
 export default function ChartCasinoAndGameWrapper({
   orderBy,
@@ -175,10 +176,9 @@ export default function ChartCasinoAndGameWrapper({
         </div>
       ) : (
         <div className="mt-48 md:mt-72">
-
-            <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
-              Unlock Exclusive Casino Bonuses and Promotions
-            </div>
+          <div className="text-white text-2xl font-bold mb-3 lg:mt-12">
+            Unlock Exclusive Casino Bonuses and Promotions
+          </div>
 
           <div className="text-grey1 text-xs md:text-base mb-8 lg:mb-12 ">
             Activate bonuses and promotions by clicking either the 'Get Bonus' or 'Read More' button
