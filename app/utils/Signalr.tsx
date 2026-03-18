@@ -29,6 +29,7 @@ const signalR = async () => {
       connection.on("newUser", (message) => {
         useStore.setState({ newUser: message });
       });
+      connection.on("newwsr", () => {});
     } catch (err) {
       setTimeout(start, 5000);
     }

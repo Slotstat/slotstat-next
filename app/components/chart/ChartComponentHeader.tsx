@@ -140,28 +140,32 @@ export default function ChartComponentHeader({
               <div className="hidden md:flex items-center">
                 <a href={redirectUrl} target="_blank" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
-                    <Image
-                      src={casinoImageUrl}
-                      alt={casinoName}
-                      fill
-                      className="h-12 w-12"
-                      sizes="(max-width: 24px) 100vw,
+                    {!!casinoImageUrl && (
+                      <Image
+                        src={casinoImageUrl}
+                        alt={casinoName}
+                        fill
+                        className="h-12 w-12"
+                        sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
                 33vw"
-                    />
+                      />
+                    )}
                   </div>
                   <p>{casinoName}</p>
                 </a>
                 <a href={redirectUrl} target="_blank" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
-                    <Image
-                      src={imageUrl}
-                      alt={name}
-                      fill
-                      sizes="(max-width: 24px) 100vw,
+                    {!!imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        alt={name}
+                        fill
+                        sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
                 33vw"
-                    />
+                      />
+                    )}
                   </div>
                   <p>{name}</p>
                 </a>

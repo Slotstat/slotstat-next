@@ -130,7 +130,7 @@ const RenderRowCells = ({
   };
 
   const isImgUrl = (url: string) => {
-    return /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(url);
+    return !!url && url.startsWith("http");
   };
 
   const GameNameProvider = () => {
