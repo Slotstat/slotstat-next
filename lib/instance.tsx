@@ -17,6 +17,7 @@ const slotStatClient = (locale?: string) => {
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": lang1,
+      "User-Agent": "Vercel-Worker-Client",
       // "X-User-ID": uniqueId,
       // country: country,
       // region: region,
