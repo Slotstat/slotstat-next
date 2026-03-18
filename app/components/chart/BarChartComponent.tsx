@@ -157,7 +157,7 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
             title={`${mainGame.casinoName} - ${mainGame.name}`}
             stats={{
               rtp: mainGame.rtp?.value ? Number(mainGame.rtp.value) : undefined,
-              maxWin: mainGame.maxX,
+              maxWin: mainGame.maxX ? Number(mainGame.maxX) : undefined,
             }}
           />
         </div>

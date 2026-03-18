@@ -175,7 +175,7 @@ export default function ChartComponentHeader({
                     title={`${casinoName} - ${name}`}
                     stats={{
                       rtp: gameObj.rtp?.value ? Number(gameObj.rtp.value) : undefined,
-                      maxWin: gameObj.maxX,
+                      maxWin: gameObj.maxX ? Number(gameObj.maxX) : undefined,
                     }}
                   />
                 </div>
