@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   description:
     "Discover the easiest ways to win with comprehensive slots statistics. SlotStat provides data-driven strategies for players to maximize their winning potential.",
   alternates: {
-    canonical: "./",
+    canonical: "/en",
   },
   icons: {
     icon: [
@@ -108,22 +108,14 @@ export default async function RootLayout({
               name: "SlotStat",
               url: "https://slotstat.net",
               logo: "https://slotstat.net/icon-512.png",
-              sameAs: ["https://twitter.com/slotstat", "https://facebook.com/slotstat"],
+              sameAs: [
+                "https://x.com/slotstat_net",
+                "https://www.instagram.com/slotstat_net",
+                "https://www.reddit.com/r/SlotStrategy/",
+              ],
             }}
           />
-          <JsonLd
-            data={{
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "SlotStat",
-              url: "https://slotstat.net",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://slotstat.net/search?q={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }}
-          />
+          {/* SearchAction removed — no /search page exists yet. Re-add when search page is built. */}
           <Header />
           <main className="flex justify-center mt-[96px]">
             <div className="w-[100%] max-w-screen-xl 2xl:px-0  px-4">{children}</div>

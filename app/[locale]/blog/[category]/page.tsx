@@ -24,10 +24,38 @@ export async function generateMetadata({
 }: {
   params: { locale: "en" | "ka"; category: string };
 }) {
+  const categoryMeta: Record<string, { title: string; description: string }> = {
+    slots: {
+      title: "SlotStat Blog - Slot Game Insights",
+      description: "Read the latest articles about slot games, RTP analysis, and winning strategies.",
+    },
+    casinos: {
+      title: "SlotStat Blog - Casino Reviews & Analysis",
+      description: "In-depth casino reviews, bonus comparisons, and data-driven casino analysis.",
+    },
+    providers: {
+      title: "SlotStat Blog - Game Provider Spotlights",
+      description: "Explore game providers, their top slots, and RTP trends across different studios.",
+    },
+    news: {
+      title: "SlotStat Blog - Gambling Industry News",
+      description: "Stay updated with the latest gambling industry news, regulations, and trends.",
+    },
+    education: {
+      title: "SlotStat Blog - Gambling Education",
+      description: "Learn about RTP, volatility, win spin rate, and other key gambling concepts.",
+    },
+  };
+
+  const meta = categoryMeta[category] ?? {
+    title: "SlotStat Blog",
+    description: "Read the latest articles about slots, casinos, and gambling insights.",
+  };
+
   try {
     return {
-      title: "Slotstat blob",
-      description: "find slots and information about each of them!",
+      title: meta.title,
+      description: meta.description,
       alternates: {
         canonical: `/${locale}/blog/${category}`,
         languages: {

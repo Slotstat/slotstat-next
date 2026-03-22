@@ -16,7 +16,7 @@ export async function generateMetadata() {
           "Learn how SlotStat uses data-driven insights and innovative algorithms to provide players with valuable slot statistics for smarter gambling decisions.",
       },
       alternates: {
-        canonical: `/about-us`,
+        canonical: `/en/about-us`,
         languages: {
           "en-US": `en/about-us`,
           // "ka-GE": `ka/about-us`,

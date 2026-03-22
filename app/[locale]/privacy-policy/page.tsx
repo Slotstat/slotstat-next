@@ -16,7 +16,7 @@ export async function generateMetadata() {
           "Explore SlotStat's Privacy Policy to understand how we protect your data, our data collection practices, and your rights as a user.",
       },
       alternates: {
-        canonical: `/privacy-policy`,
+        canonical: `/en/privacy-policy`,
         languages: {
           "en-US": `en/privacy-policy`,
           // "ka-GE": `ka/privacy-policy`,

@@ -14,7 +14,7 @@ export async function generateMetadata() {
           "SlotStat prioritizes responsible gambling to ensure a safe and enjoyable experience for all players.",
       },
       alternates: {
-        canonical: `/responsible-gaming`,
+        canonical: `/en/responsible-gaming`,
         languages: {
           "en-US": `en/responsible-gaming`,
           // "ka-GE": `ka/responsible-gaming`,

@@ -22,6 +22,7 @@ export default function ReusableHeaderLogo({
         alt="logo of slotstat"
         width={140}
         height={40}
+        priority
       />
       <Image
         className="flex md:hidden"
@@ -29,6 +30,7 @@ export default function ReusableHeaderLogo({
         alt="logo of slotstat"
         width={36}
         height={36}
+        priority
       />
     </Link>
   );

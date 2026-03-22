@@ -174,7 +174,7 @@ export default function ChartComponentHeader({
               {/* Mobile Share Buttons Row Removed */}
 
               <div className="flex items-center w-full md:w-auto justify-between md:justify-end">
-                <div className="hidden md:flex">
+                {/* <div className="hidden md:flex">
                   <ShareButtons
                     title={`${casinoName} - ${name}`}
                     stats={{
@@ -182,7 +182,7 @@ export default function ChartComponentHeader({
                       maxWin: gameObj.maxX ? Number(gameObj.maxX) : undefined,
                     }}
                   />
-                </div>
+                </div> */}
                 {buttons()}
               </div>
             </div>

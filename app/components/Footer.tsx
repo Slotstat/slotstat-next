@@ -151,9 +151,10 @@ const Footer = () => {
             >
               <Reddit className=" ml-3" />
             </a>
-            <a href="https://x.com/slotstat_net" target="_blank" className="">
+            {/* TODO: Add YouTube link when channel is created */}
+            {/* <a href="https://youtube.com/@slotstat" target="_blank" className="">
               <Youtube className=" ml-3" />
-            </a>
+            </a> */}
           </div>
           <SocialIcons />
           {/* <div className="order-3 flex flex-col justify-center lg:order-none lg:mx-0 lg:mt-18 lg:justify-start">

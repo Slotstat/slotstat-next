@@ -9,6 +9,21 @@ const withNextIntl = createNextIntlPlugin();
 // );
 
 const nextConfig = {
+  async rewrites() {
+    return [
+      // SignalR hub is at /events (not /api/events) on the backend
+      {
+        source: "/api/events/:path*",
+        destination: "https://api.slotstat.net/events/:path*",
+      },
+      // Proxy all other backend API calls — must come after the SignalR rule
+      // Next.js own API routes (/api/chat/*, /api/blogPost) take precedence and are NOT proxied
+      {
+        source: "/api/:path*",
+        destination: "https://api.slotstat.net/api/:path*",
+      },
+    ];
+  },
   async redirects() {
     return [
       {

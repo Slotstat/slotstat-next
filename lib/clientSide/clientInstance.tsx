@@ -1,7 +1,6 @@
 "use client";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { baseUrl } from "../baseURL";
 
 const slotStatClientInstance = (bURL?: string) => {
   const uniqueId = getCookie("uniqueId");
@@ -10,10 +9,11 @@ const slotStatClientInstance = (bURL?: string) => {
   const country = getCookie("country");
   const region = getCookie("region");
 
-
   const lang = cookie === "en" ? "en-US" : "ka-GE";
   return axios.create({
-    baseURL: bURL || baseUrl,
+    // No baseURL — requests use relative paths so they go through the Next.js proxy
+    // (avoids CORS: browser never talks directly to api.slotstat.net)
+    baseURL: bURL || "",
     // timeout: 10000,
     headers: {
       "Content-Type": "application/json",

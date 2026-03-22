@@ -37,7 +37,7 @@ export async function generateMetadata({
         description: `Get insights on ${mainGame.name} at ${mainGame.casinoName}. Check current RTP, max win: ${mainGame.maxX}. Track your gameplay with detailed stats on Slotstat.`,
       },
       alternates: {
-        canonical: `/${locale}/${gameId}?casId=${casId}`,
+        canonical: `/${locale}/${gameId}`,
         languages: {
           "en-US": `en/${gameId}?casId=${casId}`,
           // "ka-GE": `ka/${gameId}?casId=${casId}`,

@@ -1,11 +1,10 @@
-"ise client";
+"use client";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import useStore from "../(store)/store";
-import { baseUrl } from "@/lib/baseURL";
 
 const signalR = async () => {
   const connection = new HubConnectionBuilder()
-    .withUrl(`${baseUrl}/events`)
+    .withUrl(`/api/events`)
     .configureLogging(LogLevel.Information)
     .build();
 

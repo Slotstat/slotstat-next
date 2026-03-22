@@ -26,9 +26,10 @@ export default function SocialIcons() {
       >
         <RedditSmall />
       </a>
-      <a href="https://x.com/slotstat_net" target="_blank" className="">
+      {/* TODO: Add YouTube link when channel is created */}
+      {/* <a href="https://youtube.com/@slotstat" target="_blank" className="">
         <YoutubeSmall />
-      </a>
+      </a> */}
     </div>
   );
 }

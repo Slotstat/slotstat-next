@@ -1,102 +1,116 @@
 import { baseUrl } from "@/lib/baseURL";
+import { client } from "@/lib/sanityLib/sanity";
 import axios from "axios";
 
-const getCasinos = async () => {
+const BASE_URL = "https://slotstat.net/en";
+
+const getCasinos = async (): Promise<{ casinoId: string }[]> => {
   try {
-    let res = await axios({
+    const res = await axios({
       method: "get",
       url: `${baseUrl}/api/casino/aggregated`,
-      headers: {
-        "User-Agent": "Vercel-Worker-Client",
-      },
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      timeout: 15000,
     });
-
-    if (res.status != 200) throw new Error("failed to fetch");
-    return res.data;
+    if (res.status !== 200) throw new Error("Failed to fetch casinos");
+    return res.data ?? [];
   } catch (error) {
-    console.log("error", error);
+    console.error("[Sitemap] Failed to fetch casinos:", error);
+    return [];
   }
 };
-const getGames = async (casinoIds: string[]) => {
+
+const getGames = async (casinoIds: string[]): Promise<string[]> => {
   try {
     const responseArray = await Promise.all(
       casinoIds.map(async (casinoId) => {
-        const response = await axios.get(`${baseUrl}/api/Game/aggregated/${casinoId}`, {
-          headers: {
-            "User-Agent": "Vercel-Worker-Client",
-          },
-        });
+        try {
+          const response = await axios.get(
+            `${baseUrl}/api/Game/aggregated/${casinoId}`,
+            {
+              headers: { "User-Agent": "Vercel-Worker-Client" },
+              timeout: 15000,
+            }
+          );
+          if (response.status !== 200) return [];
 
-        // Check if the response is successful
-        if (response.status !== 200) {
-          throw new Error(`Failed to fetch "${baseUrl}/api/Game/aggregated/${casinoId}"`);
+          const gameURLs =
+            response.data?.results?.map((game: GameData) =>
+              game.gameId === "00000000-0000-0000-0000-000000000000"
+                ? `${casinoId}/${game.casinoId}`
+                : `${casinoId}/${game.gameId}`
+            ) ?? [];
+
+          return gameURLs;
+        } catch {
+          console.error(`[Sitemap] Failed to fetch games for casino ${casinoId}`);
+          return [];
         }
-
-        const gameURL = response.data?.results?.map((gameObject: GameData) =>
-          gameObject.gameId === "00000000-0000-0000-0000-000000000000"
-            ? `${casinoId}/${gameObject.casinoId}`
-            : `${casinoId}/${gameObject.gameId}`
-        );
-
-        return gameURL;
       })
     );
-
-    const allGamesIDs = [].concat(...responseArray);
-    // example: ['cfd48d01-3d08-47cb-926d-76646d2a4f54GEL/cfd48d01-3d08-47cb-926d-76646d2a4f54GEL', 'cfd48d01-3d08-47cb-926d-76646d2a4f54/62cb4197-3c81-4bec-8a03-2d2626ca2435']
-    return allGamesIDs;
+    return ([] as string[]).concat(...responseArray);
   } catch (error) {
-    console.log("error", error);
+    console.error("[Sitemap] Failed to fetch games:", error);
+    return [];
+  }
+};
+
+const getBlogSlugs = async (): Promise<{ category: string; slug: string; updatedAt: string }[]> => {
+  try {
+    const query = `*[_type in ["slots", "casinos", "providers", "news", "education"]] {
+      "category": _type,
+      "slug": slug.current,
+      "updatedAt": _updatedAt
+    }`;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("[Sitemap] Failed to fetch blog slugs:", error);
+    return [];
   }
 };
 
 export default async function sitemap() {
-  const baseUrlSitemap = "https://slotstat.net";
+  const [casinos, blogSlugs] = await Promise.all([getCasinos(), getBlogSlugs()]);
 
-  var casinosIds: string[] = [];
-  const casinosData: any[] = await getCasinos();
+  const casinoIds = casinos.map((c) => c.casinoId);
+  const allGameIds = await getGames(casinoIds);
 
-  const casinosUrls =
-    casinosData?.map((casino: any) => {
-      casinosIds.push(casino.casinoId);
-      return {
-        url: `${baseUrlSitemap}/${casino.casinoId}`,
-        lastModified: new Date(),
-      };
-    }) ?? [];
+  const staticPages = [
+    { url: BASE_URL, lastModified: new Date() },
+    { url: `${BASE_URL}/faq`, lastModified: new Date() },
+    { url: `${BASE_URL}/about-us`, lastModified: new Date() },
+    { url: `${BASE_URL}/terms-of-use`, lastModified: new Date() },
+    { url: `${BASE_URL}/how-it-works`, lastModified: new Date() },
+    { url: `${BASE_URL}/privacy-policy`, lastModified: new Date() },
+    { url: `${BASE_URL}/responsible-gaming`, lastModified: new Date() },
+  ];
 
-  const allGamesIDs = await getGames(casinosIds);
-  const allGamesURLs =
-    allGamesIDs?.map((ids: string) => {
-      return { url: `${baseUrlSitemap}/${ids}`, lastModified: new Date() };
-    }) ?? [];
+  const casinoUrls = casinos.map((casino) => ({
+    url: `${BASE_URL}/${casino.casinoId}`,
+    lastModified: new Date(),
+  }));
+
+  const gameUrls = allGameIds.map((ids) => ({
+    url: `${BASE_URL}/${ids}`,
+    lastModified: new Date(),
+  }));
+
+  const blogCategories = ["slots", "casinos", "providers", "news", "education"];
+  const blogCategoryUrls = blogCategories.map((cat) => ({
+    url: `${BASE_URL}/blog/${cat}`,
+    lastModified: new Date(),
+  }));
+
+  const blogArticleUrls = blogSlugs.map((post) => ({
+    url: `${BASE_URL}/blog/${post.category}/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+  }));
 
   return [
-    {
-      url: baseUrlSitemap,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrlSitemap}/faq`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrlSitemap}/about-us`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrlSitemap}/terms-of-use`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrlSitemap}/how-it-works`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrlSitemap}/privacy-policy`,
-      lastModified: new Date(),
-    },
-    ...casinosUrls,
-    ...allGamesURLs,
+    ...staticPages,
+    ...casinoUrls,
+    ...gameUrls,
+    ...blogCategoryUrls,
+    ...blogArticleUrls,
   ];
 }

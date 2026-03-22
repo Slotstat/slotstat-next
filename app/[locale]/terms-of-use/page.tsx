@@ -17,7 +17,7 @@ export async function generateMetadata() {
           "Review the terms of use for SlotStat, detailing user guidelines, responsibilities, and conditions for accessing our data-driven gambling platform.",
       },
       alternates: {
-        canonical: `/terms-of-use`,
+        canonical: `/en/terms-of-use`,
         languages: {
           "en-US": `en/terms-of-use`,
           // "ka-GE": `ka/terms-of-use`,

@@ -14,7 +14,7 @@ export async function generateMetadata() {
           " Explore SlotStat's mechanics: real-time slot and casino stats like RTP, RTP Swing, and Win Spin Rate to enhance your gambling strategy.",
       },
       alternates: {
-        canonical: `/how-it-works`,
+        canonical: `/en/how-it-works`,
         languages: {
           "en-US": `en/how-it-works`,
           // "ka-GE": `ka/how-it-works`,
