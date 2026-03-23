@@ -76,6 +76,12 @@ const Footer = () => {
                 Providers
               </Link>
               <Link
+                href="/casinos"
+                className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+              >
+                Casinos
+              </Link>
+              <Link
                 href="/faq"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >

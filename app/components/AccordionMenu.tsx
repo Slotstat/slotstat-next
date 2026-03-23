@@ -34,9 +34,12 @@ export default function AccordionMenu({
     { href: "/terms-of-use", title: tFooter("termsOfUse") },
     { href: "/privacy-policy", title: tFooter("privacyPolicy") },
   ];
-  const support = [
+  const quickLinks = [
     { href: "/top-slots", title: "Top Slots" },
     { href: "/providers", title: "Providers" },
+    { href: "/casinos", title: "Casinos" },
+  ];
+  const support = [
     { href: "/faq", title: t("faq") },
     { href: "/how-it-works", title: t("howItWorks") },
     { href: "/responsible-gaming", title: tFooter("responsibleGaming") },
@@ -52,35 +55,23 @@ export default function AccordionMenu({
   const renderLinkItems = (arr: any) => {
     return (
       <>
-        {arr.map(
-          ({
-            href,
-            title,
-            icon,
-          }: {
-            href: string;
-            title: string;
-            icon?: string;
-          }) => (
-            <Link
-              key={title}
-              href={href}
-              onClick={() => closeMenu && closeMenu(false)}
-              className={`mb-3 font-normal flex flex-row items-center  cursor-pointer ${
-                isMobileMenu
-                  ? "text-xs text-white"
-                  : "text-grey1 text-xs lg:text-sm"
-              } `}
-            >
-              {icon && isMobileMenu && (
-                <div className="mr-2 rounded-full h-8 w-8 bg-grey3 flex items-center justify-center ">
-                  <span>{icon}</span>
-                </div>
-              )}
-              {title}
-            </Link>
-          )
-        )}
+        {arr.map(({ href, title, icon }: { href: string; title: string; icon?: string }) => (
+          <Link
+            key={title}
+            href={href}
+            onClick={() => closeMenu && closeMenu(false)}
+            className={`mb-3 font-normal flex flex-row items-center  cursor-pointer ${
+              isMobileMenu ? "text-xs text-white" : "text-grey1 text-xs lg:text-sm"
+            } `}
+          >
+            {icon && isMobileMenu && (
+              <div className="mr-2 rounded-full h-8 w-8 bg-grey3 flex items-center justify-center ">
+                <span>{icon}</span>
+              </div>
+            )}
+            {title}
+          </Link>
+        ))}
       </>
     );
   };
@@ -143,18 +134,29 @@ export default function AccordionMenu({
   );
 
   return (
-    <Accordion transition transitionTimeout={200} className="space-y-1">
-      {accordionItems.map((item, index) => {
-        return (
-          <AccordionItem
-            key={index}
-            header={item.header}
-            initialEntered={false}
-          >
-            {item.content}
-          </AccordionItem>
-        );
-      })}
-    </Accordion>
+    <div>
+      <div>
+        {isMobileMenu &&
+          quickLinks.map(({ href, title }) => (
+            <Link
+              key={title}
+              href={href}
+              onClick={() => closeMenu && closeMenu(false)}
+              className="mb-4 flex w-full items-center font-bold text-xs text-white"
+            >
+              {title}
+            </Link>
+          ))}
+      </div>
+      <Accordion transition transitionTimeout={200} className="space-y-1">
+        {accordionItems.map((item, index) => {
+          return (
+            <AccordionItem key={index} header={item.header} initialEntered={false}>
+              {item.content}
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
+    </div>
   );
 }

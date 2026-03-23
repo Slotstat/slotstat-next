@@ -118,6 +118,11 @@ const NavList = () => {
           </Link>
         </span>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
+          <Link href={`/casinos`} className={checkIsActive("casinos")}>
+            Casinos
+          </Link>
+        </span>
+        <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
           <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
             {t("howItWorks")}
           </Link>
