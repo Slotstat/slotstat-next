@@ -8,12 +8,15 @@ const getCasinos = async (): Promise<{ casinoId: string }[]> => {
   try {
     const res = await axios({
       method: "get",
-      url: `${baseUrl}/api/casino/aggregated`,
-      headers: { "User-Agent": "Vercel-Worker-Client" },
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client", "Accept-Language": "en-US" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
       timeout: 15000,
     });
     if (res.status !== 200) throw new Error("Failed to fetch casinos");
-    return res.data ?? [];
+    const games: { casinoId: string }[] = res.data?.results ?? [];
+    const seen = new Set<string>();
+    return games.filter((g) => g.casinoId && !seen.has(g.casinoId) && seen.add(g.casinoId));
   } catch (error) {
     console.error("[Sitemap] Failed to fetch casinos:", error);
     return [];
