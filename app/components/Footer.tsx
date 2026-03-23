@@ -64,6 +64,18 @@ const Footer = () => {
                 {tFaq("support")}
               </h5>
               <Link
+                href="/top-slots"
+                className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+              >
+                Top Slots
+              </Link>
+              <Link
+                href="/providers"
+                className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
+              >
+                Providers
+              </Link>
+              <Link
                 href="/faq"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >

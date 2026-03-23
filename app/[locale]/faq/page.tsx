@@ -14,11 +14,17 @@ export async function generateMetadata() {
       description:
         "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
       openGraph: {
-        // ...openGraphImage,
-        images: "../opengraph-image.png",
+        images: "https://slotstat.net/opengraph-image.png",
         title: "Frequently Asked Questions",
         description:
           "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Frequently Asked Questions",
+        description:
+          "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+        images: ["https://slotstat.net/opengraph-image.png"],
       },
       alternates: {
         canonical: `/en/faq`,
@@ -37,6 +43,7 @@ export async function generateMetadata() {
 }
 
 import { unstable_setRequestLocale } from "next-intl/server";
+import JsonLd from "@/app/components/JsonLd";
 
 export default function FAQ({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
@@ -44,8 +51,64 @@ export default function FAQ({ params: { locale } }: { params: { locale: string }
 
   const columns = useMemo(() => accordionData(t), [t]);
 
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is Slotstat?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "SlotStat, a neutral observer in the gambling realm, meticulously displays slot game statistics to enhance players' gaming experiences. Providing essential features such as RTP, RTP Swing, Win Spin Regular, bonuses, JACKPOT, Max X, and SPS data, SlotStat empowers players with comprehensive insights for informed gaming decisions.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's Win Spin Rate?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Win Spin Rate is a frequency of winning spins, where win is counted if higher than initial bet.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's Max X?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Max X, also known as the maximum win multiplier, signifies the highest potential payout a slot game offers. This value represents how many times your initial bet you can win under ideal conditions. For instance, if a game has a Max X of 1200X, it means you could potentially win 1200 times your bet amount.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's RTP Swing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "RTP SWING is a real-time tool that shows a slot game's fluctuation towards its own ideal RTP at a very exact moment of present, updating once every 5 minutes.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's SPS?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "SPS stands for Slot Profit Status, a real-time indicator showing whether a slot game's Live RTP is greater than, less than, or equal to its Theoretical RTP. It is represented as a percentage reflecting the difference between Live RTP and Theoretical RTP, updating every 5 minutes.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I activate a bonus or promotion on SlotStat?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Navigate to the game page where the bonus is listed, locate the bonus card that interests you, click on the 'Get Bonus' or 'Read More' button, and you will be redirected to the casino's website to activate the bonus.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={faqStructuredData} />
       {/* bg-[url("./assets/img/chart-pattern.png")] */}
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       <div className="py-6 ">

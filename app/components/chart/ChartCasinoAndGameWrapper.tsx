@@ -5,6 +5,7 @@ import LiveCards from "../LiveCards";
 import ChartComponent from "./ChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import { useQueryState } from "nuqs";
+import { useLocale } from "next-intl";
 import getSingleGameClientSide from "@/lib/clientSide/getSingleGameClientSide";
 import BonusCards from "./BonusCards";
 import LoadingSkeleton from "../LoadingSkeleton";
@@ -48,6 +49,13 @@ export default function ChartCasinoAndGameWrapper({
   casinoBonuses: any;
 }) {
   const [compareGameIdQuery, setCompareGameIdQuery] = useQueryState("compareGameId");
+  const locale = useLocale();
+
+  const enrichedGameCards = gameCards.map((card) =>
+    card.name === "Provider" && mainGameObj.provider
+      ? { ...card, redirectUrl: `/${locale}/providers/${encodeURIComponent(mainGameObj.provider)}` }
+      : card
+  );
 
   const [screen, setScreen] = useState("slot");
   const [loading, setLoading] = useState(false);
@@ -130,7 +138,7 @@ export default function ChartCasinoAndGameWrapper({
           {gamesCardsData && gameCards && (
             <div className="slot_page_card_container_wrapper mt-36 md:mt-64">
               <LiveCards
-                cardsData={gameCards}
+                cardsData={enrichedGameCards}
                 rows={2}
                 game={true}
                 gamesCardsData={gamesCardsData}

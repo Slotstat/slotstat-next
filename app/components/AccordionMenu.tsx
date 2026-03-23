@@ -35,6 +35,8 @@ export default function AccordionMenu({
     { href: "/privacy-policy", title: tFooter("privacyPolicy") },
   ];
   const support = [
+    { href: "/top-slots", title: "Top Slots" },
+    { href: "/providers", title: "Providers" },
     { href: "/faq", title: t("faq") },
     { href: "/how-it-works", title: t("howItWorks") },
     { href: "/responsible-gaming", title: tFooter("responsibleGaming") },

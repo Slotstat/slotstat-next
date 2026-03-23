@@ -108,6 +108,16 @@ const NavList = () => {
           )}
         </div>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
+          <Link href={`/top-slots`} className={checkIsActive("top-slots")}>
+            Top Slots
+          </Link>
+        </span>
+        <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
+          <Link href={`/providers`} className={checkIsActive("providers")}>
+            Providers
+          </Link>
+        </span>
+        <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
           <Link href={`/how-it-works`} className={checkIsActive("howItWorks")}>
             {t("howItWorks")}
           </Link>

@@ -83,6 +83,8 @@ export default async function sitemap() {
     { url: `${BASE_URL}/how-it-works`, lastModified: new Date() },
     { url: `${BASE_URL}/privacy-policy`, lastModified: new Date() },
     { url: `${BASE_URL}/responsible-gaming`, lastModified: new Date() },
+    { url: `${BASE_URL}/top-slots`, lastModified: new Date() },
+    { url: `${BASE_URL}/providers`, lastModified: new Date() },
   ];
 
   const casinoUrls = casinos.map((casino) => ({

@@ -1,9 +1,10 @@
 import LiveCards from "../components/LiveCards";
-import { getLandingCards } from "@/lib/getLanding";
+import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
 import { notFound } from "next/navigation";
 // import { openGraphImage } from "@/app/shared-metadata";
 import IntroComponent from "../components/IntroComponent";
 import TableClientSide from "../components/table/TableClientSide";
+import OffersSection from "../components/OffersSection";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 type Params = {
@@ -19,13 +20,25 @@ export async function generateMetadata({ params: { locale } }: Params) {
   return {
     title: t("HomeSeoTitle"),
     description: t("HomeSeoDesc"),
+    openGraph: {
+      images: "https://slotstat.net/opengraph-image.png",
+      title: t("HomeSeoTitle"),
+      description: t("HomeSeoDesc"),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("HomeSeoTitle"),
+      description: t("HomeSeoDesc"),
+      images: ["https://slotstat.net/opengraph-image.png"],
+    },
   };
 }
 
 export default async function Home({ params: { locale } }: Params) {
   unstable_setRequestLocale(locale);
   const landingCardsData: Promise<Card[]> = getLandingCards(locale);
-  const [landingCards] = await Promise.all([landingCardsData]);
+  const offersData: Promise<Offer[] | false> = getLandingOffers(locale);
+  const [landingCards, offers] = await Promise.all([landingCardsData, offersData]);
 
   if (!landingCards) {
     notFound();
@@ -34,6 +47,7 @@ export default async function Home({ params: { locale } }: Params) {
     <>
       {landingCards && <LiveCards cardsData={landingCards} />}
       <IntroComponent />
+      {offers && offers.length > 0 && <OffersSection offers={offers} />}
       <div className="my-3 md:my-6 lg:my-12 -mr-4 lg:mr-0">
         <TableClientSide showFilter={true} />
       </div>

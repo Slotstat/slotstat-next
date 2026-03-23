@@ -1,0 +1,43 @@
+# SlotStat
+
+> SlotStat is a real-time slot game statistics platform that provides live RTP (Return to Player), Win Spin Rate (WSR), SPS (Slot Profit Status), and other key metrics for slot games across multiple online casinos.
+
+## What SlotStat Does
+
+SlotStat collects and displays live gambling statistics from online casinos, helping players make data-driven decisions. The platform tracks:
+
+- **Live RTP**: Real-time Return to Player percentage, updated every 5 minutes
+- **RTP Swing**: Fluctuation between theoretical and actual RTP at any given moment
+- **Win Spin Rate (WSR)**: Frequency of winning spins where the payout exceeds the initial bet
+- **SPS (Slot Profit Status)**: Real-time indicator showing whether a slot's Live RTP is above, below, or equal to its Theoretical RTP
+- **Max X**: Maximum win multiplier — the highest potential payout relative to the bet
+- **Jackpot tracking**: Live jackpot amounts across casinos
+
+## Data Sources
+
+SlotStat receives data directly from partner online casinos. All statistics are based on real gameplay data, not simulations. Data updates occur every 5 minutes.
+
+## Key Pages
+
+- Homepage: https://slotstat.net/en — Live casino and game statistics table
+- FAQ: https://slotstat.net/en/faq — Explains RTP, WSR, SPS, and other metrics
+- Blog: https://slotstat.net/en/blog/slots — Articles about slot games, casinos, providers, news, and education
+- About: https://slotstat.net/en/about-us — Company information
+
+## Definitions
+
+- **RTP (Return to Player)**: The percentage of wagered money a slot machine returns to players over time. A 96% RTP means the game returns $96 for every $100 wagered on average.
+- **WSR (Win Spin Rate)**: The percentage of spins that result in a win greater than the bet amount.
+- **SPS (Slot Profit Status)**: The difference between Live RTP and Theoretical RTP, expressed as a percentage. Positive SPS means the game is paying out more than expected; negative means less.
+- **RTP Swing**: A real-time metric showing how the actual RTP is fluctuating relative to the game's theoretical RTP.
+- **Max X**: The maximum win multiplier. A Max X of 5000x means you could potentially win 5,000 times your bet.
+- **Theoretical RTP**: The expected long-term return percentage set by the game provider.
+- **Live RTP**: The actual return percentage being observed in real-time gameplay.
+
+## Contact
+
+- Website: https://slotstat.net
+- Email: info@slotstat.net
+- X/Twitter: https://x.com/slotstat_net
+- Instagram: https://www.instagram.com/slotstat_net
+- Reddit: https://www.reddit.com/r/SlotStrategy/
