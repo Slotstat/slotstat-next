@@ -15,7 +15,7 @@ import CookieNotification from "../components/CookieNotification";
 import localFont from "next/font/local";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
-import ChatBot from "../components/ChatBot";
+// import ChatBot from "../components/ChatBot";
 import JsonLd from "../components/JsonLd";
 
 export const metadata: Metadata = {
@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     "Discover the easiest ways to win with comprehensive slots statistics. SlotStat provides data-driven strategies for players to maximize their winning potential.",
   alternates: {
     canonical: "/en",
+    languages: {
+      "en-US": "/en",
+      "es-ES": "/es",
+      "pt-PT": "/pt",
+    },
   },
   icons: {
     icon: [
@@ -74,8 +79,7 @@ const modernistBold = localFont({
 });
 
 export function generateStaticParams() {
-  return [{ locale: "en" }];
-  // return [{ locale: "en" }, { locale: "ka" }];
+  return [{ locale: "en" }, { locale: "es" }, { locale: "pt" }];
 }
 
 export default async function RootLayout({
@@ -83,7 +87,7 @@ export default async function RootLayout({
   params: { locale },
 }: {
   children: ReactNode;
-  params: { locale: "en" | "ka" };
+  params: { locale: "en" | "es" | "pt" };
 }) {
   unstable_setRequestLocale(locale);
   let messages;
@@ -122,7 +126,7 @@ export default async function RootLayout({
           </main>
           <Footer />
           <JackpotNotification />
-          <ChatBot />
+          {/* <ChatBot /> */}
           <CookieNotification />
           <TooltipClientSide />
         </NextIntlClientProvider>

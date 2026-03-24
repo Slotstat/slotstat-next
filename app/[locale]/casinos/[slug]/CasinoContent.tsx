@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Link } from "@/navigation";
 
-function CasinoGameRow({ game }: { game: GameData }) {
+function CasinoGameRow({ game, locale }: { game: GameData; locale: string }) {
   const hasValidImage =
     game.imageUrl &&
     game.imageUrl !== "null" &&
@@ -43,7 +43,17 @@ function CasinoGameRow({ game }: { game: GameData }) {
         <p className="text-white text-sm md:text-base font-bold truncate">
           {game.name}
         </p>
-        <p className="text-grey1 text-xs truncate">{game.provider}</p>
+        {game.provider ? (
+          <Link
+            href={`/${locale}/providers/${encodeURIComponent(game.provider)}`}
+            className="text-grey1 text-xs truncate hover:text-blue1 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {game.provider}
+          </Link>
+        ) : (
+          <p className="text-grey1 text-xs truncate">&nbsp;</p>
+        )}
       </div>
 
       <div className="flex gap-3 md:gap-6 shrink-0 text-right">
@@ -106,7 +116,7 @@ export default function CasinoContent({
 
       <div className="flex flex-col gap-2 mb-10">
         {games.map((game) => (
-          <CasinoGameRow key={game.gameId} game={game} />
+          <CasinoGameRow key={game.gameId} game={game} locale={locale} />
         ))}
       </div>
 

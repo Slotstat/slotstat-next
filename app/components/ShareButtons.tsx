@@ -9,6 +9,7 @@ import {
 } from "react-share";
 import { FacebookIcon, TelegramIcon, WhatsappIcon, XIcon } from "../assets/svg/ShareIcons";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface ShareButtonsProps {
   title: string;
@@ -21,14 +22,14 @@ interface ShareButtonsProps {
 export default function ShareButtons({ title, stats }: ShareButtonsProps) {
   const pathname = usePathname();
   const [shareUrl, setShareUrl] = useState("");
+  const t = useTranslations("share");
 
   useEffect(() => {
     setShareUrl(`${window.location.origin}${pathname}`);
   }, [pathname]);
 
-  const shareText = `Check out the statistics for ${title} on SlotStat! ${
-    stats?.rtp ? `RTP: ${stats.rtp}%` : ""
-  } ${stats?.maxWin ? `Max Win: ${stats.maxWin}x` : ""}`;
+  const statsText = `${stats?.rtp ? `RTP: ${stats.rtp}%` : ""} ${stats?.maxWin ? `Max Win: ${stats.maxWin}x` : ""}`.trim();
+  const shareText = t("checkOut", { title, stats: statsText });
 
   return (
     <div className="flex items-center space-x-4 ml-2 md:ml-4">

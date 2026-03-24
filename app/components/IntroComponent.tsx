@@ -5,12 +5,14 @@ import { triangle, videoThumb } from "../assets";
 import { motion } from "framer-motion";
 // import { setCookie, getCookie } from "cookies-next";
 import YouTube from "react-youtube";
+import { useTranslations } from "next-intl";
 
 export default function IntroComponent() {
   // const [selectedValue, setSelectedValue] = useState("erti");
   // const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   // const [enabled, setEnabled] = useState(true);
   const [openVideo, setOpenVideo] = useState(false);
+  const t = useTranslations("intro");
   // useEffect(() => {
   //   if (getCookie("videoOpen") == "true") {
   //     setEnabled(true);
@@ -73,13 +75,11 @@ export default function IntroComponent() {
         <div className=" flex-col justify-center md:flex">
           <div className="flex justify-between mb-1 md:mb-4">
             <h1 className="text-white text-base font-bold md:text-3xl ">
-              Play Informed
+              {t("playInformed")}
             </h1>
           </div>
           <h2 className="text-grey1 md:w-3/4 text-xs md:text-base">
-            Slotstat offers real-time data on slot games through dynamic live
-            stats, including Win Spin Rate, RTP, and Slot Profit Status.
-            Observe, analyze, strategize, and play it full with Slotstat.
+            {t("description")}
           </h2>
         </div>
 
@@ -93,8 +93,8 @@ export default function IntroComponent() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 flex flex-row justify-center items-center bg-dark1/25 hover:bg-dark1/40">
-            <div className="text-white text-xs md:text-base font-bold">Video tutorial</div>
-            <img src={triangle.src} className="h-4 w-4 md:h-6 md:w-6" />
+            <div className="text-white text-xs md:text-base font-bold">{t("videoTutorial")}</div>
+            <img src={triangle.src} className="h-4 w-4 md:h-6 md:w-6" alt="" aria-hidden="true" />
           </div>
         </div>
       </div>

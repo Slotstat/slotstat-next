@@ -28,6 +28,7 @@ export default function AccordionMenu({
   const t = useTranslations("navbar");
   const tFooter = useTranslations("footer");
   const tFaq = useTranslations("faq");
+  const tNav = useTranslations("nav");
 
   const Company = [
     { href: "/about-us", title: tFooter("aboutUs") },
@@ -35,9 +36,9 @@ export default function AccordionMenu({
     { href: "/privacy-policy", title: tFooter("privacyPolicy") },
   ];
   const quickLinks = [
-    { href: "/top-slots", title: "Top Slots" },
-    { href: "/providers", title: "Providers" },
-    { href: "/casinos", title: "Casinos" },
+    { href: "/top-slots", title: tNav("topSlots") },
+    { href: "/providers", title: tNav("providers") },
+    { href: "/casinos", title: tNav("casinos") },
   ];
   const support = [
     { href: "/faq", title: t("faq") },
@@ -109,7 +110,7 @@ export default function AccordionMenu({
             }`}
           >
             {header}
-            {header === "Blog" && isMobileMenu && (
+            {header === tFooter("blog") && isMobileMenu && (
               <div className="absolute top-0 -right-2 h-1.5 w-1.5 bg-red rounded" />
             )}
           </h5>

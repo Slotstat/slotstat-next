@@ -1,0 +1,299 @@
+{
+  "navbar": {
+    "howItWorks": "Cómo funciona",
+    "faq": "Preguntas frecuentes",
+    "slotstat": "Slotstat",
+    "blog": "Blog"
+  },
+  "lang": { "ka": "ქარ", "en": "Eng", "es": "Esp", "pt": "Por" },
+  "Home": {
+    "HomeSeoTitle": "SlotStat: Estadísticas de Slots en Tiempo Real e Información Basada en Datos",
+    "HomeSeoDesc": "Explora SlotStat para estadísticas de slots en tiempo real. Descubre RTP, tasa de giros ganadores y más para tomar decisiones más inteligentes mientras juegas."
+  },
+
+  "faq": {
+    "theFAQs": "Preguntas Frecuentes",
+    "helpCentre": "Centro de Ayuda",
+    "aboutProduct": "Las preguntas frecuentes y respuestas.",
+    "What-you-need-to-know": "Lo que necesitas saber",
+    "FAQs": "Preguntas frecuentes",
+    "support": "Soporte",
+    "joinUs": "Conéctate con",
+    "joinUs1": "la cuenta X de SlotStat",
+    "stayInLoop": "Mantente informado sobre las próximas actualizaciones y consigue recompensas.",
+    "subscribe": "Suscríbete",
+    "toOurXChannel": " a nuestro canal X",
+    "WhatIsHappeningHere": "¿Qué es la Tasa de Giros Ganadores?",
+    "WhatIsHappeningHereParams": "La Tasa de Giros Ganadores es la frecuencia de giros ganadores, donde se cuenta como ganancia si es superior a la apuesta inicial.",
+    "WhatIsHappeningHereA": "a. Tasa de aciertos (mostrada en gráficos);",
+    "WhatIsHappeningHereB": "b. Jackpots;",
+    "WhatIsHappeningHereC": "c. Fluctuación del RTP.",
+    "WhatIsHappeningHereEnd": "Estos parámetros pueden variar según los casinos, proveedores y/o juegos.",
+    "WhatIsSlotstat": "¿Qué es Slotstat?",
+    "WhatIsSlotstatContent": "SlotStat, un observador neutral en el mundo de las apuestas, muestra meticulosamente las estadísticas de los juegos de slots para mejorar la experiencia de los jugadores. Proporcionando características esenciales como RTP, RTP Swing, Win Spin Regular, bonos, JACKPOT, Max X y datos SPS, SlotStat capacita a los jugadores con información completa para decisiones de juego informadas.",
+    "WhatsHitRate": "¿Qué es Max X?",
+    "WhatsHitRateContent": "Max X, también conocido como el multiplicador de ganancia máxima, indica el pago potencial más alto que ofrece un juego de slots. Este valor representa cuántas veces tu apuesta inicial puedes ganar en condiciones ideales. Por ejemplo, si un juego tiene un Max X de 1200X, significa que podrías ganar potencialmente 1200 veces el monto de tu apuesta. Este multiplicador añade emoción y anticipación al juego, ya que los jugadores buscan la oportunidad de lograr ganancias significativas en relación a sus apuestas.",
+    "WhatIsRTP": "¿Qué es el RTP Swing?",
+    "WhatIsRTPContent": "RTP SWING es una herramienta en tiempo real que muestra la fluctuación de un juego de slots hacia su propio RTP ideal en el momento exacto del presente (se actualiza cada 5 minutos).",
+    "fluctuation": "¿Qué es SPS?",
+    "fluctuationContent": "SPS significa Estado de Ganancia del Slot, un indicador en tiempo real mostrado en nuestro sitio para indicar si el RTP en vivo de un juego es mayor, menor o igual al RTP teórico. ¿Cómo se calcula el SPS? El SPS se representa como un porcentaje, reflejando la diferencia entre el RTP en vivo y el RTP teórico. Por ejemplo: si el RTP teórico es 97%, pero el RTP en vivo es 120%, el SPS sería +23%, indicando que el juego ha pagado un 23% más de lo esperado. Por el contrario, si el RTP en vivo es 90%, el SPS sería -7%, indicando que el juego ha pagado un 7% menos de lo esperado. ¿Con qué frecuencia se actualiza el SPS? El SPS es una función de actualización en vivo, con actualizaciones cada 5 minutos. Esto asegura que los jugadores tengan acceso a la información más actual sobre el rendimiento de un juego. Entendiendo los dígitos adicionales: además del porcentaje principal del SPS, puede notar dígitos más pequeños debajo. Estos representan el cambio en el SPS desde la actualización anterior. Pueden ser positivos o negativos, indicando si el juego ha rendido mejor o peor en comparación con la actualización anterior. Por ejemplo: si el SPS anterior era 7% y el nuevo SPS es 5%, los dígitos más pequeños mostrarán '-2%' en rojo, indicando una disminución en el rendimiento. Si la siguiente actualización muestra un SPS del 6%, los dígitos más pequeños mostrarán 1% en verde, indicando una mejora. ¡Esperamos que esto le ayude a entender mejor el SPS y mejore su experiencia en SlotStat.net!",
+    "activateBonus": "¿Cómo activo un bono o promoción en SlotStat?"
+  },
+  "footer": {
+    "company": "Empresa",
+    "aboutUs": "Sobre nosotros",
+    "termsOfUse": "Términos de uso",
+    "privacyPolicy": "Política de Privacidad",
+    "allRightsReserved": "2024 Slotstat. Todos los derechos reservados",
+    "blog": "Blog",
+    "slots": "Slots",
+    "casinos": "Casinos",
+    "providers": "Proveedores",
+    "news": "Noticias",
+    "education": "Educación",
+    "responsibleGaming": "Juego Responsable"
+  },
+  "actionPane": { "compare": "Comparar", "vs": "VS" },
+  "table": {
+    "casinoName": "Nombre del casino",
+    "games": "Juegos",
+    "provider": "Proveedor",
+    "h1": "TGG 1h %",
+    "h24": "TGG 24h %",
+    "source": "Fuente",
+    "trust": "Confianza",
+    "jackpot": "Jackpot Máximo",
+    "t24h": "24h",
+    "RTP": "RTP",
+    "swing": "Swing",
+    "slot": "Slot",
+    "user": "Usuario",
+    "SPS": "SPS",
+    "play": "Jugar",
+    "maxX": "Max X",
+    "maxXHint": "Max X representa el multiplicador de ganancia máxima potencial, indicando el pago más alto posible en múltiplos de tu apuesta.",
+    "SPSHint": "El Estado de Ganancia del Slot (SPS) indica si un slot está ganando o perdiendo en relación al RTP teórico. Positivo (+) denota ganancia, mientras que negativo (-) refleja pérdidas. Se actualiza cada 5 minutos, el rojo indica una disminución respecto a los 5 minutos anteriores y el verde indica un aumento. El SPS y los cambios de color proporcionan información en tiempo real sobre el rendimiento del juego.",
+    "bonusesHint": "Información sobre ofertas de regalo del casino",
+    "sourceHint": "Fuente de información de las estadísticas. 1. API del Casino - 2. IA de Slotstat - 3. Verificado -",
+    "jackpotHint": "La cifra es un valor de Jackpot máximo que se actualiza activamente del casino seleccionado y puede aparecer como un periscopio preciso para tiradores de precisión.",
+    "userHint": "Número de usuarios que monitorean las estadísticas",
+    "casinoBonusHint": "Los bonos listados en SlotStat se pueden activar visitando la sección de bonos en la página del juego y haciendo clic en la tarjeta de bono correspondiente. A veces se deben usar códigos especiales para los bonos, que se pueden encontrar en las tarjetas de bono.",
+    "h1GameHint": "La cifra muestra el porcentaje de Tasa de Giros Ganadores en el período de la última hora.",
+    "h24GameHint": "La cifra muestra el porcentaje de Tasa de Giros Ganadores en el período de las últimas 24 horas.",
+    "GoToStatistic": "Ir a estadísticas",
+    "GoToCasino": "Ir al casino",
+    "GoToGame": "Ir al juego",
+    "RTPhint": "El Retorno al Jugador (RTP) es un término fundamental en las apuestas y juegos en línea, que denota el porcentaje de fondos devueltos a los jugadores basado en sus depósitos iniciales. Esta medida asegura la equidad y establece las expectativas del jugador, destacando la transparencia e integridad de las experiencias de juego, el RTP mínimo es obligatorio en algunos países.",
+    "casinoLink": "Enlace del casino",
+    "playHint": "El botón Jugar envía directamente al jugador al slot seleccionado en la interfaz del casino elegido. A través del botón Jugar, SlotStat registra las preferencias del jugador y mejora su mecanismo basándose en esta información.",
+    "casino": "Casino",
+    "bonus": "Bono",
+    "statistics": "Estadísticas",
+    "liveRTP": "RTP en Vivo",
+    "per100Spins": "Por 100 Giros",
+    "wsr": "TGG"
+  },
+  "gamePage": {
+    "findYourGame": "Encuentra tu juego",
+    "games": "juegos",
+    "Win-spinRate": "Tasa de Giros Ganadores",
+    "Win-spinRateHint": "La Tasa de Giros Ganadores es una cantidad calculable matemáticamente que expresa la frecuencia de giros ganadores, donde la ganancia es superior a la apuesta inicial."
+  },
+  "sortBy": {
+    "none": "Ninguno",
+    "AllSlots": "Todos los slots",
+    "p24h": "Tasa de ganancia último día",
+    "p1h": "Tasa de ganancia última semana",
+    "p1m": "Tasa de ganancia último mes",
+    "p1y": "Tasa de ganancia último año",
+    "all": "Tasa de ganancia total",
+    "jackpot": "jackpot",
+    "sortBy": "ordenar por",
+    "t1hLong": "Tasa de ganancia de la última hora",
+    "t24hLong": "Tasa de ganancia de las últimas 24 horas",
+    "RTP": "RTP",
+    "slotInWinR": "Slots ganando (aleatorio)",
+    "slotsInLoseR": "Slots perdiendo (aleatorio)",
+    "slotInWin": "Slots ganando",
+    "slotsInLose": "Slots perdiendo",
+    "highestRTP": "Slots con Mayor RTP",
+    "apiDriven": "Basado en API",
+    "algorithmDriven": "Basado en Algoritmo"
+  },
+
+  "searchPlaceholder": "Buscar juego, casino o proveedor",
+  "noStatistic": "¡Ups, actualizaremos las estadísticas pronto!",
+  "fiatCasinos": "Fiat",
+  "cryptoCasinos": "Cripto",
+  "itemNotFound": "¡Sin resultados! Prueba una búsqueda diferente.",
+
+  "notification": {
+    "notification": "El jackpot ha sido sorteado",
+    "cookieText": "Al hacer clic en \"Aceptar Todas las Cookies\", acepta el almacenamiento de cookies en su dispositivo para mejorar la navegación del sitio, analizar el uso del sitio y ayudar en sus esfuerzos de marketing.",
+    "AcceptAllCookies": "Aceptar Todas las Cookies",
+    "RejectAll": "Rechazar Todo"
+  },
+  "bottomSheetModal": {
+    "select-slot-to-compare": "Seleccionar slot para comparar",
+    "choose-casino": "Elegir Casino"
+  },
+  "RTP": {
+    "provideInfo": "Proporcionaremos información de RTP pronto",
+    "Compare": "Comparar",
+    "neutral": "Neutral",
+    "CasinoIsLosing": "El slot está perdiendo",
+    "CasinoIsInProfit": "El slot está ganando",
+    "close": "Cerrar"
+  },
+  "chartComponent": {
+    "RTP": "RTP",
+    "swing": "Swing",
+    "RTPhint": "RTP Swing es un indicador que refleja las fluctuaciones entre el RTP teórico y real en los juegos de slots, actualizándose cada 5 minutos. El algoritmo del juego está entrenado para alcanzar el RTP teórico, pero debido a la naturaleza dinámica del juego, el RTP real puede superar, no alcanzar o igualar el RTP teórico. Esta métrica de actualización en vivo proporciona información sobre el rendimiento del juego en cualquier momento dado."
+  },
+
+  "nav": {
+    "topSlots": "Mejores Slots",
+    "providers": "Proveedores",
+    "casinos": "Casinos",
+    "responsibleGaming": "Juego Responsable",
+    "home": "Inicio"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Todo lo que los jugadores necesitan saber.",
+    "slots": "Slots",
+    "casinos": "Casinos",
+    "providers": "Proveedores",
+    "news": "Noticias",
+    "education": "Educación"
+  },
+  "intro": {
+    "playInformed": "Juega Informado",
+    "description": "Slotstat ofrece datos en tiempo real sobre juegos de slots a través de estadísticas en vivo dinámicas, incluyendo Tasa de Giros Ganadores, RTP y Estado de Ganancia del Slot. Observa, analiza, estrategiza y juega al máximo con Slotstat.",
+    "videoTutorial": "Video tutorial"
+  },
+  "geo": {
+    "countryTitle": "Tu país de residencia",
+    "chooseCountry": "Elegir País",
+    "selectState": "Seleccionar estado",
+    "select": "Seleccionar"
+  },
+  "chart": {
+    "slot": "Slot",
+    "casino": "Casino",
+    "bonus": "Bono",
+    "liveRTPAllTime": "RTP en vivo histórico",
+    "winSpinRate": "Tasa de giros ganadores",
+    "rtpAllTime": "RTP histórico",
+    "casinoPromotion": "Promoción del casino",
+    "welcomeBonus": "Bono de bienvenida",
+    "getBonus": "Obtener Bono",
+    "readMore": "Leer más",
+    "expireDate": "Fecha de vencimiento:",
+    "notSpecified": "No especificado"
+  },
+  "chatBot": {
+    "greeting": "¡Hola! ¿Cómo puedo ayudarte?",
+    "typing": "SlotGPT está escribiendo",
+    "placeholder": "Mensaje a SlotGPT"
+  },
+  "share": {
+    "checkOut": "¡Mira las estadísticas de {title} en SlotStat! {stats}"
+  },
+  "offers": {
+    "featuredOffers": "Ofertas Destacadas"
+  },
+  "errors": {
+    "notFound": "No encontrado",
+    "pageNotExist": "La página que buscas no existe"
+  },
+  "topSlots": {
+    "title": "Mejores Slots - Clasificación por Mejor RTP, Tasa de Ganancia y Ganancia Máxima",
+    "description": "Descubre los slots con mejor rendimiento clasificados por RTP en vivo, tasa de giros ganadores y máximo multiplicador de ganancia. Datos reales de casino actualizados cada 5 minutos.",
+    "heading": "Slots con Mejor Rendimiento",
+    "subheading": "Clasificaciones en vivo basadas en datos reales de casino. Actualizado cada 5 minutos.",
+    "highestRTP": "Mayor RTP",
+    "bestWinSpinRate": "Mejor Tasa de Giros Ganadores",
+    "highestMaxWin": "Mayor Ganancia Máxima",
+    "noData": "No hay datos de slots disponibles en este momento. Inténtalo de nuevo más tarde.",
+    "trackingInfo": "SlotStat actualmente rastrea los slots con mejor rendimiento en {count} casinos en línea, monitoreando RTP en vivo, tasa de giros ganadores y multiplicadores de ganancia máxima en tiempo real."
+  },
+  "casinos": {
+    "title": "Casinos en Línea - Estadísticas de RTP y Tasa de Ganancia en Vivo",
+    "description": "Compara casinos en línea por RTP en vivo, tasa de giros ganadores y actividad de jugadores. Datos reales de casino actualizados cada 5 minutos — encuentra los casinos con mejor rendimiento ahora.",
+    "heading": "Casinos en Línea",
+    "subheading": "Estadísticas de rendimiento en vivo de todos los casinos rastreados. Actualizado cada 5 minutos con datos reales de juego.",
+    "gamesTracked": "juegos rastreados",
+    "avgRTP": "RTP promedio",
+    "noData": "No hay datos de casino disponibles en este momento. Inténtalo de nuevo más tarde.",
+    "trackingInfo": "SlotStat actualmente rastrea {count} casino(s) en línea, monitoreando RTP en vivo, tasa de giros ganadores y actividad de jugadores en tiempo real. Todos los datos provienen directamente del juego activo y se actualizan cada 5 minutos."
+  },
+  "providers": {
+    "title": "Proveedores de Juegos de Slots - Estadísticas de RTP en Vivo por Desarrollador",
+    "description": "Explora proveedores de juegos de slots con datos de RTP en vivo. Compara desarrolladores de juegos por rendimiento y estadísticas de los jugadores, actualizados cada 5 minutos.",
+    "heading": "Proveedores de Juegos de Slots",
+    "subheading": "Estadísticas de rendimiento en vivo por desarrollador de juegos. Datos actualizados cada 5 minutos del juego real.",
+    "gamesTracked": "juegos",
+    "avgRTP": "RTP promedio",
+    "noData": "No hay datos de proveedores disponibles en este momento. Inténtalo de nuevo más tarde.",
+    "trackingInfo": "SlotStat actualmente rastrea {count} proveedor(es) de juegos de slots, monitoreando el rendimiento de RTP en vivo en todos los casinos. Todos los datos provienen del juego activo y se actualizan cada 5 minutos."
+  },
+  "aboutUs": {
+    "title": "Sobre Nosotros",
+    "metaTitle": "Sobre Nosotros",
+    "metaDescription": "Aprende sobre SlotStat, la plataforma basada en datos que proporciona estadísticas de slots en tiempo real e información para jugadores.",
+    "heading": "Sobre Nosotros",
+    "content1": "SlotStat es una plataforma basada en datos que proporciona a los jugadores estadísticas de slots en tiempo real para mejorar la experiencia de juego. Nuestras funciones clave incluyen RTP (Retorno al Jugador), RTP Swing, Tasa de Giros Ganadores, Bonos, Jackpot y datos SPS, empoderando a los usuarios con información integral y actualizada.",
+    "content2": "SlotStat es un observador neutral: no operamos ni promovemos ningún servicio de apuestas. Nuestra misión es proporcionar estadísticas transparentes y en tiempo real que ayuden a los jugadores a tomar decisiones informadas.",
+    "content3": "Nuestro equipo trabaja continuamente para mejorar nuestros algoritmos y expandir nuestra cobertura, asegurando que los jugadores siempre tengan acceso a la información más precisa y actualizada disponible."
+  },
+  "howItWorks": {
+    "title": "Cómo Funciona",
+    "metaTitle": "Cómo Funciona",
+    "metaDescription": "Aprende cómo funciona SlotStat - estadísticas de slots en tiempo real, RTP, RTP Swing, Tasa de Giros Ganadores y seguimiento de Jackpot.",
+    "heading": "Mecánicas de SlotStat y Cómo Funciona",
+    "intro": "Slotstat es una plataforma de información que recopila datos de juegos de slots de una cantidad significativa de fuentes diferentes y los muestra en formato gráfico, donde los jugadores de distintos casinos pueden monitorear las estadísticas de sus juegos favoritos.",
+    "figuresLabel": "Indicadores:",
+    "rtpDesc": "RTP - Porcentaje de Retorno al Jugador (a veces se muestra como porcentaje de Retorno a la Casa dependiendo de la fuente de información);",
+    "rtpSwingDesc": "RTP SWING - El parámetro muestra la fluctuación del slot respecto a su propio RTP ideal en el momento exacto del presente;",
+    "winSpinRateDesc": "Tasa de Giros Ganadores - La Tasa de Giros Ganadores es una frecuencia de giros ganadores, donde la ganancia se cuenta si es superior a la apuesta inicial;",
+    "jackpotDesc": "Jackpot - El indicador muestra el valor máximo de Jackpot del casino seleccionado que se actualiza activamente y puede aparecer como un periscopio preciso para tiradores de precisión."
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidad",
+    "metaTitle": "Política de Privacidad",
+    "metaDescription": "Lea la política de privacidad de SlotStat para comprender cómo recopilamos, usamos y protegemos su información personal."
+  },
+  "termsOfUse": {
+    "title": "Términos de Uso",
+    "metaTitle": "Términos de Uso",
+    "metaDescription": "Lea los términos de uso de SlotStat que rigen el uso de nuestro sitio web y servicios."
+  },
+  "responsibleGaming": {
+    "title": "Juego Responsable",
+    "metaTitle": "Juego Responsable",
+    "metaDescription": "Infórmese sobre las prácticas de juego responsable y cómo SlotStat promueve experiencias de juego seguras.",
+    "heading": "SlotStat prioriza el juego responsable para garantizar una experiencia segura y agradable para todos los jugadores.",
+    "commitment": "Compromiso de SlotStat",
+    "item1": "Información y Recursos: Accede a guías sobre riesgos del juego y prácticas responsables.",
+    "item2": "Límites de Depósito: Establece límites diarios, semanales o mensuales para gestionar tus gastos.",
+    "item3": "Autoexclusión: Bloquea temporal o permanentemente el acceso a la cuenta si es necesario.",
+    "item4": "Soporte y Asistencia: Encuentra enlaces a servicios de apoyo profesional y líneas de ayuda.",
+    "warningSignsTitle": "Atención a estas señales:",
+    "sign1": "Gastar más de lo previsto",
+    "sign2": "Perseguir las pérdidas",
+    "sign3": "Descuidar responsabilidades",
+    "sign4": "Sentirse ansioso o estresado cuando no se juega",
+    "gettingHelp": "Obtener Ayuda",
+    "helpContact": "Para asistencia contacta:",
+    "closingMessage": "SlotStat cree que los datos son la base del juego responsable. Mantente informado. Juega responsablemente."
+  },
+  "faqPage": {
+    "metaTitle": "Preguntas Frecuentes",
+    "metaDescription": "Encuentra respuestas a preguntas comunes sobre SlotStat, incluyendo estadísticas de slots, información de datos y cómo nuestra plataforma mejora tu experiencia de juego."
+  },
+  "layout": {
+    "defaultTitle": "SlotStat | La Forma Fácil de Ganar y Estadísticas de Slots",
+    "defaultDescription": "Descubre las formas más fáciles de ganar con estadísticas completas de slots. SlotStat proporciona estrategias basadas en datos para que los jugadores maximicen su potencial de ganancias."
+  }
+}

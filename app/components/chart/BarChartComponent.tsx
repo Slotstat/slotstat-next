@@ -16,6 +16,7 @@ import NewRTPWidget from "./NewRTPWidget";
 import getRTPWSRClientSide from "@/lib/clientSide/getRTPWSRClientSide";
 import TooltipComponent from "../TooltipComponent";
 import ShareButtons from "../ShareButtons";
+import { useTranslations } from "next-intl";
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
   if (active && payload && payload.length) {
@@ -45,6 +46,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
 export default function BarChartComponent({ mainGame }: { mainGame: GameData }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [gameData, setGameData] = useState<any>(null);
+  const tChart = useTranslations("chart");
 
   const getStatisticOfGame = async () => {
     const gamesListData: Promise<RTPWSRData> = getRTPWSRClientSide();
@@ -117,8 +119,8 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
                 />
 
                 <Bar dataKey="rtp" name="RTP per 1000 spin" fill="#3b82f6" />
-                <Bar dataKey="totalRtp" name="Live RTP all time" fill="#a78bfa" />
-                <Bar dataKey="rate" name="Win spin rate" fill="#facc15" />
+                <Bar dataKey="totalRtp" name={tChart("liveRTPAllTime")} fill="#a78bfa" />
+                <Bar dataKey="rate" name={tChart("winSpinRate")} fill="#facc15" />
                 {/* <Bar dataKey="rtp1000" name="RTP per 1000 spin">
                 {data.map((_, index) => (
                   <Cell
@@ -128,7 +130,7 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
                 ))}
               </Bar>
 
-              <Bar dataKey="rtpAllTime" name="RTP all time">
+              <Bar dataKey="rtpAllTime" name={tChart("rtpAllTime")}>
                 {data.map((_, index) => (
                   <Cell
                     key={`cell-r2-${index}`}
@@ -137,7 +139,7 @@ export default function BarChartComponent({ mainGame }: { mainGame: GameData }) 
                 ))}
               </Bar>
 
-              <Bar dataKey="winRate" name="Win spin rate">
+              <Bar dataKey="winRate" name={tChart("winSpinRate")}>
                 {data.map((_, index) => (
                   <Cell
                     key={`cell-r3-${index}`}

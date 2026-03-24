@@ -1,5 +1,6 @@
 import { Link } from "@/navigation";
 import ForwardIcon from "@/app/assets/svg/ForwardIcon";
+import { useTranslations } from "next-intl";
 
 type breadcrumbsType = { name: string; url?: string }[];
 
@@ -8,10 +9,11 @@ export default function Breadcrumbs({
 }: {
   breadcrumbs: breadcrumbsType;
 }) {
+  const t = useTranslations("nav");
   return (
     <div className="my-4 flex flex-row items-center text-xs lg:text-sm lg:my-6">
       <Link href="/" className={"text-opaque1  mr-2"}>
-        Home
+        {t("home")}
       </Link>
 
       {breadcrumbs.map((item, index) => {

@@ -14,7 +14,7 @@ export async function generateMetadata({
   params: { gameId, locale },
   searchParams: { orderBy, keyWord, direction, isFiat, casId },
 }: {
-  params: { casinoId: string; gameId: string; locale: "en" | "ka" };
+  params: { casinoId: string; gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
   try {
@@ -50,7 +50,9 @@ export async function generateMetadata({
       alternates: {
         canonical: `/${locale}/${gameId}`,
         languages: {
-          "en-US": `en/${gameId}`,
+          "en-US": `/en/${gameId}`,
+          "es-ES": `/es/${gameId}`,
+          "pt-PT": `/pt/${gameId}`,
         },
       },
     };
@@ -74,7 +76,7 @@ export default async function gamePage({
     casId,
   },
 }: {
-  params: { gameId: string; locale: "en" | "ka" };
+  params: { gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
   const mainGameData: Promise<GameData> = getSingleGame(gameId);
@@ -170,14 +172,24 @@ export default async function gamePage({
             : ""}
           {" "}All statistics are updated every 5 minutes based on real gameplay data.
         </p>
-        {mainGame.provider && (
-          <Link
-            href={`/${locale}/providers/${encodeURIComponent(mainGame.provider)}`}
-            className="inline-block mt-3 text-xs text-blue1 hover:underline"
-          >
-            Browse all {mainGame.provider} slots →
-          </Link>
-        )}
+        <div className="flex flex-wrap gap-4 mt-3">
+          {mainGame.provider && (
+            <Link
+              href={`/${locale}/providers/${encodeURIComponent(mainGame.provider)}`}
+              className="text-xs text-blue1 hover:underline"
+            >
+              Browse all {mainGame.provider} slots →
+            </Link>
+          )}
+          {mainGame.casinoName && (
+            <Link
+              href={`/${locale}/casinos/${encodeURIComponent(mainGame.casinoName)}`}
+              className="text-xs text-blue1 hover:underline"
+            >
+              View all {mainGame.casinoName} slots →
+            </Link>
+          )}
+        </div>
       </section>
     </div>
   );

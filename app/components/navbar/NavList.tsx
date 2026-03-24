@@ -1,18 +1,23 @@
-import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
-import { Link } from "@/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { usePathname, useRouter, Link } from "@/navigation";
 import { useState, useRef, useEffect } from "react";
 import Geo from "./Geo";
-import { setCookie, getCookie, deleteCookie } from "cookies-next";
+import { setCookie, getCookie } from "cookies-next";
 import { countries } from "@/app/utils/countries";
 import EmojiText from "../ui/EmojiText";
 
-const menuItems = [
-  { icon: "🕹️", label: "Slot", path: "/blog/slots" },
-  { icon: "🎰", label: "Casino", path: "/blog/casinos" },
-  { icon: "📡", label: "Provider", path: "/blog/providers" },
-  { icon: "📰", label: "News", path: "/blog/news" },
-  { icon: "🎓", label: "Education", path: "/blog/education" },
+const SPANISH_COUNTRIES = new Set([
+  "ES", "MX", "AR", "CL", "CO", "PE", "VE", "EC", "BO", "PY",
+  "UY", "CR", "PA", "GT", "HN", "SV", "NI", "DO", "CU", "PR",
+]);
+const PORTUGUESE_COUNTRIES = new Set(["PT", "BR", "AO", "MZ"]);
+
+const menuItemKeys = [
+  { icon: "🕹️", key: "slots" as const, path: "/blog/slots" },
+  { icon: "🎰", key: "casinos" as const, path: "/blog/casinos" },
+  { icon: "📡", key: "providers" as const, path: "/blog/providers" },
+  { icon: "📰", key: "news" as const, path: "/blog/news" },
+  { icon: "🎓", key: "education" as const, path: "/blog/education" },
 ];
 
 const NavList = () => {
@@ -23,7 +28,11 @@ const NavList = () => {
   const [initialState, setInitialState] = useState<countryOrState>();
 
   const t = useTranslations("navbar");
+  const tNav = useTranslations("nav");
+  const tBlog = useTranslations("blog");
   const pathName = usePathname();
+  const currentLocale = useLocale();
+  const router = useRouter();
 
   const geoRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLDivElement | null>(null);
@@ -48,6 +57,22 @@ const NavList = () => {
         setInitialState(regionByCookie[0]);
       }
       setInitialCountry(countryByCookie[0]);
+    }
+
+    // Auto-detect language on first visit (skip if user already manually set it)
+    const localeSet = getCookie("localeSet");
+    if (!localeSet) {
+      const detectedCountry = (getCookie("currentLocCountry") as string | undefined)?.toUpperCase();
+      if (detectedCountry) {
+        let suggested: "en" | "es" | "pt" = "en";
+        if (PORTUGUESE_COUNTRIES.has(detectedCountry)) suggested = "pt";
+        else if (SPANISH_COUNTRIES.has(detectedCountry)) suggested = "es";
+
+        if (suggested !== currentLocale) {
+          setCookie("localeSet", "1");
+          router.replace(pathName, { locale: suggested });
+        }
+      }
     }
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -88,7 +113,7 @@ const NavList = () => {
               className="z-50 top-full left-0 w-[154px] absolute font-bold pt-8 -mt-2 transition duration-200 ease-in-out data-[closed]:-translate-y-1 data-[closed]:opacity-0"
             >
               <div className="pt-4 border-grey2 border bg-dark1 rounded-md shadow-lg pb-1">
-                {menuItems.map((item, index) => (
+                {menuItemKeys.map((item, index) => (
                   <div className="group mb-3" key={index}>
                     <Link
                       href={item.path}
@@ -98,7 +123,7 @@ const NavList = () => {
                         <span>{item.icon}</span>
                       </div>
                       <p className="text-grey1 h-8 group-hover:text-white text-center pt-1">
-                        {item.label}
+                        {tBlog(item.key)}
                       </p>
                     </Link>
                   </div>
@@ -109,17 +134,17 @@ const NavList = () => {
         </div>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
           <Link href={`/top-slots`} className={checkIsActive("top-slots")}>
-            Top Slots
+            {tNav("topSlots")}
           </Link>
         </span>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
           <Link href={`/providers`} className={checkIsActive("providers")}>
-            Providers
+            {tNav("providers")}
           </Link>
         </span>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">
           <Link href={`/casinos`} className={checkIsActive("casinos")}>
-            Casinos
+            {tNav("casinos")}
           </Link>
         </span>
         <span className="mt-4 ml-3 md:ml-8 lg:mt-0">

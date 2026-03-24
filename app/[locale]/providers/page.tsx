@@ -1,29 +1,36 @@
 import slotStatClient from "@/lib/instance";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 
-export async function generateMetadata() {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: "providers" });
+
   return {
-    title: "Slot Game Providers - Live RTP Stats by Developer",
-    description:
-      "Browse slot game providers and their live RTP statistics. Compare Pragmatic Play, NetEnt, Play'n GO, Evolution, and more — real data updated every 5 minutes.",
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       images: "https://slotstat.net/opengraph-image.png",
-      title: "Slot Game Providers - Live RTP Stats by Developer",
-      description:
-        "Compare slot game providers by live RTP, win rate, and jackpot data. Real casino statistics updated every 5 minutes.",
+      title: t("title"),
+      description: t("description"),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Slot Game Providers - Live RTP Stats by Developer",
-      description:
-        "Compare slot game providers by live RTP, win rate, and jackpot data. Real casino statistics updated every 5 minutes.",
+      title: t("title"),
+      description: t("description"),
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: "/en/providers",
-      languages: { "en-US": "en/providers" },
+      canonical: `/${locale}/providers`,
+      languages: {
+        "en-US": "/en/providers",
+        "es-ES": "/es/providers",
+        "pt-PT": "/pt/providers",
+      },
     },
   };
 }
@@ -35,7 +42,7 @@ interface ProviderStat {
   topGame: string;
 }
 
-async function fetchProviderStats(locale: "en" | "ka"): Promise<ProviderStat[]> {
+async function fetchProviderStats(locale: "en" | "es" | "pt"): Promise<ProviderStat[]> {
   try {
     const res = await slotStatClient(locale).request({
       url: "/api/Game/aggregated/",
@@ -79,10 +86,11 @@ async function fetchProviderStats(locale: "en" | "ka"): Promise<ProviderStat[]> 
 export default async function ProvidersPage({
   params: { locale },
 }: {
-  params: { locale: "en" | "ka" };
+  params: { locale: "en" | "es" | "pt" };
 }) {
   unstable_setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: "providers" });
   const providers = await fetchProviderStats(locale);
 
   return (
@@ -91,9 +99,8 @@ export default async function ProvidersPage({
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Slot Game Providers - Live RTP Statistics",
-          description:
-            "Browse slot game providers and compare live RTP statistics across Pragmatic Play, NetEnt, Evolution, and more.",
+          name: t("title"),
+          description: t("description"),
           url: `https://slotstat.net/${locale}/providers`,
           mainEntity: {
             "@type": "ItemList",
@@ -109,16 +116,15 @@ export default async function ProvidersPage({
 
       <div className="mb-8">
         <h1 className="text-2xl md:text-4xl font-bold mb-2">
-          Slot Game Providers
+          {t("heading")}
         </h1>
         <p className="text-grey1 text-sm md:text-base">
-          Live RTP statistics by game developer. Updated every 5 minutes from
-          real casino data.
+          {t("subheading")}
         </p>
       </div>
 
       {providers.length === 0 ? (
-        <p className="text-grey1">No provider data available right now. Try again later.</p>
+        <p className="text-grey1">{t("noData")}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {providers.map((provider) => (
@@ -131,12 +137,12 @@ export default async function ProvidersPage({
                 {provider.name}
               </h2>
               <p className="text-grey1 text-xs mb-3">
-                {provider.gameCount} game{provider.gameCount !== 1 ? "s" : ""} tracked
+                {provider.gameCount} {t("gamesTracked")}
               </p>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-grey1 text-[10px] uppercase tracking-wide">
-                    Avg RTP
+                    {t("avgRTP")}
                   </p>
                   <p
                     className={`font-bold text-sm ${

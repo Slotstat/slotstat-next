@@ -3,39 +3,17 @@ import React, { useEffect, useState } from "react";
 import FiatCryptoButton from "../table/FiatCryptoButton";
 import { usePathname } from "next/navigation";
 import { Link } from "@/navigation";
-import FloatingButtons from "../FloatingButtons";
+import { useTranslations } from "next-intl";
 
-const categories: FloatingButtonsItems = [
-  { label: "Slots", value: "slots", id: "0", width: "w-28" },
-  { label: "Casinos", value: "casinos", id: "0", width: "w-28" },
-  { label: "Providers", value: "providers", id: "0", width: "w-28" },
-  { label: "News", value: "news", id: "0", width: "w-28" },
-  { label: "Education", value: "education", id: "0", width: "w-28" },
-];
+const categoryKeys = ["slots", "casinos", "providers", "news", "education"] as const;
 
 export default function BlogTabs({
   ActiveCategory,
 }: {
   ActiveCategory: string;
 }) {
-  const [selected, setSelected] = useState(categories[0]);
   const [scrolled, setScrolled] = useState(false);
-
-  // const select = (v: any) => {
-  //   // setSelected(v);
-  //   // onChange(v.value);
-  // };
-
-  // useEffect(() => {
-  //   const index = categories.findIndex(
-  //     (x) => x.value === ActiveCategory
-  //   );
-  //   if (index === -1) {
-  //     setSelected(categories[0]);
-  //   } else {
-  //     setSelected(categories[index]);
-  //   }
-  // }, []);
+  const t = useTranslations("blog");
 
   const listenScrollEvent = () => {
     const checkIfMobile =
@@ -62,24 +40,24 @@ export default function BlogTabs({
           <div
             className={`${scrolled ? "hidden" : ""} md:flex flex-col mb-3 md:mb-0`}
           >
-            <h1 className=" font-bold text-3xl mb-3">Blog</h1>
+            <h1 className=" font-bold text-3xl mb-3">{t("title")}</h1>
             <p className="text-grey1 mb-2">
-              All players need to know.
+              {t("subtitle")}
             </p>
           </div>
 
           <div
             className={`flex justify-between w-full items-center gap-y-2 md:flex-none md:w-auto`}
           >
-            {categories.map((category) => (
+            {categoryKeys.map((key) => (
               <Link
-                key={category.value}
-                href={`/blog/${category.value}`}
+                key={key}
+                href={`/blog/${key}`}
               >
                 <FiatCryptoButton
-                  title={category.label}
-                  active={ActiveCategory === category.value}
-                  click={(e: { stopPropagation: () => any }) =>
+                  title={t(key)}
+                  active={ActiveCategory === key}
+                  click={(e: { stopPropagation: () => void }) =>
                     e.stopPropagation()
                   }
                   className={
@@ -90,7 +68,6 @@ export default function BlogTabs({
             ))}
           </div>
         </div>
-        {/* <FloatingButtons selected={selected} items={categories} /> */}
       </div>
       {scrolled && <div className="h-[124px] md:h-20"></div>}
     </>

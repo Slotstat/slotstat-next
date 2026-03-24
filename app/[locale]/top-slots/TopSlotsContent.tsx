@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 
 function GameRow({
   game,
@@ -123,24 +124,26 @@ export default function TopSlotsContent({
   bestWinRate: GameData[];
   highestMaxWin: GameData[];
 }) {
+  const t = useTranslations("topSlots");
+
   return (
     <>
       <RankingSection
-        title="Highest RTP Slots"
+        title={t("highestRTP")}
         description="Slots with the best Return to Player percentage right now. Higher RTP means more is returned to players over time."
         games={highestRtp}
         metric="rtp"
       />
 
       <RankingSection
-        title="Best Win Spin Rate"
+        title={t("bestWinSpinRate")}
         description="Slots with the highest frequency of winning spins. A higher WSR means more spins result in payouts exceeding your bet."
         games={bestWinRate}
         metric="wsr"
       />
 
       <RankingSection
-        title="Highest Max Win"
+        title={t("highestMaxWin")}
         description="Slots with the largest potential payouts relative to your bet size."
         games={highestMaxWin}
         metric="maxWin"

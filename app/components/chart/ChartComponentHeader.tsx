@@ -20,6 +20,7 @@ export default function ChartComponentHeader({
 }) {
   const [_, setIsGameQuery] = useQueryState("ActiveTab");
   const t = useTranslations("table");
+  const tChart = useTranslations("chart");
 
   const [scrollY, setScrollY] = useState<number | null>(null);
   const [showSmallHeader, setShowSmallHeader] = useState<boolean>(false);
@@ -53,7 +54,7 @@ export default function ChartComponentHeader({
       {/* {!showSmallHeader && ( */}
       <div>
         <FiatCryptoButton
-          title={"Slot"}
+          title={tChart("slot")}
           active={screen === "slot"}
           click={() => {
             setScrollY(window.scrollY);
@@ -63,7 +64,7 @@ export default function ChartComponentHeader({
           className={"py-2 px-4 text-xs md:ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
-          title={"Casino"}
+          title={tChart("casino")}
           active={screen === "casino"}
           click={() => {
             setScrollY(window.scrollY);
@@ -73,7 +74,7 @@ export default function ChartComponentHeader({
           className={"py-2 px-4 text-xs ml-3 md:py-3 md:text-base"}
         />
         <FiatCryptoButton
-          title={"Bonus"}
+          title={tChart("bonus")}
           active={screen === "bonus"}
           click={() => {
             setScrollY(window.scrollY);
@@ -88,6 +89,7 @@ export default function ChartComponentHeader({
       <a
         href={redirectUrl}
         target="_blank"
+        rel="nofollow noopener noreferrer sponsored"
         className="h-10 text-white bg-blue1 hover:bg-blue4 md:ml-6  items-center
          justify-center flex px-6 py-2 rounded-lg text-xs md:text-base md:py-3 md:h-12"
       >
@@ -138,7 +140,7 @@ export default function ChartComponentHeader({
 
             <div className="flex flex-col md:flex-row md:items-center justify-between text-white font-bold w-full">
               <div className="hidden md:flex items-center">
-                <a href={redirectUrl} target="_blank" className=" flex items-center">
+                <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
                     {!!casinoImageUrl && (
                       <Image
@@ -154,7 +156,7 @@ export default function ChartComponentHeader({
                   </div>
                   <p>{casinoName}</p>
                 </a>
-                <a href={redirectUrl} target="_blank" className=" flex items-center">
+                <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
                     {!!imageUrl && (
                       <Image

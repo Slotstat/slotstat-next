@@ -1,40 +1,32 @@
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import React from "react";
-const breadcrumbs = [{ name: "privacy policy" }];
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export async function generateMetadata() {
-  try {
-    return {
-      title: "Privacy Policy ",
-      description:
-        "Explore SlotStat's Privacy Policy to understand how we protect your data, our data collection practices, and your rights as a user.",
-      openGraph: {
-        // ...openGraphImage,
-        images: "../opengraph-image.png",
-        title: "Privacy Policy ",
-        description:
-          "Explore SlotStat's Privacy Policy to understand how we protect your data, our data collection practices, and your rights as a user.",
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "privacyPolicy" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    openGraph: {
+      images: "https://slotstat.net/opengraph-image.png",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+    },
+    alternates: {
+      canonical: `/${locale}/privacy-policy`,
+      languages: {
+        "en-US": "/en/privacy-policy",
+        "es-ES": "/es/privacy-policy",
+        "pt-PT": "/pt/privacy-policy",
       },
-      alternates: {
-        canonical: `/en/privacy-policy`,
-        languages: {
-          "en-US": `en/privacy-policy`,
-          // "ka-GE": `ka/privacy-policy`,
-        },
-      },
-    };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
-  }
+    },
+  };
 }
 
-import { unstable_setRequestLocale } from "next-intl/server";
-
-export default function privacyPolicy({ params: { locale } }: { params: { locale: string } }) {
+export default async function privacyPolicy({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "privacyPolicy" });
+  const breadcrumbs = [{ name: t("title") }];
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

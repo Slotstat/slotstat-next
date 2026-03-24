@@ -5,7 +5,7 @@
     "slotstat": "Slotstat",
     "blog": "Blog"
   },
-  "lang": { "ka": "ქარ", "en": "Eng" },
+  "lang": { "ka": "ქარ", "en": "Eng", "es": "Esp", "pt": "Por" },
   "Home": {
     "HomeSeoTitle": "SlotStat: Real-Time Slot Statistics & Data-Driven Gambling Insights",
     "HomeSeoDesc": "Explore SlotStat for real-time slot statistics and insights. Discover RTP, Win Spin Rate, and more to make smarter decisions while playing."
@@ -149,5 +149,151 @@
     "RTP": "RTP",
     "swing": "Swing",
     "RTPhint": "RTP Swing is an indicator reflecting fluctuations between theoretical and actual RTP (Return to Player) in slot games, updating every 5 minutes. The game's algorithm is trained towards achieving the theoretical RTP, but due to the dynamic nature of gameplay, the actual RTP may exceed, fall short of, or match the theoretical RTP. This live-updating metric provides insights into the game's performance at any given moment."
+  },
+
+  "nav": {
+    "topSlots": "Top Slots",
+    "providers": "Providers",
+    "casinos": "Casinos",
+    "responsibleGaming": "Responsible Gaming",
+    "home": "Home"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "All players need to know.",
+    "slots": "Slots",
+    "casinos": "Casinos",
+    "providers": "Providers",
+    "news": "News",
+    "education": "Education"
+  },
+  "intro": {
+    "playInformed": "Play Informed",
+    "description": "Slotstat offers real-time data on slot games through dynamic live stats, including Win Spin Rate, RTP, and Slot Profit Status. Observe, analyze, strategize, and play it full with Slotstat.",
+    "videoTutorial": "Video tutorial"
+  },
+  "geo": {
+    "countryTitle": "Your country of residence",
+    "chooseCountry": "Choose Country",
+    "selectState": "Select state",
+    "select": "Select"
+  },
+  "chart": {
+    "slot": "Slot",
+    "casino": "Casino",
+    "bonus": "Bonus",
+    "liveRTPAllTime": "Live RTP all time",
+    "winSpinRate": "Win spin rate",
+    "rtpAllTime": "RTP all time",
+    "casinoPromotion": "Casino promotion",
+    "welcomeBonus": "Welcome bonus",
+    "getBonus": "Get Bonus",
+    "readMore": "Read more",
+    "expireDate": "Expire date:",
+    "notSpecified": "Not specified"
+  },
+  "chatBot": {
+    "greeting": "Hey there! How can I help you?",
+    "typing": "SlotGPT is typing",
+    "placeholder": "Message SlotGPT"
+  },
+  "share": {
+    "checkOut": "Check out the statistics for {title} on SlotStat! {stats}"
+  },
+  "offers": {
+    "featuredOffers": "Featured Offers"
+  },
+  "errors": {
+    "notFound": "Not found",
+    "pageNotExist": "The page you are looking for does not exist"
+  },
+  "topSlots": {
+    "title": "Top Slots - Best RTP, Win Rate & Max Win Rankings",
+    "description": "Discover the top performing slots ranked by live RTP, win spin rate, and maximum win multiplier. Real casino data updated every 5 minutes.",
+    "heading": "Top Performing Slots",
+    "subheading": "Live rankings based on real casino data. Updated every 5 minutes.",
+    "highestRTP": "Highest RTP Slots",
+    "bestWinSpinRate": "Best Win Spin Rate",
+    "highestMaxWin": "Highest Max Win",
+    "noData": "No slot data available right now. Try again later.",
+    "trackingInfo": "SlotStat currently tracks the top performing slots across {count} online casinos, monitoring live RTP, win spin rate, and maximum win multipliers in real time."
+  },
+  "casinos": {
+    "title": "Online Casinos - Live RTP & Win Rate Statistics",
+    "description": "Compare online casinos by live RTP, win spin rate, and player activity. Real casino data updated every 5 minutes — find the best performing casinos right now.",
+    "heading": "Online Casinos",
+    "subheading": "Live performance stats across all tracked casinos. Updated every 5 minutes from real gameplay data.",
+    "gamesTracked": "games tracked",
+    "avgRTP": "avg RTP",
+    "noData": "No casino data available right now. Try again later.",
+    "trackingInfo": "SlotStat currently tracks {count} online casino(s), monitoring live RTP, win spin rate, and player activity in real time. All data is sourced directly from active gameplay and updated every 5 minutes."
+  },
+  "providers": {
+    "title": "Slot Game Providers - Live RTP Stats by Developer",
+    "description": "Explore slot game providers with live RTP data. Compare game developers by performance and player statistics, updated every 5 minutes.",
+    "heading": "Slot Game Providers",
+    "subheading": "Live performance stats by game developer. Data updated every 5 minutes from real gameplay.",
+    "gamesTracked": "games",
+    "avgRTP": "avg RTP",
+    "noData": "No provider data available right now. Try again later.",
+    "trackingInfo": "SlotStat currently tracks {count} slot game provider(s), monitoring live RTP performance across all casinos. All data is sourced from active gameplay and updated every 5 minutes."
+  },
+  "aboutUs": {
+    "title": "About Us",
+    "metaTitle": "About Us",
+    "metaDescription": "Learn about SlotStat, the data-driven platform providing real-time slot statistics and insights for players.",
+    "heading": "About Us",
+    "content1": "SlotStat is a data-driven platform that provides players with real-time slot statistics to enhance the gaming experience. Our key features include RTP (Return to Player), RTP Swing, Win Spin Rate, Bonuses, Jackpot, and SPS data, empowering users with comprehensive, up-to-date insights.",
+    "content2": "SlotStat is a neutral observer — we do not operate or promote any gambling services. Our mission is to provide transparent, real-time statistics that help players make informed decisions.",
+    "content3": "Our team continuously works to improve our algorithms and expand our coverage, ensuring that players always have access to the most accurate and up-to-date information available."
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "metaTitle": "How It Works",
+    "metaDescription": "Learn how SlotStat works - real-time slot statistics, RTP, RTP Swing, Win Spin Rate, and Jackpot tracking.",
+    "heading": "SlotStat Mechanics and How it Works",
+    "intro": "Slotstat is an information worktop that gathers data of slot games from a significant amount of different sources and displays them in a graphic format, where players of different casinos can monitor statistics of their favourite games.",
+    "figuresLabel": "Figurines:",
+    "rtpDesc": "RTP - Return to Player Percentage (sometimes shown as return to House Percentage depending on information source);",
+    "rtpSwingDesc": "RTP SWING - Parameter shows slot game fluctuation towards its own ideal RTP at a very exact moment of present;",
+    "winSpinRateDesc": "Win Spin Rate - Win Spin Rate is a frequency of winning spins, where win is counted if higher than initial bet;",
+    "jackpotDesc": "Jackpot - Figurine shows maximum Jackpot value of the chosen casino that is actively updating and may pop up as an accurate periscope for sharp shot takers."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "metaTitle": "Privacy Policy",
+    "metaDescription": "Read SlotStat's privacy policy to understand how we collect, use, and protect your personal information."
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "metaTitle": "Terms of Use",
+    "metaDescription": "Read SlotStat's terms of use governing the use of our website and services."
+  },
+  "responsibleGaming": {
+    "title": "Responsible Gaming",
+    "metaTitle": "Responsible Gaming",
+    "metaDescription": "Learn about responsible gaming practices and how SlotStat promotes safe gambling experiences.",
+    "heading": "SlotStat prioritizes responsible gambling to ensure a safe and enjoyable experience for all players.",
+    "commitment": "SlotStat's Commitment",
+    "item1": "Information and Resources: Access guides on gambling risks and responsible practices.",
+    "item2": "Deposit Limits: Set daily, weekly, or monthly limits to manage spending.",
+    "item3": "Self-Exclusion: Temporarily or permanently block access to the account if needed.",
+    "item4": "Support and Assistance: Find links to professional support services and helplines.",
+    "warningSignsTitle": "Watch for these signs:",
+    "sign1": "Spending more than intended",
+    "sign2": "Chasing losses",
+    "sign3": "Neglecting responsibilities",
+    "sign4": "Feeling anxious or stressed when not gambling",
+    "gettingHelp": "Getting Help",
+    "helpContact": "For assistance contact:",
+    "closingMessage": "SlotStat believes data is the foundation of responsible gambling. Stay informed. Play responsibly."
+  },
+  "faqPage": {
+    "metaTitle": "Frequently Asked Questions",
+    "metaDescription": "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience."
+  },
+  "layout": {
+    "defaultTitle": "SlotStat | Easy Way to Win & Slots Statistics",
+    "defaultDescription": "Discover the easiest ways to win with comprehensive slots statistics. SlotStat provides data-driven strategies for players to maximize their winning potential."
   }
 }

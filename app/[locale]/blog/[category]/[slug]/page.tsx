@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params: { locale, category, slug },
 }: {
-  params: { locale: "en" | "ka"; category: string; slug: string };
+  params: { locale: "en" | "es" | "pt"; category: string; slug: string };
   searchParams: QueryParamsGamePage;
 }) {
   try {
@@ -95,8 +95,9 @@ export async function generateMetadata({
       alternates: {
         canonical: `/${locale}/blog/${category}/${slug}`,
         languages: {
-          "en-US": `en/blog/${category}/${slug}`,
-          // "ka-GE": `ka/blog/${category}/${slug}`,
+          "en-US": `/en/blog/${category}/${slug}`,
+          "es-ES": `/es/blog/${category}/${slug}`,
+          "pt-PT": `/pt/blog/${category}/${slug}`,
         },
       },
     };
@@ -125,6 +126,17 @@ export default async function BlogArticle({
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `https://slotstat.net/${locale}` },
+            { "@type": "ListItem", position: 2, name: category, item: `https://slotstat.net/${locale}/blog/${category}` },
+            { "@type": "ListItem", position: 3, name: title },
+          ],
+        }}
+      />
       <JsonLd
         data={{
           "@context": "https://schema.org",

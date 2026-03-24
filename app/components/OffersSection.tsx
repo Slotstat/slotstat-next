@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function OffersSection({ offers }: { offers: Offer[] }) {
+  const t = useTranslations("offers");
   return (
     <section className="my-4 md:my-6">
       <h2 className="text-white text-base md:text-xl font-bold mb-3">
-        Featured Offers
+        {t("featuredOffers")}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
         {offers.map((offer) => {
@@ -22,7 +24,7 @@ export default function OffersSection({ offers }: { offers: Offer[] }) {
               key={offer.offerId}
               href={offer.redirectUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer sponsored"
               className="group flex flex-col rounded-xl bg-dark2 overflow-hidden hover:ring-1 hover:ring-blue1 transition-all"
             >
               {hasValidImage && (

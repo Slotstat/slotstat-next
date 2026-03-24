@@ -9,7 +9,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 type Params = {
   params: {
-    locale: "en" | "ka";
+    locale: "en" | "es" | "pt";
   };
   searchParams: QueryParams;
 };
@@ -30,6 +30,14 @@ export async function generateMetadata({ params: { locale } }: Params) {
       title: t("HomeSeoTitle"),
       description: t("HomeSeoDesc"),
       images: ["https://slotstat.net/opengraph-image.png"],
+    },
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        "en-US": "/en",
+        "es-ES": "/es",
+        "pt-PT": "/pt",
+      },
     },
   };
 }

@@ -12,6 +12,7 @@ import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 // import logo from "../../assets/img/logoSmall.png";
 // import Image from "next/image";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
+import { useTranslations } from "next-intl";
 import {
   createRun,
   createThread,
@@ -52,7 +53,7 @@ export interface ChatMessage {
   metadata: Record<string, any>;
 }
 
-const initialMessage: ChatMessage = {
+const createInitialMessage = (greeting: string): ChatMessage => ({
   id: "firstMessageId",
   object: "thread.message",
   created_at: Date.now(),
@@ -64,16 +65,18 @@ const initialMessage: ChatMessage = {
     {
       type: "text",
       text: {
-        value: "Hey there! How can I help you?",
+        value: greeting,
         annotations: [],
       },
     },
   ],
   attachments: [],
   metadata: {},
-};
+});
 //! DO NOT DELETE THE COMMENTS FOR NOW
 export default function ChatFloatingContainer({ setRotated }: Props) {
+  const tChat = useTranslations("chatBot");
+  const initialMessage = createInitialMessage(tChat("greeting"));
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const [warningMessage, setWarningMessage] = useState<ChatMessage | undefined>();
@@ -229,7 +232,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
             isTyping && (
               <TypingIndicator
                 className="!bg-dark2 !text-white !ml-3"
-                content="SlotGPT is typing"
+                content={tChat("typing")}
               />
             )
           }
@@ -301,7 +304,7 @@ export default function ChatFloatingContainer({ setRotated }: Props) {
           ref={messageInputRef}
           onChange={(e) => setUserMessage(e)}
           className="!bg-dark2 !border-0 text-base font-modernist"
-          placeholder="Message SlotGPT"
+          placeholder={tChat("placeholder")}
           onSend={handleNewUserMessage}
           attachButton={false}
           sendButton={false}

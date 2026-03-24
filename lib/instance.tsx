@@ -9,7 +9,12 @@ const slotStatClient = (locale?: string) => {
   // const region = cookies().get("region")?.value;
 
   // let lang = cookie === "en" ? "en-US" : "ka-GE";
-  let lang1 = locale === "en" ? "en-US" : locale === "ka" ? "ka-GE" : "en-US";
+  const langMap: Record<string, string> = {
+    en: "en-US",
+    es: "es-ES",
+    pt: "pt-PT",
+  };
+  const lang1 = langMap[locale ?? "en"] ?? "en-US";
 
   return axios.create({
     baseURL: baseUrl,

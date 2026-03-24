@@ -2,39 +2,47 @@ import slotStatClient from "@/lib/instance";
 import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import ProviderContent from "./ProviderContent";
+import { getProviderInfo } from "@/lib/providerDescriptions";
 import type { Metadata } from "next";
 
 interface Props {
-  params: { locale: "en" | "ka"; slug: string };
+  params: { locale: "en" | "es" | "pt"; slug: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const providerName = decodeURIComponent(params.slug);
+  const { locale } = params;
+  const providerInfo = getProviderInfo(providerName);
+  const description = providerInfo
+    ? `${providerInfo.about.split(".")[0]}. Track live RTP and win rate for all ${providerName} slots, updated every 5 minutes.`
+    : `Live RTP, win spin rate, and max win statistics for ${providerName} slot games. Real data from active casinos, updated every 5 minutes.`;
   return {
     title: `${providerName} Slots - Live RTP & Win Rate Statistics`,
-    description: `Live RTP, win spin rate, and max win statistics for ${providerName} slot games. Real data from active casinos, updated every 5 minutes.`,
+    description,
     openGraph: {
       images: "https://slotstat.net/opengraph-image.png",
       title: `${providerName} Slots - Live RTP Statistics`,
-      description: `Live RTP, win spin rate, and max win statistics for ${providerName} slot games. Real casino data updated every 5 minutes.`,
+      description,
     },
     twitter: {
       card: "summary_large_image",
       title: `${providerName} Slots - Live RTP Statistics`,
-      description: `Live RTP, win spin rate, and max win statistics for ${providerName} slot games. Real casino data updated every 5 minutes.`,
+      description,
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: `/en/providers/${encodeURIComponent(providerName)}`,
+      canonical: `/${locale}/providers/${encodeURIComponent(providerName)}`,
       languages: {
-        "en-US": `en/providers/${encodeURIComponent(providerName)}`,
+        "en-US": `/en/providers/${encodeURIComponent(providerName)}`,
+        "es-ES": `/es/providers/${encodeURIComponent(providerName)}`,
+        "pt-PT": `/pt/providers/${encodeURIComponent(providerName)}`,
       },
     },
   };
 }
 
 async function fetchProviderGames(
-  locale: "en" | "ka",
+  locale: "en" | "es" | "pt",
   providerName: string
 ): Promise<GameData[]> {
   try {
@@ -60,6 +68,7 @@ export default async function ProviderPage({ params }: Props) {
 
   const providerName = decodeURIComponent(params.slug);
   const games = await fetchProviderGames(params.locale, providerName);
+  const providerInfo = getProviderInfo(providerName);
 
   const avgRtp =
     games.length > 0
@@ -92,6 +101,18 @@ export default async function ProviderPage({ params }: Props) {
         }}
       />
 
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `https://slotstat.net/${params.locale}` },
+            { "@type": "ListItem", position: 2, name: "Providers", item: `https://slotstat.net/${params.locale}/providers` },
+            { "@type": "ListItem", position: 3, name: providerName },
+          ],
+        }}
+      />
+
       {/* Breadcrumb */}
       <nav className="text-xs text-grey1 mb-6">
         <a href={`/${params.locale}`} className="hover:text-white">
@@ -114,6 +135,16 @@ export default async function ProviderPage({ params }: Props) {
           updated every 5 minutes.
         </p>
       </div>
+
+      {providerInfo && (
+        <section className="mb-8 p-4 md:p-6 rounded-xl bg-dark2 text-grey1 text-sm leading-relaxed">
+          <p className="mb-3">{providerInfo.about}</p>
+          <p className="text-xs text-grey1">
+            <span className="text-white font-semibold">Notable titles: </span>
+            {providerInfo.notableGames.join(", ")}.
+          </p>
+        </section>
+      )}
 
       {/* Summary stats */}
       {games.length > 0 && (

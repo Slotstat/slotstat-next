@@ -1,30 +1,28 @@
 import slotStatClient from "@/lib/instance";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 
-export async function generateMetadata() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "casinos" });
   return {
-    title: "Online Casinos - Live RTP & Win Rate Statistics",
-    description:
-      "Compare online casinos by live RTP, win spin rate, and player activity. Real casino data updated every 5 minutes — find the best performing casinos right now.",
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       images: "https://slotstat.net/opengraph-image.png",
-      title: "Online Casinos - Live RTP & Win Rate Statistics",
-      description:
-        "Compare online casinos by live RTP, win spin rate, and player activity. Real data updated every 5 minutes.",
+      title: t("title"),
+      description: t("description"),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Online Casinos - Live RTP & Win Rate Statistics",
-      description:
-        "Compare online casinos by live RTP, win spin rate, and player activity. Real data updated every 5 minutes.",
+      title: t("title"),
+      description: t("description"),
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: "/en/casinos",
-      languages: { "en-US": "en/casinos" },
+      canonical: `/${locale}/casinos`,
+      languages: { "en-US": "/en/casinos", "es-ES": "/es/casinos", "pt-PT": "/pt/casinos" },
     },
   };
 }
@@ -39,7 +37,7 @@ interface CasinoEntry {
   totalSpins: number;
 }
 
-async function fetchCasinos(locale: "en" | "ka"): Promise<CasinoEntry[]> {
+async function fetchCasinos(locale: "en" | "es" | "pt"): Promise<CasinoEntry[]> {
   try {
     const res = await slotStatClient(locale).request({
       url: "/api/Game/aggregated/",
@@ -85,10 +83,10 @@ async function fetchCasinos(locale: "en" | "ka"): Promise<CasinoEntry[]> {
 export default async function CasinosPage({
   params: { locale },
 }: {
-  params: { locale: "en" | "ka" };
+  params: { locale: "en" | "es" | "pt" };
 }) {
   unstable_setRequestLocale(locale);
-
+  const t = await getTranslations({ locale, namespace: "casinos" });
   const casinos = await fetchCasinos(locale);
 
   const hasValidImage = (url: string | undefined) =>
@@ -120,16 +118,15 @@ export default async function CasinosPage({
       />
 
       <div className="mb-8">
-        <h1 className="text-2xl md:text-4xl font-bold mb-2">Online Casinos</h1>
+        <h1 className="text-2xl md:text-4xl font-bold mb-2">{t("heading")}</h1>
         <p className="text-grey1 text-sm md:text-base">
-          Live performance stats across all tracked casinos. Updated every 5
-          minutes from real gameplay data.
+          {t("subheading")}
         </p>
       </div>
 
       {casinos.length === 0 ? (
         <p className="text-grey1">
-          No casino data available right now. Try again later.
+          {t("noData")}
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
@@ -163,7 +160,7 @@ export default async function CasinosPage({
                 <div className="flex gap-3 mt-1">
                   <span className="text-grey1 text-xs">
                     <span className="text-white font-bold">{casino.gameCount}</span>{" "}
-                    games tracked
+                    {t("gamesTracked")}
                   </span>
                   {casino.avgRtp > 0 && (
                     <span className="text-grey1 text-xs">
@@ -172,7 +169,7 @@ export default async function CasinosPage({
                       >
                         {casino.avgRtp.toFixed(1)}%
                       </span>{" "}
-                      avg RTP
+                      {t("avgRTP")}
                     </span>
                   )}
                 </div>

@@ -8,7 +8,7 @@ import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
 import BetaModeHeader from "./BetaModeHeader";
 import ReusableHeaderLogo from "./ReusableHeaderLogo";
-// import LanguageToggleButton from "./LanguageToggleButton";
+import LanguageToggleButton from "./LanguageToggleButton";
 
 const bigHeaderHeight = "h-[87px]";
 const bgTransparent0 = "bg-transparent";

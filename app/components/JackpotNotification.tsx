@@ -23,32 +23,16 @@ export default function JackpotNotification() {
       // Get current date and time
       var currentDate = new Date();
 
-      // an array of month names
-      var monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-
       // Extract individual components
       var day = currentDate.getDate();
-      var monthIndex = currentDate.getMonth();
       var year = currentDate.getFullYear();
       var hours = currentDate.getHours();
       var minutes = currentDate.getMinutes();
       var seconds = currentDate.getSeconds();
+      var monthName = currentDate.toLocaleString(undefined, { month: "short" });
 
       // Format the date and time
-      var formattedDate = day + " " + monthNames[monthIndex] + ". " + year;
+      var formattedDate = day + " " + monthName + ". " + year;
       var formattedTime = hours + ":" + minutes + ":" + seconds;
 
       // Combine the formatted date and time

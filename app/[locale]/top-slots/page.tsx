@@ -1,37 +1,37 @@
 import slotStatClient from "@/lib/instance";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import TopSlotsContent from "./TopSlotsContent";
 
-export async function generateMetadata() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "topSlots" });
   return {
-    title: "Top Slots - Best RTP, Win Rate & Max Win Rankings",
-    description:
-      "Discover the top-performing slot games ranked by live RTP, win spin rate, and max win multiplier. Data-driven slot rankings updated in real-time.",
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       images: "https://slotstat.net/opengraph-image.png",
-      title: "Top Slots - Best RTP, Win Rate & Max Win Rankings",
-      description:
-        "Discover the top-performing slot games ranked by live RTP, win spin rate, and max win multiplier.",
+      title: t("title"),
+      description: t("description"),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Top Slots - Best RTP, Win Rate & Max Win Rankings",
-      description:
-        "Discover the top-performing slot games ranked by live RTP, win spin rate, and max win multiplier.",
+      title: t("title"),
+      description: t("description"),
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: "/en/top-slots",
+      canonical: `/${locale}/top-slots`,
       languages: {
-        "en-US": "en/top-slots",
+        "en-US": "/en/top-slots",
+        "es-ES": "/es/top-slots",
+        "pt-PT": "/pt/top-slots",
       },
     },
   };
 }
 
 async function fetchTopGames(
-  locale: "en" | "ka",
+  locale: "en" | "es" | "pt",
   orderBy: string,
   direction: string,
   pageSize = 10
@@ -56,9 +56,11 @@ async function fetchTopGames(
 export default async function TopSlotsPage({
   params: { locale },
 }: {
-  params: { locale: "en" | "ka" };
+  params: { locale: "en" | "es" | "pt" };
 }) {
   unstable_setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "topSlots" });
 
   const [highestRtp, bestWinRate, highestMaxWin] = await Promise.all([
     fetchTopGames(locale, "fixedRtp", "desc", 10),
@@ -74,9 +76,8 @@ export default async function TopSlotsPage({
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Top Slots - Best RTP, Win Rate & Max Win Rankings",
-          description:
-            "Discover the top-performing slot games ranked by live RTP, win spin rate, and max win multiplier.",
+          name: t("title"),
+          description: t("description"),
           url: `https://slotstat.net/${locale}/top-slots`,
           mainEntity: {
             "@type": "ItemList",
@@ -92,10 +93,10 @@ export default async function TopSlotsPage({
 
       <div className="mb-8">
         <h1 className="text-2xl md:text-4xl font-bold mb-2">
-          Top Performing Slots
+          {t("heading")}
         </h1>
         <p className="text-grey1 text-sm md:text-base">
-          Live rankings based on real casino data. Updated every 5 minutes.
+          {t("subheading")}
         </p>
       </div>
 

@@ -5,11 +5,12 @@ import CasinoContent from "./CasinoContent";
 import type { Metadata } from "next";
 
 interface Props {
-  params: { locale: "en" | "ka"; slug: string };
+  params: { locale: "en" | "es" | "pt"; slug: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const casinoName = decodeURIComponent(params.slug);
+  const { locale } = params;
   return {
     title: `${casinoName} - Live Slot RTP & Win Rate Statistics`,
     description: `Live RTP, win spin rate, and max win statistics for slots at ${casinoName}. Real casino data updated every 5 minutes.`,
@@ -25,16 +26,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: `/en/casinos/${encodeURIComponent(casinoName)}`,
+      canonical: `/${locale}/casinos/${encodeURIComponent(casinoName)}`,
       languages: {
-        "en-US": `en/casinos/${encodeURIComponent(casinoName)}`,
+        "en-US": `/en/casinos/${encodeURIComponent(casinoName)}`,
+        "es-ES": `/es/casinos/${encodeURIComponent(casinoName)}`,
+        "pt-PT": `/pt/casinos/${encodeURIComponent(casinoName)}`,
       },
     },
   };
 }
 
 async function fetchCasinoGames(
-  locale: "en" | "ka",
+  locale: "en" | "es" | "pt",
   casinoName: string
 ): Promise<GameData[]> {
   try {
@@ -101,6 +104,18 @@ export default async function CasinoPage({ params }: Props) {
         }}
       />
 
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `https://slotstat.net/${params.locale}` },
+            { "@type": "ListItem", position: 2, name: "Casinos", item: `https://slotstat.net/${params.locale}/casinos` },
+            { "@type": "ListItem", position: 3, name: casinoName },
+          ],
+        }}
+      />
+
       {/* Breadcrumb */}
       <nav className="text-xs text-grey1 mb-6">
         <a href={`/${params.locale}`} className="hover:text-white">
@@ -136,7 +151,7 @@ export default async function CasinoPage({ params }: Props) {
           <a
             href={redirectUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="nofollow noopener noreferrer sponsored"
             className="ml-auto shrink-0 px-5 py-2 bg-blue1 text-white font-bold rounded-xl hover:opacity-90 transition-opacity text-sm"
           >
             Play

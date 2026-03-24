@@ -13,6 +13,7 @@ const Footer = () => {
   const t = useTranslations("navbar");
   const tFooter = useTranslations("footer");
   const tFaq = useTranslations("faq");
+  const tNav = useTranslations("nav");
 
   return (
     <>
@@ -67,19 +68,19 @@ const Footer = () => {
                 href="/top-slots"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >
-                Top Slots
+                {tNav("topSlots")}
               </Link>
               <Link
                 href="/providers"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >
-                Providers
+                {tNav("providers")}
               </Link>
               <Link
                 href="/casinos"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >
-                Casinos
+                {tNav("casinos")}
               </Link>
               <Link
                 href="/faq"
@@ -93,12 +94,12 @@ const Footer = () => {
               >
                 {t("howItWorks")}
               </Link>
-              {/* <Link
+              <Link
                 href="/responsible-gaming"
                 className="mb-4 block text-xs font-normal text-grey1 lg:text-sm"
               >
                 {tFooter("responsibleGaming")}
-              </Link> */}
+              </Link>
             </div>
             <div className="mt-8 lg:mt-0 lg:ml-18">
               <h5 className="mb-4 block text-xs font-black text-white lg:text-sm">
@@ -183,6 +184,15 @@ const Footer = () => {
           </div> */}
         </div>
       </footer>
+      <div className="flex justify-center bg-dark2 border-t border-grey3 py-3 px-4">
+        <p className="text-grey1 text-xs text-center max-w-screen-xl">
+          <span className="font-bold text-white">18+</span> Gambling involves risk. Please gamble responsibly.{" "}
+          <Link href="/responsible-gaming" className="underline hover:text-white">
+            Responsible Gaming
+          </Link>
+          . SlotStat provides statistics only and does not offer gambling services.
+        </p>
+      </div>
     </>
   );
 };

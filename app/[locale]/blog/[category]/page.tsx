@@ -22,7 +22,7 @@ async function getData(category: string) {
 export async function generateMetadata({
   params: { locale, category },
 }: {
-  params: { locale: "en" | "ka"; category: string };
+  params: { locale: "en" | "es" | "pt"; category: string };
 }) {
   const categoryMeta: Record<string, { title: string; description: string }> = {
     slots: {
@@ -52,24 +52,29 @@ export async function generateMetadata({
     description: "Read the latest articles about slots, casinos, and gambling insights.",
   };
 
-  try {
-    return {
+  return {
+    title: meta.title,
+    description: meta.description,
+    openGraph: {
+      images: "https://slotstat.net/opengraph-image.png",
       title: meta.title,
       description: meta.description,
-      alternates: {
-        canonical: `/${locale}/blog/${category}`,
-        languages: {
-          "en-US": `en/blog/${category}`,
-          // "ka-GE": `ka/blog/${category}`,
-        },
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: ["https://slotstat.net/opengraph-image.png"],
+    },
+    alternates: {
+      canonical: `/${locale}/blog/${category}`,
+      languages: {
+        "en-US": `/en/blog/${category}`,
+        "es-ES": `/es/blog/${category}`,
+        "pt-PT": `/pt/blog/${category}`,
       },
-    };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
-  }
+    },
+  };
 }
 
 import { unstable_setRequestLocale } from "next-intl/server";

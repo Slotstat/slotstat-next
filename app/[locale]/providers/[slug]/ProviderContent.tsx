@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Link } from "@/navigation";
 
-function ProviderGameRow({ game }: { game: GameData }) {
+function ProviderGameRow({ game, locale }: { game: GameData; locale: string }) {
   const hasValidImage =
     game.imageUrl &&
     game.imageUrl !== "null" &&
@@ -43,7 +43,17 @@ function ProviderGameRow({ game }: { game: GameData }) {
         <p className="text-white text-sm md:text-base font-bold truncate">
           {game.name}
         </p>
-        <p className="text-grey1 text-xs truncate">{game.casinoName}</p>
+        {game.casinoName ? (
+          <Link
+            href={`/${locale}/casinos/${encodeURIComponent(game.casinoName)}`}
+            className="text-grey1 text-xs truncate hover:text-blue1 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {game.casinoName}
+          </Link>
+        ) : (
+          <p className="text-grey1 text-xs truncate">&nbsp;</p>
+        )}
       </div>
 
       <div className="flex gap-3 md:gap-6 shrink-0 text-right">
@@ -106,7 +116,7 @@ export default function ProviderContent({
 
       <div className="flex flex-col gap-2 mb-10">
         {games.map((game) => (
-          <ProviderGameRow key={game.gameId} game={game} />
+          <ProviderGameRow key={game.gameId} game={game} locale={locale} />
         ))}
       </div>
 

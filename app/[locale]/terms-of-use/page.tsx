@@ -1,41 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-const breadcrumbs = [{ name: "Terms of use" }];
-
-export async function generateMetadata() {
-  try {
-    return {
-      title: "Terms of Use",
-      description:
-        "Review the terms of use for SlotStat, detailing user guidelines, responsibilities, and conditions for accessing our data-driven gambling platform. ",
-      openGraph: {
-        // ...openGraphImage,
-        images: "../opengraph-image.png",
-        title: "Terms of Use",
-        description:
-          "Review the terms of use for SlotStat, detailing user guidelines, responsibilities, and conditions for accessing our data-driven gambling platform.",
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: "termsOfUse" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    openGraph: {
+      images: "https://slotstat.net/opengraph-image.png",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+    },
+    alternates: {
+      canonical: `/${locale}/terms-of-use`,
+      languages: {
+        "en-US": "/en/terms-of-use",
+        "es-ES": "/es/terms-of-use",
+        "pt-PT": "/pt/terms-of-use",
       },
-      alternates: {
-        canonical: `/en/terms-of-use`,
-        languages: {
-          "en-US": `en/terms-of-use`,
-          // "ka-GE": `ka/terms-of-use`,
-        },
-      },
-    };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
-  }
+    },
+  };
 }
-
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export default async function TermsOfUse({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "termsOfUse" });
+  const breadcrumbs = [{ name: t("title") }];
   return (
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />

@@ -1,7 +1,7 @@
 import slotStatClient from "./instance";
 
 export default async function getGamesList(
-  locale: "en" | "ka",
+  locale: "en" | "es" | "pt",
 
   { keyWord, direction, orderBy, isFiat }: QueryParams
 ) {

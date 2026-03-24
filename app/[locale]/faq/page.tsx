@@ -4,45 +4,44 @@ import SubscribeButton from "@/app/components/SubscribeButton";
 
 import { accordionData } from "@/app/utils/mockData";
 import { useTranslations } from "next-intl";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { useMemo } from "react";
 const breadcrumbs = [{ name: "FAQ" }];
 
-export async function generateMetadata() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   try {
+    const t = await getTranslations({ locale, namespace: "faqPage" });
     return {
-      title: "Frequently Asked Questions",
-      description:
-        "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       openGraph: {
         images: "https://slotstat.net/opengraph-image.png",
-        title: "Frequently Asked Questions",
-        description:
-          "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+        title: t("metaTitle"),
+        description: t("metaDescription"),
       },
       twitter: {
         card: "summary_large_image",
-        title: "Frequently Asked Questions",
-        description:
-          "Find answers to common questions about SlotStat, including slot statistics, data insights, and how our platform enhances your gambling experience.",
+        title: t("metaTitle"),
+        description: t("metaDescription"),
         images: ["https://slotstat.net/opengraph-image.png"],
       },
       alternates: {
-        canonical: `/en/faq`,
+        canonical: `/${locale}/faq`,
         languages: {
-          "en-US": `en/faq`,
-          // "ka-GE": `ka/faq`,
+          "en-US": "/en/faq",
+          "es-ES": "/es/faq",
+          "pt-PT": "/pt/faq",
         },
       },
     };
   } catch (error) {
+    const tError = await getTranslations({ locale, namespace: "errors" });
     return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
+      title: tError("notFound"),
+      description: tError("pageNotExist"),
     };
   }
 }
-
-import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 
 export default function FAQ({ params: { locale } }: { params: { locale: string } }) {
@@ -113,8 +112,8 @@ export default function FAQ({ params: { locale } }: { params: { locale: string }
       {/* <Breadcrumbs breadcrumbs={breadcrumbs} /> */}
       <div className="py-6 ">
         <div className='h-full relative  flex w-full flex-col items-center   justify-center rounded-3xl bg-dark2 bg-[url("./assets/img/bg.png")] bg-cover lg:bg-auto   md:bg-[url("./assets/img/chart-pattern.png")]  lg:bg-right lg:bg-no-repeat py-12 px-9 lg:items-start lg:py-24 lg:px-28'>
-          <h1 className=" text-xs my-2 font-bold text-blue1 lg:text-lg">{t("theFAQs")}</h1>
-          <p className="my-2 text-lg font-bold text-white lg:text-6xl">{t("helpCentre")}</p>
+          <p className=" text-xs my-2 font-bold text-blue1 lg:text-lg">{t("theFAQs")}</p>
+          <h1 className="my-2 text-lg font-bold text-white lg:text-6xl">{t("helpCentre")}</h1>
           <p className=" text-xs my-2  font-normal text-grey1 lg:text-lg">{t("aboutProduct")}</p>
         </div>
         <div className=" flex flex-col  lg:my-28 lg:flex-row">

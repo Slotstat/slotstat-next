@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { countries } from "@/app/utils/countries";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import DropdownInput from "./DropdownInput";
+import { useTranslations, useLocale } from "next-intl";
+
+const LOCALE_LABELS: Record<string, string> = { en: "EN", es: "ES", pt: "PT" };
+const LOCALES = ["en", "es", "pt"] as const;
 
 const Geo = ({
   initialCountry,
@@ -16,6 +20,11 @@ const Geo = ({
   const [errorState, setErrorState] = useState(false);
   const [chosenCountry, setChosenCountry] = useState<country | undefined>(initialCountry);
   const [chosenState, setChosenState] = useState<countryOrState | undefined>(initialState);
+  const t = useTranslations("geo");
+  const currentLocale = useLocale();
+  const [pendingLocale, setPendingLocale] = useState<"en" | "es" | "pt">(
+    currentLocale as "en" | "es" | "pt"
+  );
 
   const chooseCountry = (country: country) => {
     setChosenCountry(country);
@@ -46,16 +55,24 @@ const Geo = ({
     // 2. if user choose country without states we update country and state is blank
     // 3. if user choose country which has state but don't choose state we show error
     if (chosenCountry?.states && chosenState?.code) {
-      setCookie("country", chosenCountry?.code);
-      setCookie("region", chosenState?.code);
-      location.reload();
+      setCookie("country", chosenCountry.code);
+      setCookie("region", chosenState.code);
+      applyLocaleForCountry();
     } else if (chosenCountry && !chosenCountry?.states) {
-      setCookie("country", chosenCountry?.code);
+      setCookie("country", chosenCountry.code);
       setCookie("region", "");
-      location.reload();
+      applyLocaleForCountry();
     } else if (chosenCountry?.states && !chosenState?.code) {
       setErrorState(true);
     }
+  };
+
+  const applyLocaleForCountry = () => {
+    setCookie("localeSet", "1");
+    // Replace the locale segment in the current URL and navigate
+    const segments = window.location.pathname.split("/");
+    segments[1] = pendingLocale;
+    window.location.href = segments.join("/") + window.location.search;
   };
 
   const setCurrentLocation = () => {
@@ -78,8 +95,8 @@ const Geo = ({
     >
       <div className="w-full lg:w-[342px] p-4 bg-dark1 border border-grey1 rounded-xl">
         <DropdownInput
-          title="Your country of residence"
-          placeHolder="Choose Country"
+          title={t("countryTitle")}
+          placeHolder={t("chooseCountry")}
           List={countriesList}
           chosen={chosenCountry}
           setChosen={chooseCountry}
@@ -87,8 +104,8 @@ const Geo = ({
         />
         {StatesList && (
           <DropdownInput
-            title="Select state"
-            placeHolder="Select"
+            title={t("selectState")}
+            placeHolder={t("select")}
             List={StatesList}
             chosen={chosenState}
             setChosen={setChosenState}
@@ -97,6 +114,21 @@ const Geo = ({
             setErrorState={setErrorState}
           />
         )}
+        <div className="flex flex-row gap-2 mb-3">
+          {LOCALES.map((l) => (
+            <button
+              key={l}
+              onClick={() => setPendingLocale(l)}
+              className={`flex-1 h-9 rounded-lg text-xs font-bold border transition-colors cursor-pointer ${
+                pendingLocale === l
+                  ? "bg-blue1 text-white border-blue1"
+                  : "bg-grey3 text-grey1 border-grey1 hover:bg-dark3 hover:text-white"
+              }`}
+            >
+              {LOCALE_LABELS[l]}
+            </button>
+          ))}
+        </div>
         <div className="flex flex-row justify-between">
           <div
             onClick={setCurrentLocation}
