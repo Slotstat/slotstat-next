@@ -3,37 +3,48 @@ import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { generateUniqueId } from "./lib/uuid";
 import { locales, localePrefix } from "./navigation";
-import countries from "./lib/countries.json";
+
+const BOT_RE =
+  /(googlebot|bingbot|duckduckbot|slurp|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver|gptbot|chatgpt-user|claudebot|anthropic-ai|perplexitybot|google-extended|cohere-ai|applebot|petalbot)/i;
+
+const KA_REDIRECT_RE = /^\/ka(\/|$)/;
 
 export default async function middleware(request: NextRequest) {
-  const { nextUrl: url, geo } = request;
+  const ua = request.headers.get("user-agent") || "";
+  const isBot = BOT_RE.test(ua);
 
-  const cloudflareCountry = request.headers.get("CF-IPCountry");
-  const vercelCountry = geo.country || "GE";
-  const region = geo.region || "TB";
+  // Hard-fail any /ka or /ka/* legacy path with a permanent 308 to /en/* —
+  // defends against next.config.js redirects being bypassed by an edge layer
+  // and collapses the trailing-slash hop into a single redirect.
+  if (KA_REDIRECT_RE.test(request.nextUrl.pathname)) {
+    const target = request.nextUrl.clone();
+    target.pathname = request.nextUrl.pathname.replace(/^\/ka\/?/, "/en/").replace(/\/$/, "");
+    if (target.pathname === "") target.pathname = "/en";
+    return NextResponse.redirect(target, 308);
+  }
 
-  // const countryInfo = countries.find((x) => x.cca2 === country);
-
-  // Step 1: Use the incoming request
-  const defaultLocale = request.headers.get("x-default-locale") || "en";
-
-  // Step 2: Create and call the next-intl middleware
   const handleI18nRouting = createIntlMiddleware({
-    // A list of all locales that are supported
     locales,
     localePrefix,
-    defaultLocale,
+    defaultLocale: "en",
   });
 
   const response = handleI18nRouting(request);
+
+  // Skip cookie writes for bots — keeps responses cacheable and avoids
+  // any side effects on response status propagation.
+  if (isBot) return response;
+
+  const { geo } = request;
+  const cloudflareCountry = request.headers.get("CF-IPCountry");
+  const vercelCountry = geo?.country || "GE";
+  const region = geo?.region || "TB";
 
   let uniqueId = request.cookies.get("uniqueId")?.value;
   let countryFromCookie = request.cookies.get("country")?.value;
 
   if (!uniqueId) {
-    //   // If not found, generate a new unique ID
     uniqueId = generateUniqueId();
-    //   // Store the unique ID in localStorage to use it across renders
     response.cookies.set("uniqueId", uniqueId);
   }
 
@@ -43,8 +54,7 @@ export default async function middleware(request: NextRequest) {
     } else if (vercelCountry) {
       response.cookies.set("country", vercelCountry);
     }
-
-    region && response.cookies.set("region", region);
+    if (region) response.cookies.set("region", region);
   }
 
   if (cloudflareCountry) {
@@ -53,21 +63,8 @@ export default async function middleware(request: NextRequest) {
     response.cookies.set("currentLocCountry", vercelCountry);
   }
 
-  region && response.cookies.set("currentLocRegion", region);
+  if (region) response.cookies.set("currentLocRegion", region);
 
-  // response.headers.set("country", country);
-  // response.headers.set("city", city);
-  // response.headers.set("region", region);
-  // response.headers.set("currencyCode", currencyCode);
-  // response.headers.set("currencySymbol", currency.symbol);
-  // response.headers.set("name", currency.name);
-  // response.headers.set("languages", languages);
-  // Step 3: Alter the response
-  // response.headers.set("X-User-Country", country1 || "unknown");
-  // response.headers.set("X-User-region", region1 || "unknown");
-  // response.headers.set("X-User-city", city1 || "unknown");
-  response.headers.set("x-default-locale", defaultLocale);
-  NextResponse.rewrite(url);
   return response;
 }
 
@@ -77,6 +74,5 @@ export default async function middleware(request: NextRequest) {
 //   matcher: ["/((?!api|_next|.*\\..*).*)"],
 // };
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ["/", "/(en|es|pt)/:path*"],
+  matcher: ["/", "/(en|es|pt|ka)/:path*"],
 };

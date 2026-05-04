@@ -4,6 +4,7 @@ import { client, urlFor } from "@/lib/sanityLib/sanity";
 import Image from "next/image";
 
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import MyPortableTextComponent from "@/app/components/blog/BlogPortableText";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
 import JsonLd from "@/app/components/JsonLd";
@@ -46,67 +47,58 @@ export async function generateMetadata({
   params: { locale: "en" | "es" | "pt"; category: string; slug: string };
   searchParams: QueryParamsGamePage;
 }) {
+  let data: fullBlog | undefined;
   try {
-    var data: fullBlog | undefined;
-    if (slug) {
-      data = await getDataBySlug(category, slug);
-    }
-
-    if (!data)
-      return {
-        title: "Not found",
-        description: "The page you are looking for doesn't exists",
-      };
-
-    const { titleImage, smallDescription, title } = data;
-
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `https://${headers().get("host")}`;
-    const absoluteImageUrl = new URL(urlFor(titleImage).url(), baseUrl).toString();
-    const pageUrl = new URL(`/${locale}/blog/${category}/${slug}`, baseUrl).toString();
-    const fallbackImageUrl = new URL("../../../../opengraph-image.png", baseUrl).toString();
-
-    const timestampedImageUrl = `${absoluteImageUrl}?t=${Date.now()}`;
-
-    return {
-      title: title,
-      description: smallDescription,
-      openGraph: {
-        title,
-        description: smallDescription,
-        url: pageUrl,
-        siteName: "SlotStat",
-        locale: locale,
-        type: "article",
-        images: [
-          {
-            url: timestampedImageUrl,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description: smallDescription,
-        images: [timestampedImageUrl],
-      },
-      alternates: {
-        canonical: `/${locale}/blog/${category}/${slug}`,
-        languages: {
-          "en-US": `/en/blog/${category}/${slug}`,
-          "es-ES": `/es/blog/${category}/${slug}`,
-          "pt-PT": `/pt/blog/${category}/${slug}`,
-        },
-      },
-    };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
+    data = slug ? await getDataBySlug(category, slug) : undefined;
+  } catch {
+    data = undefined;
   }
+
+  if (!data) {
+    notFound();
+  }
+
+  const { titleImage, smallDescription, title } = data;
+
+  const headersList = await headers();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `https://${headersList.get("host")}`;
+  const absoluteImageUrl = new URL(urlFor(titleImage).url(), baseUrl).toString();
+  const pageUrl = new URL(`/${locale}/blog/${category}/${slug}`, baseUrl).toString();
+
+  return {
+    title,
+    description: smallDescription,
+    openGraph: {
+      title,
+      description: smallDescription,
+      url: pageUrl,
+      siteName: "SlotStat",
+      locale,
+      type: "article",
+      images: [
+        {
+          url: absoluteImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: smallDescription,
+      images: [absoluteImageUrl],
+    },
+    alternates: {
+      canonical: `/${locale}/blog/${category}/${slug}`,
+      languages: {
+        "en-US": `/en/blog/${category}/${slug}`,
+        "es-ES": `/es/blog/${category}/${slug}`,
+        "pt-PT": `/pt/blog/${category}/${slug}`,
+      },
+    },
+  };
 }
 
 import { unstable_setRequestLocale } from "next-intl/server";
@@ -119,7 +111,7 @@ export default async function BlogArticle({
   unstable_setRequestLocale(locale);
   const data: fullBlog = await getDataBySlug(category, slug);
 
-  if (!data) return null; // Handle missing data gracefully in SSG/ISR
+  if (!data) return notFound();
 
   const { titleImage, content, title, _createdAt, _updatedAt } = data;
   const breadcrumbs = [{ name: category, url: `/blog/${category}` }, { name: title }];

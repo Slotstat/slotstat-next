@@ -4,9 +4,38 @@ import JsonLd from "@/app/components/JsonLd";
 import ProviderContent from "./ProviderContent";
 import { getProviderInfo } from "@/lib/providerDescriptions";
 import type { Metadata } from "next";
+import { baseUrl } from "@/lib/baseURL";
+import axios from "axios";
+
+export const revalidate = 3600;
 
 interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
+}
+
+export async function generateStaticParams() {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
+      timeout: 15000,
+    });
+    if (res.status !== 200) return [];
+    const games: GameData[] = res.data?.results ?? [];
+    const seen = new Set<string>();
+    const params: { slug: string }[] = [];
+    for (const g of games) {
+      const p = g.provider?.trim();
+      if (!p || seen.has(p)) continue;
+      seen.add(p);
+      params.push({ slug: encodeURIComponent(p) });
+    }
+    return params;
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

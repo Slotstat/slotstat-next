@@ -8,7 +8,42 @@ import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
+import axios from "axios";
+import { baseUrl } from "@/lib/baseURL";
 
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 50 },
+      timeout: 15000,
+    });
+    if (res.status !== 200) return [];
+    const games: GameData[] = res.data?.results ?? [];
+    return games
+      .filter(
+        (g) =>
+          g.gameId &&
+          g.gameId !== "00000000-0000-0000-0000-000000000000"
+      )
+      .map((g) => ({ gameId: g.gameId }));
+  } catch {
+    return [];
+  }
+}
+
+async function safeGetSingleGame(gameId: string | undefined): Promise<GameData | undefined> {
+  try {
+    return await getSingleGame(gameId);
+  } catch {
+    return undefined;
+  }
+}
 
 export async function generateMetadata({
   params: { gameId, locale },
@@ -17,19 +52,13 @@ export async function generateMetadata({
   params: { casinoId: string; gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
-  try {
-    var mainGame: GameData | undefined;
-    if (gameId) {
-      mainGame = await getSingleGame(gameId);
-    }
+  const mainGame = await safeGetSingleGame(gameId);
 
-    if (!mainGame)
-      return {
-        title: "Not found",
-        description: "The page you are looking for doesn't exists",
-      };
+  if (!mainGame) {
+    notFound();
+  }
 
-    const title = `${mainGame.name} - ${mainGame.casinoName}`;
+  const title = `${mainGame.name} - ${mainGame.casinoName}`;
     const description = `Get insights on ${mainGame.name} at ${mainGame.casinoName}. Check current RTP, max win: ${mainGame.maxX}. Track your gameplay with detailed stats on Slotstat.`;
     const ogImage = mainGame.imageUrl || "https://slotstat.net/opengraph-image.png";
 
@@ -56,12 +85,6 @@ export async function generateMetadata({
         },
       },
     };
-  } catch (error) {
-    return {
-      title: "Not found",
-      description: "The page you are looking for doesn't exists",
-    };
-  }
 }
 
 export default async function gamePage({
@@ -79,34 +102,20 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
-  const mainGameData: Promise<GameData> = getSingleGame(gameId);
-  const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
+  const mainGame = await safeGetSingleGame(gameId);
+  if (!mainGame) {
+    notFound();
+  }
 
-  // const casinoData: Promise<CasinoData> = getCasino(casId);
+  const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
   const casinoBonusData: Promise<Card[]> = getCasinoBonuses(locale, casId);
-  // const compareGameData: Promise<GameData> = getSingleGame(compareGameId);
 
-
-  const [
-    mainGame,
-    gameCards,
-    //  compareGame,
-    // casino,
-    casinoCards,
-    casinoBonuses,
-  ] = await Promise.all([
-    mainGameData,
+  const [gameCards, casinoCards, casinoBonuses] = await Promise.all([
     gamesCardsData,
-    // compareGameData,
-    // casinoData,
     casinoCardsData,
     casinoBonusData,
   ]);
-
-  if (!mainGame) {
-    return notFound();
-  }
 
   // const breadcrumbs = [
   //   {

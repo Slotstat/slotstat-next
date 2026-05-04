@@ -9,6 +9,7 @@ const withNextIntl = createNextIntlPlugin();
 // );
 
 const nextConfig = {
+  trailingSlash: false,
   async rewrites() {
     return [
       // SignalR hub is at /events (not /api/events) on the backend
@@ -26,33 +27,42 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Old /en/aboutus URL
       {
         source: "/en/aboutus",
         destination: "/en/about-us",
         permanent: true,
       },
+      // Georgian locale — redirect to English equivalents
       {
         source: "/ka/:path*",
         destination: "/en/:path*",
         permanent: true,
       },
-      // {
-      //   source: '/:path((?!en|ka).*)',
-      //   destination: '/en',
-      //   permanent: true,
-      // },
+      // www → non-www (Cloudflare handles HTTPS upgrade; this handles www path)
       {
-        source: "/en/:uuid([a-f0-9-]{36})$",
-        destination: "/en",
-        permanent: false,
+        source: "/:path*",
+        has: [{ type: "host", value: "www.slotstat.net" }],
+        destination: "https://slotstat.net/:path*",
+        permanent: true,
       },
-      // Add more redirects as needed
+      // Non-locale static pages → /en/ equivalents
+      {
+        source: "/:slug(faq|about-us|terms-of-use|privacy-policy|responsible-gaming|how-it-works|top-slots|providers|casinos)",
+        destination: "/en/:slug",
+        permanent: true,
+      },
+      {
+        source: "/blog/:path*",
+        destination: "/en/blog/:path*",
+        permanent: true,
+      },
     ];
   },
   reactStrictMode: false,
   images: {
-    minimumCacheTTL: 60,
-    unoptimized: true,
+    minimumCacheTTL: 86400,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

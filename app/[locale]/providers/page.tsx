@@ -3,6 +3,8 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -173,6 +175,40 @@ export default async function ProvidersPage({
             </Link>
           ))}
         </div>
+      )}
+
+      {providers.length > 0 && (
+        <section className="mt-10 p-5 md:p-6 rounded-xl bg-dark2 text-grey1 text-sm leading-relaxed space-y-3">
+          <h2 className="text-white text-base md:text-lg font-bold">
+            About SlotStat&apos;s slot provider data
+          </h2>
+          <p>
+            SlotStat currently tracks {providers.length} slot game studio
+            {providers.length !== 1 ? "s" : ""}, monitoring live RTP, win spin
+            rate, and max win statistics across active casinos. Studios are ranked
+            by the volume of games tracked and the average return-to-player (RTP)
+            their portfolio is currently delivering, recalculated every five
+            minutes from real gameplay data.
+          </p>
+          <p>
+            Live RTP is the actual payout ratio observed over recent spins —
+            distinct from a slot&apos;s theoretical RTP. Use this hub to compare
+            studios at a glance, then click into any provider to see every
+            tracked title, the highest live RTP, and the best Win Spin Rate
+            (WSR) currently being delivered by that studio.
+          </p>
+          <p>
+            New to these metrics? Read{" "}
+            <a href={`/${locale}/how-it-works`} className="text-blue1 hover:underline">
+              how SlotStat works
+            </a>{" "}
+            for definitions of WSR, RTP Swing, and SPS, or check the{" "}
+            <a href={`/${locale}/faq`} className="text-blue1 hover:underline">
+              FAQ
+            </a>
+            {" "}for common questions about live slot statistics.
+          </p>
+        </section>
       )}
     </div>
   );

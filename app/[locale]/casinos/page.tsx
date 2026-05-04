@@ -4,6 +4,8 @@ import JsonLd from "@/app/components/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
 
+export const revalidate = 3600;
+
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: "casinos" });
   return {
@@ -194,12 +196,36 @@ export default async function CasinosPage({
       )}
 
       {casinos.length > 0 && (
-        <section className="mt-8 p-4 rounded-xl bg-dark2 text-grey1 text-sm leading-relaxed">
+        <section className="mt-10 p-5 md:p-6 rounded-xl bg-dark2 text-grey1 text-sm leading-relaxed space-y-3">
+          <h2 className="text-white text-base md:text-lg font-bold">
+            About SlotStat&apos;s casino tracking
+          </h2>
           <p>
             SlotStat currently tracks {casinos.length} online casino
             {casinos.length !== 1 ? "s" : ""}, monitoring live RTP, win spin
-            rate, and player activity in real time. All data is sourced directly
-            from active gameplay and updated every 5 minutes.
+            rate, and player activity in real time. Casinos are ranked by the
+            number of slot games tracked and the average return-to-player (RTP)
+            currently delivered across their game library, recalculated every
+            five minutes from real gameplay data.
+          </p>
+          <p>
+            Click into any casino to see the full slot lineup, the highest
+            performing titles by Win Spin Rate (WSR), and the current Slot
+            Profit Status (SPS) — a real-time indicator of whether games are
+            paying above or below their theoretical RTP. All bonus and
+            registration links are clearly marked as affiliate.
+          </p>
+          <p>
+            Want to understand the metrics? Read{" "}
+            <a href={`/${locale}/how-it-works`} className="text-blue1 hover:underline">
+              how SlotStat works
+            </a>{" "}
+            or browse the{" "}
+            <a href={`/${locale}/faq`} className="text-blue1 hover:underline">
+              FAQ
+            </a>
+            {" "}for definitions of every statistic. SlotStat is a neutral
+            observer — we do not run casinos and never edit live RTP data.
           </p>
         </section>
       )}
