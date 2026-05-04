@@ -3,9 +3,38 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import CasinoContent from "./CasinoContent";
 import type { Metadata } from "next";
+import { baseUrl } from "@/lib/baseURL";
+import axios from "axios";
+
+export const revalidate = 3600;
 
 interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
+}
+
+export async function generateStaticParams() {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
+      timeout: 15000,
+    });
+    if (res.status !== 200) return [];
+    const games: GameData[] = res.data?.results ?? [];
+    const seen = new Set<string>();
+    const params: { slug: string }[] = [];
+    for (const g of games) {
+      const name = g.casinoName?.trim();
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      params.push({ slug: encodeURIComponent(name) });
+    }
+    return params;
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -94,6 +123,7 @@ export default async function CasinoPage({ params }: Props) {
           url: `https://slotstat.net/${params.locale}/casinos/${encodeURIComponent(casinoName)}`,
           mainEntity: {
             "@type": "ItemList",
+            numberOfItems: games.length,
             itemListElement: games.slice(0, 20).map((game, index) => ({
               "@type": "ListItem",
               position: index + 1,
@@ -103,6 +133,18 @@ export default async function CasinoPage({ params }: Props) {
           },
         }}
       />
+      {games.length > 0 && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: casinoName,
+            url: `https://slotstat.net/${params.locale}/casinos/${encodeURIComponent(casinoName)}`,
+            ...(hasValidImage && { logo: casinoImageUrl }),
+            description: `${casinoName} is an online casino tracked by SlotStat with ${games.length} slot game${games.length !== 1 ? "s" : ""} monitored for live RTP and win-rate statistics.`,
+          }}
+        />
+      )}
 
       <JsonLd
         data={{

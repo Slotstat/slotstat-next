@@ -1,3 +1,5 @@
+"use client";
+
 export default function Error404({ reset }: { reset?: () => void }) {
   return (
     <div>

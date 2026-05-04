@@ -139,9 +139,9 @@ export default async function sitemap() {
   );
 
   const casinoDetailUrls = casinos
-    .filter((c) => c.casinoName)
+    .filter((c) => c.casinoName && c.casinoName.trim())
     .flatMap((casino) =>
-      multiLocaleUrl(`/casinos/${encodeURIComponent(casino.casinoName)}`, new Date())
+      multiLocaleUrl(`/casinos/${encodeURIComponent(casino.casinoName.trim())}`, new Date())
     );
 
   const providerDetailUrls = providerNames.flatMap((name) =>

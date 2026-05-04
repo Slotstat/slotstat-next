@@ -119,6 +119,20 @@ export default async function RootLayout({
               ],
             }}
           />
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "SlotStat",
+              url: "https://slotstat.net",
+              inLanguage: ["en", "es", "pt"],
+              publisher: {
+                "@type": "Organization",
+                name: "SlotStat",
+                logo: "https://slotstat.net/icon-512.png",
+              },
+            }}
+          />
           {/* SearchAction removed — no /search page exists yet. Re-add when search page is built. */}
           <Header />
           <main className="flex justify-center mt-[96px]">
@@ -138,7 +152,7 @@ export default async function RootLayout({
       ></script> */}
       <Script
         id="fb-pixel"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
                !function(f,b,e,v,n,t,s)

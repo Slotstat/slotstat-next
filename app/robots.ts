@@ -5,10 +5,19 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/private/", "/api/"],
+        allow: ["/"],
+        disallow: [
+          "/private/",
+          "/api/",
+          "/*?*casId=",
+          "/*?*isFiat=",
+          "/*?*keyWord=",
+          "/*?*compareGameId=",
+          "/*?*orderBy=",
+          "/*?*direction=",
+          "/*?*ActiveTab=",
+        ],
       },
-      // Allow AI search assistants (AEO)
       { userAgent: "ChatGPT-User", allow: "/" },
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "Google-Extended", allow: "/" },
@@ -18,5 +27,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "cohere-ai", allow: "/" },
     ],
     sitemap: "https://slotstat.net/sitemap.xml",
+    host: "https://slotstat.net",
   };
 }
