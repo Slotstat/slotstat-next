@@ -25,6 +25,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
         "en-US": "/en/top-slots",
         "es-ES": "/es/top-slots",
         "pt-PT": "/pt/top-slots",
+        "x-default": "/en/top-slots",
       },
     },
   };

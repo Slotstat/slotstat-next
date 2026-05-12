@@ -17,6 +17,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
         "en-US": "/en/responsible-gaming",
         "es-ES": "/es/responsible-gaming",
         "pt-PT": "/pt/responsible-gaming",
+        "x-default": "/en/responsible-gaming",
       },
     },
   };

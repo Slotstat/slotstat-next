@@ -27,6 +27,5 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "cohere-ai", allow: "/" },
     ],
     sitemap: "https://slotstat.net/sitemap.xml",
-    host: "https://slotstat.net",
   };
 }

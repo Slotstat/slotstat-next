@@ -26,14 +26,6 @@ export const metadata: Metadata = {
   },
   description:
     "Discover the easiest ways to win with comprehensive slots statistics. SlotStat provides data-driven strategies for players to maximize their winning potential.",
-  alternates: {
-    canonical: "/en",
-    languages: {
-      "en-US": "/en",
-      "es-ES": "/es",
-      "pt-PT": "/pt",
-    },
-  },
   icons: {
     icon: [
       { url: "/favicon.ico" },

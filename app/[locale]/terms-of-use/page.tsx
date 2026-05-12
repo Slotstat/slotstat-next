@@ -18,6 +18,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
         "en-US": "/en/terms-of-use",
         "es-ES": "/es/terms-of-use",
         "pt-PT": "/pt/terms-of-use",
+        "x-default": "/en/terms-of-use",
       },
     },
   };

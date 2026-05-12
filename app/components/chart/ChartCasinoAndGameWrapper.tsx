@@ -12,6 +12,7 @@ import LoadingSkeleton from "../LoadingSkeleton";
 import MyPortableTextComponent from "../blog/BlogPortableText";
 // import Breadcrumbs from "@/app/components/Breadcrumbs";
 import ShareButtons from "../ShareButtons";
+import { toSlug } from "@/lib/slug";
 
 export default function ChartCasinoAndGameWrapper({
   orderBy,
@@ -53,7 +54,7 @@ export default function ChartCasinoAndGameWrapper({
 
   const enrichedGameCards = gameCards.map((card) =>
     card.name === "Provider" && mainGameObj.provider
-      ? { ...card, redirectUrl: `/${locale}/providers/${encodeURIComponent(mainGameObj.provider)}` }
+      ? { ...card, redirectUrl: `/${locale}/providers/${toSlug(mainGameObj.provider)}` }
       : card
   );
 

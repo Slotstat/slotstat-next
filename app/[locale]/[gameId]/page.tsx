@@ -10,6 +10,7 @@ import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 import axios from "axios";
 import { baseUrl } from "@/lib/baseURL";
+import { toSlug } from "@/lib/slug";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -77,12 +78,7 @@ export async function generateMetadata({
         images: [ogImage],
       },
       alternates: {
-        canonical: `/${locale}/${gameId}`,
-        languages: {
-          "en-US": `/en/${gameId}`,
-          "es-ES": `/es/${gameId}`,
-          "pt-PT": `/pt/${gameId}`,
-        },
+        canonical: `/en/${gameId}`,
       },
     };
 }
@@ -184,7 +180,7 @@ export default async function gamePage({
         <div className="flex flex-wrap gap-4 mt-3">
           {mainGame.provider && (
             <Link
-              href={`/${locale}/providers/${encodeURIComponent(mainGame.provider)}`}
+              href={`/${locale}/providers/${toSlug(mainGame.provider)}`}
               className="text-xs text-blue1 hover:underline"
             >
               Browse all {mainGame.provider} slots →
@@ -192,7 +188,7 @@ export default async function gamePage({
           )}
           {mainGame.casinoName && (
             <Link
-              href={`/${locale}/casinos/${encodeURIComponent(mainGame.casinoName)}`}
+              href={`/${locale}/casinos/${toSlug(mainGame.casinoName)}`}
               className="text-xs text-blue1 hover:underline"
             >
               View all {mainGame.casinoName} slots →

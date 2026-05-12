@@ -67,12 +67,7 @@ export async function generateMetadata({
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: `/${locale}/blog/${category}`,
-      languages: {
-        "en-US": `/en/blog/${category}`,
-        "es-ES": `/es/blog/${category}`,
-        "pt-PT": `/pt/blog/${category}`,
-      },
+      canonical: `/en/blog/${category}`,
     },
   };
 }

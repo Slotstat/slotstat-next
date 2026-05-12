@@ -3,6 +3,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Image from "next/image";
 import Link from "next/link";
+import { isPublishableName, toSlug } from "@/lib/slug";
 
 export const revalidate = 3600;
 
@@ -24,7 +25,12 @@ export async function generateMetadata({ params: { locale } }: { params: { local
     },
     alternates: {
       canonical: `/${locale}/casinos`,
-      languages: { "en-US": "/en/casinos", "es-ES": "/es/casinos", "pt-PT": "/pt/casinos" },
+      languages: {
+        "en-US": "/en/casinos",
+        "es-ES": "/es/casinos",
+        "pt-PT": "/pt/casinos",
+        "x-default": "/en/casinos",
+      },
     },
   };
 }
@@ -52,7 +58,7 @@ async function fetchCasinos(locale: "en" | "es" | "pt"): Promise<CasinoEntry[]> 
     const casinoMap = new Map<string, CasinoEntry>();
 
     for (const game of games) {
-      if (!game.casinoId) continue;
+      if (!game.casinoId || !isPublishableName(game.casinoName)) continue;
       const existing = casinoMap.get(game.casinoId);
       if (existing) {
         existing.gameCount += 1;
@@ -113,7 +119,7 @@ export default async function CasinosPage({
               "@type": "ListItem",
               position: i + 1,
               name: casino.name,
-              url: `https://slotstat.net/${locale}/casinos/${encodeURIComponent(casino.name)}`,
+              url: `https://slotstat.net/${locale}/casinos/${toSlug(casino.name)}`,
             })),
           },
         }}
@@ -135,7 +141,7 @@ export default async function CasinosPage({
           {casinos.map((casino) => (
             <Link
               key={casino.casinoId}
-              href={`/${locale}/casinos/${encodeURIComponent(casino.name)}`}
+              href={`/${locale}/casinos/${toSlug(casino.name)}`}
               className="flex items-center gap-4 p-4 rounded-xl bg-dark2 hover:ring-1 hover:ring-blue1 transition-all"
             >
               <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-grey3 shrink-0">

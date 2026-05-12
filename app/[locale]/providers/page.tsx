@@ -2,6 +2,7 @@ import slotStatClient from "@/lib/instance";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
+import { isPublishableName, toSlug } from "@/lib/slug";
 
 export const revalidate = 3600;
 
@@ -32,6 +33,7 @@ export async function generateMetadata({
         "en-US": "/en/providers",
         "es-ES": "/es/providers",
         "pt-PT": "/pt/providers",
+        "x-default": "/en/providers",
       },
     },
   };
@@ -58,7 +60,7 @@ async function fetchProviderStats(locale: "en" | "es" | "pt"): Promise<ProviderS
     const providerMap = new Map<string, { rtpSum: number; count: number; topGame: string }>();
 
     for (const game of games) {
-      if (!game.provider) continue;
+      if (!game.provider || !isPublishableName(game.provider)) continue;
       const existing = providerMap.get(game.provider);
       if (existing) {
         existing.rtpSum += game.fixedRtp ?? 0;
@@ -110,7 +112,7 @@ export default async function ProvidersPage({
               "@type": "ListItem",
               position: i + 1,
               name: p.name,
-              url: `https://slotstat.net/${locale}/providers/${encodeURIComponent(p.name)}`,
+              url: `https://slotstat.net/${locale}/providers/${toSlug(p.name)}`,
             })),
           },
         }}
@@ -132,7 +134,7 @@ export default async function ProvidersPage({
           {providers.map((provider) => (
             <Link
               key={provider.name}
-              href={`/${locale}/providers/${encodeURIComponent(provider.name)}`}
+              href={`/${locale}/providers/${toSlug(provider.name)}`}
               className="block p-4 md:p-5 rounded-xl bg-dark2 hover:ring-1 hover:ring-blue1 transition-all"
             >
               <h2 className="text-white font-bold text-sm md:text-base mb-1 truncate">
