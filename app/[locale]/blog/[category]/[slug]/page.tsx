@@ -91,12 +91,7 @@ export async function generateMetadata({
       images: [absoluteImageUrl],
     },
     alternates: {
-      canonical: `/${locale}/blog/${category}/${slug}`,
-      languages: {
-        "en-US": `/en/blog/${category}/${slug}`,
-        "es-ES": `/es/blog/${category}/${slug}`,
-        "pt-PT": `/pt/blog/${category}/${slug}`,
-      },
+      canonical: `/en/blog/${category}/${slug}`,
     },
   };
 }

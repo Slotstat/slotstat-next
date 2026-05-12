@@ -5,12 +5,41 @@ import ProviderContent from "./ProviderContent";
 import { getProviderInfo } from "@/lib/providerDescriptions";
 import type { Metadata } from "next";
 import { baseUrl } from "@/lib/baseURL";
+import { isPublishableName, toSlug } from "@/lib/slug";
 import axios from "axios";
+import { redirect, notFound } from "next/navigation";
 
 export const revalidate = 3600;
 
 interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
+}
+
+// Pull a fresh list of provider names from the API and resolve the slug to the
+// real name. Returns undefined if no provider matches — caller decides whether
+// to 404 or redirect.
+async function resolveProviderName(slug: string): Promise<string | undefined> {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 200 },
+      timeout: 15000,
+    });
+    if (res.status !== 200) return undefined;
+    const games: GameData[] = res.data?.results ?? [];
+    const seen = new Set<string>();
+    for (const g of games) {
+      const name = g.provider?.trim();
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      if (toSlug(name) === slug) return name;
+    }
+    return undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 export async function generateStaticParams() {
@@ -28,9 +57,9 @@ export async function generateStaticParams() {
     const params: { slug: string }[] = [];
     for (const g of games) {
       const p = g.provider?.trim();
-      if (!p || seen.has(p)) continue;
+      if (!p || seen.has(p) || !isPublishableName(p)) continue;
       seen.add(p);
-      params.push({ slug: encodeURIComponent(p) });
+      params.push({ slug: toSlug(p) });
     }
     return params;
   } catch {
@@ -39,12 +68,27 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const providerName = decodeURIComponent(params.slug);
-  const { locale } = params;
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalisedSlug = toSlug(rawSlug);
+
+  // Legacy URL — old links like /providers/Pragmatic%20Play. Send to the
+  // slugified equivalent so Google consolidates the link equity.
+  if (rawSlug !== normalisedSlug) {
+    redirect(`/en/providers/${normalisedSlug}`);
+  }
+
+  const providerName = await resolveProviderName(normalisedSlug);
+  if (!providerName) notFound();
+
   const providerInfo = getProviderInfo(providerName);
   const description = providerInfo
     ? `${providerInfo.about.split(".")[0]}. Track live RTP and win rate for all ${providerName} slots, updated every 5 minutes.`
     : `Live RTP, win spin rate, and max win statistics for ${providerName} slot games. Real data from active casinos, updated every 5 minutes.`;
+
+  // Content is English-only across all locales — point canonical at /en so
+  // Google consolidates duplicates instead of dropping the page.
+  const canonicalPath = `/en/providers/${normalisedSlug}`;
+
   return {
     title: `${providerName} Slots - Live RTP & Win Rate Statistics`,
     description,
@@ -60,12 +104,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: `/${locale}/providers/${encodeURIComponent(providerName)}`,
-      languages: {
-        "en-US": `/en/providers/${encodeURIComponent(providerName)}`,
-        "es-ES": `/es/providers/${encodeURIComponent(providerName)}`,
-        "pt-PT": `/pt/providers/${encodeURIComponent(providerName)}`,
-      },
+      canonical: canonicalPath,
     },
   };
 }
@@ -95,7 +134,15 @@ async function fetchProviderGames(
 export default async function ProviderPage({ params }: Props) {
   unstable_setRequestLocale(params.locale);
 
-  const providerName = decodeURIComponent(params.slug);
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalisedSlug = toSlug(rawSlug);
+  if (rawSlug !== normalisedSlug) {
+    redirect(`/${params.locale}/providers/${normalisedSlug}`);
+  }
+
+  const providerName = await resolveProviderName(normalisedSlug);
+  if (!providerName) notFound();
+
   const games = await fetchProviderGames(params.locale, providerName);
   const providerInfo = getProviderInfo(providerName);
 
@@ -117,14 +164,14 @@ export default async function ProviderPage({ params }: Props) {
           "@type": "CollectionPage",
           name: `${providerName} Slots - Live RTP Statistics`,
           description: `Live RTP, win spin rate, and max win statistics for ${providerName} slot games.`,
-          url: `https://slotstat.net/${params.locale}/providers/${encodeURIComponent(providerName)}`,
+          url: `https://slotstat.net/en/providers/${normalisedSlug}`,
           mainEntity: {
             "@type": "ItemList",
             itemListElement: games.slice(0, 20).map((game, index) => ({
               "@type": "ListItem",
               position: index + 1,
               name: `${game.name} - ${game.casinoName}`,
-              url: `https://slotstat.net/${params.locale}/${game.gameId}`,
+              url: `https://slotstat.net/en/${game.gameId}`,
             })),
           },
         }}

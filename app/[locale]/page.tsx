@@ -39,6 +39,7 @@ export async function generateMetadata({ params: { locale } }: Params) {
         "en-US": "/en",
         "es-ES": "/es",
         "pt-PT": "/pt",
+        "x-default": "/en",
       },
     },
   };

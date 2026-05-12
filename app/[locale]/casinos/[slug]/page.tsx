@@ -4,12 +4,38 @@ import JsonLd from "@/app/components/JsonLd";
 import CasinoContent from "./CasinoContent";
 import type { Metadata } from "next";
 import { baseUrl } from "@/lib/baseURL";
+import { isPublishableName, toSlug } from "@/lib/slug";
 import axios from "axios";
+import { redirect, notFound } from "next/navigation";
 
 export const revalidate = 3600;
 
 interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
+}
+
+async function resolveCasinoName(slug: string): Promise<string | undefined> {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${baseUrl}/api/Game/aggregated/`,
+      headers: { "User-Agent": "Vercel-Worker-Client" },
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 200 },
+      timeout: 15000,
+    });
+    if (res.status !== 200) return undefined;
+    const games: GameData[] = res.data?.results ?? [];
+    const seen = new Set<string>();
+    for (const g of games) {
+      const name = g.casinoName?.trim();
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      if (toSlug(name) === slug) return name;
+    }
+    return undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 export async function generateStaticParams() {
@@ -27,9 +53,9 @@ export async function generateStaticParams() {
     const params: { slug: string }[] = [];
     for (const g of games) {
       const name = g.casinoName?.trim();
-      if (!name || seen.has(name)) continue;
+      if (!name || seen.has(name) || !isPublishableName(name)) continue;
       seen.add(name);
-      params.push({ slug: encodeURIComponent(name) });
+      params.push({ slug: toSlug(name) });
     }
     return params;
   } catch {
@@ -38,8 +64,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const casinoName = decodeURIComponent(params.slug);
-  const { locale } = params;
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalisedSlug = toSlug(rawSlug);
+
+  if (rawSlug !== normalisedSlug) {
+    redirect(`/en/casinos/${normalisedSlug}`);
+  }
+
+  const casinoName = await resolveCasinoName(normalisedSlug);
+  if (!casinoName) notFound();
+
+  const canonicalPath = `/en/casinos/${normalisedSlug}`;
+
   return {
     title: `${casinoName} - Live Slot RTP & Win Rate Statistics`,
     description: `Live RTP, win spin rate, and max win statistics for slots at ${casinoName}. Real casino data updated every 5 minutes.`,
@@ -55,12 +91,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: ["https://slotstat.net/opengraph-image.png"],
     },
     alternates: {
-      canonical: `/${locale}/casinos/${encodeURIComponent(casinoName)}`,
-      languages: {
-        "en-US": `/en/casinos/${encodeURIComponent(casinoName)}`,
-        "es-ES": `/es/casinos/${encodeURIComponent(casinoName)}`,
-        "pt-PT": `/pt/casinos/${encodeURIComponent(casinoName)}`,
-      },
+      canonical: canonicalPath,
     },
   };
 }
@@ -90,7 +121,15 @@ async function fetchCasinoGames(
 export default async function CasinoPage({ params }: Props) {
   unstable_setRequestLocale(params.locale);
 
-  const casinoName = decodeURIComponent(params.slug);
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalisedSlug = toSlug(rawSlug);
+  if (rawSlug !== normalisedSlug) {
+    redirect(`/${params.locale}/casinos/${normalisedSlug}`);
+  }
+
+  const casinoName = await resolveCasinoName(normalisedSlug);
+  if (!casinoName) notFound();
+
   const games = await fetchCasinoGames(params.locale, casinoName);
 
   const casinoImageUrl = games[0]?.casinoImageUrl;
@@ -120,7 +159,7 @@ export default async function CasinoPage({ params }: Props) {
           "@type": "CollectionPage",
           name: `${casinoName} - Live Slot RTP Statistics`,
           description: `Live RTP and win rate statistics for slots at ${casinoName}.`,
-          url: `https://slotstat.net/${params.locale}/casinos/${encodeURIComponent(casinoName)}`,
+          url: `https://slotstat.net/en/casinos/${normalisedSlug}`,
           mainEntity: {
             "@type": "ItemList",
             numberOfItems: games.length,
@@ -128,7 +167,7 @@ export default async function CasinoPage({ params }: Props) {
               "@type": "ListItem",
               position: index + 1,
               name: `${game.name} - ${game.casinoName}`,
-              url: `https://slotstat.net/${params.locale}/${game.gameId}`,
+              url: `https://slotstat.net/en/${game.gameId}`,
             })),
           },
         }}
@@ -139,7 +178,7 @@ export default async function CasinoPage({ params }: Props) {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: casinoName,
-            url: `https://slotstat.net/${params.locale}/casinos/${encodeURIComponent(casinoName)}`,
+            url: `https://slotstat.net/en/casinos/${normalisedSlug}`,
             ...(hasValidImage && { logo: casinoImageUrl }),
             description: `${casinoName} is an online casino tracked by SlotStat with ${games.length} slot game${games.length !== 1 ? "s" : ""} monitored for live RTP and win-rate statistics.`,
           }}

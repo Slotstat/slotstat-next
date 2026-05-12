@@ -1,5 +1,6 @@
 import { baseUrl } from "@/lib/baseURL";
 import { client } from "@/lib/sanityLib/sanity";
+import { isPublishableName, toSlug } from "@/lib/slug";
 import axios from "axios";
 
 const SITE_URL = "https://slotstat.net";
@@ -32,11 +33,11 @@ const getCasinosAndProviders = async (): Promise<{
     const providerNames: string[] = [];
 
     for (const game of games) {
-      if (game.casinoId && !seenCasinos.has(game.casinoId)) {
+      if (game.casinoId && !seenCasinos.has(game.casinoId) && isPublishableName(game.casinoName)) {
         seenCasinos.add(game.casinoId);
         casinos.push({ casinoId: game.casinoId, casinoName: game.casinoName });
       }
-      if (game.provider && !seenProviders.has(game.provider)) {
+      if (game.provider && !seenProviders.has(game.provider) && isPublishableName(game.provider)) {
         seenProviders.add(game.provider);
         providerNames.push(game.provider);
       }
@@ -100,16 +101,33 @@ const getBlogSlugs = async (): Promise<{ category: string; slug: string; updated
   }
 };
 
+// Used for pages that DO have translated content (home, faq, about-us, etc.).
+// Emits one URL per locale with full hreflang annotations.
 function multiLocaleUrl(path: string, lastModified: Date) {
   return LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}${path}`,
     lastModified,
     alternates: {
-      languages: Object.fromEntries(
-        LOCALES.map((l) => [l, `${SITE_URL}/${l}${path}`])
-      ),
+      languages: {
+        ...Object.fromEntries(
+          LOCALES.map((l) => [l, `${SITE_URL}/${l}${path}`])
+        ),
+        "x-default": `${SITE_URL}/en${path}`,
+      },
     },
   }));
+}
+
+// Used for dynamic pages whose content is currently English-only (provider,
+// casino, game, blog post). Emits only the /en URL — the /es and /pt variants
+// canonicalise to /en, so we don't ask Google to index them.
+function enOnlyUrl(path: string, lastModified: Date) {
+  return [
+    {
+      url: `${SITE_URL}/en${path}`,
+      lastModified,
+    },
+  ];
 }
 
 export default async function sitemap() {
@@ -138,27 +156,25 @@ export default async function sitemap() {
     multiLocaleUrl(path, new Date())
   );
 
-  const casinoDetailUrls = casinos
-    .filter((c) => c.casinoName && c.casinoName.trim())
-    .flatMap((casino) =>
-      multiLocaleUrl(`/casinos/${encodeURIComponent(casino.casinoName.trim())}`, new Date())
-    );
-
-  const providerDetailUrls = providerNames.flatMap((name) =>
-    multiLocaleUrl(`/providers/${encodeURIComponent(name)}`, new Date())
+  const casinoDetailUrls = casinos.flatMap((casino) =>
+    enOnlyUrl(`/casinos/${toSlug(casino.casinoName)}`, new Date())
   );
 
-  const gameUrls = allGameIds.flatMap((ids) =>
-    multiLocaleUrl(`/${ids}`, new Date())
+  const providerDetailUrls = providerNames.flatMap((name) =>
+    enOnlyUrl(`/providers/${toSlug(name)}`, new Date())
+  );
+
+  const gameUrls = allGameIds.flatMap((id) =>
+    enOnlyUrl(`/${id}`, new Date())
   );
 
   const blogCategories = ["slots", "casinos", "providers", "news", "education"];
   const blogCategoryUrls = blogCategories.flatMap((cat) =>
-    multiLocaleUrl(`/blog/${cat}`, new Date())
+    enOnlyUrl(`/blog/${cat}`, new Date())
   );
 
   const blogArticleUrls = blogSlugs.flatMap((post) =>
-    multiLocaleUrl(`/blog/${post.category}/${post.slug}`, new Date(post.updatedAt))
+    enOnlyUrl(`/blog/${post.category}/${post.slug}`, new Date(post.updatedAt))
   );
 
   return [

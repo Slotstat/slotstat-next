@@ -18,6 +18,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
         "en-US": "/en/privacy-policy",
         "es-ES": "/es/privacy-policy",
         "pt-PT": "/pt/privacy-policy",
+        "x-default": "/en/privacy-policy",
       },
     },
   };

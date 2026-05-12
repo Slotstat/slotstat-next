@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Link } from "@/navigation";
+import { toSlug } from "@/lib/slug";
 
 function CasinoGameRow({ game, locale }: { game: GameData; locale: string }) {
   const hasValidImage =
@@ -45,7 +46,7 @@ function CasinoGameRow({ game, locale }: { game: GameData; locale: string }) {
         </p>
         {game.provider ? (
           <Link
-            href={`/${locale}/providers/${encodeURIComponent(game.provider)}`}
+            href={`/${locale}/providers/${toSlug(game.provider)}`}
             className="text-grey1 text-xs truncate hover:text-blue1 transition-colors"
             onClick={(e) => e.stopPropagation()}
           >

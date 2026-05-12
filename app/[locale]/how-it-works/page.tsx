@@ -18,6 +18,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
         "en-US": "/en/how-it-works",
         "es-ES": "/es/how-it-works",
         "pt-PT": "/pt/how-it-works",
+        "x-default": "/en/how-it-works",
       },
     },
   };
