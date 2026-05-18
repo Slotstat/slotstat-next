@@ -145,7 +145,8 @@ export default async function CasinosPage({
               className="flex items-center gap-4 p-4 rounded-xl bg-dark2 hover:ring-1 hover:ring-blue1 transition-all"
             >
               <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-grey3 shrink-0">
-                {hasValidImage(casino.imageUrl) ? (
+                {/* TODO(aws-s3): restore casino logo — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+                {/* {hasValidImage(casino.imageUrl) ? (
                   <Image
                     src={casino.imageUrl}
                     alt={casino.name}
@@ -154,11 +155,11 @@ export default async function CasinosPage({
                     sizes="48px"
                     unoptimized
                   />
-                ) : (
+                ) : ( */}
                   <div className="w-full h-full flex items-center justify-center text-grey1 text-xs font-bold">
                     {casino.name?.slice(0, 2).toUpperCase()}
                   </div>
-                )}
+                {/* )} */}
               </div>
 
               <div className="flex-1 min-w-0">

@@ -24,7 +24,8 @@ function CasinoGameRow({ game, locale }: { game: GameData; locale: string }) {
       className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-dark2 hover:bg-dark2/80 transition-colors"
     >
       <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden bg-grey3 shrink-0">
-        {hasValidImage ? (
+        {/* TODO(aws-s3): restore game image — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+        {/* {hasValidImage ? (
           <Image
             src={game.imageUrl}
             alt={game.name}
@@ -33,11 +34,11 @@ function CasinoGameRow({ game, locale }: { game: GameData; locale: string }) {
             sizes="48px"
             unoptimized
           />
-        ) : (
+        ) : ( */}
           <div className="w-full h-full flex items-center justify-center text-grey1 text-xs">
             N/A
           </div>
-        )}
+        {/* )} */}
       </div>
 
       <div className="flex-1 min-w-0">

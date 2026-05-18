@@ -131,6 +131,8 @@ export default async function CasinoPage({ params }: Props) {
   if (!casinoName) notFound();
 
   const games = await fetchCasinoGames(params.locale, casinoName);
+  // Empty casino page = soft-404 to Google. Drop it.
+  if (games.length === 0) notFound();
 
   const casinoImageUrl = games[0]?.casinoImageUrl;
   const redirectUrl = games[0]?.redirectUrl;
@@ -212,16 +214,16 @@ export default async function CasinoPage({ params }: Props) {
 
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
-        {hasValidImage && (
+        {/* TODO(aws-s3): restore casino logo — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+        {/* {hasValidImage && (
           <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-grey3 shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={casinoImageUrl}
               alt={casinoName}
               className="w-full h-full object-cover"
             />
           </div>
-        )}
+        )} */}
         <div>
           <h1 className="text-2xl md:text-4xl font-bold">{casinoName}</h1>
           <p className="text-grey1 text-sm mt-1">

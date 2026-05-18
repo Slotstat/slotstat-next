@@ -9,6 +9,13 @@ const BOT_RE =
 
 const KA_REDIRECT_RE = /^\/ka(\/|$)/;
 
+// Dynamic routes whose content is English-only (no translations exist).
+// /pt and /es variants currently render with canonical=/en, wasting crawl
+// budget and creating "Alternate page" / "Crawled — not indexed" noise in GSC.
+// Collapse them to a single 301 to the /en equivalent.
+const EN_ONLY_DYNAMIC_RE =
+  /^\/(pt|es)\/(casinos\/[^/]+|providers\/[^/]+|blog(\/.*)?|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/i;
+
 export default async function middleware(request: NextRequest) {
   const ua = request.headers.get("user-agent") || "";
   const isBot = BOT_RE.test(ua);
@@ -21,6 +28,15 @@ export default async function middleware(request: NextRequest) {
     target.pathname = request.nextUrl.pathname.replace(/^\/ka\/?/, "/en/").replace(/\/$/, "");
     if (target.pathname === "") target.pathname = "/en";
     return NextResponse.redirect(target, 308);
+  }
+
+  // /pt or /es dynamic page → /en equivalent. Static localised pages
+  // (/pt/faq, /pt/about-us, /pt, /pt/top-slots, …) are deliberately untouched
+  // because they have translated content.
+  if (EN_ONLY_DYNAMIC_RE.test(request.nextUrl.pathname)) {
+    const target = request.nextUrl.clone();
+    target.pathname = request.nextUrl.pathname.replace(/^\/(pt|es)\//, "/en/").replace(/\/$/, "");
+    return NextResponse.redirect(target, 301);
   }
 
   const handleI18nRouting = createIntlMiddleware({

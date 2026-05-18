@@ -138,10 +138,9 @@ const RenderRowCells = ({
       <div className="flex flex-row items-center">
         <div className="h-8 w-8 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
           <div className="relative h-8 w-8 md:w-12 md:h-12 ">
-            {!!isImgUrl(imageUrl) && (
-              // console.log("Image URL:", imageUrl),
+            {/* TODO(aws-s3): restore — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+            {/* {!!isImgUrl(imageUrl) && (
               <Image
-                // unoptimized
                 src={imageUrl}
                 alt={name}
                 fill
@@ -149,7 +148,7 @@ const RenderRowCells = ({
                 (max-width: 32px) 50vw,
               33vw"
               />
-            )}
+            )} */}
           </div>
         </div>
         <div>

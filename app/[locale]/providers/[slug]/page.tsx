@@ -144,6 +144,9 @@ export default async function ProviderPage({ params }: Props) {
   if (!providerName) notFound();
 
   const games = await fetchProviderGames(params.locale, providerName);
+  // Empty provider page = soft-404 to Google. Drop it.
+  if (games.length === 0) notFound();
+
   const providerInfo = getProviderInfo(providerName);
 
   const avgRtp =

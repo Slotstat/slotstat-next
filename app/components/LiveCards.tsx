@@ -126,16 +126,16 @@ const StatCard = ({
     >
       <div className="flex items-center justify-between">
         <div>
-          {!!getImageToRender(name) && (
+          {/* TODO(aws-s3): restore — fallback path returns S3 imageUrl for non-English card names ("Cassino", "Provedor", …). See memory project_aws_s3_images_broken */}
+          {/* {!!getImageToRender(name) && (
             <Image
-              // unoptimized
               src={getImageToRender(name)}
               alt=""
               className="h-4 w-4 lg:h-6 lg:w-6 "
               width={24}
               height={24}
             />
-          )}
+          )} */}
         </div>
         {isLive && <Image src={live} alt="" className="ml-3" width="0" height="0" sizes="100vw" />}
       </div>

@@ -142,7 +142,8 @@ export default function ChartComponentHeader({
               <div className="hidden md:flex items-center">
                 <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
-                    {!!casinoImageUrl && (
+                    {/* TODO(aws-s3): restore casino logo — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+                    {/* {!!casinoImageUrl && (
                       <Image
                         src={casinoImageUrl}
                         alt={casinoName}
@@ -152,13 +153,14 @@ export default function ChartComponentHeader({
                 (max-width: 24px) 50vw,
                 33vw"
                       />
-                    )}
+                    )} */}
                   </div>
                   <p>{casinoName}</p>
                 </a>
                 <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
-                    {!!imageUrl && (
+                    {/* TODO(aws-s3): restore game image — S3 image hosting broken, see memory project_aws_s3_images_broken */}
+                    {/* {!!imageUrl && (
                       <Image
                         src={imageUrl}
                         alt={name}
@@ -167,7 +169,7 @@ export default function ChartComponentHeader({
                 (max-width: 24px) 50vw,
                 33vw"
                       />
-                    )}
+                    )} */}
                   </div>
                   <p>{name}</p>
                 </a>
