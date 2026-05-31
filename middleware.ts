@@ -73,13 +73,16 @@ export default async function middleware(request: NextRequest) {
     if (region) response.cookies.set("region", region);
   }
 
-  if (cloudflareCountry) {
-    response.cookies.set("currentLocCountry", cloudflareCountry);
-  } else if (vercelCountry) {
-    response.cookies.set("currentLocCountry", vercelCountry);
+  const targetCountry = cloudflareCountry || vercelCountry;
+  const currentLocCountry = request.cookies.get("currentLocCountry")?.value;
+  if (targetCountry && currentLocCountry !== targetCountry) {
+    response.cookies.set("currentLocCountry", targetCountry);
   }
 
-  if (region) response.cookies.set("currentLocRegion", region);
+  const currentLocRegion = request.cookies.get("currentLocRegion")?.value;
+  if (region && currentLocRegion !== region) {
+    response.cookies.set("currentLocRegion", region);
+  }
 
   return response;
 }
