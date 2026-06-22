@@ -7,7 +7,7 @@ import TableClientSide from "../components/table/TableClientSide";
 import OffersSection from "../components/OffersSection";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export const revalidate = 600;
+export const revalidate = 3600;
 
 type Params = {
   params: {

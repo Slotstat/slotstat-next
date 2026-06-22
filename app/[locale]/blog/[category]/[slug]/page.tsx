@@ -3,7 +3,6 @@ import { client, urlFor } from "@/lib/sanityLib/sanity";
 
 import Image from "next/image";
 
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import MyPortableTextComponent from "@/app/components/blog/BlogPortableText";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
@@ -60,8 +59,10 @@ export async function generateMetadata({
 
   const { titleImage, smallDescription, title } = data;
 
-  const headersList = await headers();
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `https://${headersList.get("host")}`;
+  // Canonical domain (matches metadataBase, sitemap and robots). Using a
+  // static value instead of headers() keeps this route ISR-cacheable rather
+  // than forcing a dynamic server render on every request.
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://slotstat.net";
   const absoluteImageUrl = new URL(urlFor(titleImage).url(), baseUrl).toString();
   const pageUrl = new URL(`/${locale}/blog/${category}/${slug}`, baseUrl).toString();
 

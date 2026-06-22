@@ -16,6 +16,15 @@ const KA_REDIRECT_RE = /^\/ka(\/|$)/;
 const EN_ONLY_DYNAMIC_RE =
   /^\/(pt|es)\/(casinos\/[^/]+|providers\/[^/]+|blog(\/.*)?|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/i;
 
+// Built once at module load. Re-creating this per request added measurable
+// CPU on every single page hit — the one cost that scales linearly with
+// traffic and is never absorbed by the CDN cache.
+const handleI18nRouting = createIntlMiddleware({
+  locales,
+  localePrefix,
+  defaultLocale: "en",
+});
+
 export default async function middleware(request: NextRequest) {
   const ua = request.headers.get("user-agent") || "";
   const isBot = BOT_RE.test(ua);
@@ -38,12 +47,6 @@ export default async function middleware(request: NextRequest) {
     target.pathname = request.nextUrl.pathname.replace(/^\/(pt|es)\//, "/en/").replace(/\/$/, "");
     return NextResponse.redirect(target, 301);
   }
-
-  const handleI18nRouting = createIntlMiddleware({
-    locales,
-    localePrefix,
-    defaultLocale: "en",
-  });
 
   const response = handleI18nRouting(request);
 

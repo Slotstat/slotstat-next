@@ -6,6 +6,7 @@ import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 import axios from "axios";
@@ -38,13 +39,27 @@ export async function generateStaticParams() {
   }
 }
 
-async function safeGetSingleGame(gameId: string | undefined): Promise<GameData | undefined> {
-  try {
-    return await getSingleGame(gameId);
-  } catch {
-    return undefined;
+const GAMEID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
+// Wrapped in React cache() so generateMetadata and the page render share a
+// single backend call within one request (axios is not auto-deduped by Next).
+// The UUID guard short-circuits crawler junk (/en/wp-login, random slugs that
+// fall through to this catch-all segment) before any API round-trip — they
+// cost a regex, not a backend hit, which is what keeps CPU flat under crawl load.
+const getGameOnce = cache(
+  async (gameId: string | undefined): Promise<GameData | undefined> => {
+    if (!gameId || gameId === NIL_UUID || !GAMEID_RE.test(gameId)) {
+      return undefined;
+    }
+    try {
+      return await getSingleGame(gameId);
+    } catch {
+      return undefined;
+    }
   }
-}
+);
 
 export async function generateMetadata({
   params: { gameId, locale },
@@ -53,7 +68,7 @@ export async function generateMetadata({
   params: { casinoId: string; gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
-  const mainGame = await safeGetSingleGame(gameId);
+  const mainGame = await getGameOnce(gameId);
 
   if (!mainGame) {
     notFound();
@@ -98,7 +113,7 @@ export default async function gamePage({
   params: { gameId: string; locale: "en" | "es" | "pt" };
   searchParams: QueryParamsGamePage;
 }) {
-  const mainGame = await safeGetSingleGame(gameId);
+  const mainGame = await getGameOnce(gameId);
   if (!mainGame) {
     notFound();
   }
