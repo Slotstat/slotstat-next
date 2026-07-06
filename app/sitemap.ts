@@ -6,6 +6,13 @@ import axios from "axios";
 const SITE_URL = "https://slotstat.net";
 const LOCALES = ["en", "es", "pt"];
 
+// Without this, sitemap.xml is recomputed on every hit — 1 aggregated fetch +
+// one axios call per casino (up to 100, in parallel) + a Sanity query. Search
+// bots (Google, Bing, GPTBot, ClaudeBot, PerplexityBot, …) crawl this
+// endpoint repeatedly, so it was the single biggest driver of Fluid CPU and
+// origin transfer usage. Matches the revalidate window used elsewhere.
+export const revalidate = 3600;
+
 interface CasinoInfo {
   casinoId: string;
   casinoName: string;
