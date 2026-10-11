@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { findGame, getAllGames } from "@/lib/catalogue";
 import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
 import getCasino from "@/lib/getCasino";
 import getCasinoBonuses from "@/lib/getCasinoBonuses";
@@ -17,19 +17,14 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 50 },
-    });
-    if (res.status !== 200) return [];
-    const games: GameData[] = res.data?.results ?? [];
+    const games = await getAllGames();
     return games
       .filter(
         (g) =>
           g.gameId &&
           g.gameId !== "00000000-0000-0000-0000-000000000000"
       )
+      .slice(0, 50)
       .map((g) => ({ gameId: g.gameId }));
   } catch {
     return [];
@@ -53,7 +48,10 @@ const getGameOnce = cache(
     try {
       return await getSingleGame(gameId);
     } catch {
-      return undefined;
+      // The single-game call failed (backend blocked or down): fall back to
+      // the shared catalogue so the page still renders. If that fails too the
+      // error propagates — better than answering 404 for a game that exists.
+      return await findGame(gameId);
     }
   }
 );

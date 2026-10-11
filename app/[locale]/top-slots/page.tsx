@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import TopSlotsContent from "./TopSlotsContent";
@@ -31,27 +31,16 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
+// Top `pageSize` games by the given numeric field, highest first. Sorted
+// locally from the shared catalogue instead of one backend request per list.
 async function fetchTopGames(
-  locale: "en" | "es" | "pt",
-  orderBy: string,
-  direction: string,
+  orderBy: "fixedRtp" | "rtpState" | "currencRtp",
   pageSize = 10
 ): Promise<GameData[]> {
-  try {
-    const res = await slotStatClient(locale).request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: {
-        ord: orderBy,
-        direction,
-        pageSize,
-      },
-    });
-    if (res.status !== 200) return [];
-    return res.data?.results ?? [];
-  } catch {
-    return [];
-  }
+  const games = await getAllGames();
+  return [...games]
+    .sort((a, b) => (Number(b[orderBy]) || 0) - (Number(a[orderBy]) || 0))
+    .slice(0, pageSize);
 }
 
 export default async function TopSlotsPage({
@@ -64,9 +53,9 @@ export default async function TopSlotsPage({
   const t = await getTranslations({ locale, namespace: "topSlots" });
 
   const [highestRtp, bestWinRate, highestMaxWin] = await Promise.all([
-    fetchTopGames(locale, "fixedRtp", "desc", 10),
-    fetchTopGames(locale, "rtpState", "desc", 10),
-    fetchTopGames(locale, "currencRtp", "desc", 10),
+    fetchTopGames("fixedRtp", 10),
+    fetchTopGames("rtpState", 10),
+    fetchTopGames("currencRtp", 10),
   ]);
 
   const allGames = [...highestRtp, ...bestWinRate, ...highestMaxWin];

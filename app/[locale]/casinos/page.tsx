@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Image from "next/image";
@@ -45,16 +45,10 @@ interface CasinoEntry {
   totalSpins: number;
 }
 
-async function fetchCasinos(locale: "en" | "es" | "pt"): Promise<CasinoEntry[]> {
-  try {
-    const res = await slotStatClient(locale).request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-    });
-    if (res.status !== 200) return [];
-
-    const games: GameData[] = res.data?.results ?? [];
+// A backend failure throws (see lib/catalogue) rather than rendering, and
+// caching, an empty list.
+async function fetchCasinos(): Promise<CasinoEntry[]> {
+    const games = await getAllGames();
     const casinoMap = new Map<string, CasinoEntry>();
 
     for (const game of games) {
@@ -82,10 +76,6 @@ async function fetchCasinos(locale: "en" | "es" | "pt"): Promise<CasinoEntry[]> 
     return Array.from(casinoMap.values()).sort(
       (a, b) => b.gameCount - a.gameCount
     );
-  } catch (err) {
-    console.error("[Casinos] fetch error:", err);
-    return [];
-  }
 }
 
 export default async function CasinosPage({
@@ -95,7 +85,7 @@ export default async function CasinosPage({
 }) {
   unstable_setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "casinos" });
-  const casinos = await fetchCasinos(locale);
+  const casinos = await fetchCasinos();
 
   const hasValidImage = (url: string | undefined) =>
     !!url &&
