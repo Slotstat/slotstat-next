@@ -1,6 +1,6 @@
 import { client } from "@/lib/sanityLib/sanity";
 import { isPublishableName, toSlug } from "@/lib/slug";
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 
 const SITE_URL = "https://slotstat.net";
 const LOCALES = ["en", "es", "pt"];
@@ -27,39 +27,29 @@ const getCatalogue = async (): Promise<{
   providerNames: string[];
   gameIds: string[];
 }> => {
-  try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 1000 },
-    });
-    if (res.status !== 200) throw new Error("Failed to fetch aggregated data");
+  // A backend failure throws (see lib/catalogue): better no fresh sitemap than
+  // publishing, and caching, one with no casino/provider/game URLs.
+  const games = await getAllGames();
 
-    const games: GameData[] = res.data?.results ?? [];
+  const seenCasinos = new Set<string>();
+  const casinos: CasinoInfo[] = [];
+  const seenProviders = new Set<string>();
+  const providerNames: string[] = [];
+  const gameIds = new Set<string>();
 
-    const seenCasinos = new Set<string>();
-    const casinos: CasinoInfo[] = [];
-    const seenProviders = new Set<string>();
-    const providerNames: string[] = [];
-    const gameIds = new Set<string>();
-
-    for (const game of games) {
-      if (game.casinoId && !seenCasinos.has(game.casinoId) && isPublishableName(game.casinoName)) {
-        seenCasinos.add(game.casinoId);
-        casinos.push({ casinoId: game.casinoId, casinoName: game.casinoName });
-      }
-      if (game.provider && !seenProviders.has(game.provider) && isPublishableName(game.provider)) {
-        seenProviders.add(game.provider);
-        providerNames.push(game.provider);
-      }
-      if (game.gameId && game.gameId !== NIL_UUID) gameIds.add(game.gameId);
+  for (const game of games) {
+    if (game.casinoId && !seenCasinos.has(game.casinoId) && isPublishableName(game.casinoName)) {
+      seenCasinos.add(game.casinoId);
+      casinos.push({ casinoId: game.casinoId, casinoName: game.casinoName });
     }
-
-    return { casinos, providerNames, gameIds: Array.from(gameIds) };
-  } catch (error: any) {
-    console.error("[Sitemap] Failed to fetch catalogue:", error?.response?.status ?? "", error?.message ?? error);
-    return { casinos: [], providerNames: [], gameIds: [] };
+    if (game.provider && !seenProviders.has(game.provider) && isPublishableName(game.provider)) {
+      seenProviders.add(game.provider);
+      providerNames.push(game.provider);
+    }
+    if (game.gameId && game.gameId !== NIL_UUID) gameIds.add(game.gameId);
   }
+
+  return { casinos, providerNames, gameIds: Array.from(gameIds) };
 };
 
 const getBlogSlugs = async (): Promise<{ category: string; slug: string; updatedAt: string }[]> => {

@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import ProviderContent from "./ProviderContent";
@@ -13,40 +13,20 @@ interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
 }
 
-// Pull a fresh list of provider names from the API and resolve the slug to the
-// real name. Returns undefined if no provider matches — caller decides whether
-// to 404 or redirect.
+// Resolves the slug to the real provider name. Returns undefined only when no
+// provider matches; a backend failure throws (see lib/catalogue).
 async function resolveProviderName(slug: string): Promise<string | undefined> {
-  try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 200 },
-    });
-    if (res.status !== 200) return undefined;
-    const games: GameData[] = res.data?.results ?? [];
-    const seen = new Set<string>();
-    for (const g of games) {
-      const name = g.provider?.trim();
-      if (!name || seen.has(name)) continue;
-      seen.add(name);
-      if (toSlug(name) === slug) return name;
-    }
-    return undefined;
-  } catch {
-    return undefined;
+  const games = await getAllGames();
+  for (const g of games) {
+    const name = g.provider?.trim();
+    if (name && toSlug(name) === slug) return name;
   }
+  return undefined;
 }
 
 export async function generateStaticParams() {
   try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-    });
-    if (res.status !== 200) return [];
-    const games: GameData[] = res.data?.results ?? [];
+    const games = await getAllGames();
     const seen = new Set<string>();
     const params: { slug: string }[] = [];
     for (const g of games) {
@@ -57,6 +37,7 @@ export async function generateStaticParams() {
     }
     return params;
   } catch {
+    // Pages are then generated on first request instead.
     return [];
   }
 }
@@ -103,26 +84,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function fetchProviderGames(
-  locale: "en" | "es" | "pt",
-  providerName: string
-): Promise<GameData[]> {
-  try {
-    const res = await slotStatClient(locale).request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: {
-        keyWord: providerName,
-        ord: "fixedRtp",
-        direction: "desc",
-        pageSize: 50,
-      },
-    });
-    if (res.status !== 200) return [];
-    return res.data?.results ?? [];
-  } catch {
-    return [];
-  }
+async function fetchProviderGames(providerName: string): Promise<GameData[]> {
+  const games = await getAllGames();
+  return games.filter((g) => g.provider?.trim() === providerName).slice(0, 50);
 }
 
 export default async function ProviderPage({ params }: Props) {
@@ -137,7 +101,7 @@ export default async function ProviderPage({ params }: Props) {
   const providerName = await resolveProviderName(normalisedSlug);
   if (!providerName) notFound();
 
-  const games = await fetchProviderGames(params.locale, providerName);
+  const games = await fetchProviderGames(providerName);
   // Empty provider page = soft-404 to Google. Drop it.
   if (games.length === 0) notFound();
 

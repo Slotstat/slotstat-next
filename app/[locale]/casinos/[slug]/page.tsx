@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import CasinoContent from "./CasinoContent";
@@ -12,37 +12,20 @@ interface Props {
   params: { locale: "en" | "es" | "pt"; slug: string };
 }
 
+// Resolves the slug to the real casino name. Returns undefined only when no
+// casino matches; a backend failure throws (see lib/catalogue).
 async function resolveCasinoName(slug: string): Promise<string | undefined> {
-  try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 200 },
-    });
-    if (res.status !== 200) return undefined;
-    const games: GameData[] = res.data?.results ?? [];
-    const seen = new Set<string>();
-    for (const g of games) {
-      const name = g.casinoName?.trim();
-      if (!name || seen.has(name)) continue;
-      seen.add(name);
-      if (toSlug(name) === slug) return name;
-    }
-    return undefined;
-  } catch {
-    return undefined;
+  const games = await getAllGames();
+  for (const g of games) {
+    const name = g.casinoName?.trim();
+    if (name && toSlug(name) === slug) return name;
   }
+  return undefined;
 }
 
 export async function generateStaticParams() {
   try {
-    const res = await slotStatClient("en").request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-    });
-    if (res.status !== 200) return [];
-    const games: GameData[] = res.data?.results ?? [];
+    const games = await getAllGames();
     const seen = new Set<string>();
     const params: { slug: string }[] = [];
     for (const g of games) {
@@ -53,6 +36,7 @@ export async function generateStaticParams() {
     }
     return params;
   } catch {
+    // Pages are then generated on first request instead.
     return [];
   }
 }
@@ -90,26 +74,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function fetchCasinoGames(
-  locale: "en" | "es" | "pt",
-  casinoName: string
-): Promise<GameData[]> {
-  try {
-    const res = await slotStatClient(locale).request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: {
-        keyWord: casinoName,
-        ord: "fixedRtp",
-        direction: "desc",
-        pageSize: 50,
-      },
-    });
-    if (res.status !== 200) return [];
-    return res.data?.results ?? [];
-  } catch {
-    return [];
-  }
+async function fetchCasinoGames(casinoName: string): Promise<GameData[]> {
+  const games = await getAllGames();
+  return games.filter((g) => g.casinoName?.trim() === casinoName).slice(0, 50);
 }
 
 export default async function CasinoPage({ params }: Props) {
@@ -124,7 +91,7 @@ export default async function CasinoPage({ params }: Props) {
   const casinoName = await resolveCasinoName(normalisedSlug);
   if (!casinoName) notFound();
 
-  const games = await fetchCasinoGames(params.locale, casinoName);
+  const games = await fetchCasinoGames(casinoName);
   // Empty casino page = soft-404 to Google. Drop it.
   if (games.length === 0) notFound();
 

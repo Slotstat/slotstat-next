@@ -1,4 +1,4 @@
-import slotStatClient from "@/lib/instance";
+import { getAllGames } from "@/lib/catalogue";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
@@ -46,16 +46,10 @@ interface ProviderStat {
   topGame: string;
 }
 
-async function fetchProviderStats(locale: "en" | "es" | "pt"): Promise<ProviderStat[]> {
-  try {
-    const res = await slotStatClient(locale).request({
-      url: "/api/Game/aggregated/",
-      method: "GET",
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-    });
-    if (res.status !== 200) return [];
-
-    const games: GameData[] = res.data?.results ?? [];
+// A backend failure throws (see lib/catalogue) rather than rendering, and
+// caching, an empty list.
+async function fetchProviderStats(): Promise<ProviderStat[]> {
+    const games = await getAllGames();
 
     const providerMap = new Map<string, { rtpSum: number; count: number; topGame: string }>();
 
@@ -82,9 +76,6 @@ async function fetchProviderStats(locale: "en" | "es" | "pt"): Promise<ProviderS
         topGame: stats.topGame,
       }))
       .sort((a, b) => b.gameCount - a.gameCount);
-  } catch {
-    return [];
-  }
 }
 
 export default async function ProvidersPage({
@@ -95,7 +86,7 @@ export default async function ProvidersPage({
   unstable_setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "providers" });
-  const providers = await fetchProviderStats(locale);
+  const providers = await fetchProviderStats();
 
   return (
     <div className="text-white mt-6 mb-12 md:mb-20">
