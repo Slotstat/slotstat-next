@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { resolveImage } from "@/lib/imageUrl";
 import React, { useEffect, useState } from "react";
 import { bonus, slot } from "../../assets";
 import FiatCryptoButton from "../table/FiatCryptoButton";
@@ -142,10 +143,9 @@ export default function ChartComponentHeader({
               <div className="hidden md:flex items-center">
                 <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
-                    {/* TODO(aws-s3): restore casino logo — S3 image hosting broken, see memory project_aws_s3_images_broken */}
-                    {/* {!!casinoImageUrl && (
+                    {!!resolveImage(casinoImageUrl) && (
                       <Image
-                        src={casinoImageUrl}
+                        src={resolveImage(casinoImageUrl)}
                         alt={casinoName}
                         fill
                         className="h-12 w-12"
@@ -153,23 +153,22 @@ export default function ChartComponentHeader({
                 (max-width: 24px) 50vw,
                 33vw"
                       />
-                    )} */}
+                    )}
                   </div>
                   <p>{casinoName}</p>
                 </a>
                 <a href={redirectUrl} target="_blank" rel="nofollow noopener noreferrer sponsored" className=" flex items-center">
                   <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3 ml-6">
-                    {/* TODO(aws-s3): restore game image — S3 image hosting broken, see memory project_aws_s3_images_broken */}
-                    {/* {!!imageUrl && (
+                    {!!resolveImage(imageUrl) && (
                       <Image
-                        src={imageUrl}
+                        src={resolveImage(imageUrl)}
                         alt={name}
                         fill
                         sizes="(max-width: 24px) 100vw,
                 (max-width: 24px) 50vw,
                 33vw"
                       />
-                    )} */}
+                    )}
                   </div>
                   <p>{name}</p>
                 </a>
