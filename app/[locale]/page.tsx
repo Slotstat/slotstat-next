@@ -1,6 +1,5 @@
 import LiveCards from "../components/LiveCards";
 import { getLandingCards, getLandingOffers } from "@/lib/getLanding";
-import { notFound } from "next/navigation";
 // import { openGraphImage } from "@/app/shared-metadata";
 import IntroComponent from "../components/IntroComponent";
 import TableClientSide from "../components/table/TableClientSide";
@@ -51,9 +50,8 @@ export default async function Home({ params: { locale } }: Params) {
   const offersData: Promise<Offer[] | false> = getLandingOffers(locale);
   const [landingCards, offers] = await Promise.all([landingCardsData, offersData]);
 
-  if (!landingCards) {
-    notFound();
-  }
+  // A failed cards fetch must not turn the home page into a 404 (and get that
+  // 404 cached for the whole revalidate window) — render without the cards.
   return (
     <>
       {landingCards && <LiveCards cardsData={landingCards} />}
