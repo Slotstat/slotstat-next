@@ -1,74 +1,50 @@
 // TEMPORARY diagnostic endpoint: reports how the backend answers when called
 // from the Vercel runtime. Remove once the production fetch issue is resolved.
-import { NextResponse } from "next/server";
-import axios from "axios";
+import { NextRequest, NextResponse } from "next/server";
 import slotStatClient from "@/lib/instance";
-import { baseUrl } from "@/lib/baseURL";
 
 export const dynamic = "force-dynamic";
 
 const GAME = "7d9e7ee5-dacf-45c3-b99b-b138b8638940";
 const CASINO = "aad504fd-1b54-4f4e-921c-53c92392a52f";
 const SINGLE = `/api/Game/aggregated/single/${GAME}`;
-const GCARDS = `/api/game/cards/${GAME}`;
 const CCARDS = `/api/casino/cards/${CASINO}`;
-const CBONUS = `/api/casino/bonus/${CASINO}`;
 
-const viaClient = async (path: string) => {
+const t0 = () => Date.now();
+const call = async (path: string, start: number) => {
+  const began = t0() - start;
   try {
     const r = await slotStatClient("en").request({ url: path, method: "GET", timeout: 15000, validateStatus: () => true });
-    return r.status;
+    return `${r.status}@${began}-${t0() - start}ms${r.headers["retry-after"] ? " ra=" + r.headers["retry-after"] : ""}`;
   } catch (e: any) {
-    return e?.code ?? "ERR";
+    return `${e?.code ?? "ERR"}@${began}`;
   }
 };
-const viaBare = async (path: string, headers: Record<string, string>) => {
-  try {
-    const r = await axios({ method: "get", url: `${baseUrl}${path}`, headers, timeout: 15000, validateStatus: () => true });
-    return r.status;
-  } catch (e: any) {
-    return e?.code ?? "ERR";
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+export async function GET(req: NextRequest) {
+  const mode = req.nextUrl.searchParams.get("m") ?? "seq";
+  const n = Math.min(Number(req.nextUrl.searchParams.get("n") ?? 3), 12);
+  const gap = Number(req.nextUrl.searchParams.get("gap") ?? 0);
+  const path = req.nextUrl.searchParams.get("p") === "single" ? SINGLE : CCARDS;
+  const start = t0();
+  const out: any = { region: process.env.VERCEL_REGION, mode, n, gap, results: [] };
+
+  if (mode === "seq") {
+    for (let i = 0; i < n; i++) {
+      out.results.push(await call(path, start));
+      if (gap) await sleep(gap);
+    }
+  } else if (mode === "stagger") {
+    // overlapping requests, each started `gap` ms after the previous one
+    const ps: Promise<string>[] = [];
+    for (let i = 0; i < n; i++) {
+      ps.push(call(path, start));
+      await sleep(gap);
+    }
+    out.results = await Promise.all(ps);
+  } else if (mode === "par") {
+    out.results = await Promise.all(Array.from({ length: n }, () => call(path, start)));
   }
-};
-const viaFetch = async (path: string, headers: Record<string, string>) => {
-  try {
-    const r = await fetch(`${baseUrl}${path}`, { cache: "no-store", headers });
-    await r.arrayBuffer();
-    return r.status;
-  } catch (e: any) {
-    return e?.name ?? "ERR";
-  }
-};
-
-export async function GET() {
-  const out: any = { node: process.version, region: process.env.VERCEL_REGION };
-
-  // Same shape as the game page: one call, then three in parallel.
-  out.pageShape = [];
-  for (let i = 0; i < 4; i++) {
-    const single = await viaClient(SINGLE);
-    const [g, c, b] = await Promise.all([viaClient(GCARDS), viaClient(CCARDS), viaClient(CBONUS)]);
-    out.pageShape.push({ single, gameCards: g, casinoCards: c, casinoBonus: b });
-  }
-
-  out.parallel12_casinoCards = await Promise.all(Array.from({ length: 12 }, () => viaClient(CCARDS)));
-  out.parallel12_single = await Promise.all(Array.from({ length: 12 }, () => viaClient(SINGLE)));
-  out.sequential6_casinoCards = [];
-  for (let i = 0; i < 6; i++) out.sequential6_casinoCards.push(await viaClient(CCARDS));
-
-  const UA = { "User-Agent": "Vercel-Worker-Client" };
-  out.bareAxios_uaOnly = await viaBare(CCARDS, UA);
-  out.bareAxios_noUa = await viaBare(CCARDS, {});
-  out.bareAxios_browserUa = await viaBare(CCARDS, { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" });
-  out.fetch_uaOnly = await viaFetch(CCARDS, UA);
-  out.fetch_axiosLikeHeaders = await viaFetch(CCARDS, {
-    ...UA,
-    Accept: "application/json, text/plain, */*",
-    "Content-Type": "application/json",
-    "Accept-Language": "en-US",
-    "Accept-Encoding": "gzip, compress, deflate, br",
-  });
-  out.fetch_noUa = await viaFetch(CCARDS, {});
-
   return NextResponse.json(out, { headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" } });
 }
