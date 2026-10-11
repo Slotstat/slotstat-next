@@ -1,3 +1,4 @@
+import slotStatClient from "@/lib/instance";
 import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
 import getCasino from "@/lib/getCasino";
 import getCasinoBonuses from "@/lib/getCasinoBonuses";
@@ -9,8 +10,6 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
-import axios from "axios";
-import { baseUrl } from "@/lib/baseURL";
 import { toSlug } from "@/lib/slug";
 
 export const revalidate = 3600;
@@ -18,12 +17,10 @@ export const dynamicParams = true;
 
 export async function generateStaticParams() {
   try {
-    const res = await axios({
-      method: "get",
-      url: `${baseUrl}/api/Game/aggregated/`,
-      headers: { "User-Agent": "Vercel-Worker-Client" },
+    const res = await slotStatClient("en").request({
+      url: "/api/Game/aggregated/",
+      method: "GET",
       params: { ord: "fixedRtp", direction: "desc", pageSize: 50 },
-      timeout: 15000,
     });
     if (res.status !== 200) return [];
     const games: GameData[] = res.data?.results ?? [];
