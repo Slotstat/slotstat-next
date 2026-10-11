@@ -4,9 +4,7 @@ import JsonLd from "@/app/components/JsonLd";
 import ProviderContent from "./ProviderContent";
 import { getProviderInfo } from "@/lib/providerDescriptions";
 import type { Metadata } from "next";
-import { baseUrl } from "@/lib/baseURL";
 import { isPublishableName, toSlug } from "@/lib/slug";
-import axios from "axios";
 import { redirect, notFound } from "next/navigation";
 
 export const revalidate = 3600;
@@ -20,12 +18,10 @@ interface Props {
 // to 404 or redirect.
 async function resolveProviderName(slug: string): Promise<string | undefined> {
   try {
-    const res = await axios({
-      method: "get",
-      url: `${baseUrl}/api/Game/aggregated/`,
-      headers: { "User-Agent": "Vercel-Worker-Client" },
+    const res = await slotStatClient("en").request({
+      url: "/api/Game/aggregated/",
+      method: "GET",
       params: { ord: "fixedRtp", direction: "desc", pageSize: 200 },
-      timeout: 15000,
     });
     if (res.status !== 200) return undefined;
     const games: GameData[] = res.data?.results ?? [];
@@ -44,12 +40,10 @@ async function resolveProviderName(slug: string): Promise<string | undefined> {
 
 export async function generateStaticParams() {
   try {
-    const res = await axios({
-      method: "get",
-      url: `${baseUrl}/api/Game/aggregated/`,
-      headers: { "User-Agent": "Vercel-Worker-Client" },
+    const res = await slotStatClient("en").request({
+      url: "/api/Game/aggregated/",
+      method: "GET",
       params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-      timeout: 15000,
     });
     if (res.status !== 200) return [];
     const games: GameData[] = res.data?.results ?? [];

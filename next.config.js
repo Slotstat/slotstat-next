@@ -10,6 +10,13 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
   trailingSlash: false,
+  // Prerender with a single worker: the backend's Cloudflare layer blocks a
+  // server that sends it several requests at once, and the request spacing in
+  // lib/instance.tsx only works within one process.
+  experimental: {
+    cpus: 1,
+    workerThreads: false,
+  },
   async rewrites() {
     return [
       // SignalR hub is at /events (not /api/events) on the backend

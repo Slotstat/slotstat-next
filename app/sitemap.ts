@@ -1,13 +1,12 @@
-import { baseUrl } from "@/lib/baseURL";
 import { client } from "@/lib/sanityLib/sanity";
 import { isPublishableName, toSlug } from "@/lib/slug";
-import axios from "axios";
+import slotStatClient from "@/lib/instance";
 
 const SITE_URL = "https://slotstat.net";
 const LOCALES = ["en", "es", "pt"];
 
-// Without this, sitemap.xml is recomputed on every hit — 1 aggregated fetch +
-// one axios call per casino (up to 100, in parallel) + a Sanity query. Search
+// Without this, sitemap.xml is recomputed on every hit — an aggregated backend
+// fetch + a Sanity query. Search
 // bots (Google, Bing, GPTBot, ClaudeBot, PerplexityBot, …) crawl this
 // endpoint repeatedly, so it was the single biggest driver of Fluid CPU and
 // origin transfer usage. Matches the revalidate window used elsewhere.
@@ -18,17 +17,21 @@ interface CasinoInfo {
   casinoName: string;
 }
 
-const getCasinosAndProviders = async (): Promise<{
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
+// One aggregated call returns every game together with its casino and
+// provider, so casinos, providers and game URLs all come from a single
+// backend request.
+const getCatalogue = async (): Promise<{
   casinos: CasinoInfo[];
   providerNames: string[];
+  gameIds: string[];
 }> => {
   try {
-    const res = await axios({
-      method: "get",
-      url: `${baseUrl}/api/Game/aggregated/`,
-      headers: { "User-Agent": "Vercel-Worker-Client", "Accept-Language": "en-US" },
-      params: { ord: "fixedRtp", direction: "desc", pageSize: 100 },
-      timeout: 15000,
+    const res = await slotStatClient("en").request({
+      url: "/api/Game/aggregated/",
+      method: "GET",
+      params: { ord: "fixedRtp", direction: "desc", pageSize: 1000 },
     });
     if (res.status !== 200) throw new Error("Failed to fetch aggregated data");
 
@@ -38,6 +41,7 @@ const getCasinosAndProviders = async (): Promise<{
     const casinos: CasinoInfo[] = [];
     const seenProviders = new Set<string>();
     const providerNames: string[] = [];
+    const gameIds = new Set<string>();
 
     for (const game of games) {
       if (game.casinoId && !seenCasinos.has(game.casinoId) && isPublishableName(game.casinoName)) {
@@ -48,49 +52,13 @@ const getCasinosAndProviders = async (): Promise<{
         seenProviders.add(game.provider);
         providerNames.push(game.provider);
       }
+      if (game.gameId && game.gameId !== NIL_UUID) gameIds.add(game.gameId);
     }
 
-    return { casinos, providerNames };
-  } catch (error) {
-    console.error("[Sitemap] Failed to fetch casinos/providers:", error);
-    return { casinos: [], providerNames: [] };
-  }
-};
-
-const getGames = async (casinoIds: string[]): Promise<string[]> => {
-  try {
-    const responseArray = await Promise.all(
-      casinoIds.map(async (casinoId) => {
-        try {
-          const response = await axios.get(
-            `${baseUrl}/api/Game/aggregated/${casinoId}`,
-            {
-              headers: { "User-Agent": "Vercel-Worker-Client" },
-              timeout: 15000,
-            }
-          );
-          if (response.status !== 200) return [];
-
-          const gameURLs =
-            response.data?.results
-              ?.filter(
-                (game: GameData) =>
-                  game.gameId &&
-                  game.gameId !== "00000000-0000-0000-0000-000000000000"
-              )
-              ?.map((game: GameData) => game.gameId) ?? [];
-
-          return gameURLs;
-        } catch {
-          console.error(`[Sitemap] Failed to fetch games for casino ${casinoId}`);
-          return [];
-        }
-      })
-    );
-    return ([] as string[]).concat(...responseArray);
-  } catch (error) {
-    console.error("[Sitemap] Failed to fetch games:", error);
-    return [];
+    return { casinos, providerNames, gameIds: Array.from(gameIds) };
+  } catch (error: any) {
+    console.error("[Sitemap] Failed to fetch catalogue:", error?.response?.status ?? "", error?.message ?? error);
+    return { casinos: [], providerNames: [], gameIds: [] };
   }
 };
 
@@ -138,13 +106,10 @@ function enOnlyUrl(path: string, lastModified: Date) {
 }
 
 export default async function sitemap() {
-  const [{ casinos, providerNames }, blogSlugs] = await Promise.all([
-    getCasinosAndProviders(),
+  const [{ casinos, providerNames, gameIds: allGameIds }, blogSlugs] = await Promise.all([
+    getCatalogue(),
     getBlogSlugs(),
   ]);
-
-  const casinoIds = casinos.map((c) => c.casinoId);
-  const allGameIds = await getGames(casinoIds);
 
   const staticPaths = [
     "",
