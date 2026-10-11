@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import slotStatClient from "./instance";
 
 // Every listing page (casinos, providers, top slots, their detail pages, the
@@ -7,6 +8,15 @@ import slotStatClient from "./instance";
 // The list is identical for every locale.
 const TTL_MS = 5 * 60_000;
 const PAGE_SIZE = 1000;
+
+// Stored in the Next.js data cache, which on Vercel is shared by every server
+// instance and survives restarts. Once the entry is older than `revalidate`
+// it is still served while a refresh runs in the background, and a failed
+// refresh leaves the old entry in place — so a blocked backend does not take
+// pages down as long as one earlier fetch succeeded.
+const loadShared = unstable_cache(load, ["catalogue-v1"], {
+  revalidate: TTL_MS / 1000,
+});
 
 let cached: { at: number; games: GameData[] } | undefined;
 let inFlight: Promise<GameData[]> | undefined;
@@ -32,7 +42,7 @@ export async function getAllGames(): Promise<GameData[]> {
   if (cached && Date.now() - cached.at < TTL_MS) return cached.games;
 
   if (!inFlight) {
-    inFlight = load()
+    inFlight = loadShared()
       .then((games) => {
         cached = { at: Date.now(), games };
         return games;
