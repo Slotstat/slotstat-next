@@ -8,8 +8,15 @@ export default async function getCasinoCards(locale: "en" | "es" | "pt", casinoI
     });
 
     if (res.status != 200) throw new Error("Can't successfully fetch data");
-    return res.data;
-  } catch (error) {
-    throw new Error(`An error has occurred: ${error}`);
+    return Array.isArray(res.data) ? res.data : [];
+  } catch (error: any) {
+    // Cards are secondary content: never let a failed fetch take down the
+    // whole game page. Log enough to diagnose from the server logs.
+    console.error(
+      `[getCasinoCards] ${casinoId} failed:`,
+      error?.response?.status ?? error?.code ?? "",
+      error?.message ?? error
+    );
+    return [];
   }
 }
