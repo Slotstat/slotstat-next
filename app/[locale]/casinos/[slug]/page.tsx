@@ -1,4 +1,5 @@
 import { getAllGames } from "@/lib/catalogue";
+import { resolveImage, resolveImageAbsolute } from "@/lib/imageUrl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import JsonLd from "@/app/components/JsonLd";
 import CasinoContent from "./CasinoContent";
@@ -108,11 +109,7 @@ export default async function CasinoPage({ params }: Props) {
     (a, b) => parseFloat(b.maxX ?? "0") - parseFloat(a.maxX ?? "0")
   )[0];
 
-  const hasValidImage =
-    !!casinoImageUrl &&
-    casinoImageUrl !== "null" &&
-    (casinoImageUrl.startsWith("http://") ||
-      casinoImageUrl.startsWith("https://"));
+  const casinoLogo = resolveImage(casinoImageUrl);
 
   return (
     <div className="text-white mt-6 mb-12 md:mb-20">
@@ -142,7 +139,7 @@ export default async function CasinoPage({ params }: Props) {
             "@type": "Organization",
             name: casinoName,
             url: `https://slotstat.net/en/casinos/${normalisedSlug}`,
-            ...(hasValidImage && { logo: casinoImageUrl }),
+            ...(casinoLogo && { logo: resolveImageAbsolute(casinoImageUrl) }),
             description: `${casinoName} is an online casino tracked by SlotStat with ${games.length} slot game${games.length !== 1 ? "s" : ""} monitored for live RTP and win-rate statistics.`,
           }}
         />
@@ -175,16 +172,15 @@ export default async function CasinoPage({ params }: Props) {
 
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
-        {/* TODO(aws-s3): restore casino logo — S3 image hosting broken, see memory project_aws_s3_images_broken */}
-        {/* {hasValidImage && (
+        {casinoLogo && (
           <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-grey3 shrink-0">
             <img
-              src={casinoImageUrl}
+              src={casinoLogo}
               alt={casinoName}
               className="w-full h-full object-cover"
             />
           </div>
-        )} */}
+        )}
         <div>
           <h1 className="text-2xl md:text-4xl font-bold">{casinoName}</h1>
           <p className="text-grey1 text-sm mt-1">

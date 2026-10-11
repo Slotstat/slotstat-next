@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { resolveImage } from "@/lib/imageUrl";
 import React, { useEffect, useState } from "react";
 import { Cell, Row } from "@tanstack/react-table";
 import CountUp from "react-countup";
@@ -138,17 +139,16 @@ const RenderRowCells = ({
       <div className="flex flex-row items-center">
         <div className="h-8 w-8 md:w-12 md:h-12 bg-dark2 flex justify-center items-center rounded-full mr-3 overflow-hidden">
           <div className="relative h-8 w-8 md:w-12 md:h-12 ">
-            {/* TODO(aws-s3): restore — S3 image hosting broken, see memory project_aws_s3_images_broken */}
-            {/* {!!isImgUrl(imageUrl) && (
+            {!!resolveImage(imageUrl) && (
               <Image
-                src={imageUrl}
+                src={resolveImage(imageUrl)}
                 alt={name}
                 fill
                 sizes="(max-width: 32px) 100vw,
                 (max-width: 32px) 50vw,
               33vw"
               />
-            )} */}
+            )}
           </div>
         </div>
         <div>

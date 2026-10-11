@@ -1,4 +1,5 @@
 import { findGame, getAllGames } from "@/lib/catalogue";
+import { resolveImageAbsolute } from "@/lib/imageUrl";
 import ChartCasinoAndGameWrapper from "@/app/components/chart/ChartCasinoAndGameWrapper";
 import getCasino from "@/lib/getCasino";
 import getCasinoBonuses from "@/lib/getCasinoBonuses";
@@ -71,7 +72,8 @@ export async function generateMetadata({
 
   const title = `${mainGame.name} - ${mainGame.casinoName}`;
     const description = `Get insights on ${mainGame.name} at ${mainGame.casinoName}. Check current RTP, max win: ${mainGame.maxX}. Track your gameplay with detailed stats on Slotstat.`;
-    const ogImage = mainGame.imageUrl || "https://slotstat.net/opengraph-image.png";
+    const ogImage =
+      resolveImageAbsolute(mainGame.imageUrl) || "https://slotstat.net/opengraph-image.png";
 
     return {
       title,
@@ -144,7 +146,9 @@ export default async function gamePage({
             priceCurrency: "USD",
           },
           ...(mainGame.provider && { author: { "@type": "Organization", name: mainGame.provider } }),
-          ...(mainGame.imageUrl && { image: mainGame.imageUrl }),
+          ...(resolveImageAbsolute(mainGame.imageUrl) && {
+            image: resolveImageAbsolute(mainGame.imageUrl),
+          }),
           description: `${mainGame.name} at ${mainGame.casinoName}. Live RTP tracking, max win: ${mainGame.maxX}.`,
         }}
       />

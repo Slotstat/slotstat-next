@@ -1,15 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { resolveImage } from "@/lib/imageUrl";
 import { Link } from "@/navigation";
 import { toSlug } from "@/lib/slug";
 
 function ProviderGameRow({ game, locale }: { game: GameData; locale: string }) {
-  const hasValidImage =
-    game.imageUrl &&
-    game.imageUrl !== "null" &&
-    game.imageUrl !== "" &&
-    (game.imageUrl.startsWith("http://") || game.imageUrl.startsWith("https://"));
+  const imageSrc = resolveImage(game.imageUrl);
 
   const rtpColor =
     game.fixedRtp > 96
@@ -24,21 +21,20 @@ function ProviderGameRow({ game, locale }: { game: GameData; locale: string }) {
       className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-dark2 hover:bg-dark2/80 transition-colors"
     >
       <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden bg-grey3 shrink-0">
-        {/* TODO(aws-s3): restore game image — S3 image hosting broken, see memory project_aws_s3_images_broken */}
-        {/* {hasValidImage ? (
+        {imageSrc ? (
           <Image
-            src={game.imageUrl}
+            src={imageSrc}
             alt={game.name}
             fill
             className="object-cover"
             sizes="48px"
             unoptimized
           />
-        ) : ( */}
+        ) : (
           <div className="w-full h-full flex items-center justify-center text-grey1 text-xs">
             N/A
           </div>
-        {/* )} */}
+        )}
       </div>
 
       <div className="flex-1 min-w-0">

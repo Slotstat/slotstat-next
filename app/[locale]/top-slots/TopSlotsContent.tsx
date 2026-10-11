@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { resolveImage } from "@/lib/imageUrl";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 
@@ -31,11 +32,7 @@ function GameRow({
           : "text-yellow-400"
         : "text-blue-400";
 
-  const hasValidImage =
-    game.imageUrl &&
-    game.imageUrl !== "null" &&
-    game.imageUrl !== "" &&
-    (game.imageUrl.startsWith("http://") || game.imageUrl.startsWith("https://"));
+  const imageSrc = resolveImage(game.imageUrl);
 
   return (
     <Link
@@ -47,9 +44,9 @@ function GameRow({
       </span>
 
       <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden bg-grey3 shrink-0">
-        {hasValidImage ? (
+        {imageSrc ? (
           <Image
-            src={game.imageUrl}
+            src={imageSrc}
             alt={game.name}
             fill
             className="object-cover"
