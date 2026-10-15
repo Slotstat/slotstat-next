@@ -15,40 +15,29 @@ import ShareButtons from "../ShareButtons";
 import { toSlug } from "@/lib/slug";
 
 export default function ChartCasinoAndGameWrapper({
-  orderBy,
-  keyWord,
-  direction,
-  isFiat,
-  ActiveTab,
   casinoCards,
-  // casino,
   gameCards,
   gameId,
   mainGameObj,
-  compareGameId,
   compareGame,
   gamesCardsData,
   casId,
   casinoCardsData,
   casinoBonuses,
 }: {
-  orderBy?: string | null;
-  keyWord?: string | null;
-  direction?: string | null;
-  isFiat?: string | null;
-  ActiveTab: string;
   casinoCards: Card[];
-  // casino: CasinoData;
   gameCards: Card[];
   gameId: string;
   mainGameObj: GameData;
-  compareGameId?: string;
   compareGame?: GameData;
   gamesCardsData?: Promise<Card[]>;
   casId: string;
   casinoCardsData: Promise<Card[]>;
   casinoBonuses: any;
 }) {
+  // Read on the client so the server page stays cacheable (see [gameId]/page.tsx).
+  const [activeTabQuery] = useQueryState("ActiveTab");
+  const ActiveTab = activeTabQuery || "slot";
   const [compareGameIdQuery, setCompareGameIdQuery] = useQueryState("compareGameId");
   const locale = useLocale();
 
