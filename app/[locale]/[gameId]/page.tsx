@@ -8,7 +8,7 @@ import getGameCards from "@/lib/getGameCards";
 import getGamesList from "@/lib/getGamesList";
 import getSingleGame from "@/lib/getSingleGame";
 import { notFound } from "next/navigation";
-import { cache } from "react";
+import { Suspense, cache } from "react";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 import { toSlug } from "@/lib/slug";
@@ -57,12 +57,15 @@ const getGameOnce = cache(
   }
 );
 
+// Neither function below may read searchParams: touching them makes Next
+// render the page on every request and ignore `revalidate`, which is what
+// made game pages the largest CPU and request cost on Vercel. The casino
+// comes from the game itself (links only ever pass the game's own casinoId),
+// and the active tab is read on the client.
 export async function generateMetadata({
-  params: { gameId, locale },
-  searchParams: { orderBy, keyWord, direction, isFiat, casId },
+  params: { gameId },
 }: {
-  params: { casinoId: string; gameId: string; locale: "en" | "es" | "pt" };
-  searchParams: QueryParamsGamePage;
+  params: { gameId: string; locale: "en" | "es" | "pt" };
 }) {
   const mainGame = await getGameOnce(gameId);
 
@@ -97,23 +100,14 @@ export async function generateMetadata({
 
 export default async function gamePage({
   params: { gameId, locale },
-  searchParams: {
-    orderBy,
-    keyWord,
-    direction,
-    isFiat,
-    compareGameId,
-    ActiveTab = "slot",
-    casId,
-  },
 }: {
   params: { gameId: string; locale: "en" | "es" | "pt" };
-  searchParams: QueryParamsGamePage;
 }) {
   const mainGame = await getGameOnce(gameId);
   if (!mainGame) {
     notFound();
   }
+  const casId = mainGame.casinoId ?? "";
 
   const gamesCardsData: Promise<Card[]> = getGameCards(locale, gameId);
   const casinoCardsData: Promise<Card[]> = getCasinoCards(locale, casId);
@@ -152,24 +146,20 @@ export default async function gamePage({
           description: `${mainGame.name} at ${mainGame.casinoName}. Live RTP tracking, max win: ${mainGame.maxX}.`,
         }}
       />
-      <ChartCasinoAndGameWrapper
-        casId={casId}
-        // casino={casino}
-        casinoCardsData={casinoCardsData}
-        casinoBonuses={casinoBonuses}
-        // compareGame={compareGame}
-        compareGameId={compareGameId}
-        orderBy={orderBy}
-        keyWord={keyWord}
-        direction={direction}
-        isFiat={isFiat}
-        ActiveTab={ActiveTab}
-        casinoCards={casinoCards}
-        gameCards={gameCards}
-        gameId={gameId}
-        mainGameObj={mainGame}
-        gamesCardsData={gamesCardsData}
-      />
+      {/* The wrapper reads the query string (tab, compare game) on the client;
+          the Suspense boundary keeps the rest of the page in the static HTML. */}
+      <Suspense fallback={<div className="h-80" />}>
+        <ChartCasinoAndGameWrapper
+          casId={casId}
+          casinoCardsData={casinoCardsData}
+          casinoBonuses={casinoBonuses}
+          casinoCards={casinoCards}
+          gameCards={gameCards}
+          gameId={gameId}
+          mainGameObj={mainGame}
+          gamesCardsData={gamesCardsData}
+        />
+      </Suspense>
 
       <section className="mt-8 mb-4 p-4 md:p-6 rounded-xl bg-dark2 text-grey1 text-sm leading-relaxed">
         <h2 className="text-white text-base md:text-lg font-bold mb-2">
